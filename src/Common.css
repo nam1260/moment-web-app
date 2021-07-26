@@ -1,0 +1,30 @@
+html{
+    font-size: 14px;
+}
+
+div {
+
+}
+
+.layout {
+    position: relative;
+}
+
+.container {
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.component {
+}
+
+.App-logo {
+    position: relative;
+    width: 10vh;
+    height: 10vh;
+}
+
+.App-logo.hovered{
+   -webkit-transform: scale(1.2);
+}
+
