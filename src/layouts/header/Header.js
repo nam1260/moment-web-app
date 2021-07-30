@@ -7,6 +7,10 @@ import HeaderStyled from './StyledComponents';
 
 const APP_LOGO_PATH = "assets/images/logo.svg";
 const MENU_LOGO_PATH = "assets/images/icon_menu.png";
+const SEARCH_ICON_PATH = "assets/images/test/test_icon_search.png";
+const HOME_ICON_PATH = "assets/images/test/test_icon_home.png";
+const USER_ICON_PATH = "assets/images/test/test_icon_user.png";
+
 
 const {
     LeftArea,
@@ -41,7 +45,9 @@ const LeftAreaComponent = () => {
 const RightAreaComponent = () => {
     return (
         <RightArea className="component">
+            <HomeIcon/>
             <SearchIcon/>
+            <UserIcon/>
         </RightArea>
     )
 }
@@ -49,12 +55,41 @@ const RightAreaComponent = () => {
 const SearchIcon = () =>
     (
         <IconWrapper>
-            <img src={APP_LOGO_PATH} className="searchIcon" style={
-                {position: 'relative', width: '5vh', height: '5vh', background: 'blue'}
+            <img src={SEARCH_ICON_PATH} className="searchIcon" style={
+                {position: 'relative', width: '5vh', height: '5vh'}
             }
             />
         </IconWrapper>
     )
+
+const HomeIcon = () => (
+    <IconWrapper>
+        <img src={HOME_ICON_PATH} className="searchIcon"
+             style={
+            {position: 'relative', width: '10vh', height: '10vh'}
+        }
+             onClick={() => {
+                 window.location.href = "/";
+             }}
+        />
+    </IconWrapper>
+)
+
+const UserIcon = () => (
+    <IconWrapper>
+        <img src={USER_ICON_PATH} className="searchIcon" style={
+            {position: 'relative', width: '10vh', height: '10vh'}
+
+        }
+             onClick={() => {
+                 window.location.href = "/User";
+             }}
+        />
+    </IconWrapper>
+)
+
+
+
 
 
 //component Elements
