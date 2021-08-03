@@ -77,7 +77,7 @@ const HomeIcon = () => (
 
 const UserIcon = () => (
     <IconWrapper>
-        <img src={USER_ICON_PATH} className="searchIcon" style={
+        <img src={USER_ICON_PATH} className="userIcon" style={
             {position: 'relative', width: '10vh', height: '10vh'}
 
         }
