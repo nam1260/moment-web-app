@@ -1,0 +1,25 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifyed22626660754-staging-152205-authRole",
+      "UnauthRoleArn": "arn:aws:iam::416906457375:role/amplify-amplifyed22626660754-staging-152205-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::416906457375:role/amplify-amplifyed22626660754-staging-152205-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-amplifyed22626660754-staging-152205-deployment",
+      "UnauthRoleName": "amplify-amplifyed22626660754-staging-152205-unauthRole",
+      "StackName": "amplify-amplifyed22626660754-staging-152205",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:416906457375:stack/amplify-amplifyed22626660754-staging-152205/3c9b8d80-ee25-11eb-a1fd-02e2af8ef07a",
+      "AmplifyAppId": "d2szo2e5vtjt40"
+    },
+    "categories": {
+      "auth": {
+        "momentwebapp51201af5": {
+          "userPoolId": "ap-northeast-2_ePcKuy6Ke",
+          "userPoolName": "moment-user-pool",
+          "webClientId": "450cgtbsqdueqs05rju7jiobqi",
+          "nativeClientId": "450cgtbsqdueqs05rju7jiobqi"
+        }
+      }
+    }
+  }
+}
