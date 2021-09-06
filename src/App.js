@@ -22,6 +22,7 @@ function App() {
                     <Route exact path="/Write" component={Write}/>
                 </div>
             </div>
+            
         </Router>
 
     );
