@@ -1,0 +1,60 @@
+.app-moment-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex: 1;
+    height: 280px;
+    background-color: #eeeeee;
+}
+
+.app-moment-footer > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-moment-footer > div > p {
+    margin: 0px 0px .25em 0px;
+    color: #808080;
+}
+
+.app-moment-footer > div > .footer-info {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+}
+
+.app-moment-footer > div > .footer-info > a {
+    color: #808080;
+    text-decoration: none;
+    margin-right: .52em;
+    padding-right: .52em;
+    border-right: 1px solid #808080;
+}
+
+.app-moment-footer > div > .footer-info > a:last-child {
+    margin-right: 0px;
+    padding-right: 0px;
+    border-right: 0px;
+}
+
+
+.app-moment-footer > div > .sns-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-top:auto;
+    padding:0px 0px 1.2em 0px
+}
+
+.app-moment-footer > div > .sns-wrapper > a {
+    color: black;
+    text-decoration: none;
+    margin-right: .52em;
+    padding-right: .52em;
+    font-size: 1.7em;
+}
+
+.app-moment-footer > div > .sns-wrapper > a:last-child {
+    margin-right: 0px;
+    padding-right: 0px;
+    border-right: 0px;
+}

@@ -6,10 +6,10 @@ import Home from './layouts/home/Home'
 import Momentor from './layouts/momentor/MomentorHome'
 import Write from './layouts/write/Write'
 
-import Amplify from 'aws-amplify';
-import aws_exports from './aws-exports';
+// import Amplify from 'aws-amplify';
+// import aws_exports from './aws-exports';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-Amplify.configure(aws_exports);
+// Amplify.configure(aws_exports);
 
 
 function App() {
