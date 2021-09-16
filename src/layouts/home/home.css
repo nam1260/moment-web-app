@@ -15,7 +15,15 @@ main {
 }
 
 .app-home-header > div > div {
+    position: relative;
     overflow: hidden;
+}
+
+.app-home-header > div > div > img  {
+    position: relative;
+    left:50%;
+    transform: translateX(-50%);
+    top:0%;
 }
 
 .app-home-header > div > span {
@@ -48,7 +56,6 @@ main {
 }
 
 .app-home-header > div > span > div {
-    
     font-size: 24px;
     font-weight: 500;
     font-stretch: normal;
@@ -59,17 +66,6 @@ main {
     color: #ff723a;
 }
 
-@media (max-width: 750px) {
-    .app-home-header > div > span > span {
-        font-size:min(10vw, 60px);
-        width: 100%;
-    }
-
-    .app-home-header > div > span {
-        width: 100%;
-    }
-}
-
 
 .app-moment-content-star {
     display: flex;
@@ -78,10 +74,28 @@ main {
     margin-top: 317px;
 }
 
-.app-moment-content-star > div:first-child { display:  flex; flex-direction: column;}
-.app-moment-content-star > div > h3 {display:flex;align-items: center ;font-size: 34px; font-weight: 800; letter-spacing: -0.34px; line-height: 2.06;}
+.app-moment-content-star > div:first-child { 
+    display:  flex;
+    flex-direction: column;
+}
+.app-moment-content-star > div > h3 {
+    display:flex;
+    align-items: center;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.34px;
+    line-height: 2.06;
+}
 .app-moment-content-star > div > h3 > img {margin: 0px 9px 0px 43px; }
-.app-moment-content-star > div > div { display: flex; flex-direction: row; justify-content: space-between; flex: 1; overflow-x: auto; margin-left: 50px;}
+.app-moment-content-star > div > div { 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
+    overflow-x: auto; 
+    margin-left: 50px;
+}
+
 .app-moment-content-star > div > div > article { 
     display: flex;
     flex-direction: column;
@@ -122,6 +136,7 @@ main {
 .app-moment-content-sns > div > h3 > img {margin: 0px 9px 0px 43px; }
 .app-moment-content-sns > div > div { display: flex; flex-direction: row; justify-content: space-between; flex: 1; overflow-x: auto; margin-left: 50px;}
 .app-moment-content-sns > div > div > article { 
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -190,14 +205,14 @@ main {
     background-color: rgb(255, 114, 58);
 }
 
-.app-moment-description > div > h3 {
+.app-moment-description > .container > h3 {
     margin: 62px 0px 36px 50px;
     font-size:34px;
     font-weight: 800;
     color:#ffffff;
 }
 
-.app-moment-description > div > .description-card {
+.app-moment-description > .container > div > .description-card {
     width: 320px;
     height:440px;
     background-color: white;
@@ -206,18 +221,18 @@ main {
     position: relative;
 }
 
-.app-moment-description > div > .description-card:nth-child(2) {
+.app-moment-description > .container > div > .description-card:nth-child(1) {
     margin-left: 50px;
 }
 
-.app-moment-description > div > .description-card > div {
+.app-moment-description > .container > div > .description-card > div {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin: 26px 0px 0px 31px;
 }
 
-.app-moment-description > div > .description-card > div > span:first-child {
+.app-moment-description > .container > div > .description-card > div > span:first-child {
     font-size: 30px;
     font-weight: bold;
     height: 28px;
@@ -225,7 +240,7 @@ main {
     margin-bottom: 19px;
 }
 
-.app-moment-description > div > .description-card > div > span:nth-child(2) {
+.app-moment-description > .container > div > .description-card > div > span:nth-child(2) {
     font-size: 26px;
     opacity: .8;
     color:rgba(143, 143, 143, 0.8);
@@ -234,7 +249,7 @@ main {
     line-height: 1.23;
 }
 
-.app-moment-description > div > .description-card > div > span:nth-child(3) {
+.app-moment-description > .container > div > .description-card > div > span:nth-child(3) {
     position: absolute;
     bottom:29px;
     left:31px;
@@ -300,4 +315,109 @@ main {
 .app-moment-footer > .container > .footer-sns > img:first-child {
     margin-left:50px;
     margin-right: 20px;
+}
+
+
+@media (max-width: 750px) {
+    .app-home-header > div > span > span {
+        font-size:min(7vw, 60px);
+        width: 100%;
+        height: auto;
+    }
+
+    .app-home-header > div > span {
+        width: 100%;
+    }
+
+    .app-moment-content-star {
+        margin-top: 33vw;
+    }
+
+    .app-moment-content-star > div > div > article {
+        min-width: max(38.5vw, 320px);
+        height: max(50vw, 415px);
+    }
+
+    .app-moment-content-star > div > h3 > span, .app-moment-content-sns > div > h3 > span {
+        font-size: min(7vw, 34px);
+    }
+
+    .app-moment-content-star > div > h3 > img, .app-moment-content-sns > div > h3 > img {
+        margin: 0px 9px 0px 3vw;
+    }
+
+    .app-moment-content-star > div > div, .app-moment-content-sns > div > div {
+        margin-left:3vw;
+    }
+
+
+    .app-moment-description {
+        height: auto;
+    }
+
+    .app-moment-description > .container > h3 {
+        font-size:min(7vw, 34px);
+        margin: 62px 0px 36px 10px;
+    }
+
+    .app-moment-description > .container > div > .description-card {
+        overflow: hidden;
+        width: 45vw;
+        height:63.3vw;
+        max-width: 320px;
+        max-height: 440px;
+    }
+
+    
+    .app-moment-description > .container > div > .description-card > img {
+        width: 100%;
+    }
+
+    .app-moment-description > .container > div > .description-card > div > span:first-child {
+        font-size: min(3vw, 30px);
+        margin-bottom: min(1vw, 19px);
+    }
+
+    .app-moment-description > .container > div > .description-card:nth-child(1) {
+        margin-left: 3vw;
+    }
+    
+    .app-moment-description > .container > div > .description-card > div > span:nth-child(2) {
+        font-size: min(3vw, 26px);
+        opacity: .8;
+        color:rgba(143, 143, 143, 0.8);
+        line-height: 1.23;
+    }
+    
+    .app-moment-description > .container > div > .description-card > div > span:nth-child(3) {
+        font-size: min(3vw, 18px);
+        color:#ff723a;
+    }
+
+    .app-moment-description > .container > div > .description-card > div > span:nth-child(3) > img {
+        width: 24px
+    }
+    .app-moment-description > .container > div > .description-card > div > span {
+        font-size: min(5vw, 30px);
+    }
+
+
+    div.footer-header > img {
+        width:min(70vw, 289px);
+        
+    }
+
+    .app-moment-footer > .container > .footer-content > p {
+        font-size:min(5vw, 24px)
+    }
+
+ 
+}
+
+@media (max-width: 500px) { 
+    
+    .app-moment-description > .container > div > .description-card > div > span:nth-child(3) {
+        bottom: min(2vw , 15px)
+    }
+
 }

@@ -134,20 +134,22 @@ function Home() {
             <section className="app-moment-description">
                 <div className="container">
                     <h3>잠깐, 모먼트는 처음이신가요?</h3>
-                    <div className="description-card">
-                        <img src={desThumb1} />
-                        <div>
-                            <span>모먼트가 무엇인가요?</span>
-                            <span>모먼트는 네모 네모<br />테스트 문구</span>
-                            <span>모먼트 소개 <img src={moveArrowPath} />{" "} </span>
+                    <div>
+                        <div className="description-card">
+                            <img src={desThumb1} />
+                            <div>
+                                <span>모먼트가 무엇인가요?</span>
+                                <span>모먼트는 네모 네모<br />테스트 문구</span>
+                                <span>모먼트 소개 <img src={moveArrowPath} />{" "} </span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="description-card">
-                        <img src={desThumb2} />
-                        <div>
-                            <span>모먼트가 무엇인가요?</span>
-                            <span>모먼트 이용가이드<br />테스트 문구</span>
-                            <span>이용 가이드 <img src={moveArrowPath} />{" "} </span>
+                        <div className="description-card">
+                            <img src={desThumb2} />
+                            <div>
+                                <span>모먼트가 무엇인가요?</span>
+                                <span>모먼트 이용가이드<br />테스트 문구</span>
+                                <span>이용 가이드 <img src={moveArrowPath} />{" "} </span>
+                            </div>
                         </div>
                     </div>
                 </div>
