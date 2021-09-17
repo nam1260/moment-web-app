@@ -22,6 +22,14 @@ const footerLogo = "/assets/images/yhlee/logo-gray.png";
 const instaLogo = "/assets/icons/ico-insta.png";
 const fbLogo = "/assets/icons/ico-fb.png";
 
+
+/* 
+  * 홈 컴포넌트
+  - 로그인 전, 로그인 후 분기 (필)
+  - 반응형 확인
+  - 각 카드 별 이벤트 확인
+  - 반복 되는 부분 컴포넌트 화 적용 => 모먼트 TOP STAR 카드, SNS 셀럽 추가하기
+*/
 function Home() {
     return (
         <main>
