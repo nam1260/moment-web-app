@@ -1,0 +1,106 @@
+.side-menu {
+    z-index: 4;
+    height: 100%;
+    position: fixed;
+    left:-479px;
+    width:0px;
+    font-family: 'AppleSDGothicNeo';
+    top:0;
+    background-color: white;
+    transition: left 0.3s ease-in, width 0.3s ease-in;   
+}
+
+.side-menu.open {
+    width: 479px;
+    left:0%;
+    transition: left .3s ease-out;
+}
+
+.side-menu > .close-icon-box {
+    margin: 35px 0px 0px 45px;
+}
+
+.side-menu > .side-menu-title {
+    margin: 34px 0px 0px 50px;
+    font-size: 44px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1.1px;
+    color: #101010;
+}
+
+.side-menu > .now-start-comment {
+    position: relative;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 2.92;
+    letter-spacing: -0.24px;
+    color: #ff723a;
+    margin: 39px 0px 0px 50px;
+}
+
+.side-menu > .now-start-comment > img {
+    position: absolute;
+    top: 50%;
+    right: -27px;
+    transform: translateY(-56%);
+}
+
+.menu-list {
+    list-style: none;
+    padding:0px;
+    margin:101px 0px 0px 51px;
+}
+
+.menu-list > li {
+    font-size: 32px;
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+    color: #101010;
+    margin-bottom: 27px;
+}
+
+.side-menu > .side-menu-logo {
+    position: absolute;
+    bottom:0px;
+    margin:0px 0px 50px 50px;
+}
+
+@media (max-width: 750px) {
+    .side-menu {
+        left:-63vw;
+    }
+
+    .side-menu > .close-icon-box {
+        margin-left: max(4vw, 20px);
+    }
+
+    .side-menu > .side-menu-title {
+        font-size: min(8vw, 44px);
+        margin-left: max(4vw, 20px);
+    }
+
+    .side-menu > .now-start-comment {
+        font-size: min(5vw, 24px);
+        margin-left: max(4vw, 20px);
+    }
+
+    .side-menu.open {
+        width: 63vw;
+    }
+
+    .menu-list {
+        margin-left: max(4vw, 20px);
+    }
+    
+    .menu-list > li {
+        font-size: min(6vw, 32px);
+    }
+
+    .side-menu > .side-menu-logo {
+        width: min(30vw, 170px);
+        margin-left: max(4vw, 20px);
+    }
+}

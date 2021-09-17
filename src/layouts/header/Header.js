@@ -9,11 +9,11 @@ const loginPath = 'assets/icons/ico-login.png'
 const logoPath = 'assets/images/yhlee/menu-logo.png'
 
 
-function Header() {
+function Header({ setIsMenuOpen }) {
     return (
         <div className="App-Header layout">
             <div className="navigation-bar container">
-                <div>
+                <div onClick={() => setIsMenuOpen(true)}>
                     <img className={"top-icon"} src={menuPath} />
                 </div>
                 <div>

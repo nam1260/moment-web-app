@@ -1,7 +1,7 @@
 .App-Header {
     height:110px;
     display: flex;
-    z-index: 9999;
+    z-index: 2;
     position: sticky;
     top:0;
     background-color: white;
@@ -32,6 +32,10 @@
     justify-content: right;
 }
 
+.App-Header > .navigation-bar > div:nth-child(3) > img:nth-child(1) {
+    margin-right: 24px;
+}
+
 
 @media (max-width: 750px) {
     .App-Header > .navigation-bar {
@@ -51,17 +55,6 @@
         width: 150px;
     }
 }
-
-@media (min-width: 751px) {
-    .App-Header > .navigation-bar {
-        padding:30px 50px
-    }
-    
-    .App-Header > .navigation-bar > div:nth-child(3) > img:nth-child(1) {
-        margin-right: 24px;
-    }
-}
-
 
 
 
