@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import { useHistory } from 'react-router';
 import '../../Common.css';
 import './header.css';
 
@@ -10,6 +10,8 @@ const logoPath = 'assets/images/yhlee/menu-logo.png'
 
 
 function Header({ setIsMenuOpen }) {
+    const history = useHistory();
+    
     return (
         <div className="App-Header layout">
             <div className="navigation-bar container">
@@ -20,7 +22,7 @@ function Header({ setIsMenuOpen }) {
                     <img className={'top-logo'} src={logoPath} />
                 </div>
                 <div>
-                    <img className={"top-icon"} src={searchPath} />
+                    <img className={"top-icon"} src={searchPath} onClick={()=> { history.push('/search') }} />
                     <img className={"top-icon"} src={loginPath} />
                 </div>
             </div>

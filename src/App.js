@@ -1,10 +1,11 @@
 
 import './App.css';
 
-import Header from './layouts/header/Header.js'
-import Home from './layouts/home/Home'
-import Momentor from './layouts/momentor/MomentorHome'
-import Write from './layouts/write/Write'
+import Header from './layouts/header/Header.js';
+import Home from './layouts/home/Home';
+import Momentor from './layouts/momentor/MomentorHome';
+import Write from './layouts/write/Write';
+import Search from './layouts/search/Search';
 import SideMenu from './layouts/sidemenu/SideMenu';
 // import Amplify from 'aws-amplify';
 // import aws_exports from './aws-exports';
@@ -19,12 +20,14 @@ function App() {
         <Router>
             <div className="App">
                 <Header setIsMenuOpen={setIsMenuOpen} />
+                <Route exact path="/search" component={Search} />
                 <SideMenu isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
                 <div className="App-main layout">
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/Momentor" component={Momentor}/>
                     <Route exact path="/Write" component={Write}/>
                 </div>
+                
             </div>
             {isMenuOpen && <div className="wrapper" />}
         </Router>
