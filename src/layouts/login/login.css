@@ -1,0 +1,114 @@
+main {
+    font-family: 'AppleSDGothicNeo';
+}
+.login-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 750px;
+    background-color: #ffffff;
+    margin: 69px 0px 0px 50px;
+}
+
+.login-header > div > span {
+    height: 39px;
+    font-size: 44px;
+    font-family: 'AppleSDGothicNeoB';
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.36;
+    letter-spacing: -1.1px;
+    text-align: left;
+    color: var(--black);
+}
+
+.login-container {
+    height: 260px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.login-container > div {
+    margin-left: min(6.7vw, 50px);
+}
+
+.login-container > div > span {
+    width: 239px;
+}
+
+.login-container > div > span > span {
+    margin-top: 50px;
+    width: 239px;
+    height: 53px;
+    font-size: 26px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.26px;
+    text-align: left;
+    color: #8f8f8f;
+}
+
+.login-container > div > span > div > input {
+    width: 650px;
+    height: 60px;
+    font-size: 36px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #101010;
+    border:none;
+    border-right:0px; 
+    border-top:0px; 
+    border-left:0px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+.login-container > div > span > img {
+    width: 44px;
+    height: 44px;
+    margin: 25px 42px 13px 27px;
+    object-fit: contain;
+}
+
+.login-button > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 750px;
+    background-color: #ffffff;
+}
+.login-button > div > button {
+    height: 110px;
+    width: 650px;
+    font-size:32px;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 55px;
+    background-color: #ff723a;
+}
+.login-options {
+    height: 110px;
+    width: 650px;
+    font-size:28px;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 55px;
+    background-color: #ff723a;
+}
+.login-options > div {
+    height: 110px;
+    width: 650px;
+    font-size:32px;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 55px;
+    background-color: #ff723a;
+}

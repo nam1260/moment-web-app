@@ -23,7 +23,7 @@ function Header({ setIsMenuOpen }) {
                 </div>
                 <div>
                     <img className={"top-icon"} src={searchPath} onClick={()=> { history.push('/search') }} />
-                    <img className={"top-icon"} src={loginPath} />
+                    <img className={"top-icon"} src={loginPath} onClick={()=> { history.push('/login') }}/>
                 </div>
             </div>
         </div>
