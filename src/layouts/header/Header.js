@@ -14,7 +14,7 @@ function Header({ setIsMenuOpen }) {
     
     return (
         <div className="App-Header layout">
-            <div className="navigation-bar container">
+            <div className="navigation-bar">
                 <div onClick={() => setIsMenuOpen(true)}>
                     <img className={"top-icon"} src={menuPath} />
                 </div>
