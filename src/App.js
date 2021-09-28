@@ -7,6 +7,9 @@ import Momentor from './layouts/momentor/MomentorHome';
 import Write from './layouts/write/Write';
 import Search from './layouts/search/Search';
 import Login from './layouts/login/Login';
+import AddAccount from './layouts/login/AddAccount';
+import FindAccount from './layouts/login/FindAccount';
+import FindPassword from './layouts/login/FindPassword';
 import SideMenu from './layouts/sidemenu/SideMenu';
 // import Amplify from 'aws-amplify';
 // import aws_exports from './aws-exports';
@@ -23,6 +26,9 @@ function App() {
                 <Header setIsMenuOpen={setIsMenuOpen} />
                 <Route exact path="/search" component={Search} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/addAccount" component={AddAccount} />
+                <Route exact path="/findAccount" component={FindAccount} />
+                <Route exact path="/findPassword" component={FindPassword} />
                 <SideMenu isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
                 <div className="App-main layout">
                     <Route exact path="/" component={Home}/>

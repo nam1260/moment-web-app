@@ -30,19 +30,19 @@
     const openModal = () => {
         setShowModal(true);
     };
- 
+  
     return (
         <main>
             <section className="login-header">
                 <div className="container">
-                    <span>모먼트 로그인</span>
+                    <span>비밀번호 찾기</span>
                 </div>
             </section>
             <section className="login-container">
                 <div>
                     <span>
                         <span>
-                            이메일 혹은 아이디 입력
+                            이메일 혹은 아이디
                         </span>
                         <div>
                             <input
@@ -52,12 +52,22 @@
                             <img src={editPath} />
                         </div>
                         <span>
-                            비밀번호 입력
+                            휴대폰 번호 (숫자만)
                         </span>
                         <div>
                             <input
                                 ref={pwInputElement}
-                                type="password"
+                                type="text"
+                            ></input>
+                            <img src={editPath} />
+                        </div>
+                        <span>
+                            인증번호 확인 (03:00 남음)
+                        </span>
+                        <div>
+                            <input
+                                ref={pwInputElement}
+                                type="text"
                             ></input>
                             <img src={editPath} />
                         </div>
@@ -67,15 +77,13 @@
             <section className="login-button">
                 <div>
                     <button onClick={openModal}>
-                        로그인하기
+                        입력완료
                     </button>
                     {showModal ? <Modal setShowModal={setShowModal} /> : null}
                 </div>
             </section>
             <section className="login-options">
                 <div>
-                    <a onClick={()=> { history.push('/addAccount') }}>모먼트 회원이 아닌가요</a>
-                    <a onClick={()=> { history.push('/findAccount') }}>계정을 찾고 계신가요</a>
                 </div>
             </section>
         </main>
