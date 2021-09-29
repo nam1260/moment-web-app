@@ -48,6 +48,7 @@
                         </span>
                         <div>
                             <input
+                                placeholder={"xxx@xxx.com"}
                                 ref={idInputElement}
                                 type="text"
                             ></input>
@@ -58,6 +59,7 @@
                         </span>
                         <div>
                             <input
+                                placeholder={"8~20자 영문 대소문자/숫자/특수문자"}
                                 ref={idInputElement}
                                 type="password"
                             ></input>
@@ -68,6 +70,7 @@
                         </span>
                         <div>
                             <input
+                                placeholder={"비밀번호를 한번 더 입력해 주세요"}
                                 ref={idInputElement}
                                 type="password"
                             ></input>
@@ -78,6 +81,7 @@
                         </span>
                         <div>
                             <input
+                                placeholder={"휴대폰 번호 10자리 또는 11자리 입력"}
                                 ref={idInputElement}
                                 type="text"
                             ></input>
@@ -88,6 +92,7 @@
                         </span>
                         <div>
                             <input
+                                placeholder={"5~13자 (특수문자 제외)"}
                                 ref={idInputElement}
                                 type="text"
                             ></input>

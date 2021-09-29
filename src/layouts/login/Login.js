@@ -11,10 +11,9 @@
  import { Modal } from "./Modal";
 
  const editPath = "assets/icons/list-ico-edit.png"
+ const failIcon = "assets/icons/icoFace3@3x.png"
+ const successIcon = "assets/icons/icoFace1@3x.png"
  
- var loginAction = ()=>{
-    console.log('test');
-}
  export default function LoginComponent() {
     const history = useHistory();
     const idInputElement = useRef(null);
@@ -30,6 +29,12 @@
     const openModal = () => {
         setShowModal(true);
     };
+    
+    const loginAction = ()=>{
+        console.log('test');
+        console.log('idInputElement =' + idInputElement);
+        openModal();
+    }
  
     return (
         <main>
@@ -46,6 +51,7 @@
                         </span>
                         <div>
                             <input
+                                placeholder={"이메일 혹은 아이디를 입력해 주세요"}
                                 ref={idInputElement}
                                 type="text"
                             ></input>
@@ -66,10 +72,26 @@
             </section> 
             <section className="login-button">
                 <div>
-                    <button onClick={openModal}>
+                    <button onClick={loginAction}>
                         로그인하기
                     </button>
-                    {showModal ? <Modal setShowModal={setShowModal} /> : null}
+                    {showModal ? 
+                    <Modal setShowModal={setShowModal}> 
+                        <div className="button_modal">
+                            <div className="info_container">
+                                <img src={failIcon} />
+                                <h2>This is a Modal2</h2>
+                            </div>
+                            <div className="button_container">
+                                <button className="left_button" onClick={()=>{console.log("123")}}>
+                                    다시입력
+                                </button>
+                                <button className="right_button" onClick={()=>{console.log("456")}}>
+                                    회원가입
+                                </button>
+                            </div>
+                        </div>
+                    </Modal> : null}
                 </div>
             </section>
             <section className="login-options">

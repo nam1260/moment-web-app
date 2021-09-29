@@ -1,20 +1,22 @@
 import React, { useRef } from "react";
 import ReactDom from "react-dom";
-export const Modal = ({ setShowModal }) => {
+export const Modal = ({ setShowModal, children, onClose}) => {
   // close the modal when clicking outside the modal.
+  console.log('setShowModal = ' , setShowModal);
+  console.log('children = ' , children);
   const modalRef = useRef();
   const closeModal = (e) => {
     if (e.target === modalRef.current) {
       setShowModal(false);
     }
+    if (onClose) {
+      onClose(e);
+    }
   };
   //render the modal JSX in the portal div.
   return ReactDom.createPortal(
     <div className="modalContainer" ref={modalRef} onClick={closeModal}>
-      <div className="modal">
-        <h2>This is a Modal</h2>
-        <button onClick={() => setShowModal(false)}>X</button>
-      </div>
+        {children}
     </div>,
     document.getElementById("portal")
   );
