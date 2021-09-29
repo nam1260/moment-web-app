@@ -100,6 +100,7 @@ main {
     text-align: center;
     border-radius: 55px;
     background-color: #ff723a;
+    border : none;
 }
 .login-options {
     display: flex;
@@ -147,20 +148,23 @@ main {
     animation: animate 0.3s;
 }
 .modalContainer .button_modal .info_container{
-    position: fixed;
     top: 0;
     left: 0;
     width: 650px;
     height: 530px;
 }
 .modalContainer .button_modal .info_container > img {
+    margin: 50px 0px 32px 250px;
     top: 45px;
     left: 250px;
     width: 150px;
     height: 150px;
     object-fit: contain;
 }
-.modalContainer .button_modal .info_container > h2 {
+.modalContainer .button_modal .info_container .title  {
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 650px;
     font-family: "AppleSDGothicNeo";
     font-size: 36px;
     font-weight: 500;
@@ -171,12 +175,18 @@ main {
     text-align: center;
     color: #000;
 }
-.modalContainer > div > span {
-    top: 45px;
-    left: 250px;
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
+.modalContainer .button_modal .info_container .description {
+    display: inline-block;
+    width: 650px;
+    font-family: "AppleSDGothicNeo";
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: -0.7px;
+    text-align: center;
+    color: #8f8f8f;
 }
 .button_modal .button_container {
     position: absolute;
