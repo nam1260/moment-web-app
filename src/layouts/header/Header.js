@@ -3,10 +3,10 @@ import { useHistory } from 'react-router';
 import '../../Common.css';
 import './header.css';
 
-const menuPath = 'assets/icons/icoMenu.png'
-const searchPath = 'assets/icons/icoSearch.png'
-const loginPath = 'assets/icons/ico-login.png'
-const logoPath = 'assets/images/yhlee/menu-logo.png'
+const menuPath = '/assets/icons/icoMenu.png'
+const searchPath = '/assets/icons/icoSearch.png'
+const loginPath = '/assets/icons/ico-login.png'
+const logoPath = '/assets/images/yhlee/menu-logo.png'
 
 
 function Header({ setIsMenuOpen }) {

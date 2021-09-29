@@ -1,0 +1,32 @@
+.introduction-wrapper {
+    font-family: 'AppleSDGothicNeo';
+    display: flex;
+    justify-content: center;
+}
+
+.guide-body, .faq-body, .user-body {
+    margin-top:59px;
+    margin-left:50px;
+    margin-right:50px;
+}
+
+.guide-body > div:nth-child(1) { 
+    height: 152px;
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.27;
+    letter-spacing: -1.1px;
+    text-align: left;
+}
+
+.guide-body > div:nth-child(2) { 
+    height: 62px;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 1.46;
+    letter-spacing: -0.65px;
+    color: #8f8f8f;
+    margin-top:39px;
+    margin-bottom: 137px;
+}
+
