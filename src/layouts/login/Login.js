@@ -21,6 +21,8 @@ export default function LoginComponent() {
         {
             id: "test@naver.com",
             pw: "test123",
+            phone: "01012345678",
+            nickname: "test",
         },
     ];
 
@@ -59,7 +61,7 @@ export default function LoginComponent() {
                 userInfo = info;
                 return true;
             }
-        })
+        });
 
         if(userInfo) {
             console.log('로그인 성공');
