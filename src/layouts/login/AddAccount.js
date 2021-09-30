@@ -14,6 +14,15 @@ const editPath = "assets/icons/list-ico-edit.png"
  
 export default function LoginComponent() {
     const history = useHistory();
+    const userList = [
+        {
+            id: "test@naver.com",
+            pw: "test123",
+            phone: "01012345678",
+            nickname: "test",
+        },
+    ];
+
     const [showModal, setShowModal] = useState(false);
     const openModal = () => {
         setShowModal(true);
@@ -39,9 +48,55 @@ export default function LoginComponent() {
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
         onChange(e);
     }
+    const onChangeEmailFormat = (e) => {
+        var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
+        if(!emailRule.test(e.target.value)) {
+            console.log('email 규칙에 맞지 않음');
+        } else {
+            console.log('email 규칙에 맞음');
+        }
+        onChange(e);
+    }
+    const onChangePassword = (e) => {
+        var passRule = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 특수문자 / 문자 / 숫자 포함 형태의 8~20자리 이내의 암호 정규식
+        if(!passRule.test(e.target.value)) {
+            console.log('비밀번호 규칙에 맞지 않음');
+        } else {
+            console.log('비밀번호 규칙에 맞음');
+        }
+        onChange(e);
+    }
+    const onChangePasswordConfirm = (e) => {
+        var confirm = e.target.value;
+        var pw = inputs['pw'];
+        if(confirm != pw ) {
+            console.log('입력한 비밀번호가 다름');
+        } else {
+            console.log('입력한 비밀번호가 같음');
+        }
+        onChange(e);
+    }
 
     const addAccount = ()=>{
         console.log('inputs =' + JSON.stringify(inputs));
+    } 
+
+    const checkDuplecate = (type)=>{
+        console.log('checkDuplecate type = ' + type);
+        var isDuplicate = userList.some((info)=>{
+            return info[type] == inputs[type];
+        });
+
+        if(isDuplicate) {
+            console.log('duplicate');
+            openModal();
+        } else {
+            
+        }
+    } 
+
+    const certificatePhone = ()=>{
+        console.log('certificatePhone');
     } 
 
     return (
@@ -62,10 +117,10 @@ export default function LoginComponent() {
                         <div>
                             <input
                                 type="text"
-                                onChange={onChange}
-                                name="email"
+                                onChange={onChangeEmailFormat}
+                                name="id"
                             ></input>
-                            <span>
+                            <span onClick={()=>{checkDuplecate('id');}}>
                                 중복확인
                             </span>
                         </div>
@@ -77,7 +132,7 @@ export default function LoginComponent() {
                                 placeholder={"8~20자 영문 대소문자/숫자/특수문자"}
                                 type="password"
                                 maxlength='20'
-                                onChange={onChange}
+                                onChange={onChangePassword}
                                 name="pw"
                             ></input>
                             <img src={editPath} />
@@ -90,7 +145,7 @@ export default function LoginComponent() {
                                 placeholder={"비밀번호를 한번 더 입력해 주세요"}
                                 type="password"
                                 maxlength='20'
-                                onChange={onChange}
+                                onChange={onChangePasswordConfirm}
                                 name="pwConfirm"
                             ></input>
                             <img src={editPath} />
@@ -107,7 +162,7 @@ export default function LoginComponent() {
                                 name="phoneNumber"
                                 value={phoneNumber}
                             ></input>
-                            <span>
+                            <span onClick={certificatePhone}>
                                 인증요청
                             </span>
                         </div>
@@ -122,7 +177,7 @@ export default function LoginComponent() {
                                 onChange={onChange}
                                 name="nickname"
                             ></input>
-                            <span>
+                            <span onClick={()=>{checkDuplecate('nickname');}}>
                                 중복확인
                             </span>
                         </div>
