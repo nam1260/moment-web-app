@@ -5,32 +5,39 @@
  * description
  */
 
- import "./login.css";
- import React, { useState, useRef} from "react";
- import { useHistory } from 'react-router'; 
- import { Modal } from "./Modal";
-
- const editPath = "assets/icons/list-ico-edit.png"
+import "./login.css";
+import React, { useState, useRef} from "react";
+import { useHistory } from 'react-router'; 
+import { Modal } from "./Modal";
  
- var loginAction = ()=>{
-    console.log('test');
-}
- export default function LoginComponent() {
-    const history = useHistory();
-    const idInputElement = useRef(null);
-    const pwInputElement = useRef(null);
-    const userList = [
-        {
-            id: "test123@naver.com",
-            pw: "test123",
-        },
-    ];
-
+const editPath = "assets/icons/list-ico-edit.png"
+export default function LoginComponent() {
     const [showModal, setShowModal] = useState(false);
     const openModal = () => {
         setShowModal(true);
     };
  
+    const [inputs, setInputs] = useState({
+        nickname: '',
+        phoneNumber: '',
+    });
+    const { nickname, phoneNumber } = inputs
+    const onChange = (e) => {
+        const { name, value } = e.target;
+        const nextInputs = {
+            ...inputs,  
+            [name]: value,
+        }
+        setInputs(nextInputs);
+    }
+    const onChangeOnlyNumber = (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        onChange(e);
+    }
+    
+    const findAccount = ()=>{
+        console.log('inputs =' + JSON.stringify(inputs));
+    } 
     return (
         <main>
             <section className="login-header">
@@ -46,8 +53,10 @@
                         </span>
                         <div>
                             <input
-                                ref={idInputElement}
                                 type="text"
+                                onChange={onChange}
+                                name="nickname"
+                                value={nickname}
                             ></input>
                             <img src={editPath} />
                         </div>
@@ -56,8 +65,11 @@
                         </span>
                         <div>
                             <input
-                                ref={pwInputElement}
                                 type="text"
+                                maxlength='11'
+                                onChange={onChangeOnlyNumber}
+                                name="phoneNumber"
+                                value={phoneNumber}
                             ></input>
                             <img src={editPath} />
                         </div>
@@ -66,7 +78,7 @@
             </section> 
             <section className="login-button">
                 <div>
-                    <button onClick={openModal}>
+                    <button onClick={findAccount}>
                         입력완료
                     </button>
                     {showModal ? <Modal setShowModal={setShowModal} /> : null}
@@ -77,6 +89,6 @@
                 </div>
             </section>
         </main>
-     );
- }
+    );
+}
  

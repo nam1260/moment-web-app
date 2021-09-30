@@ -32,16 +32,16 @@ export default function LoginComponent() {
     const [inputs, setInputs] = useState({
         id: '',
         pw: '',
-    })
+    });
     const { id, pw } = inputs
     const onChange = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
         const nextInputs = {
             ...inputs,  
             [name]: value,
-        }
+        };
         setInputs(nextInputs);
-    }
+    };
  
     const onReset = () => {
         const resetInputs = {
@@ -49,11 +49,11 @@ export default function LoginComponent() {
             pw: '',
         }
         setInputs(resetInputs)
-    }
+    };
 
     const loginAction = ()=>{
         const userInfo = null;
-        console.log('state =' + JSON.stringify(inputs));
+        console.log('inputs =' + JSON.stringify(inputs));
         userList.some((info)=>{
             if(info.id == inputs.id && info.pw == inputs.pw) {
                 userInfo = info;
