@@ -5,38 +5,73 @@
  * description
  */
 
- import "./login.css";
- import React, { useState, useRef} from "react";
- import { useHistory } from 'react-router'; 
- import { Modal } from "./Modal";
+import "./login.css";
+import React, { useState, useRef, Component} from "react";
+import { useHistory } from 'react-router'; 
+import { Modal } from "./Modal";
 
- const editPath = "assets/icons/list-ico-edit.png"
- const failIcon = "assets/icons/icoFace3@3x.png"
- const successIcon = "assets/icons/icoFace1@3x.png"
- 
- export default function LoginComponent() {
+const editPath = "assets/icons/list-ico-edit.png"
+const failIcon = "assets/icons/icoFace3@3x.png"
+const successIcon = "assets/icons/icoFace1@3x.png"
+
+
+export default function LoginComponent() {
     const history = useHistory();
-    const idInputElement = useRef(null);
-    const pwInputElement = useRef(null);
     const userList = [
         {
-            id: "test123@naver.com",
+            id: "test@naver.com",
             pw: "test123",
+            phone: "01012345678",
+            nickname: "test",
         },
     ];
 
     const [showModal, setShowModal] = useState(false);
-    const openModal = () => {
+    const openWrongLoginInformaionPopup = () => {
         setShowModal(true);
     };
-    
-    const loginAction = ()=>{
-        console.log('test');
-        console.log('idInputElement =' + idInputElement);
-        openModal();
-    }
+
+    const [inputs, setInputs] = useState({
+        id: '',
+        pw: '',
+    });
+    const { id, pw } = inputs
+    const onChange = (e) => {
+        const { name, value } = e.target;
+        const nextInputs = {
+            ...inputs,  
+            [name]: value,
+        };
+        setInputs(nextInputs);
+    };
  
+    const onReset = () => {
+        const resetInputs = {
+            id: '',
+            pw: '',
+        }
+        setInputs(resetInputs)
+    };
+
+    const loginAction = ()=>{
+        const userInfo = null;
+        console.log('inputs =' + JSON.stringify(inputs));
+        userList.some((info)=>{
+            if(info.id == inputs.id && info.pw == inputs.pw) {
+                userInfo = info;
+                return true;
+            }
+        });
+
+        if(userInfo) {
+            console.log('로그인 성공');
+        } else {
+            openWrongLoginInformaionPopup();
+        }
+    } 
+
     return (
+
         <main>
             <section className="login-header">
                 <div className="container">
@@ -52,8 +87,10 @@
                         <div>
                             <input
                                 placeholder={"이메일 혹은 아이디를 입력해 주세요"}
-                                ref={idInputElement}
                                 type="text"
+                                onChange={onChange}
+                                value={id}
+                                name="id"
                             ></input>
                             <img src={editPath} />
                         </div>
@@ -62,8 +99,10 @@
                         </span>
                         <div>
                             <input
-                                ref={pwInputElement}
                                 type="password"
+                                onChange={onChange}
+                                value={pw}
+                                name="pw"
                             ></input>
                             <img src={editPath} />
                         </div>
@@ -80,13 +119,25 @@
                         <div className="button_modal">
                             <div className="info_container">
                                 <img src={failIcon} />
-                                <h2>This is a Modal2</h2>
+                                <span className="title">일치하는 계정 정보가 없습니다.</span>
+                                <br/>
+                                <span className="description">입력하신 ID와 비밀번호가 올바른지 </span>
+                                <br/>
+                                <span className="description">다시 확인해 주세요.</span>
                             </div>
                             <div className="button_container">
-                                <button className="left_button" onClick={()=>{console.log("123")}}>
+                                <button className="left_button" onClick={()=>{
+                                        console.log("retry");
+                                        setShowModal(false);
+                                        onReset();
+                                    }}>
                                     다시입력
                                 </button>
-                                <button className="right_button" onClick={()=>{console.log("456")}}>
+                                <button className="right_button" onClick={()=>{
+                                        console.log("add account");
+                                        setShowModal(false);
+                                        history.push('/addAccount');
+                                    }}>
                                     회원가입
                                 </button>
                             </div>

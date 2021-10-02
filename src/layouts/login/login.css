@@ -55,6 +55,10 @@ main {
     color: #8f8f8f;
 }
 
+.login-container > div > span > div {
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 20px;
+}
 .login-container > div > span > div > input {
     width: 650px;
     height: 60px;
@@ -67,21 +71,31 @@ main {
     text-align: left;
     color: #101010;
     border:none;
-    border-right:0px; 
-    border-top:0px; 
-    border-left:0px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #f0f0f0;
 }
 .login-container > div > span > div > input::placeholder {
     opacity: 0.3;
     color: rgba(16, 16, 16, 0.3);
 }
-.login-container > div > span > img {
+.login-container > div > span > div > input::-webkit-outer-spin-button,
+.login-container > div > span > div > input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.login-container > div > span > div > span {
+    font-family: 'AppleSDGothicNeo';
+    font-size: 28px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    text-align: right;
+    color: #ff723a;
+}
+.login-container > div > span > div > img {
     width: 44px;
     height: 44px;
-    margin: 25px 42px 13px 27px;
     object-fit: contain;
+    float: right;
 }
 
 .login-button {
@@ -100,6 +114,7 @@ main {
     text-align: center;
     border-radius: 55px;
     background-color: #ff723a;
+    border : none;
 }
 .login-options {
     display: flex;
@@ -147,20 +162,23 @@ main {
     animation: animate 0.3s;
 }
 .modalContainer .button_modal .info_container{
-    position: fixed;
     top: 0;
     left: 0;
     width: 650px;
     height: 530px;
 }
 .modalContainer .button_modal .info_container > img {
+    margin: 50px 0px 32px 250px;
     top: 45px;
     left: 250px;
     width: 150px;
     height: 150px;
     object-fit: contain;
 }
-.modalContainer .button_modal .info_container > h2 {
+.modalContainer .button_modal .info_container .title  {
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 650px;
     font-family: "AppleSDGothicNeo";
     font-size: 36px;
     font-weight: 500;
@@ -171,12 +189,18 @@ main {
     text-align: center;
     color: #000;
 }
-.modalContainer > div > span {
-    top: 45px;
-    left: 250px;
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
+.modalContainer .button_modal .info_container .description {
+    display: inline-block;
+    width: 650px;
+    font-family: "AppleSDGothicNeo";
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: -0.7px;
+    text-align: center;
+    color: #8f8f8f;
 }
 .button_modal .button_container {
     position: absolute;

@@ -5,24 +5,21 @@
  * description
  */
 
- import "./login.css";
- import React, { useState, useRef} from "react";
- import { useHistory } from 'react-router'; 
- import { Modal } from "./Modal";
+import "./login.css";
+import React, { useState, useRef} from "react";
+import { useHistory } from 'react-router'; 
+import { Modal } from "./Modal";
 
- const editPath = "assets/icons/list-ico-edit.png"
+const editPath = "assets/icons/list-ico-edit.png"
  
- var loginAction = ()=>{
-    console.log('test');
-}
- export default function LoginComponent() {
+export default function LoginComponent() {
     const history = useHistory();
-    const idInputElement = useRef(null);
-    const pwInputElement = useRef(null);
     const userList = [
         {
-            id: "test123@naver.com",
+            id: "test@naver.com",
             pw: "test123",
+            phone: "01012345678",
+            nickname: "test",
         },
     ];
 
@@ -31,6 +28,77 @@
         setShowModal(true);
     };
  
+    const [inputs, setInputs] = useState({
+        email: '',
+        pw: '',
+        pwConfirm: '',
+        phoneNumber: '',
+        nickname: '',
+    });
+    const { email, pw, pwConfirm, phoneNumber, nickname } = inputs
+    const onChange = (e) => {
+        const { name, value } = e.target
+        const nextInputs = {
+            ...inputs,  
+            [name]: value,
+        }
+        setInputs(nextInputs);
+    };
+    const onChangeOnlyNumber = (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        onChange(e);
+    }
+    const onChangeEmailFormat = (e) => {
+        var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
+        if(!emailRule.test(e.target.value)) {
+            console.log('email 규칙에 맞지 않음');
+        } else {
+            console.log('email 규칙에 맞음');
+        }
+        onChange(e);
+    }
+    const onChangePassword = (e) => {
+        var passRule = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 특수문자 / 문자 / 숫자 포함 형태의 8~20자리 이내의 암호 정규식
+        if(!passRule.test(e.target.value)) {
+            console.log('비밀번호 규칙에 맞지 않음');
+        } else {
+            console.log('비밀번호 규칙에 맞음');
+        }
+        onChange(e);
+    }
+    const onChangePasswordConfirm = (e) => {
+        var confirm = e.target.value;
+        var pw = inputs['pw'];
+        if(confirm != pw ) {
+            console.log('입력한 비밀번호가 다름');
+        } else {
+            console.log('입력한 비밀번호가 같음');
+        }
+        onChange(e);
+    }
+
+    const addAccount = ()=>{
+        console.log('inputs =' + JSON.stringify(inputs));
+    } 
+
+    const checkDuplecate = (type)=>{
+        console.log('checkDuplecate type = ' + type);
+        var isDuplicate = userList.some((info)=>{
+            return info[type] == inputs[type];
+        });
+
+        if(isDuplicate) {
+            console.log('duplicate');
+            openModal();
+        } else {
+            
+        }
+    } 
+
+    const certificatePhone = ()=>{
+        console.log('certificatePhone');
+    } 
+
     return (
         <main>
             <section className="login-header">
@@ -48,11 +116,13 @@
                         </span>
                         <div>
                             <input
-                                placeholder={"xxx@xxx.com"}
-                                ref={idInputElement}
                                 type="text"
+                                onChange={onChangeEmailFormat}
+                                name="id"
                             ></input>
-                            <img src={editPath} />
+                            <span onClick={()=>{checkDuplecate('id');}}>
+                                중복확인
+                            </span>
                         </div>
                         <span>
                             비밀번호 입력
@@ -60,8 +130,10 @@
                         <div>
                             <input
                                 placeholder={"8~20자 영문 대소문자/숫자/특수문자"}
-                                ref={idInputElement}
                                 type="password"
+                                maxlength='20'
+                                onChange={onChangePassword}
+                                name="pw"
                             ></input>
                             <img src={editPath} />
                         </div>
@@ -71,8 +143,10 @@
                         <div>
                             <input
                                 placeholder={"비밀번호를 한번 더 입력해 주세요"}
-                                ref={idInputElement}
                                 type="password"
+                                maxlength='20'
+                                onChange={onChangePasswordConfirm}
+                                name="pwConfirm"
                             ></input>
                             <img src={editPath} />
                         </div>
@@ -82,10 +156,15 @@
                         <div>
                             <input
                                 placeholder={"휴대폰 번호 10자리 또는 11자리 입력"}
-                                ref={idInputElement}
                                 type="text"
+                                maxlength='11'
+                                onChange={onChangeOnlyNumber}
+                                name="phoneNumber"
+                                value={phoneNumber}
                             ></input>
-                            <img src={editPath} />
+                            <span onClick={certificatePhone}>
+                                인증요청
+                            </span>
                         </div>
                         <span>
                             닉네임
@@ -93,17 +172,21 @@
                         <div>
                             <input
                                 placeholder={"5~13자 (특수문자 제외)"}
-                                ref={idInputElement}
                                 type="text"
+                                maxlength='13'
+                                onChange={onChange}
+                                name="nickname"
                             ></input>
-                            <img src={editPath} />
+                            <span onClick={()=>{checkDuplecate('nickname');}}>
+                                중복확인
+                            </span>
                         </div>
                     </span>
                 </div>
             </section> 
             <section className="login-button">
                 <div>
-                    <button onClick={openModal}>
+                    <button onClick={addAccount}>
                         회원가입
                     </button>
                     {showModal ? <Modal setShowModal={setShowModal} /> : null}
@@ -114,6 +197,5 @@
                 </div>
             </section>
         </main>
-     );
- }
- 
+    );
+}
