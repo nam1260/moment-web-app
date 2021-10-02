@@ -7,8 +7,8 @@ import IntroductionComponent from './section/Introduction'
 import  './guide.css'
 
 
-const IntroComponent = () => {
-    const [part, setPart] = useState(0)
+const IntroComponent = ({ match: { params: { type = 1 } } }) => {
+    const [part, setPart] = useState(type - 1);
     return (
         <section className="introduction-wrapper">
             <div className="container">

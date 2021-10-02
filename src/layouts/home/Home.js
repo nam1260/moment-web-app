@@ -2,6 +2,8 @@ import React from "react";
 import "../../App.css";
 import "../../Common.css";
 import "./home.css";
+import { useHistory } from "react-router";
+
 
 const homeImage = "/assets/images/yhlee/mov.png";
 const moveArrowPath = "/assets/icons/home-arrow.png";
@@ -31,6 +33,8 @@ const fbLogo = "/assets/icons/ico-fb.png";
   - 반복 되는 부분 컴포넌트 화 적용 => 모먼트 TOP STAR 카드, SNS 셀럽 추가하기
 */
 function Home() {
+    const history = useHistory();
+
     return (
         <main>
             <section className="app-home-header">
@@ -46,7 +50,7 @@ function Home() {
                             <br />
                             나만의 순간
                         </span>
-                        <div>
+                        <div onClick={() => history.push('guide/moment')}>
                             모먼트 서비스 소개 <img src={moveArrowPath} />{" "}
                         </div>
                     </span>

@@ -41,6 +41,25 @@ const Item = styled.div`
         color: #8f8f8f;
         white-space:pre-wrap;
     }
+
+    @media (max-width: 750px) {
+        margin-bottom: min(20vw, 92px);
+        & > img {
+            width:min(80vw, 750px)
+        }
+
+        & > span {
+            font-size: min(7vw , 42px);
+        }
+    
+        & > h3 {
+            font-size: min(7vw , 44px);
+        }
+    
+        & > p {
+            font-size: min(4vw , 26px);
+        }
+    }
 `
 
 const underLineImage = "/assets/images/yhlee/present-num-box.png"

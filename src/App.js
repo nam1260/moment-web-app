@@ -25,20 +25,22 @@ function App() {
         <Router>
             <div className="App">
                 <Header setIsMenuOpen={setIsMenuOpen} />
-                <Route exact path="/search" component={Search} />
+                
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/addAccount" component={AddAccount} />
                 <Route exact path="/findAccount" component={FindAccount} />
                 <Route exact path="/findPassword" component={FindPassword} />
                 <SideMenu isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
                 <div className="App-main layout">
+                    
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/Momentor" component={Momentor}/>
                     <Route exact path="/Write" component={Write}/>
+                    <Route exact path="/search" component={Search} />
                     <Route exact path="/guide">
                         <Redirect to="/guide/moment" />
                     </Route>
-                    <Route exact path="/guide/moment" component={GuideComponent.IntroComponent}/>
+                    <Route path={["/guide/moment/:type", "/guide/moment"]} component={GuideComponent.IntroComponent}/>
                     <Route exact path="/guide/user" component={GuideComponent.UserComponent}/>
                 </div>
                 

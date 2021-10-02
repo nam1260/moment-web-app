@@ -30,3 +30,22 @@
     margin-bottom: 137px;
 }
 
+@media (max-width: 750px) {
+    .container > div:nth-child(1) {
+        overflow: hidden;
+    }
+
+    .guide-body > div:nth-child(1) { 
+        height:auto;
+        font-size: min(7vw , 44px);
+    }
+
+    
+    .guide-body > div:nth-child(2) { 
+        font-size: min(4vw , 26px);
+        margin-top: min(2vw, 39px);
+        margin-bottom: min(8vw, 137px);
+    }
+    
+    
+}

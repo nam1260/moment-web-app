@@ -43,6 +43,22 @@ const Item = styled.div`
         margin-bottom:77px;
     }
 
+    @media (max-width: 750px) {
+        & > span {
+            font-size: min(7vw , 42px);
+        }
+    
+        & > h3 {
+            font-size: min(7vw , 44px);
+            margin-bottom: 50px;
+        }
+    
+        & > div {
+            height: min(60vw , 320px);
+            margin-bottom:min(10vw , 77px);
+        }
+
+    }
 
 `
 

@@ -8,6 +8,8 @@ const Tab = styled.div`
     justify-content:center;
     align-items:center;
     background-color:#fbfbfb;
+    
+    
     & > div {
         flex: 1 1 0px;
         display:inline-flex;
@@ -39,6 +41,13 @@ const Tab = styled.div`
                 }
             }
         }
+    }
+
+    @media screen and (max-width: 750px) {
+        & > div {
+            font-size: min(5vw, 28px);
+        }
+        
     }
 
 `

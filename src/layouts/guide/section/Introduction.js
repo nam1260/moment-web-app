@@ -12,7 +12,9 @@ const introImage = [
 export default function IntroductionComponent() {
     return (
         <div className="container">
-            <img src={backgroundImage} />
+            <div>
+                <img src={backgroundImage} />
+            </div>
             <div className="guide-body">
                 <div>
                     내가 좋아하는 스타가<br />

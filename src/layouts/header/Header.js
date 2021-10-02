@@ -11,7 +11,6 @@ const logoPath = '/assets/images/yhlee/menu-logo.png'
 
 function Header({ setIsMenuOpen }) {
     const history = useHistory();
-    
     return (
         <div className="App-Header layout">
             <div className="navigation-bar">
@@ -19,7 +18,7 @@ function Header({ setIsMenuOpen }) {
                     <img className={"top-icon"} src={menuPath} />
                 </div>
                 <div>
-                    <img className={'top-logo'} src={logoPath} />
+                    <img onClick={() => history.push('/')} className={'top-logo'} src={logoPath} />
                 </div>
                 <div>
                     <img className={"top-icon"} src={searchPath} onClick={()=> { history.push('/search') }} />

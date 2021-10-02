@@ -50,12 +50,35 @@ const Item = styled.div`
                 line-height: 1.36;
             }
         }
-
-        
     }
 
     & > div:last-child > img {
         cursor:pointer;
+    }
+
+    @media (max-width: 750px) {
+
+        & > span {
+            margin-right:15px;
+            font-size: min(6vw , 36px);
+        }
+    
+        & > section {
+            & > h3 {
+                font-size: min(6vw , 34px);
+            }
+    
+            & > div {
+                font-size: min(5vw , 28px);
+                margin-bottom:min(15vw , 28px);
+            }
+        }
+
+        & > div > img {
+            width:min(8vw, 45px);
+            height:min(8vw, 45px);
+        }
+
     }
 `
 

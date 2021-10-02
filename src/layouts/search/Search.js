@@ -4,8 +4,8 @@ import { debounce } from "../../shared/func";
 import { useEventListener } from "../../shared/customHook";
 import "./search.css";
 
-const searchPath = "assets/icons/icoSearch.png";
-const notFoundPath = "assets/icons/icoFace3B.png"
+const searchPath = "/assets/icons/icoSearch.png";
+const notFoundPath = "/assets/icons/icoFace3B.png"
 const searchStatus = {
     INIT: 1,
     NOT_FOUND:2,

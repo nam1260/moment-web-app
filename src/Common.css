@@ -22,7 +22,7 @@ div {
 }    
 
 @media (max-width: 750px) {
-    .container {width: 100%; }
+    .container {width: 100%;}
 }
 
 @media (min-width: 751px) {
