@@ -1,4 +1,61 @@
 .App-Header {
-    height: 10vh;
+    height:110px;
+    display: flex;
+    z-index: 2;
+    position: sticky;
+    top:0;
+    background-color: white;
+    justify-content: center;
+    font-size: 1.5em;
 }
+
+.App-Header > .navigation-bar {
+    display: flex;
+    flex: 1;
+    background-color: white;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 30px 50px;
+}
+
+.App-Header > .navigation-bar > div {
+    display: flex;
+    align-items: center;
+    flex:1;
+}
+
+.App-Header > .navigation-bar > div:nth-child(2) {
+    justify-content: center;
+}
+
+.App-Header > .navigation-bar > div:nth-child(3) {
+    justify-content: right;
+}
+
+.App-Header > .navigation-bar > div:nth-child(3) > img:nth-child(1) {
+    margin-right: 24px;
+}
+
+
+@media (max-width: 750px) {
+    .App-Header > .navigation-bar {
+        padding: 3vw 4vw
+    }
+    
+    .App-Header > .navigation-bar > div:nth-child(3) > img:nth-child(1) {
+        margin-right: 12px;
+    }
+
+    .App-Header > .navigation-bar .top-icon {
+        min-width: 24px;
+        width:6vw;
+    }
+
+    .App-Header > .navigation-bar .top-logo {
+        width: 150px;
+    }
+}
+
+
+
 

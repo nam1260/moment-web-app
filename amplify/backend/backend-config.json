@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "momentwebapp51201af5": {
+      "service": "Cognito",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

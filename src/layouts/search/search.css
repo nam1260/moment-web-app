@@ -1,0 +1,193 @@
+
+
+.search-wrapper {
+    font-family: 'AppleSDGothicNeo';
+    z-index: 3;
+    height: 100%;
+    position:absolute;
+    width: 100%;
+    top:0px;
+    left:0px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.search-wrapper > div > .search-header {
+    height: 110px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.search-wrapper > div > .search-header > div {
+    margin-left: min(6.7vw, 50px);
+    height: 36px;
+    flex:1;
+    position: relative;
+}
+
+.search-wrapper > div > .search-header > div > input {
+    border:0px;
+    max-height: 36px;
+    width: 100%;
+    font-size: 36px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.9px;
+    caret-color: #ff723a;
+}
+
+
+
+.search-wrapper > div > .search-header > div > input:focus { 
+    outline:none;
+}
+
+.search-wrapper > div > .search-header > img {
+    margin-right: min(6.3vw, 47px)
+}
+
+.search-wrapper .hide-element {
+    font-size: 36px;
+    position: absolute;
+    right:100%;
+    opacity: 0;
+
+}
+
+
+
+.search-wrapper > .container > .search-body > .not-found-box {
+    margin-top:230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+}
+
+.search-wrapper > .container > .search-body > .not-found-box > p {
+    font-size: 36px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.9px;    
+    margin: 37px 0px 40px 0px
+}
+
+.search-wrapper > .container > .search-body > .not-found-box > div {
+    width: 338px;
+    height: 80px;
+    padding: 28px 41px;
+    text-align: center;
+    border-radius: 40px;
+    border: solid 2px #ff723a;
+    font-size: 25px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 25px;
+    letter-spacing: -0.65px;
+    text-align: center;
+    color: #ff723a;
+}
+
+.search-wrapper > .container > .search-body > .found-box {
+    margin:0px 49px 0px 50px
+}
+
+.search-wrapper > .container > .search-body > .found-box > .celebrity-list {
+    display: flex;
+    height: 204px;
+}
+
+.search-wrapper > .container > .search-body > .found-box > .celebrity-list > div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    margin-top:50px
+}
+
+.search-wrapper > .container > .search-body > .found-box > .celebrity-list > div:nth-child(1) > span:nth-child(1) {
+    font-size: 36px;
+    font-weight: bold;
+    height: 33px;
+    line-height: 1;
+    letter-spacing: -0.36px;
+    margin-bottom: 20px;
+}
+
+.search-wrapper > .container > .search-body > .found-box > .celebrity-list > div:nth-child(1) > span:nth-child(n + 2) {
+    opacity: 0.8;
+    font-size: 28px;
+    font-weight: normal;
+    letter-spacing: -0.28px;    
+    color: rgba(143, 143, 143, 0.8);
+    min-height: 28px;
+    line-height: 28px;
+    
+}
+
+
+.search-wrapper > .container > .search-body > .found-box > .celebrity-list > div:nth-child(2) {
+    margin-top: 30px;
+}
+
+.search-wrapper > .container > .search-body > .found-box > .celebrity-list > div:nth-child(2) > div {
+    overflow: hidden;
+    width:100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+}
+
+
+
+.search-wrapper > .container > .search-body > .found-box > .celebrity-list > div:nth-child(2) > div > img {
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 750px) {
+    
+    .search-wrapper > div > .search-header > div > input {
+        font-size: min(8vw, 36px);
+    }
+
+    .search-wrapper > .container > .search-body > .found-box > .celebrity-list > div:nth-child(1) > span:nth-child(1) {
+        font-size: min(8vw, 36px);
+    }
+
+    .search-wrapper > .container > .search-body > .found-box > .celebrity-list > div:nth-child(1) > span:nth-child(n + 2) {
+        font-size: min(6vw, 28px);
+    }
+
+    .search-wrapper > .container > .search-body > .found-box > .celebrity-list > div:nth-child(2) > div {
+        width:min(20vw, 100px);
+        height:min(20vw, 100px);
+    }
+    
+    
+.search-wrapper > .container > .search-body > .not-found-box > p {
+    font-size: min(8vw, 36px);
+}
+
+.search-wrapper > .container > .search-body > .not-found-box > div {
+    width: min(70vw, 338px);
+    padding-top: 28px;
+    padding-bottom: 28px;
+    padding-right:min(4vw, 41px);
+    padding-left: min(4vw, 41px);
+    font-size: min(6vw, 25px);
+    
+}
+
+}

@@ -1,0 +1,201 @@
+/**
+ * Login.js
+ * @author wook
+ * @since 2021/09/06
+ * description
+ */
+
+import "./login.css";
+import React, { useState, useRef} from "react";
+import { useHistory } from 'react-router'; 
+import { Modal } from "./Modal";
+
+const editPath = "assets/icons/list-ico-edit.png"
+ 
+export default function LoginComponent() {
+    const history = useHistory();
+    const userList = [
+        {
+            id: "test@naver.com",
+            pw: "test123",
+            phone: "01012345678",
+            nickname: "test",
+        },
+    ];
+
+    const [showModal, setShowModal] = useState(false);
+    const openModal = () => {
+        setShowModal(true);
+    };
+ 
+    const [inputs, setInputs] = useState({
+        email: '',
+        pw: '',
+        pwConfirm: '',
+        phoneNumber: '',
+        nickname: '',
+    });
+    const { email, pw, pwConfirm, phoneNumber, nickname } = inputs
+    const onChange = (e) => {
+        const { name, value } = e.target
+        const nextInputs = {
+            ...inputs,  
+            [name]: value,
+        }
+        setInputs(nextInputs);
+    };
+    const onChangeOnlyNumber = (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        onChange(e);
+    }
+    const onChangeEmailFormat = (e) => {
+        var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
+        if(!emailRule.test(e.target.value)) {
+            console.log('email 규칙에 맞지 않음');
+        } else {
+            console.log('email 규칙에 맞음');
+        }
+        onChange(e);
+    }
+    const onChangePassword = (e) => {
+        var passRule = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 특수문자 / 문자 / 숫자 포함 형태의 8~20자리 이내의 암호 정규식
+        if(!passRule.test(e.target.value)) {
+            console.log('비밀번호 규칙에 맞지 않음');
+        } else {
+            console.log('비밀번호 규칙에 맞음');
+        }
+        onChange(e);
+    }
+    const onChangePasswordConfirm = (e) => {
+        var confirm = e.target.value;
+        var pw = inputs['pw'];
+        if(confirm != pw ) {
+            console.log('입력한 비밀번호가 다름');
+        } else {
+            console.log('입력한 비밀번호가 같음');
+        }
+        onChange(e);
+    }
+
+    const addAccount = ()=>{
+        console.log('inputs =' + JSON.stringify(inputs));
+    } 
+
+    const checkDuplecate = (type)=>{
+        console.log('checkDuplecate type = ' + type);
+        var isDuplicate = userList.some((info)=>{
+            return info[type] == inputs[type];
+        });
+
+        if(isDuplicate) {
+            console.log('duplicate');
+            openModal();
+        } else {
+            
+        }
+    } 
+
+    const certificatePhone = ()=>{
+        console.log('certificatePhone');
+    } 
+
+    return (
+        <main>
+            <section className="login-header">
+                <div className="container">
+                    <span>지금, 모먼트에서 당신의 </span>
+                    <br />
+                    <span>최고의 순간을 함께하세요</span>
+                </div>
+            </section>
+            <section className="login-container">
+                <div>
+                    <span>
+                        <span>
+                            이메일 입력
+                        </span>
+                        <div>
+                            <input
+                                type="text"
+                                onChange={onChangeEmailFormat}
+                                name="id"
+                            ></input>
+                            <span onClick={()=>{checkDuplecate('id');}}>
+                                중복확인
+                            </span>
+                        </div>
+                        <span>
+                            비밀번호 입력
+                        </span>
+                        <div>
+                            <input
+                                placeholder={"8~20자 영문 대소문자/숫자/특수문자"}
+                                type="password"
+                                maxlength='20'
+                                onChange={onChangePassword}
+                                name="pw"
+                            ></input>
+                            <img src={editPath} />
+                        </div>
+                        <span>
+                            비밀번호 확인
+                        </span>
+                        <div>
+                            <input
+                                placeholder={"비밀번호를 한번 더 입력해 주세요"}
+                                type="password"
+                                maxlength='20'
+                                onChange={onChangePasswordConfirm}
+                                name="pwConfirm"
+                            ></input>
+                            <img src={editPath} />
+                        </div>
+                        <span>
+                            휴대폰 번호 (숫자만)
+                        </span>
+                        <div>
+                            <input
+                                placeholder={"휴대폰 번호 10자리 또는 11자리 입력"}
+                                type="text"
+                                maxlength='11'
+                                onChange={onChangeOnlyNumber}
+                                name="phoneNumber"
+                                value={phoneNumber}
+                            ></input>
+                            <span onClick={certificatePhone}>
+                                인증요청
+                            </span>
+                        </div>
+                        <span>
+                            닉네임
+                        </span>
+                        <div>
+                            <input
+                                placeholder={"5~13자 (특수문자 제외)"}
+                                type="text"
+                                maxlength='13'
+                                onChange={onChange}
+                                name="nickname"
+                            ></input>
+                            <span onClick={()=>{checkDuplecate('nickname');}}>
+                                중복확인
+                            </span>
+                        </div>
+                    </span>
+                </div>
+            </section> 
+            <section className="login-button">
+                <div>
+                    <button onClick={addAccount}>
+                        회원가입
+                    </button>
+                    {showModal ? <Modal setShowModal={setShowModal} /> : null}
+                </div>
+            </section>
+            <section className="login-options">
+                <div>
+                </div>
+            </section>
+        </main>
+    );
+}

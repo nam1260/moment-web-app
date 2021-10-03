@@ -1,0 +1,51 @@
+.introduction-wrapper {
+    font-family: 'AppleSDGothicNeo';
+    display: flex;
+    justify-content: center;
+}
+
+.guide-body, .faq-body, .user-body {
+    margin-top:59px;
+    margin-left:50px;
+    margin-right:50px;
+}
+
+.guide-body > div:nth-child(1) { 
+    height: 152px;
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.27;
+    letter-spacing: -1.1px;
+    text-align: left;
+}
+
+.guide-body > div:nth-child(2) { 
+    height: 62px;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 1.46;
+    letter-spacing: -0.65px;
+    color: #8f8f8f;
+    margin-top:39px;
+    margin-bottom: 137px;
+}
+
+@media (max-width: 750px) {
+    .container > div:nth-child(1) {
+        overflow: hidden;
+    }
+
+    .guide-body > div:nth-child(1) { 
+        height:auto;
+        font-size: min(7vw , 44px);
+    }
+
+    
+    .guide-body > div:nth-child(2) { 
+        font-size: min(4vw , 26px);
+        margin-top: min(2vw, 39px);
+        margin-bottom: min(8vw, 137px);
+    }
+    
+    
+}

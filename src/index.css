@@ -1,3 +1,20 @@
+@font-face {
+  font-family: 'AppleSDGothicNeo';
+  src: url('./assets/font/AppleSDGothicNeo/AppleSDGothicNeoR.ttf');
+}
+
+@font-face {
+  font-family: 'AppleSDGothicNeo-ExtraBold';
+  src: url('./assets/font/AppleSDGothicNeo/AppleSDGothicNeoEB.ttf');
+}
+
+
+@font-face {
+  font-family: 'AppleSDGothicNeo-Bold';
+  src: url('./assets/font/AppleSDGothicNeo/AppleSDGothicNeoB.ttf');
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +27,11 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root {
+  --amplify-primary-color: #1890ff;
+  --amplify-primary-tint: #1890ff;
+  --amplify-primary-shade: #1890ff;
+
 }

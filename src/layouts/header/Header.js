@@ -1,91 +1,33 @@
 import React, {useState} from 'react';
-
+import { useHistory } from 'react-router';
 import '../../Common.css';
 import './header.css';
-import HeaderStyled from './StyledComponents';
+
+const menuPath = '/assets/icons/icoMenu.png'
+const searchPath = '/assets/icons/icoSearch.png'
+const loginPath = '/assets/icons/ico-login.png'
+const logoPath = '/assets/images/yhlee/menu-logo.png'
 
 
-const APP_LOGO_PATH = "assets/images/logo.svg";
-const MENU_LOGO_PATH = "assets/images/icon_menu.png";
-
-const {
-    LeftArea,
-    RightArea,
-    IconWrapper,
-    HeaderIcon,
-} = HeaderStyled;
-
-
-function Header() {
+function Header({ setIsMenuOpen }) {
+    const history = useHistory();
     return (
         <div className="App-Header layout">
-            <div className="navigation-bar container">
-                <LeftAreaComponent/>
-                <RightAreaComponent/>
+            <div className="navigation-bar">
+                <div onClick={() => setIsMenuOpen(true)}>
+                    <img className={"top-icon"} src={menuPath} />
+                </div>
+                <div>
+                    <img onClick={() => history.push('/')} className={'top-logo'} src={logoPath} />
+                </div>
+                <div>
+                    <img className={"top-icon"} src={searchPath} onClick={()=> { history.push('/search') }} />
+                    <img className={"top-icon"} src={loginPath} onClick={()=> { history.push('/login') }}/>
+                </div>
             </div>
         </div>
     )
 }
-
-
-const LeftAreaComponent = () => {
-
-    return (
-        <LeftArea className="component">
-            <AppLogo/>
-            <QuickMenu/>
-        </LeftArea>
-    )
-};
-
-const RightAreaComponent = () => {
-    return (
-        <RightArea className="component">
-            <SearchIcon/>
-        </RightArea>
-    )
-}
-
-const SearchIcon = () =>
-    (
-        <IconWrapper>
-            <img src={APP_LOGO_PATH} className="searchIcon" style={
-                {position: 'relative', width: '5vh', height: '5vh', background: 'blue'}
-            }
-            />
-        </IconWrapper>
-    )
-
-
-//component Elements
-const AppLogo = () => {
-    return (
-        <IconWrapper>
-            <HeaderIcon src={APP_LOGO_PATH} isAppLogo="true"
-                        onClick={() => {
-                            window.location.href = "/";
-                        }}
-            />
-        </IconWrapper>
-    )
-};
-
-const QuickMenu = () => {
-    const [hovered, setHovered] = useState(false);
-    const toggleHover = () => {
-        setHovered(!hovered);
-    }
-    return (
-        <IconWrapper>
-            <HeaderIcon src={MENU_LOGO_PATH} className={hovered ? 'menu-icon hovered' : "menu-icon"}
-                        onMouseOver={toggleHover}
-                        onMouseLeave={toggleHover}
-            />
-
-        </IconWrapper>
-
-    )
-};
 
 
 export default Header;
