@@ -5,6 +5,7 @@ import Header from './layouts/header/Header.js';
 import Home from './layouts/home/Home';
 import Momentor from './layouts/momentor/MomentorHome';
 import Write from './layouts/write/Write';
+import WriteSuccessComponent from './layouts/write/Success';
 import Search from './layouts/search/Search';
 import Login from './layouts/login/Login';
 import AddAccount from './layouts/login/AddAccount';
@@ -14,28 +15,44 @@ import SideMenu from './layouts/sidemenu/SideMenu';
 import GuideComponent from './layouts/guide/Guide';
 // import Amplify from 'aws-amplify';
 // import aws_exports from './aws-exports';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import { useState } from 'react';
+import styled from 'styled-components';
 // Amplify.configure(aws_exports);
+
+
+
+const ModalWrapper = styled.div`
+    z-index:9998;
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:#000;
+    opacity:0.7;
+    display:none;
+`
 
 
 function App() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     return (
         <Router>
+            <Switch>
             <div className="App">
+                <ModalWrapper className="modal-wrapper" />
                 <Header setIsMenuOpen={setIsMenuOpen} />
-                
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/addAccount" component={AddAccount} />
                 <Route exact path="/findAccount" component={FindAccount} />
                 <Route exact path="/findPassword" component={FindPassword} />
                 <SideMenu isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
                 <div className="App-main layout">
-                    
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/Momentor" component={Momentor}/>
-                    <Route exact path="/Write" component={Write}/>
+                    <Route exact path="/writesuccess" component={WriteSuccessComponent}/>
+                    <Route exact path="/write/:id" component={Write}/>
                     <Route exact path="/search" component={Search} />
                     <Route exact path="/guide">
                         <Redirect to="/guide/moment" />
@@ -45,6 +62,7 @@ function App() {
                 </div>
                 
             </div>
+            </Switch>
             {isMenuOpen && <div className="wrapper" />}
         </Router>
 

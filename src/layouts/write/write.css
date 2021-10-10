@@ -1,0 +1,343 @@
+main {
+    font-family: 'AppleSDGothicNeo';
+    padding-bottom: 100px;
+}
+
+main > section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+main > section > * {
+    padding: 0px 50px;
+}
+
+.app-write-header {
+    margin-top: 71px;
+}
+
+.app-write-header > .container > h3 {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.36;
+  letter-spacing: -1.1px;
+}
+
+.app-write-header > .container > h3 > div {
+    right:0px;
+    float:right;
+  }
+
+
+.app-write-body > .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-write-body > .container > section {
+    display: flex;
+}
+
+.app-write-body > .container > section > div:nth-child(1) {
+    flex: 1;
+}
+
+.app-write-body > .container > section > div:nth-child(2) {
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 160px;
+    margin-left: 50px;
+}
+
+.app-write-body > .container > .date-wrapper {
+    margin-top: 60px;
+}
+
+.app-write-body > .container > .date-wrapper > div:first-child {
+    font-size: 26px;
+    color: #8f8f8f;
+    -webkit-letter-spacing: -0.26px;
+    -moz-letter-spacing: -0.26px;
+    -ms-letter-spacing: -0.26px;
+    letter-spacing: -0.26px;   
+}
+
+.app-write-body > .container > .date-wrapper .custom-input {
+    display: flex;
+}
+
+.app-write-body > .container > .write-wrapper {
+    margin-top: 60px;
+}
+
+.app-write-body > .container > .write-wrapper > div:first-child {
+    font-size: 26px;
+    color: #8f8f8f;
+    -webkit-letter-spacing: -0.26px;
+    -moz-letter-spacing: -0.26px;
+    -ms-letter-spacing: -0.26px;
+    letter-spacing: -0.26px;   
+}
+
+
+.app-write-body > .container > .write-wrapper > textarea {
+    resize: none;
+    width:100%;
+    font-size: 28px;
+    border:1px solid #ddd;
+    background-color: #fafafa;
+    height: 499px;
+    padding:30px;
+    margin-top: 25px;
+}
+
+.app-write-body > .container > .write-wrapper > textarea:focus {
+    outline: 2px solid #ff723a
+}
+
+.app-write-bottom {
+    margin-top: 25px;
+}
+
+.app-write-bottom > .container > div:first-child {
+    font-size: 28px;
+    line-height: 1.43;
+    letter-spacing: -0.28px;
+    text-align: right;
+    color: #ff723a;
+}
+
+.app-write-bottom > .container > div:nth-child(2) {
+    background-color: #ff723a;
+    border-radius: 40px;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.43;
+    letter-spacing: -0.28px;
+    text-align: center;
+    color: #fff;
+    padding:23px 0px;
+    margin-top: 113px;
+}
+
+main .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top:40px;
+}
+
+main .modal-content > div:nth-child(2) {
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: -0.36px;
+    color: #000;
+    text-align: center;
+    line-height: normal;
+    margin-bottom: 27px;
+}
+
+main .modal-content > div:nth-child(3) {
+    font-size: 28px;
+    line-height: 1.36;
+    letter-spacing: -1.12px;
+    text-align: center;
+    color: #ff723a;
+    margin-bottom: 51px;
+}
+
+main .modal-content > div:nth-child(4) {
+    font-size: 28px;
+    line-height: 1.36;
+  letter-spacing: -1.12px;
+    text-align: center;
+    color: #8f8f8f;
+}
+
+main .modal-content > span {
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: -0.36px;
+    margin-top:20px;
+}
+
+
+.app-success-header > .container { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-success-header > .container > div:first-child {
+    margin-top: 88px;
+    margin-bottom: 30px;
+}
+
+.app-success-header > .container > img {
+    border-radius: 80px;
+    margin-bottom: 30px;
+}
+
+.app-success-header > .container > h3 {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.59;
+    letter-spacing: -0.44px;
+    margin-bottom: 0px;
+}
+
+.app-success-header > .container > span {
+    opacity: 0.8;
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -0.28px;
+    text-align: center;
+    color: rgba(143, 143, 143, 0.8);
+}
+
+.app-success-body > .container { 
+    margin-top: 103px;
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.29;
+    letter-spacing: -0.34px;
+    text-align: center;
+    color: #000;
+}
+
+.app-success-body > .container > span {
+    color:#ff723a
+}
+
+.app-success-bottom > .container > div {
+    background-color: #ff723a;
+    border-radius: 40px;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.43;
+    letter-spacing: -0.28px;
+    text-align: center;
+    color: #fff;
+    padding:23px 0px;
+    margin-top: 113px;
+}
+
+@media (max-width: 750px) {
+    
+    main .modal-content {
+        padding-top: min(3vw , 40px);
+    }
+
+    main .modal-content > img {
+        width: min(15vw, 150px)
+    }
+
+    main .modal-content > div:nth-child(2) {
+        font-size: min(4vw, 36px);
+        margin-bottom: min(4vw, 28px);
+    }
+    
+    main .modal-content > div:nth-child(3) {
+        font-size: min(3vw, 28px);
+        margin-bottom: min(8vw, 28px);
+    }
+    
+    main .modal-content > div:nth-child(4) {
+        font-size: min(3vw, 28px);
+    }
+    
+    main .modal-content > span {
+        font-size: min(4vw, 36px);
+        margin-top:min(3vw, 20px);
+    }
+
+    
+    .app-write-header > .container > h3 {
+        font-size: min(6vw, 44px);
+    }
+
+    .app-write-body > .container > section > div:nth-child(2) {
+        width: min(30vw, 160px);
+        height: min(30vw, 160px);
+        margin-left: min(10vw, 50px);
+    }
+
+    .app-write-body > .container > section > div:nth-child(2) > img {
+        width: min(30vw, 160px);
+        height: min(30vw, 160px);
+    }
+    
+    
+    .app-write-body > .container > .date-wrapper > div:first-child {
+        font-size: min(4vw, 26px);
+        
+    }
+    
+    .app-write-body > .container > .write-wrapper {
+        margin-top:  min(8vw, 60px);
+    }
+    
+    .app-write-body > .container > .write-wrapper > div:first-child {
+        font-size: min(4vw, 26px); 
+    }
+    
+    
+    .app-write-body > .container > .write-wrapper > textarea {
+        font-size: min(4vw, 28px); 
+        border:1px solid #ddd;
+        height: min(90vw, 499px);
+        padding:min(5vw, 30px);
+        margin-top:  min(4vw, 25px);
+    }
+    
+    .app-write-bottom {
+        margin-top: min(4vw, 25px);
+    }
+    
+    .app-write-bottom > .container > div:first-child {
+        font-size: min(4vw, 28px);
+    }
+    
+    .app-write-bottom > .container > div:nth-child(2) {
+        border-radius: min(7vw, 40px);
+        font-size: min(4vw, 28px);
+        margin-top: min(10vw, 113px);
+    }
+
+    
+
+    
+    .app-success-header > .container > div:first-child {
+        margin-top: 88px;
+        margin-bottom: 30px;
+    }
+    
+    .app-success-header > .container > img {
+        border-radius: 80px;
+        margin-bottom: min(5vw, 30px);
+        width: min(25vw, 160px);
+    }
+    
+    .app-success-header > .container > h3 {
+        font-size: min(6vw, 44px);
+
+    }
+    
+    .app-success-header > .container > span {
+        font-size: min(5vw, 28px);
+    }
+    
+    .app-success-body > .container { 
+        margin-top:  min(15vw, 103px);
+        font-size: min(5vw, 34px);
+    }
+    
+    .app-success-bottom > .container > div {
+        border-radius: min(7vw, 40px);
+        font-size: min(4vw, 28px);
+        margin-top: min(10vw, 113px);
+    }
+
+}
