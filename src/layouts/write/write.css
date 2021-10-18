@@ -1,15 +1,15 @@
-main {
+.write-main {
     font-family: 'AppleSDGothicNeo';
     padding-bottom: 100px;
 }
 
-main > section {
+.write-main > section {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-main > section > * {
+.write-main > section > * {
     padding: 0px 50px;
 }
 
@@ -122,14 +122,14 @@ main > section > * {
     margin-top: 113px;
 }
 
-main .modal-content {
+.write-main .modal-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top:40px;
 }
 
-main .modal-content > div:nth-child(2) {
+.write-main .modal-content > div:nth-child(2) {
     font-size: 36px;
     font-weight: 500;
     letter-spacing: -0.36px;
@@ -139,7 +139,7 @@ main .modal-content > div:nth-child(2) {
     margin-bottom: 27px;
 }
 
-main .modal-content > div:nth-child(3) {
+.write-main .modal-content > div:nth-child(3) {
     font-size: 28px;
     line-height: 1.36;
     letter-spacing: -1.12px;
@@ -148,7 +148,7 @@ main .modal-content > div:nth-child(3) {
     margin-bottom: 51px;
 }
 
-main .modal-content > div:nth-child(4) {
+.write-main .modal-content > div:nth-child(4) {
     font-size: 28px;
     line-height: 1.36;
   letter-spacing: -1.12px;
@@ -156,7 +156,7 @@ main .modal-content > div:nth-child(4) {
     color: #8f8f8f;
 }
 
-main .modal-content > span {
+.write-main .modal-content > span {
     font-size: 36px;
     font-weight: 500;
     letter-spacing: -0.36px;
@@ -226,29 +226,29 @@ main .modal-content > span {
 
 @media (max-width: 750px) {
     
-    main .modal-content {
+    .write-main .modal-content {
         padding-top: min(3vw , 40px);
     }
 
-    main .modal-content > img {
+    .write-main .modal-content > img {
         width: min(15vw, 150px)
     }
 
-    main .modal-content > div:nth-child(2) {
+    .write-main .modal-content > div:nth-child(2) {
         font-size: min(4vw, 36px);
         margin-bottom: min(4vw, 28px);
     }
     
-    main .modal-content > div:nth-child(3) {
+    .write-main .modal-content > div:nth-child(3) {
         font-size: min(3vw, 28px);
         margin-bottom: min(8vw, 28px);
     }
     
-    main .modal-content > div:nth-child(4) {
+    .write-main .modal-content > div:nth-child(4) {
         font-size: min(3vw, 28px);
     }
     
-    main .modal-content > span {
+    .write-main .modal-content > span {
         font-size: min(4vw, 36px);
         margin-top:min(3vw, 20px);
     }

@@ -46,7 +46,7 @@ const WriteComponent = () => {
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
     const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
     return (
-        <main>
+        <main className='write-main'>
             <MomentModal
                 isOpen={isQuestionModalOpen}
                 confirmText={'확인'}
