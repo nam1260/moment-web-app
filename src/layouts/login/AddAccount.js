@@ -9,6 +9,8 @@ import "./login.css";
 import React, { useState, useRef} from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "./Modal";
+import CryptoJS from "crypto-js";
+import axios from "axios";
 
 const editPath = "assets/icons/list-ico-edit.png"
  
@@ -95,8 +97,92 @@ export default function LoginComponent() {
         }
     } 
 
+    const send_message =(phone, authNumber) => {
+        var user_phone_number = phone; 
+        var user_auth_number = authNumber;
+        var resultCode = 404; 
+        const date = Date.now().toString(); 
+        const uri = "ncp:sms:kr:273557210863:moment"; 
+        const secretKey = "myNuDZbXE2U9PoV0CCRDvhfoW7sTwS91VFlIeWwJ"; 
+        const accessKey = "OSZkDUqDvR4n6ESrsX0v"; 
+        const method = "POST"; 
+        const space = " "; 
+        const newLine = "\n"; 
+        const url = "https://sens.apigw.ntruss.com/sms/v2/services/"+uri+"/messages"; 
+        const url2 = "/sms/v2/services/"+uri+"/messages"; 
+        const hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, secretKey); 
+        hmac.update(method); 
+        hmac.update(space); 
+        hmac.update(url2); 
+        hmac.update(newLine); 
+        hmac.update(date); 
+        hmac.update(newLine); 
+        hmac.update(accessKey); 
+        const hash = hmac.finalize(); 
+        const signature = hash.toString(CryptoJS.enc.Base64); 
+        
+        
+        // const options = {
+        //     method: method, 
+        //     json: true,
+        //     uri: url, 
+        //     headers: { 
+        //         "Content-type": "application/json; charset=utf-8", 
+        //         "x-ncp-iam-access-key": accessKey, 
+        //         "x-ncp-apigw-timestamp": date, 
+        //         "x-ncp-apigw-signature-v2": signature, 
+        //     }, 
+        //     data: { 
+        //         type: "SMS", 
+        //         countryCode: "82", 
+        //         from: "01023403907", 
+        //         content: `인증번호 ${user_auth_number} 입니다.`, 
+        //         messages: [ { 
+        //             to: `${user_phone_number}`, 
+        //         }, ], 
+        //     }, 
+        // };
+         
+        var options = {
+            headers: { 
+                "Content-type": "application/json; charset=utf-8", 
+                "x-ncp-iam-access-key": accessKey, 
+                "x-ncp-apigw-timestamp": date, 
+                "x-ncp-apigw-signature-v2": signature, 
+                "Access-Control-Allow-Origin" : "*",
+            }
+        };
+        var data = { 
+            type: "SMS", 
+            countryCode: "82", 
+            from: "01023403907", 
+            content: "인증번호 "+ user_auth_number + " 입니다.", 
+            messages: [ 
+                { 
+                    to: user_phone_number 
+                } 
+            ]
+        };
+        axios.post(url, data, options)
+            .then(response => {
+                console.log(response.status);
+                resultCode = 200; 
+            })
+            .catch((response) => {
+                console.log('Error! = ' + response)
+            });
+        return resultCode; 
+    }
+
     const certificatePhone = ()=>{
-        console.log('certificatePhone');
+        var phoneNumber = inputs['phoneNumber'];
+        var authNum = '';
+        for (let i = 0; i < 6; i++) {
+            authNum += parseInt(Math.random() * 10);
+        }
+        var result = send_message(phoneNumber, authNum);
+        console.log('certificatePhone = ' + phoneNumber + ', authNum =' + authNum + ', resultCode = ' + result);
+        
     } 
 
     return (
