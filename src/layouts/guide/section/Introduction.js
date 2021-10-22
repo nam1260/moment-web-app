@@ -13,7 +13,7 @@ export default function IntroductionComponent() {
     return (
         <div className="container">
             <div>
-                <img src={backgroundImage} />
+                <img alt="none" src={backgroundImage} />
             </div>
             <div className="guide-body">
                 <div>

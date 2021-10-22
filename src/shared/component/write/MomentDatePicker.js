@@ -50,7 +50,7 @@ export default function MomentDatePicker() {
             <DateLabel>
                 {value.split("/")[0]}
                 <div onClick={onClick} ref={ref}>
-                    <img src={downArrow} />
+                    <img alt="none" src={downArrow} />
                 </div>
             </DateLabel>
             

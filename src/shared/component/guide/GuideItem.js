@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import React from 'react'
+import styled from 'styled-components'
 
 const Item = styled.div`
     display:flex;
@@ -70,7 +70,7 @@ export default function GuideItemComponent({ title = "", index = 1 }) {
         <Item>
             <span>
                 {"0" + index}
-                <img src={underLineImage} />
+                <img alt="none" src={underLineImage} />
             </span>
             <h3>{title}</h3>
             <div>

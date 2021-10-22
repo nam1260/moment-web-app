@@ -15,7 +15,7 @@ const searchStatus = {
 const NotFoundComponent = () => {
     return (
         <div className="not-found-box">
-            <img src={notFoundPath} />
+            <img alt="none" src={notFoundPath} />
             <p>찾으시는 검색 결과가 없습니다.</p>
             <div>검색한 셀럽 추가 요청하기</div>
         </div>
@@ -37,7 +37,7 @@ const FoundComponent = ({celebrityList}) => {
                             </div>
                             <div>
                                 <div>
-                                    <img src={item.imgPath} />
+                                    <img alt="none" src={item.imgPath} />
                                 </div>
                             </div>
                             
@@ -96,7 +96,7 @@ export default function SearchComponent() {
                             type="text"
                         ></input>
                     </div>
-                    <img src={searchPath} />
+                    <img alt="none" src={searchPath} />
                 </div>
                 <div className="search-body">
                     {

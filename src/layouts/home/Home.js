@@ -40,7 +40,7 @@ function Home() {
             <section className="app-home-header">
                 <div className="container">
                     <div>
-                        <img src={homeImage} />
+                        <img alt="none" src={homeImage} />
                     </div>
                     <span>
                         <span>
@@ -51,7 +51,7 @@ function Home() {
                             나만의 순간
                         </span>
                         <div onClick={() => history.push('guide/moment')}>
-                            모먼트 서비스 소개 <img src={moveArrowPath} />{" "}
+                            모먼트 서비스 소개 <img alt="none" src={moveArrowPath} />{" "}
                         </div>
                     </span>
                 </div>
@@ -59,35 +59,35 @@ function Home() {
             <section className="app-moment-content-star">
                 <div className="container">
                     <h3>
-                        <img src={crownPath} />
+                        <img alt="none" src={crownPath} />
                         <span>모먼트 TOP STAR</span>
                     </h3>
                     <div>
                         <article>
-                            <img src={homeThum1_1} />
+                            <img alt="none" src={homeThum1_1} />
                             <div>
                                 <b>지수</b>
                                 <p>가수, 탤런트</p>
                             </div>
                         </article>
                         <article>
-                            <img src={homeThum1_2} />
+                            <img alt="none" src={homeThum1_2} />
                             <div>
                                 <b>지수</b>
                                 <p>가수, 탤런트</p>
                             </div>
                         </article>
                         <article>
-                            <img src={dummyIcon} />
+                            <img alt="none" src={dummyIcon} />
                             <div>
                                 <b>아이유</b>
                                 <p>가수, 탤런트</p>
                             </div>
                         </article>
                         <article>
-                            <img src={dummyIcon} style={{ opacity: 0.6 }} />
+                            <img alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
                             <div>
-                                <img src={plusIcon} />
+                                <img alt="none" src={plusIcon} />
                                 <p>요청해주세요</p>
                             </div>
                         </article>
@@ -97,13 +97,13 @@ function Home() {
             <section className="app-moment-content-sns">
                 <div className="container">
                     <h3>
-                        <img src={thunderIcon} />
+                        <img alt="none" src={thunderIcon} />
                         <span>지금 핫한 SNS 셀럽</span>
                     </h3>
                     <div>
                         <article>
                             <div className={"img-content"}>
-                                <img src={homeThum2_1} />
+                                <img alt="none" src={homeThum2_1} />
                             </div>
                             <div className={"article-footer"}>
                                 <b>도버마켓</b>
@@ -112,7 +112,7 @@ function Home() {
                         </article>
                         <article>
                             <div className={"img-content"}>
-                                <img src={homeThum2_2} />
+                                <img alt="none" src={homeThum2_2} />
                             </div>
                             <div className={"article-footer"}>
                                 <b>도버마켓</b>
@@ -121,7 +121,7 @@ function Home() {
                         </article>
                         <article>
                             <div className={"img-content"}>
-                                <img src={homeThum2_3} />
+                                <img alt="none" src={homeThum2_3} />
                             </div>
                             <div className={"article-footer"}>
                                 <b>도버마켓</b>
@@ -130,7 +130,7 @@ function Home() {
                         </article>
                         <article>
                             <div className={"img-content"}>
-                                <img src={homeThum2_4} />
+                                <img alt="none" src={homeThum2_4} />
                             </div>
                             <div className={"article-footer"}>
                                 <b>도버마켓</b>
@@ -141,26 +141,26 @@ function Home() {
                 </div>
             </section>
             <section className="app-moment-more">
-                <span>SNS 셀럽 더보기</span> <img src={circlePlusIcon} />
+                <span>SNS 셀럽 더보기</span> <img alt="none" src={circlePlusIcon} />
             </section>
             <section className="app-moment-description">
                 <div className="container">
                     <h3>잠깐, 모먼트는 처음이신가요?</h3>
                     <div>
                         <div className="description-card">
-                            <img src={desThumb1} />
+                            <img alt="none" src={desThumb1} />
                             <div>
                                 <span>모먼트가 무엇인가요?</span>
                                 <span>모먼트는 네모 네모<br />테스트 문구</span>
-                                <span>모먼트 소개 <img src={moveArrowPath} />{" "} </span>
+                                <span>모먼트 소개 <img alt="none" src={moveArrowPath} />{" "} </span>
                             </div>
                         </div>
                         <div className="description-card">
-                            <img src={desThumb2} />
+                            <img alt="none" src={desThumb2} />
                             <div>
                                 <span>모먼트가 무엇인가요?</span>
                                 <span>모먼트 이용가이드<br />테스트 문구</span>
-                                <span>이용 가이드 <img src={moveArrowPath} />{" "} </span>
+                                <span>이용 가이드 <img alt="none" src={moveArrowPath} />{" "} </span>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ function Home() {
             <section className="app-moment-footer">
                 <div className="container">
                     <div className="footer-header">
-                        <img src={footerLogo} />
+                        <img alt="none" src={footerLogo} />
                     </div>
                     <div className="footer-content">
                         <p>사업자 등록 번호 : 111-111-1111</p>
@@ -184,8 +184,8 @@ function Home() {
                         <span>파트너 문의</span>
                     </div>
                     <div className="footer-sns">
-                        <img src={instaLogo} />
-                        <img src={fbLogo} />
+                        <img alt="none" src={instaLogo} />
+                        <img alt="none" src={fbLogo} />
                     </div>
                 </div>
             </section>

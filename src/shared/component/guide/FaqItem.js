@@ -97,7 +97,7 @@ export default function FaqItem({title = "", des = ""}) {
                 </div>
             </section>
             <div >
-                <img onClick={() => {setIsOpen(!isOpen)}} src={isOpen ? downArrow : upArrow} />
+                <img alt="none" onClick={() => {setIsOpen(!isOpen)}} src={isOpen ? downArrow : upArrow} />
             </div>
             
         </Item>

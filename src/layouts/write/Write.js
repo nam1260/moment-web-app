@@ -3,9 +3,8 @@ import WriteLabel from '../../shared/component/write/WriteLabel'
 import MomentDatePicker from '../../shared/component/write/MomentDatePicker';
 import MomentModal from '../../shared/component/common/modal';
 import { useState } from 'react';
-import styled from 'styled-components';
 import SpeechBubble from '../../shared/component/write/SpeechBubble';
-
+import { useHistory } from 'react-router-dom';
 
 const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
 const letterImage = "/assets/images/yhlee/icoLetter.png";
@@ -15,7 +14,7 @@ const iconFace = "/assets/icons/icoFace6.png";
 const QuestionModalContent = (
     
         <div className='modal-content'>
-            <img src={iconFace} />
+            <img alt="none" src={iconFace} />
             <div>
                 Tip! 스타에게 축하 받고 싶은 순간을 <br />
                 가능한 자세하게 말해주세요
@@ -35,7 +34,7 @@ const QuestionModalContent = (
 
 const LoadingModal = (
     <div className='modal-content'>
-        <img src={letterImage} />
+        <img alt="none" src={letterImage} />
         <span>사연을 전송중입니다...</span>
         
     </div>
@@ -45,6 +44,7 @@ const LoadingModal = (
 const WriteComponent = () => {
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
     const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
+    const history = useHistory();
     return (
         <main className='write-main'>
             <MomentModal
@@ -79,7 +79,7 @@ const WriteComponent = () => {
                             content={'김스타, 예술인'}
                         />
                         <div>
-                            <img src={homeThum1_1} />
+                            <img alt="none" src={homeThum1_1} />
                         </div>
                     </section>
                     <WriteLabel 
@@ -114,7 +114,10 @@ const WriteComponent = () => {
                     <div onClick={() => setIsQuestionModalOpen(true)}>어떻게 사연을 보내야 할지 모르시겠다구요?</div>
                     <div onClick={() => { 
                         setIsLoadingModalOpen(true); 
-                        setTimeout(() => setIsLoadingModalOpen(false), 1000)
+                        setTimeout(() => {
+                            setIsLoadingModalOpen(false)
+                            history.push('/writesuccess')
+                        }, 1000)
                     }}>
                         결제하고 사연 전송하기!
                     </div>

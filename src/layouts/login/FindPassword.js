@@ -49,7 +49,7 @@
                                 ref={idInputElement}
                                 type="text"
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             휴대폰 번호 (숫자만)
@@ -59,7 +59,7 @@
                                 ref={pwInputElement}
                                 type="text"
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             인증번호 확인 (03:00 남음)
@@ -69,7 +69,7 @@
                                 ref={pwInputElement}
                                 type="text"
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                     </span>
                 </div>

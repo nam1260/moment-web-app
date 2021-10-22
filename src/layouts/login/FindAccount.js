@@ -58,7 +58,7 @@ export default function LoginComponent() {
                                 name="nickname"
                                 value={nickname}
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             휴대폰 번호 (숫자만)
@@ -71,7 +71,7 @@ export default function LoginComponent() {
                                 name="phoneNumber"
                                 value={phoneNumber}
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                     </span>
                 </div>

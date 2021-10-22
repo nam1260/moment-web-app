@@ -7,11 +7,11 @@ const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
 
 const WriteSuccessComponent = () => {
     return (
-        <main>
+        <main className='write-main'>
             <section className="app-success-header">
                 <div className="container">
                     <SpeechBubble content='멋진 영상 기대해주세요!'/> 
-                    <img src={homeThum1_1} />
+                    <img alt="none" src={homeThum1_1} />
                     <h3>최인기맨</h3>
                     <span>대한민국 음악가, 1991년생</span>
                 </div>

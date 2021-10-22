@@ -135,7 +135,7 @@ export default function LoginComponent() {
                                 onChange={onChangePassword}
                                 name="pw"
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             비밀번호 확인
@@ -148,7 +148,7 @@ export default function LoginComponent() {
                                 onChange={onChangePasswordConfirm}
                                 name="pwConfirm"
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             휴대폰 번호 (숫자만)
