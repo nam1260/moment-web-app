@@ -18,6 +18,8 @@ import GuideComponent from './layouts/guide/Guide';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import { useState } from 'react';
 import styled from 'styled-components';
+import StarComponent from './layouts/star/star.component';
+import StarCommentListComponent from './layouts/star/commentList.component';
 // Amplify.configure(aws_exports);
 
 
@@ -53,12 +55,15 @@ function App() {
                     <Route exact path="/Momentor" component={Momentor}/>
                     <Route exact path="/writesuccess" component={WriteSuccessComponent}/>
                     <Route exact path="/write/:id" component={Write}/>
+                    <Route exact path="/star/:id" component={StarComponent}/>
+                    <Route exact path="/star/:id/comment" component={StarCommentListComponent}/>
                     <Route exact path="/search" component={Search} />
                     <Route exact path="/guide">
                         <Redirect to="/guide/moment" />
                     </Route>
                     <Route path={["/guide/moment/:type", "/guide/moment"]} component={GuideComponent.IntroComponent}/>
                     <Route exact path="/guide/user" component={GuideComponent.UserComponent}/>
+                    
                 </div>
                 
             </div>

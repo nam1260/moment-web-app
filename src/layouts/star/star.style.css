@@ -1,0 +1,164 @@
+.star-main {
+    font-family: 'AppleSDGothicNeo';
+    padding-bottom: 100px;
+}
+
+.star-main > section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.star-main > section > * {
+    padding: 0px 50px;
+}
+
+.app-star-header > .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.app-star-header > .container > div:nth-child(1) {
+    flex: 1;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.app-star-header > .container > div:nth-child(1) > span:nth-child(1) {
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -0.44px;
+    height: 58px;
+    line-height: 58px;
+}
+
+.app-star-header > .container > div:nth-child(1) > span:nth-child(2) {
+    font-size: 30px;
+    letter-spacing: -0.3px;
+    color: #8f8f8f;
+}
+
+.app-star-header > .container > div:nth-child(2) {
+    width: 140px;
+    height: 140px;
+    overflow: hidden;
+    border-radius: 140px;
+}
+
+.app-star-header > .container > div:nth-child(2) > img {
+    position: relative;
+    top:0px;
+    left:0px;
+}
+
+.app-star-body {
+    margin-top: 81px;
+} 
+
+.app-star-body > .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-star-body > .container > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-star-body > .container > div > span:nth-child(1) {
+    font-size: 28px;
+    letter-spacing: -0.3px;
+    color: #8f8f8f;
+}
+
+.app-star-body > .container > div > span:nth-child(2) {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.app-star-body > .container > button {
+    width: 100%;
+    height: 80px;
+    background-color: white;
+    border: 2px solid #ff723a;
+    color: #ff723a;
+    font-size: 28px;
+    font-weight: 500;
+    border-radius: 40px;
+    margin-top: 50px;
+}
+
+.app-star-body > .container > .introduce-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top:71px
+}
+
+.app-star-body > .container > .introduce-box > span {
+    font-size: 26px;
+    letter-spacing: -0.26px;
+    text-align: left;
+    color: #8f8f8f;
+    height: 26px;
+    line-height: 26px;
+    margin-bottom: 27px;
+}
+
+.app-star-body > .container > .introduce-box > div {
+    padding: 30px 29px;
+    white-space: pre-wrap;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    font-size: 28px;
+    line-height: 1.43;
+    letter-spacing: -0.28px;
+    width: 100%;
+}
+
+.app-star-bottom > .container > div:nth-child(1) {
+    margin-top: 70px;
+    font-size: 26px;
+    letter-spacing: -0.26px;
+    color: #8f8f8f;
+}
+
+.app-star-bottom > .container > div:nth-child(4) {
+    margin-top: 100px;
+    font-size: 28px;
+    line-height: 2.5;
+    letter-spacing: -0.28px;
+    text-align: center;
+    color: #2f3237;
+}
+
+.app-star-comment > .container {
+    position:relative;
+}
+
+.app-star-comment > .container > div:nth-child(1) {
+    font-size: 26px;
+    letter-spacing: -0.26px;
+    color: #8f8f8f;
+    margin-top:60px;
+}
+
+.app-star-comment > .container > button {
+    position: sticky;
+    bottom: 60px;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    background-color: #ff723a;
+    border-radius: 40px;
+    border:0px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+}
