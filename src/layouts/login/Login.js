@@ -6,9 +6,10 @@
  */
 
 import "./login.css";
+import "../popup/modalPopup.css";
 import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
-import { Modal } from "./Modal";
+import { Modal } from "../popup/ModalPopup";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const failIcon = "assets/icons/icoFace3@3x.png"

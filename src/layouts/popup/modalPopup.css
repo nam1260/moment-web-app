@@ -1,0 +1,121 @@
+main {
+    font-family: 'AppleSDGothicNeo';
+}
+
+/* modal popup */
+#portal .modalContainer {
+    font-family: 'AppleSDGothicNeo';
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.7);
+}
+.modalContainer .button_modal {
+    z-index: 1;
+    width: 650px;
+    height: 530px;
+    border-radius: 40px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: animate 0.3s;
+}
+.modalContainer .button_modal .info_container{
+    top: 0;
+    left: 0;
+    width: 650px;
+    height: 530px;
+}
+.modalContainer .button_modal .info_container > img {
+    margin: 50px 0px 32px 250px;
+    top: 45px;
+    left: 250px;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+.modalContainer .button_modal .info_container .title  {
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 650px;
+    font-family: "AppleSDGothicNeo";
+    font-size: min(6.5vw, 36px);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: center;
+    color: #000;
+}
+.modalContainer .button_modal .info_container .description {
+    display: inline-block;
+    width: 650px;
+    font-family: "AppleSDGothicNeo";
+    font-size: min(6.2vw, 28px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: -0.7px;
+    text-align: center;
+    color: #8f8f8f;
+}
+.button_modal .button_container {
+    position: absolute;
+    clear:left;
+    float:left;
+    left: 0px;
+    bottom: 0px;
+    width: 650px;
+    height: 110px;
+    font-family: 'AppleSDGothicNeo';
+    font-size: min(6.5vw, 34px);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.34px;
+}
+.button_modal .left_button {
+    width: 325px;
+    height: 110px;
+    background: #f0f0f0;
+    color: #444444;
+    border:none;
+    border-bottom-left-radius: 40px;
+}
+.button_modal .right_button {
+    width: 325px;
+    height: 110px;
+    position: absolute;
+    background: #ff723a;
+    color: #ffffff;
+    border:none;
+    border-bottom-right-radius: 40px;
+}
+.button_modal .center_button {
+    width: 650px;
+    height: 110px;
+    background: #ff723a;
+    color: #ffffff ;
+    border:none;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+@keyframes animate {
+    from {
+        transform: scale(0.5);
+    }
+    to {
+        transform: scale(1);
+    }
+}
