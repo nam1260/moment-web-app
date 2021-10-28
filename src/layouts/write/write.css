@@ -81,6 +81,11 @@
     letter-spacing: -0.26px;   
 }
 
+.app-write-body > .container > .write-wrapper > span {
+    font-size: 22px;
+    color: #ff723a
+}
+
 
 .app-write-body > .container > .write-wrapper > textarea {
     resize: none;
@@ -90,7 +95,11 @@
     background-color: #fafafa;
     height: 499px;
     padding:30px;
-    margin-top: 25px;
+    /* margin-top: 25px; */
+}
+
+.app-write-body > .container > .write-wrapper > textarea::placeholder {
+    font-size: 28px;
 }
 
 .app-write-body > .container > .write-wrapper > textarea:focus {
@@ -129,7 +138,7 @@
     padding-top:40px;
 }
 
-.write-main .modal-content > div:nth-child(2) {
+.write-main .modal-content.example-modal > div:nth-child(2) {
     font-size: 36px;
     font-weight: 500;
     letter-spacing: -0.36px;
@@ -139,7 +148,7 @@
     margin-bottom: 27px;
 }
 
-.write-main .modal-content > div:nth-child(3) {
+.write-main .modal-content.example-modal > div:nth-child(3) {
     font-size: 28px;
     line-height: 1.36;
     letter-spacing: -1.12px;
@@ -148,10 +157,10 @@
     margin-bottom: 51px;
 }
 
-.write-main .modal-content > div:nth-child(4) {
+.write-main .modal-content.example-modal > div:nth-child(4) {
     font-size: 28px;
     line-height: 1.36;
-  letter-spacing: -1.12px;
+    letter-spacing: -1.12px;
     text-align: center;
     color: #8f8f8f;
 }
@@ -161,6 +170,31 @@
     font-weight: 500;
     letter-spacing: -0.36px;
     margin-top:20px;
+}
+
+.write-main .modal-content.warning-modal {
+    padding-top: 70px;
+    padding-left: 20px;
+    padding-right: 20px;
+    white-space: pre-wrap;
+}
+
+.write-main .modal-content.warning-modal > div:nth-child(1) {
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.39;
+    letter-spacing: -0.36px;
+    text-align: center;
+    color: #000;
+    margin-bottom: 30px;
+}
+
+.write-main .modal-content.warning-modal > div:nth-child(2) {
+    font-size: 28px;
+    line-height: 1.36;
+    letter-spacing: -1.12px;
+    text-align: center;
+    color: #8f8f8f;
 }
 
 
@@ -234,17 +268,17 @@
         width: min(15vw, 150px)
     }
 
-    .write-main .modal-content > div:nth-child(2) {
+    .write-main .modal-content.example-modal > div:nth-child(2) {
         font-size: min(4vw, 36px);
         margin-bottom: min(4vw, 28px);
     }
     
-    .write-main .modal-content > div:nth-child(3) {
+    .write-main .modal-content.example-modal > div:nth-child(3) {
         font-size: min(3vw, 28px);
         margin-bottom: min(8vw, 28px);
     }
     
-    .write-main .modal-content > div:nth-child(4) {
+    .write-main .modal-content.example-modal > div:nth-child(4) {
         font-size: min(3vw, 28px);
     }
     
@@ -252,6 +286,21 @@
         font-size: min(4vw, 36px);
         margin-top:min(3vw, 20px);
     }
+
+    
+    .write-main .modal-content.warning-modal {
+        padding-top: min(5vw , 40px);
+    }
+
+    .write-main .modal-content.warning-modal > div:nth-child(1) {
+        font-size: min(4vw, 34px);
+        margin-bottom: min(4vw, 28px);
+    }
+
+    .write-main .modal-content.warning-modal > div:nth-child(2) {
+        font-size: min(3vw, 28px);
+    }
+
 
     
     .app-write-header > .container > h3 {
@@ -289,7 +338,11 @@
         border:1px solid #ddd;
         height: min(90vw, 499px);
         padding:min(5vw, 30px);
-        margin-top:  min(4vw, 25px);
+        /* margin-top:  min(4vw, 25px); */
+    }
+
+    .app-write-body > .container > .write-wrapper > textarea::placeholder {
+        font-size: min(4vw, 28px); 
     }
     
     .app-write-bottom {

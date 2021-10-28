@@ -2,8 +2,9 @@ import  './write.css'
 import WriteLabel from '../../shared/component/write/WriteLabel'
 import MomentDatePicker from '../../shared/component/write/MomentDatePicker';
 import MomentModal from '../../shared/component/common/modal';
-import { useState } from 'react';
 import SpeechBubble from '../../shared/component/write/SpeechBubble';
+
+import { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
@@ -11,9 +12,8 @@ const letterImage = "/assets/images/yhlee/icoLetter.png";
 const iconFace = "/assets/icons/icoFace6.png";
 
 
-const QuestionModalContent = (
-    
-        <div className='modal-content'>
+const ExampleModalContent = (    
+        <div className='modal-content example-modal'>
             <img alt="none" src={iconFace} />
             <div>
                 Tip! 스타에게 축하 받고 싶은 순간을 <br />
@@ -41,16 +41,108 @@ const LoadingModal = (
 )
 
 
+const Under100Modal = (
+    <div className='modal-content warning-modal'>
+        <div>죄송합니다.<br /> 사연 요청은 최소 100자 이상 작성해주세요.</div>
+        <div>
+            스타가 당신을 진심으로 축하해주기 위해 꼭 알아야 할 내용<br />
+            (축하 받을 사람의 이름, 축하 받을 사연, 축하 받을 이벤트의 날짜, 사연 요청자와의 관계)이
+            혹시 빠지지 않았는지 확인해주세요!
+        </div>
+    </div>
+)
+
+const Over300Modal = (
+    <div className='modal-content warning-modal'>
+        <div>죄송합니다.<br />사연 요청은 최소 100자, 최대 300자 이하로 작성해주세요.</div>
+        <div>
+            그래도 스타가 당신을 진심으로 축하해주기 위해 꼭 알아야할 내용
+            (축하 받을 사람의 이름, 축하 받을 사연, 축하 받을 이벤트의 날짜, 사연 요청자와의 관계)은
+            빠지지 않게 부탁해요!
+        </div>
+    </div>
+)
+
+
+
 const WriteComponent = () => {
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
     const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
+    const [isUnder100ModalOpen, setIsUnder100ModalOpen] = useState(false);
+    const [isOver300ModalOpen, setIsOver300ModalOpen] = useState(false);
+    const [count, setCount] = useState(0);
     const history = useHistory();
+    const textareaElement = useRef();
+    
+
+    const onKeyupCountStoryCharacter = (event) => {
+        try {
+            let story = event.target.value || ""
+            story = story.replace(/\s/gi, '')
+            setCount(story.length);
+        } catch(e) {
+
+        }
+        
+    }
+
+    const checkStoryValidation = () => {
+        try {
+            checkCharacterUnder100();
+            checkCharacterOver300();
+        } catch(e) {
+            switch(e.type) {
+                case 'under100': {
+                    setIsUnder100ModalOpen(true);
+                    break;
+                }
+                case 'over300': {
+                    setIsOver300ModalOpen(true);
+                    break;
+                }
+            }
+            throw new Error('유효성 체크 실패');
+        }
+        return true;
+    }
+
+    const checkCharacterUnder100 = () => {
+        if(count < 100) {
+            throw {
+                type: 'under100',
+                error: new Error('100자 이하 에러')
+            };
+        }
+    }
+
+    const checkCharacterOver300  = () => {
+        if(count > 300) {
+            throw {
+                type: 'over300',
+                error: new Error('300자 초과 에러')
+            };
+        }
+    }
+
+    const onClickSendStory = () => {
+        try {
+            checkStoryValidation();
+        } catch(e) {
+            return false;
+        }
+        setIsLoadingModalOpen(true); 
+        setTimeout(() => {
+            setIsLoadingModalOpen(false)
+            history.push('/writesuccess')
+        }, 1000)
+    }
+
     return (
         <main className='write-main'>
             <MomentModal
                 isOpen={isQuestionModalOpen}
                 confirmText={'확인'}
-                contentComponent={QuestionModalContent}
+                contentComponent={ExampleModalContent}
                 onClickHandlerConfirm={() => setIsQuestionModalOpen(false)}
                 width={650}
                 height={750}
@@ -61,6 +153,24 @@ const WriteComponent = () => {
                 contentComponent={LoadingModal}
                 width={650}
                 height={330}
+            />
+
+            <MomentModal
+                isOpen={isUnder100ModalOpen}
+                contentComponent={Under100Modal}
+                confirmText={'확인'}
+                onClickHandlerConfirm={() => setIsUnder100ModalOpen(false)}
+                width={650}
+                height={520}
+            />
+
+            <MomentModal
+                isOpen={isOver300ModalOpen}
+                contentComponent={Over300Modal}
+                confirmText={'확인'}
+                onClickHandlerConfirm={() => setIsOver300ModalOpen(false)}
+                width={650}
+                height={520}
             />
             
             <section className="app-write-header">
@@ -96,14 +206,8 @@ const WriteComponent = () => {
                     </div>
                     <div className="write-wrapper">
                         <div>사연 입력</div>
-                        <textarea>
-                            안녕하세요 김스타님,
-                            이번에 사연을 부탁하게 된 00에 사는 000 입니다.
-                            올해 제가 카페를 창업하게 됐는데요!
-
-                            카페 메인 스크린에 홍보할만한 영상 하나가
-                            필요합니다.
-                            저희 카페는....
+                        <span style={{float: 'right'}}>{count} / 300</span>
+                        <textarea onKeyUp={onKeyupCountStoryCharacter} ref={textareaElement} placeholder='사연을 입력해주세요!'>
                         </textarea>
                     </div>
 
@@ -112,13 +216,7 @@ const WriteComponent = () => {
             <section className="app-write-bottom">
                 <div className="container">
                     <div onClick={() => setIsQuestionModalOpen(true)}>어떻게 사연을 보내야 할지 모르시겠다구요?</div>
-                    <div onClick={() => { 
-                        setIsLoadingModalOpen(true); 
-                        setTimeout(() => {
-                            setIsLoadingModalOpen(false)
-                            history.push('/writesuccess')
-                        }, 1000)
-                    }}>
+                    <div onClick={onClickSendStory} >
                         결제하고 사연 전송하기!
                     </div>
                 </div>
