@@ -8,7 +8,7 @@
 import "./login.css";
 import React, { useState, useRef} from "react";
 import { useHistory } from 'react-router'; 
-import { Modal } from "./Modal";
+import { Modal } from "../popup/ModalPopup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 

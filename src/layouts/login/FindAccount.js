@@ -7,8 +7,8 @@
 
 import "./login.css";
 import React, { useState, useRef} from "react";
-import { useHistory } from 'react-router'; 
-import { Modal } from "./Modal";
+import { useHistory } from 'react-router';
+import { Modal } from "../popup/ModalPopup";
  
 const editPath = "assets/icons/list-ico-edit.png"
 export default function LoginComponent() {
