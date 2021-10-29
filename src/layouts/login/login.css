@@ -136,3 +136,38 @@ main {
     text-align: left;
     color: #8f8f8f;
 }
+.check-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+.check-options > div {
+    padding: 0px;
+}
+.check-options > div > span {
+    width: min(75vw, 750px);
+    height: min(9vw, 40px);
+    margin-bottom: min(2vw, 20px);
+    float: left;
+}
+.check-options > div > span > img {
+    width: min(9vw, 40px);
+    height: min(9vw, 40px);
+    object-fit: contain;
+    float: left;
+}
+.check-options > div > span > span {
+    font-size: min(4vw, 28px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: -0.28px;
+    text-align: left;
+    color: #8f8f8f;
+}
+.check-options > div > span > span.highlight {
+    color: #ff723a;
+}

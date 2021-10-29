@@ -13,6 +13,8 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 
 const editPath = "assets/icons/list-ico-edit.png"
+const checkOffPath = "assets/icons/check-off.svg"
+const checkOnPath = "assets/icons/check-on.svg"
  
 export default function LoginComponent() {
     const history = useHistory();
@@ -30,6 +32,7 @@ export default function LoginComponent() {
         setShowModal(true);
     };
  
+    const checkState = [false, false];
     const [inputs, setInputs] = useState({
         email: '',
         pw: '',
@@ -81,6 +84,7 @@ export default function LoginComponent() {
 
     const addAccount = ()=>{
         console.log('inputs =' + JSON.stringify(inputs));
+        // history.push('/termsAndCondition');
     } 
 
     const checkDuplecate = (type)=>{
@@ -270,6 +274,30 @@ export default function LoginComponent() {
                     </span>
                 </div>
             </section> 
+            <section className="check-options">
+                <div>
+                    <span>
+                        <img id="addAccountOption1Img" alt="none" src={checkState[0] ? checkOnPath : checkOffPath} onClick={()=>{
+                            console.log('개인정보');
+                            checkState[0] = !checkState[0];
+                            document.getElementById("addAccountOption1Img").src = checkState[0] ? checkOnPath : checkOffPath;
+                        }}/>
+                        <span class="highlight">개인정보처리방침</span>
+                        <span> 및 </span>                    
+                        <span class="highlight">서비스이용약관</span>
+                        <span>에 동의합니다.</span>
+                    </span>
+                    <br/>
+                    <span>
+                        <img id="addAccountOption2Img" alt="none" src={checkState[1] ? checkOnPath : checkOffPath} onClick={()=>{
+                            console.log('마케팅');
+                            checkState[1] = !checkState[1];
+                            document.getElementById("addAccountOption2Img").src = checkState[1] ? checkOnPath : checkOffPath;
+                        }}/>
+                        <span>제 3자 제공 및 마케팅 수신 동의 (선택)</span>
+                    </span>
+                </div>
+            </section>
             <section className="login-button">
                 <div>
                     <button onClick={addAccount}>
