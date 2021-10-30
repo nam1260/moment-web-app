@@ -9,8 +9,7 @@ const cameraPath = "assets/icons/ico-camera.svg"
 const thumPath = "assets/images/hskim/thum-160-px-1.png"
 
 
-export default function ModifyAccountComponent( { setIsOpenMypage }) {
-    const history = useHistory();
+export default function ModifyAccountComponent() {
     const userInfo = {
         id: "starkim@moment.com",
         pw: "test123",
@@ -69,7 +68,7 @@ export default function ModifyAccountComponent( { setIsOpenMypage }) {
                             </div>
                             <div className="thumbnail"> 
                                 <img className="thumbnail-img" alt="none" src={thumPath} />
-                                {/* <img className="thumbnail-icon" alt="none" src={cameraPath} /> */}
+                                <img className="thumbnail-icon" alt="none" src={cameraPath} />
                             </div>
                         </div>
                         <span>

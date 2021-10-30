@@ -137,7 +137,6 @@ main {
 .mypage-container > div > span > div.mypage-email{
     border: none;
 }
-
 .mypage-container > div > span > div.mypage-email > div {
     width: min(55vw, 440px);
     border-bottom: 2px solid #f0f0f0;
@@ -164,21 +163,25 @@ main {
     display: inline;
     bottom: 0;
     border: none;
+    position: fixed;
+    left: 70%;
+    top: 270px
 }
 .mypage-container > div > span > div.mypage-email > div.thumbnail > img.thumbnail-img {
     width: min(20vw, 160px);
     height: min(20vw, 160px);
     object-fit: contain;    
     border-radius: min(10vw, 80px);
+;
 }
 .mypage-container > div > span > div.mypage-email >  div.thumbnail > img.thumbnail-icon {
-    position: relative;
-    bottom: 0;
-    right: 0;
+    position: absolute;
     width: min(7vw, 50px);
     height: min(7vw, 50px);
     object-fit: contain;
-    float: right;
+    bottom: 0;
+    right: 0;
+    
 }
 .mypage-container > div > span > div > div > img {
     width: min(10vw, 44px);
@@ -186,6 +189,39 @@ main {
     object-fit: contain;
     float: right;
 }
+
+.mypage-container > div > span > div > .write-wrapper {
+    margin-top: 60px;
+}
+.mypage-container > div > span > div > .write-wrapper > div:first-child {
+    font-size: 26px;
+    color: #8f8f8f;
+    -webkit-letter-spacing: -0.26px;
+    -moz-letter-spacing: -0.26px;
+    -ms-letter-spacing: -0.26px;
+    letter-spacing: -0.26px;   
+}
+.mypage-container > div > span > div > .write-wrapper > span {
+    font-size: 22px;
+    color: #ff723a
+}
+.mypage-container > div > span > div > .write-wrapper > textarea {
+    resize: none;
+    width:100%;
+    font-size: 28px;
+    border:1px solid #ddd;
+    background-color: #fafafa;
+    height: 499px;
+    padding:30px;
+    /* margin-top: 25px; */
+}
+.mypage-container > div > span > div > .write-wrapper > textarea::placeholder {
+    font-size: 28px;
+}
+.mypage-container > div > span > div > .write-wrapper > textarea:focus {
+    outline: 2px solid #ff723a
+}
+
 
 .mypage-button {
     display: flex;
