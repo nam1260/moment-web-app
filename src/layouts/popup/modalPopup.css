@@ -119,3 +119,30 @@ main {
         transform: scale(1);
     }
 }
+
+.modalContainer .fullSize_modal {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+
+.modalContainer .fullSize_modal > .description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #ffffff;
+    margin-top: min(10vh, 60px);
+}
+
+.modalContainer .fullSize_modal > .description > div > span {
+    font-family: "AppleSDGothicNeo";
+    font-size: min(6.5vw, 32px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: -0.8px;
+    text-align: left;
+    color: var(--black);
+}

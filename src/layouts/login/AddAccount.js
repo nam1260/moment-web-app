@@ -1,11 +1,7 @@
-/**
- * Login.js
- * @author wook
- * @since 2021/09/06
- * description
- */
 
 import "./login.css";
+import "../popup/modalPopup.css";
+import "../header/header.css";
 import React, { useState, useRef} from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "../popup/ModalPopup";
@@ -15,8 +11,11 @@ import axios from "axios";
 const editPath = "assets/icons/list-ico-edit.png"
 const checkOffPath = "assets/icons/check-off.svg"
 const checkOnPath = "assets/icons/check-on.svg"
+
+const closeIcon = "/assets/icons/ico-close.png";
+const logoPath = '/assets/images/yhlee/logo.png'
  
-export default function LoginComponent() {
+export default function AddAccountComponent() {
     const history = useHistory();
     const userList = [
         {
@@ -32,6 +31,9 @@ export default function LoginComponent() {
         setShowModal(true);
     };
  
+    const IDX_TERMS = 0;
+    const IDX_COMMERCIAL = 1;
+
     const checkState = [false, false];
     const [inputs, setInputs] = useState({
         email: '',
@@ -84,7 +86,8 @@ export default function LoginComponent() {
 
     const addAccount = ()=>{
         console.log('inputs =' + JSON.stringify(inputs));
-        // history.push('/termsAndCondition');
+        // show term and condition 
+        openModal();
     } 
 
     const checkDuplecate = (type)=>{
@@ -95,9 +98,8 @@ export default function LoginComponent() {
 
         if(isDuplicate) {
             console.log('duplicate');
-            openModal();
+            // openModal();
         } else {
-            
         }
     } 
 
@@ -277,10 +279,10 @@ export default function LoginComponent() {
             <section className="check-options">
                 <div>
                     <span>
-                        <img id="addAccountOption1Img" alt="none" src={checkState[0] ? checkOnPath : checkOffPath} onClick={()=>{
+                        <img id="addAccountOption1Img" alt="none" src={checkState[IDX_TERMS] ? checkOnPath : checkOffPath} onClick={()=>{
                             console.log('개인정보');
-                            checkState[0] = !checkState[0];
-                            document.getElementById("addAccountOption1Img").src = checkState[0] ? checkOnPath : checkOffPath;
+                            checkState[IDX_TERMS] = !checkState[IDX_TERMS];
+                            document.getElementById("addAccountOption1Img").src = checkState[IDX_TERMS] ? checkOnPath : checkOffPath;
                         }}/>
                         <span class="highlight">개인정보처리방침</span>
                         <span> 및 </span>                    
@@ -289,10 +291,10 @@ export default function LoginComponent() {
                     </span>
                     <br/>
                     <span>
-                        <img id="addAccountOption2Img" alt="none" src={checkState[1] ? checkOnPath : checkOffPath} onClick={()=>{
+                        <img id="addAccountOption2Img" alt="none" src={checkState[IDX_COMMERCIAL] ? checkOnPath : checkOffPath} onClick={()=>{
                             console.log('마케팅');
-                            checkState[1] = !checkState[1];
-                            document.getElementById("addAccountOption2Img").src = checkState[1] ? checkOnPath : checkOffPath;
+                            checkState[IDX_COMMERCIAL] = !checkState[IDX_COMMERCIAL];
+                            document.getElementById("addAccountOption2Img").src = checkState[IDX_COMMERCIAL] ? checkOnPath : checkOffPath;
                         }}/>
                         <span>제 3자 제공 및 마케팅 수신 동의 (선택)</span>
                     </span>
@@ -303,7 +305,59 @@ export default function LoginComponent() {
                     <button onClick={addAccount}>
                         회원가입
                     </button>
-                    {showModal ? <Modal setShowModal={setShowModal} /> : null}
+                    {showModal ? 
+                        <Modal setShowModal={setShowModal}> 
+                            <div className="fullSize_modal">
+                                <div className="App-Header layout">
+                                    <div className="navigation-bar">
+                                        <div onClick={() => {setShowModal(false);}}>
+                                            <img alt="none" className={"top-icon"} src={closeIcon} />
+                                        </div>
+                                        <div>
+                                            <img alt="none" onClick={() => history.push('/')} className={'top-logo'} src={logoPath} />
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <section className="login-header">
+                                    <div className="container">
+                                        <span>서비스 이용약관</span>
+                                    </div>
+                                </section>
+                                <section className="description">
+                                    <div className="container">
+                                        <span>
+                                            총칙
+                                            <br/>
+                                            제 1 조(목적)
+                                            <br/>
+                                            이 약관은 모멘트(박재영) (이하 ”사업자”) 운영
+                                            인터넷사이트 모멘트(이하 “모멘트”)에서 제공하는
+                                            서비스 (이하 “서비스”) 이용에 있어 모멘트와
+                                            회원의 권리·의무 및 책임사항을 규정함을
+                                            목적으로 합니다.
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            제 2 조(정의)
+                                            <br/>
+                                            사업자가 운영하는 사이트는 아래와 같습니다.
+                                            <br/>
+                                            moment.com
+                                        </span>
+                                    </div>
+                                </section> 
+                                <section className="login-button">
+                                    <div>
+                                        <button onClick={() => history.push('/')}>
+                                            회원가입
+                                        </button>
+                                    </div>
+                                </section>
+                            </div>
+                        </Modal> : null
+                    }
                 </div>
             </section>
             <section className="login-options">
