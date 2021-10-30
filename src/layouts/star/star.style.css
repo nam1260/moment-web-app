@@ -162,3 +162,94 @@
     text-align: center;
     color: #fff;
 }
+
+@media (max-width: 750px) {
+    
+    .star-main > section > * {
+        padding: 0px min(5vw, 50px);
+    }
+    
+    
+    .app-star-header > .container > div:nth-child(1) > span:nth-child(1) {
+        font-size: min(7vw , 44px);
+        height: auto;
+        line-height: auto;
+    }
+    
+    .app-star-header > .container > div:nth-child(1) > span:nth-child(2) {
+        font-size: min(5vw , 30px);
+        letter-spacing: -0.3px;
+        color: #8f8f8f;
+    }
+    
+    .app-star-header > .container > div:nth-child(2) {
+        width: min(25vw, 140px);
+        height: min(25vw, 140px);
+        overflow: hidden;
+        border-radius: min(25vw, 140px);
+    }
+    
+
+    .app-star-body {
+        margin-top: min(10vw, 81px);
+    } 
+    
+
+    .app-star-body > .container > div > span:nth-child(1) {
+        font-size: min(5vw , 28px);
+    }
+    
+    .app-star-body > .container > div > span:nth-child(2) {
+        font-size: min(5vw , 28px);
+    }
+    
+    .app-star-body > .container > button {
+        height: min(15vw , 80px);
+        font-size: min(5vw , 28px);
+        margin-top: min(8vw , 50px);
+    }
+    
+    .app-star-body > .container > .introduce-box {
+        margin-top:min(10vw , 71px)
+    }
+    
+    .app-star-body > .container > .introduce-box > span {
+        font-size: min(5vw , 26px);
+        letter-spacing: -0.26px;
+        height: min(5vw , 26px);
+        line-height: min(5vw , 26px);
+        margin-bottom: min(5vw , 27px);
+    }
+    
+    .app-star-body > .container > .introduce-box > div {
+        padding: 30px 29px;
+        font-size: min(5vw , 28px);
+    }
+    
+    .app-star-bottom > .container > div:nth-child(1) {
+        margin-top: min(13vw , 70px);
+        font-size: min(5vw , 26px);
+    }
+    
+    .app-star-bottom > .container > div:nth-child(4) {
+        margin-top: min(15vw , 100px);
+        font-size: min(5vw , 28px);
+    }
+    
+    
+    .app-star-comment > .container > div:nth-child(1) {
+        font-size: min(5vw , 26px);
+        margin-top:min(10vw, 60px);
+    }
+    
+    .app-star-comment > .container > button {
+        position: sticky;
+        bottom: min(10vw, 60px);
+        height: min(15vw, 80px);
+        line-height: min(15vw, 80px);
+        border-radius: 40px;
+        font-size: min(5vw , 28px);
+    }
+
+
+}

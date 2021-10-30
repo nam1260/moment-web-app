@@ -54,6 +54,28 @@ const ItemBox = styled.div`
             background-color: rgba(143, 143, 143, 0.8);
         }
     }
+
+    @media (max-width: 750px) {
+        & > div:nth-child(2) {
+            margin-top:min(3vw, 15px);
+            & > span:nth-child(1) {
+                font-size: min(6vw, 32px);
+            }
+    
+            & > span:nth-child(2) {
+                min-width: min(12vw, 100px);
+                width: min(12vw, 100px);
+                height: min(12vw, 100px);
+                border-radius: min(12vw, 100px);
+            }
+            
+        }
+    
+        & > div:nth-child(3) {
+            font-size: min(5vw, 28px);
+        }
+
+    }
 `
 
 const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";

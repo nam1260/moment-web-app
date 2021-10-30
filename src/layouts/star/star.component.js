@@ -2,6 +2,7 @@ import './star.style.css';
 import StarRatingComponent from '../../shared/component/star/StarRating.component';
 import CommentOfFanComponent from '../../shared/component/star/CommentOfFan.component';
 import { useHistory } from 'react-router';
+import { useEffect } from 'react';
 
 const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
 const plusIcon = "/assets/icons/ico-plus.png"
@@ -9,6 +10,10 @@ const plusIcon = "/assets/icons/ico-plus.png"
 export default function StarComponent(props) {
     const history = useHistory();
     const { id : starId } = props.match.params
+
+    useEffect(() => {
+        document.documentElement.scrollTo({ top: 0, left: 0 }) 
+    }, [])
     return (
         <main className='star-main'>
             <section className="app-star-header">
@@ -42,7 +47,7 @@ export default function StarComponent(props) {
                             1일
                         </span>
                     </div>
-                    <button>
+                    <button onClick={() => { history.push('/write/2')}}>
                         사연 보내기
                     </button>
                     <div className="introduce-box">
@@ -65,8 +70,8 @@ export default function StarComponent(props) {
             <section className="app-star-bottom">
                 <div className="container">
                     <div>팬들이 남겨준 스타의 사연 소감이에요</div>
-                    <CommentOfFanComponent score={4.2} comment={'화질이 조금 깨졌지만 영상 너무좋았습니다.\n감사합니다!'} />
-                    <CommentOfFanComponent score={3.2} comment={'화질이 조금 깨졌지만 영상 너무좋았습니다.\n감사합니다!'} />
+                    <CommentOfFanComponent score={4.2} comment={'화질이 조금 깨졌지만 영상 너무좋았습니다. 감사합니다!'} />
+                    <CommentOfFanComponent score={3.2} comment={'화질이 조금 깨졌지만 영상 너무좋았습니다. 감사합니다!'} />
                     <div onClick={() => history.push(`${starId}/comment`)}> 사연 더보기 <img src={plusIcon} alt="none" /> </div>
                 </div>
             </section>
