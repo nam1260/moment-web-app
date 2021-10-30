@@ -12,6 +12,11 @@ import AddAccount from './layouts/login/AddAccount';
 import FindAccount from './layouts/login/FindAccount';
 import FindPassword from './layouts/login/FindPassword';
 import ModifyAccount from './layouts/mypage/ModifyAccount';
+import ReceiveMessageHistory from './layouts/mypage/ReceiveMessageHistory';
+import SendMessageHistory from './layouts/mypage/SendMessageHistory';
+import StarProfile from './layouts/mypage/StarProfile';
+import StarRegister from './layouts/mypage/StarRegister';
+import StarRegisterHistory from './layouts/mypage/StarRegisterHistory';
 import SideMenu from './layouts/sidemenu/SideMenu';
 import GuideComponent from './layouts/guide/Guide';
 // import Amplify from 'aws-amplify';
@@ -51,6 +56,11 @@ function App() {
                 <Route exact path="/findAccount" component={FindAccount} />
                 <Route exact path="/findPassword" component={FindPassword} />
                 <Route exact path="/modifyAccount" component={ModifyAccount} />
+                <Route exact path="/receiveMessageHistory" component={ReceiveMessageHistory} />
+                <Route exact path="/sendMessageHistory" component={SendMessageHistory} />
+                <Route exact path="/starProfile" component={StarProfile} />
+                <Route exact path="/starRegister" component={StarRegister} />
+                <Route exact path="/starRegisterHistory" component={StarRegisterHistory} />
                 <SideMenu isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
                 <div className="App-main layout">
                     <Route exact path="/" component={Home}/>

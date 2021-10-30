@@ -2,13 +2,14 @@
 import "./mypage.css";
 import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
+import MypageHeader from './MypageHeader';
 
 const editPath = "assets/icons/list-ico-edit.png"
 const cameraPath = "assets/icons/ico-camera.svg"
 const thumPath = "assets/images/hskim/thum-160-px-1.png"
 
 
-export default function ModifyAccountComponent() {
+export default function ModifyAccountComponent( { setIsOpenMypage }) {
     const history = useHistory();
     const userInfo = {
         id: "starkim@moment.com",
@@ -49,8 +50,8 @@ export default function ModifyAccountComponent() {
     };
  
     return (
-
         <main>
+            <MypageHeader index={0}/>
             <section className="mypage-header">
                 <div>
                     <span>회원 정보 수정</span>
@@ -68,7 +69,7 @@ export default function ModifyAccountComponent() {
                             </div>
                             <div className="thumbnail"> 
                                 <img className="thumbnail-img" alt="none" src={thumPath} />
-                                <img className="thumbnail-icon" alt="none" src={cameraPath} />
+                                {/* <img className="thumbnail-icon" alt="none" src={cameraPath} /> */}
                             </div>
                         </div>
                         <span>
