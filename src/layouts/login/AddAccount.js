@@ -30,11 +30,17 @@ export default function AddAccountComponent() {
     const openModal = () => {
         setShowModal(true);
     };
- 
-    const IDX_TERMS = 0;
-    const IDX_COMMERCIAL = 1;
 
-    const checkState = [false, false];
+    const [isTerms, setToggleTerms] = useState(false);
+    const toggleTerms = () => {
+        setToggleTerms(isTerms => !isTerms);
+    }
+
+    const [isCommercial, setToggleCommercial] = useState(false); 
+    const toggleCommercial = () => {
+        setToggleCommercial(isCommercial => !isCommercial);
+    }
+
     const [inputs, setInputs] = useState({
         email: '',
         pw: '',
@@ -279,10 +285,9 @@ export default function AddAccountComponent() {
             <section className="check-options">
                 <div>
                     <span>
-                        <img id="addAccountOption1Img" alt="none" src={checkState[IDX_TERMS] ? checkOnPath : checkOffPath} onClick={()=>{
+                        <img alt="none" src={isTerms ? checkOnPath : checkOffPath} onClick={()=>{
                             console.log('개인정보');
-                            checkState[IDX_TERMS] = !checkState[IDX_TERMS];
-                            document.getElementById("addAccountOption1Img").src = checkState[IDX_TERMS] ? checkOnPath : checkOffPath;
+                            toggleTerms();
                         }}/>
                         <span class="highlight">개인정보처리방침</span>
                         <span> 및 </span>                    
@@ -291,10 +296,9 @@ export default function AddAccountComponent() {
                     </span>
                     <br/>
                     <span>
-                        <img id="addAccountOption2Img" alt="none" src={checkState[IDX_COMMERCIAL] ? checkOnPath : checkOffPath} onClick={()=>{
+                        <img alt="none" src={isCommercial ? checkOnPath : checkOffPath} onClick={()=>{
                             console.log('마케팅');
-                            checkState[IDX_COMMERCIAL] = !checkState[IDX_COMMERCIAL];
-                            document.getElementById("addAccountOption2Img").src = checkState[IDX_COMMERCIAL] ? checkOnPath : checkOffPath;
+                            toggleCommercial();
                         }}/>
                         <span>제 3자 제공 및 마케팅 수신 동의 (선택)</span>
                     </span>
