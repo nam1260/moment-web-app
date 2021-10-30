@@ -1,0 +1,221 @@
+main {
+    font-family: 'AppleSDGothicNeo';
+}
+.mypage-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #ffffff;
+    margin-top: min(1vh, 60px);     
+    max-width: 100%;
+}
+
+.mypage-header > div > span {
+    display: inline-block;
+    margin-left: min(1vw, 50px);
+    height: 39px;
+    font-size: min(6.5vw, 44px);
+    font-family: 'AppleSDGothicNeoB';
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.36;
+    letter-spacing: -1.1px;
+    text-align: left;
+    color: var(--black);
+    width: min(70vw, 650px);
+}
+
+.mypage-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* height: 260px; */
+    align-items: center;
+    margin-top: min(4vh, 50px);
+    margin-bottom: min(5vh, 60px);
+}
+
+
+.mypage-container > div {
+    margin-left: min(6.7vw, 50px);
+    padding: 0px;
+}
+
+.mypage-container > div > span {
+    width: min(90vw, 239px);
+}
+
+.mypage-container > div > span > span {
+    margin-top: min(0.9vh, 60px);
+    width: min(90vw, 239px);
+    height: min(9vw, 53px);
+    font-size: min(4vw, 26px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.26px;
+    text-align: left;
+    color: #8f8f8f;
+}
+
+.mypage-container > div > span > div {
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: min(2vw, 20px);
+}
+    
+.mypage-container > div > span > div > input {
+    width: min(70vw, 650px);
+    height: min(10vw, 60px);
+    font-size: min(4vw, 36px);
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #101010;
+    border:none;
+}
+.mypage-container > div > span > div.nickname > div{
+    width: min(70vw, 650px);
+    height: min(10vw, 60px);
+    font-size: min(4vw, 36px);
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #101010;
+    border:none;
+}
+.mypage-container > div > span > div > input::placeholder {
+    opacity: 0.3;
+    color: rgba(16, 16, 16, 0.3);
+}
+.mypage-container > div > span > div > input::-webkit-outer-spin-button,
+.mypage-container > div > span > div > input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.mypage-container > div > span > div > span {
+    font-family: 'AppleSDGothicNeo';
+    font-size: min(4vw, 28px);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    text-align: right;
+    color: #ff723a;
+}
+.mypage-container > div > span > div > img {
+    width: min(10vw, 44px);
+    height: min(10vw, 44px);
+    object-fit: contain;
+    float: right;
+}
+
+.mypage-container > div > span > div.mypage-email{
+    border: none;
+}
+
+.mypage-container > div > span > div.mypage-email > div {
+    width: min(100vw, 440px);
+    border-bottom: 2px solid #f0f0f0;
+    display: inline-block;
+}
+.mypage-container > div > span > div.mypage-email > div > div {
+    width: min(70vw, 650px);
+    height: min(10vw, 60px);
+    font-size: min(4vw, 36px);
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #101010;
+    border:none;
+}
+.mypage-container > div > span > div.mypage-email > div.thumbnail {
+    width: min(20vw, 160px);
+    height: min(20vw, 160px);
+    object-fit: contain;
+    /* float: right; */
+    display: inline;
+    bottom: 0;
+    border: none;
+}
+.mypage-container > div > span > div.mypage-email > div.thumbnail > img.thumbnail-img {
+    width: min(20vw, 160px);
+    height: min(20vw, 160px);
+    object-fit: contain;    
+    border-radius: min(10vw, 80px);
+}
+.mypage-container > div > span > div.mypage-email >  div.thumbnail > img.thumbnail-icon {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    width: min(7vw, 50px);
+    height: min(7vw, 50px);
+    object-fit: contain;
+    float: right;
+}
+.mypage-container > div > span > div > div > img {
+    width: min(10vw, 44px);
+    height: min(10vw, 44px);
+    object-fit: contain;
+    float: right;
+}
+
+.mypage-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    margin-bottom: min(6vw, 60px);
+}
+.mypage-button > div > button {
+    height: min(15vw, 110px);
+    width: min(35vw, 320px);
+    font-size: min(6.5vw, 32px);
+    color: #ffffff;
+    text-align: center;
+    border-radius: 55px;
+    background-color: #ff723a;
+    border : none;
+}
+.mypage-button > div > button.cancel-button {
+    color: #444444;
+    background-color: #ffffff;
+    margin-right: min(1vh, 10px);
+    border : 2px #e9e9e9 solid  ;
+}
+.mypage-button > div > button.detail-button {
+    color: #ff723a;
+    text-align: center;
+    border-radius: 55px;
+    background-color: #ffffff;
+    border : 2px #ff723a solid;
+}
+.mypage-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.mypage-options > div > a {
+    display:inline;
+    font-size: min(3.5vw, 28px);
+    margin-right: min(3.5vw, 20px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: -0.28px;
+    text-align: left;
+    color: #8f8f8f;
+}
