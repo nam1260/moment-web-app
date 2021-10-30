@@ -163,7 +163,7 @@ main {
     display: inline;
     bottom: 0;
     border: none;
-    position: fixed;
+    position: absolute;
     left: 70%;
     top: 270px
 }
