@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TabsComponent from '../../shared/component/guide/Tabs';
 import FaqComponent from './section/Faq'
 import UserGuideComponent from './section/UserGuide'
@@ -9,6 +9,7 @@ import  './guide.css'
 
 const IntroComponent = ({ match: { params: { type = 1 } } }) => {
     const [part, setPart] = useState(type - 1);
+
     return (
         <section className="introduction-wrapper">
             <div className="container">
@@ -26,6 +27,7 @@ const IntroComponent = ({ match: { params: { type = 1 } } }) => {
 
 const UserComponent = () => {
     const [part, setPart] = useState(0)
+
     return (
         <section className="introduction-wrapper">
             <div className="container">
@@ -41,9 +43,23 @@ const UserComponent = () => {
     )
 }
 
+const ScrollTopComponent = (WrapComponent) => {
+
+    return class extends React.Component {
+        constructor(props) {
+            super(props)
+            document.documentElement.scrollTo({ top: 0, left: 0 }) 
+        }
+
+        render() {
+            return <WrapComponent {...this.props}/>
+        }
+    }
+}
+
 const GuideComponent = {
-    IntroComponent,
-    UserComponent
+    IntroComponent: ScrollTopComponent(IntroComponent),
+    UserComponent: ScrollTopComponent(UserComponent)
 }
 
 export default GuideComponent

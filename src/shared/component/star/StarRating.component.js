@@ -15,6 +15,13 @@ const StarWrapper = styled.div`
         font-size: 28px;
         font-weight: bold;
     }
+
+    @media (max-width: 750px) {
+        & > span {
+            line-height: min(5vw, 28px);
+            font-size: min(5vw, 28px);
+        }
+    }
 `
 
 const StarElement = styled.img.attrs((props) => ({
@@ -23,6 +30,13 @@ const StarElement = styled.img.attrs((props) => ({
 }))`
     width:23px;
     height:23px;
+
+    @media (max-width: 750px) {
+        & > span {
+            width:min(5vw, 23px);
+            height:min(5vw, 23px);
+        }
+    }
 `
 
 const TOTAL_RATING = 5;

@@ -9,7 +9,7 @@ export default function StarCommentListComponent() {
     const comments = Array(10).fill('').map((x) => 
         <CommentOfFanComponent 
             score={3.2}
-            comment={'화질이 조금 깨졌지만 영상 너무좋았습니다.\n감사합니다!'} 
+            comment={'화질이 조금 깨졌지만 영상 너무좋았습니다. 감사합니다!'} 
         />
     )
 

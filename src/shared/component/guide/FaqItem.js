@@ -2,8 +2,8 @@ import { useState } from "react"
 import styled from "styled-components"
 
 
-const downArrow = "/assets/icons/list-ico-open.png"
-const upArrow = "/assets/icons/list-ico-close.png"
+const upArrow = "/assets/icons/list-ico-open.png"
+const downArrow = "/assets/icons/list-ico-close.png"
 
 const Item = styled.div`
     display:flex;

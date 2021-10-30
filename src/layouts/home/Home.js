@@ -63,21 +63,21 @@ function Home() {
                         <span>모먼트 TOP STAR</span>
                     </h3>
                     <div>
-                        <article>
+                        <article onClick={() => history.push('star/1')}>
                             <img alt="none" src={homeThum1_1} />
                             <div>
                                 <b>지수</b>
                                 <p>가수, 탤런트</p>
                             </div>
                         </article>
-                        <article>
+                        <article onClick={() => history.push('star/1')}>
                             <img alt="none" src={homeThum1_2} />
                             <div>
                                 <b>지수</b>
                                 <p>가수, 탤런트</p>
                             </div>
                         </article>
-                        <article>
+                        <article onClick={() => history.push('star/1')}>
                             <img alt="none" src={dummyIcon} />
                             <div>
                                 <b>아이유</b>
@@ -101,7 +101,7 @@ function Home() {
                         <span>지금 핫한 SNS 셀럽</span>
                     </h3>
                     <div>
-                        <article>
+                        <article onClick={() => history.push('star/1')}>
                             <div className={"img-content"}>
                                 <img alt="none" src={homeThum2_1} />
                             </div>
@@ -110,7 +110,7 @@ function Home() {
                                 <span>유투버</span>
                             </div>
                         </article>
-                        <article>
+                        <article onClick={() => history.push('star/1')}>
                             <div className={"img-content"}>
                                 <img alt="none" src={homeThum2_2} />
                             </div>
@@ -119,7 +119,7 @@ function Home() {
                                 <span>유투버</span>
                             </div>
                         </article>
-                        <article>
+                        <article onClick={() => history.push('star/1')}>
                             <div className={"img-content"}>
                                 <img alt="none" src={homeThum2_3} />
                             </div>
@@ -128,7 +128,7 @@ function Home() {
                                 <span>유투버</span>
                             </div>
                         </article>
-                        <article>
+                        <article onClick={() => history.push('star/1')}>
                             <div className={"img-content"}>
                                 <img alt="none" src={homeThum2_4} />
                             </div>
@@ -152,7 +152,7 @@ function Home() {
                             <div>
                                 <span>모먼트가 무엇인가요?</span>
                                 <span>모먼트는 네모 네모<br />테스트 문구</span>
-                                <span>모먼트 소개 <img alt="none" src={moveArrowPath} />{" "} </span>
+                                <span onClick={() => history.push('guide/moment')}>모먼트 소개 <img alt="none" src={moveArrowPath} />{" "} </span>
                             </div>
                         </div>
                         <div className="description-card">
@@ -160,7 +160,7 @@ function Home() {
                             <div>
                                 <span>모먼트가 무엇인가요?</span>
                                 <span>모먼트 이용가이드<br />테스트 문구</span>
-                                <span>이용 가이드 <img alt="none" src={moveArrowPath} />{" "} </span>
+                                <span onClick={() => history.push('guide/user')} >이용 가이드 <img alt="none" src={moveArrowPath} />{" "} </span>
                             </div>
                         </div>
                     </div>
