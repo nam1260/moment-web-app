@@ -1,0 +1,388 @@
+main {
+    font-family: 'AppleSDGothicNeo';
+}
+.mypage-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #ffffff;
+    margin-top: min(1vh, 60px);     
+    max-width: 100%;
+}
+
+.mypage-header > div > span {
+    display: inline-block;
+    margin-left: min(10vw, 50px);
+    height: 39px;
+    font-size: min(6.5vw, 44px);
+    font-family: 'AppleSDGothicNeoB';
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.36;
+    letter-spacing: -1.1px;
+    text-align: left;
+    color: var(--black);
+    width: min(70vw, 650px);
+}
+
+.mypage-header > div > span.subtitle {
+    display: inline-block;
+    margin-left: min(10vw, 50px);
+    margin-top: min(3vw, 30px);
+    height: 39px;
+    font-family: 'AppleSDGothicNeoB';
+    font-size: min(5vw, 30px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: -0.75px;
+    text-align: left;
+    color: #444;
+    width: min(70vw, 650px);
+}
+
+.mypage-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* height: 260px; */
+    align-items: center;
+    margin-top: min(4vh, 50px);
+    margin-bottom: min(5vh, 60px);
+}
+
+
+.mypage-container > div {
+    margin-left: min(6.7vw, 50px);
+    padding: 0px;
+}
+
+.mypage-container > div > span {
+    width: min(90vw, 239px);
+}
+
+.mypage-container > div > span > span {
+    margin-top: min(0.9vh, 60px);
+    width: min(90vw, 239px);
+    height: min(9vw, 53px);
+    font-size: min(4vw, 26px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.26px;
+    text-align: left;
+    color: #8f8f8f;
+}
+
+.mypage-container > div > span > div {
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: min(2vw, 20px);
+}
+    
+.mypage-container > div > span > div > input {
+    width: min(70vw, 650px);
+    height: min(10vw, 60px);
+    font-size: min(4vw, 36px);
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #101010;
+    border:none;
+}
+.mypage-container > div > span > div.nickname > div{
+    width: min(70vw, 650px);
+    height: min(10vw, 60px);
+    font-size: min(4vw, 36px);
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #101010;
+    border:none;
+}
+.mypage-container > div > span > div > input::placeholder {
+    opacity: 0.3;
+    color: rgba(16, 16, 16, 0.3);
+}
+.mypage-container > div > span > div > input::-webkit-outer-spin-button,
+.mypage-container > div > span > div > input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.mypage-container > div > span > div > span {
+    font-family: 'AppleSDGothicNeo';
+    font-size: min(4vw, 28px);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    text-align: right;
+    color: #ff723a;
+}
+.mypage-container > div > span > div > img {
+    width: min(10vw, 44px);
+    height: min(10vw, 44px);
+    object-fit: contain;
+    float: right;
+}
+
+.mypage-container > div > span > div.mypage-email{
+    border: none;
+}
+.mypage-container > div > span > div.mypage-email > div {
+    width: min(55vw, 440px);
+    border-bottom: 2px solid #f0f0f0;
+    display: inline-block;
+}
+.mypage-container > div > span > div.mypage-email > div > div {
+    width: min(70vw, 650px);
+    height: min(10vw, 60px);
+    font-size: min(4vw, 36px);
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #101010;
+    border:none;
+}
+.mypage-container > div > span > div.mypage-email > div.thumbnail {
+    width: min(20vw, 160px);
+    height: min(20vw, 160px);
+    object-fit: contain;
+    /* float: right; */
+    display: inline;
+    bottom: 0;
+    border: none;
+    position: absolute;
+    left: 70%;
+    top: 270px
+}
+.mypage-container > div > span > div.mypage-email > div.thumbnail > img.thumbnail-img {
+    width: min(20vw, 160px);
+    height: min(20vw, 160px);
+    object-fit: contain;    
+    border-radius: min(10vw, 80px);
+;
+}
+.mypage-container > div > span > div.mypage-email >  div.thumbnail > img.thumbnail-icon {
+    position: absolute;
+    width: min(7vw, 50px);
+    height: min(7vw, 50px);
+    object-fit: contain;
+    bottom: 0;
+    right: 0;
+    
+}
+.mypage-container > div > span > div > div > img {
+    width: min(10vw, 44px);
+    height: min(10vw, 44px);
+    object-fit: contain;
+    float: right;
+}
+
+.mypage-container > div > span > div > .write-wrapper {
+    margin-top: 60px;
+}
+.mypage-container > div > span > div > .write-wrapper > div:first-child {
+    font-size: 26px;
+    color: #8f8f8f;
+    -webkit-letter-spacing: -0.26px;
+    -moz-letter-spacing: -0.26px;
+    -ms-letter-spacing: -0.26px;
+    letter-spacing: -0.26px;   
+}
+.mypage-container > div > span > div > .write-wrapper > span {
+    font-size: 22px;
+    color: #ff723a
+}
+.mypage-container > div > span > div > .write-wrapper > textarea {
+    resize: none;
+    width:100%;
+    font-size: 28px;
+    border:1px solid #ddd;
+    background-color: #fafafa;
+    height: 499px;
+    padding:30px;
+    /* margin-top: 25px; */
+}
+.mypage-container > div > span > div > .write-wrapper > textarea::placeholder {
+    font-size: 28px;
+}
+.mypage-container > div > span > div > .write-wrapper > textarea:focus {
+    outline: 2px solid #ff723a
+}
+
+.mypage-container > div.messageList{
+    width: min(70vw, 650px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+}
+/* .mypage-container > div.messageList > div{
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+} */
+.mypage-container > div.messageList > div > .border{
+    width: min(70vw, 650px);
+    height: 1px;
+    outline: 1px solid #f9f9f9;
+    margin-bottom: min(10vw , 39px);
+}
+.mypage-container > div.messageList > div > .id{
+    display: block;
+    font-size: min(6vw , 26px);
+    letter-spacing: -0.65px;
+    text-align: left;
+    color: #ff723a;
+    margin-bottom: min(7vw , 31px);
+}
+.mypage-container > div.messageList > div > .title{
+    display: block;
+    font-size: min(9vw , 38px);
+    font-weight: bold;
+    letter-spacing: -0.95px;
+    text-align: left;
+    color: #000000;
+    margin-bottom: min(3.5vw , 19px);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mypage-container > div.messageList > div > .description{
+    display: block;
+    font-size: min(7vw , 30px);
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: -0.75px;
+    text-align: left;
+    color: #444444;
+    margin-bottom: min(10vw , 39px);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mypage-container > div.messageList > div > .info{
+    display: block;
+    font-size: min(6vw , 26px);
+    line-height: 1.54;
+    letter-spacing: -0.65px;
+    text-align: left;
+    color: #8f8f8f;
+}
+.mypage-container > div.messageList > div > .info > b{
+    font-weight: 500;
+    text-align: right;
+    color: #101010;
+    float: right;
+}
+.mypage-container > div.messageList > div > .info > b.highlight{
+    font-weight: bold;
+}
+.mypage-container > div.messageList > div > div.messageButton {
+    display: block;
+    width: min(70vw, 650px);
+    margin-top: min(4vw, 50px);
+    margin-bottom: min(4vw, 50px);
+}
+.mypage-container > div.messageList > div > div.messageButton > button{
+    width: min(33.5vw, 320px);
+    height: min(13vw, 80px);
+    border-radius: min(10vw, 40px);
+    border: solid 2px #e9e9e9;
+    background-color: #fff;
+    font-size: min(6vw , 28px);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #444444;
+    margin-right: min(0.2vw , 5px);
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mypage-container > div.messageList > div > div.messageButton > button.full{
+    width: min(70vw, 650px);
+    border: solid 2px #e9e9e9;
+}
+.mypage-container > div.messageList > div > div.messageButton > button.highlight{
+    border-color: #ff723a;
+    color: #ff723a;
+}
+.mypage-container > div.messageList > div > div.messageButton > button.third{
+    width: min(22vw, 206px);
+}
+.mypage-container > div.messageList > div > div.messageButton > button.fill{
+    border-color: #ff723a;
+    background-color: #ff723a;
+    color: #ffffff;
+}
+
+
+.mypage-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    margin-bottom: min(6vw, 60px);
+}
+.mypage-button > div > button {
+    height: min(15vw, 110px);
+    width: min(35vw, 320px);
+    font-size: min(6.5vw, 32px);
+    color: #ffffff;
+    text-align: center;
+    border-radius: 55px;
+    background-color: #ff723a;
+    border : none;
+}
+.mypage-button > div > button.cancel-button {
+    color: #444444;
+    background-color: #ffffff;
+    margin-right: min(1vh, 10px);
+    border : 2px #e9e9e9 solid  ;
+}
+.mypage-button > div > button.detail-button {
+    color: #ff723a;
+    text-align: center;
+    border-radius: 55px;
+    background-color: #ffffff;
+    border : 2px #ff723a solid;
+}
+.mypage-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.mypage-options > div > a {
+    display:inline;
+    font-size: min(3.5vw, 28px);
+    margin-right: min(3.5vw, 20px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: -0.28px;
+    text-align: left;
+    color: #8f8f8f;
+}

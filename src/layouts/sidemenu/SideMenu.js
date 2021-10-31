@@ -20,21 +20,21 @@ export default function SideMenu({ isOpen, setIsMenuOpen }) {
     return (
         <div className={`side-menu ${isOpen && 'open'}`}>
             <div className="close-icon-box">
-                <img src={closeIcon} onClick={() => setIsMenuOpen(false)} />
+                <img alt="none" src={closeIcon} onClick={() => setIsMenuOpen(false)} />
             </div>
             <div className="side-menu-title">
                 <span>
                     모먼트는<br />처음이신가요?
                 </span>
             </div>
-            <span className="now-start-comment">지금 시작해 보세요 <img src={nextIcon} /> </span>
+            <span className="now-start-comment">지금 시작해 보세요 <img alt="none" src={nextIcon} /> </span>
             <ul className="menu-list">
                 <li onClick={() => movePage('/login')} >로그인하기</li>
                 <li onClick={() => movePage('/guide/moment/1')} >모먼트 소개</li>
                 <li onClick={() => movePage('/guide/user')} >서비스 이용가이드</li>
                 <li onClick={() => movePage('/guide/moment/2')} >자주 묻는 질문</li>
             </ul>
-            <img className="side-menu-logo" src={logoPath} />
+            <img alt="none" className="side-menu-logo" src={logoPath} />
         </div>
     )
 }

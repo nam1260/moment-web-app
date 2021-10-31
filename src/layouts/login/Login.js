@@ -6,9 +6,10 @@
  */
 
 import "./login.css";
+import "../popup/modalPopup.css";
 import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
-import { Modal } from "./Modal";
+import { Modal } from "../popup/ModalPopup";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const failIcon = "assets/icons/icoFace3@3x.png"
@@ -92,7 +93,7 @@ export default function LoginComponent() {
                                 value={id}
                                 name="id"
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             비밀번호 입력
@@ -104,7 +105,7 @@ export default function LoginComponent() {
                                 value={pw}
                                 name="pw"
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                     </span>
                 </div>
@@ -118,7 +119,7 @@ export default function LoginComponent() {
                     <Modal setShowModal={setShowModal}> 
                         <div className="button_modal">
                             <div className="info_container">
-                                <img src={failIcon} />
+                                <img alt="none" src={failIcon} />
                                 <span className="title">일치하는 계정 정보가 없습니다.</span>
                                 <br/>
                                 <span className="description">입력하신 ID와 비밀번호가 올바른지 </span>

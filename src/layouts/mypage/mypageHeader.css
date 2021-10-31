@@ -1,0 +1,66 @@
+main {
+    font-family: 'AppleSDGothicNeo';
+}
+.mypage-Header {
+    height:0;
+    display: flex;
+    z-index: 1;
+    justify-content: center;
+    font-size: 1.5em;
+    visibility: hidden;
+}
+.mypage-Header.show {
+    height: 100px;
+    visibility: visible;
+}
+
+.mypage-Header > .navigation-bar {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 0px 50px;
+    background-color: #fbfbfb;
+    border-top: 2px #f0f0f0;;
+    overflow: auto;
+    white-space: nowrap;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.mypage-Header > .navigation-bar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+.mypage-Header > .navigation-bar > div {
+    display: flex;
+    width: 180px;
+    height: 100px;
+    align-items: center;
+    flex:1;
+    justify-content: center;
+    padding: 0px 25px;
+    
+    font-size: min(3.5vw, 28px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    text-align: left;
+    color: #333333;
+}
+
+.mypage-Header > .navigation-bar > div.selected {
+    font-weight: bold;
+    color: #101010;
+    border-bottom: 3px solid #101010;
+}
+
+@media (max-width: 750px) {
+    .mypage-Header > .navigation-bar {
+        padding: 0 4vw
+    }
+    .mypage-Header > .navigation-bar > div {
+        padding: 0 4vw
+    }
+}

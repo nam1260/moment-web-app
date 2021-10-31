@@ -7,8 +7,8 @@
 
 import "./login.css";
 import React, { useState, useRef} from "react";
-import { useHistory } from 'react-router'; 
-import { Modal } from "./Modal";
+import { useHistory } from 'react-router';
+import { Modal } from "../popup/ModalPopup";
  
 const editPath = "assets/icons/list-ico-edit.png"
 export default function LoginComponent() {
@@ -58,7 +58,7 @@ export default function LoginComponent() {
                                 name="nickname"
                                 value={nickname}
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             휴대폰 번호 (숫자만)
@@ -71,7 +71,7 @@ export default function LoginComponent() {
                                 name="phoneNumber"
                                 value={phoneNumber}
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                     </span>
                 </div>

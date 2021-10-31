@@ -6,13 +6,13 @@ main {
     flex-direction: row;
     justify-content: center;
     background-color: #ffffff;
-    margin-top: 60px;
+    margin-top: min(1vh, 60px);
 }
 
 .login-header > div > span {
-    margin-left: min(6.7vw, 50px);
+    margin-left: min(10vw, 50px);
     height: 39px;
-    font-size: 44px;
+    font-size: min(6.5vw, 44px);
     font-family: 'AppleSDGothicNeoB';
     font-weight: 800;
     font-stretch: normal;
@@ -29,23 +29,25 @@ main {
     justify-content: center;
     /* height: 260px; */
     align-items: center;
-    margin: 60px 0px 50px 0px;
+    margin-top: min(4vh, 50px);
+    margin-bottom: min(5vh, 60px);
 }
 
 
 .login-container > div {
     margin-left: min(6.7vw, 50px);
+    padding: 0px;
 }
 
 .login-container > div > span {
-    width: 239px;
+    width: min(90vw, 239px);
 }
 
 .login-container > div > span > span {
-    margin-top: 50px;
-    width: 239px;
-    height: 53px;
-    font-size: 26px;
+    margin-top: min(0.9vh, 60px);
+    width: min(90vw, 239px);
+    height: min(9vw, 53px);
+    font-size: min(4vw, 26px);
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -57,12 +59,12 @@ main {
 
 .login-container > div > span > div {
     border-bottom: 2px solid #f0f0f0;
-    margin-bottom: 20px;
+    margin-bottom: min(2vw, 20px);
 }
 .login-container > div > span > div > input {
-    width: 650px;
-    height: 60px;
-    font-size: 36px;
+    width: min(70vw, 650px);
+    height: min(10vw, 60px);
+    font-size: min(4vw, 36px);
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -82,7 +84,7 @@ main {
 }
 .login-container > div > span > div > span {
     font-family: 'AppleSDGothicNeo';
-    font-size: 28px;
+    font-size: min(4vw, 28px);
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -92,8 +94,8 @@ main {
     color: #ff723a;
 }
 .login-container > div > span > div > img {
-    width: 44px;
-    height: 44px;
+    width: min(10vw, 44px);
+    height: min(10vw, 44px);
     object-fit: contain;
     float: right;
 }
@@ -104,12 +106,12 @@ main {
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
-    margin-bottom: 60px;
+    margin-bottom: min(6vw, 60px);
 }
 .login-button > div > button {
-    height: 110px;
-    width: 650px;
-    font-size: 32px;
+    height: min(20vw, 110px);
+    width: min(70vw, 650px);
+    font-size: min(6.5vw, 32px);
     color: #ffffff;
     text-align: center;
     border-radius: 55px;
@@ -124,8 +126,8 @@ main {
 }
 .login-options > div > a {
     display:inline;
-    font-size: 28px;
-    margin-right: 20px;
+    font-size: min(3.5vw, 28px);
+    margin-right: min(3.5vw, 20px);
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -134,121 +136,38 @@ main {
     text-align: left;
     color: #8f8f8f;
 }
-
-/* modal popup */
-#portal .modalContainer {
-    font-family: 'AppleSDGothicNeo';
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+.check-options {
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: center;
-    z-index: 2;
-    background: rgba(0, 0, 0, 0.7);
-}
-.modalContainer .button_modal {
-    z-index: 1;
-    width: 650px;
-    height: 530px;
-    border-radius: 40px;
-    background: #fff;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    animation: animate 0.3s;
+    padding: 0px;
 }
-.modalContainer .button_modal .info_container{
-    top: 0;
-    left: 0;
-    width: 650px;
-    height: 530px;
+.check-options > div {
+    padding: 0px;
 }
-.modalContainer .button_modal .info_container > img {
-    margin: 50px 0px 32px 250px;
-    top: 45px;
-    left: 250px;
-    width: 150px;
-    height: 150px;
+.check-options > div > span {
+    width: min(75vw, 750px);
+    height: min(9vw, 40px);
+    margin-bottom: min(2vw, 20px);
+    float: left;
+}
+.check-options > div > span > img {
+    width: min(9vw, 40px);
+    height: min(9vw, 40px);
     object-fit: contain;
+    float: left;
 }
-.modalContainer .button_modal .info_container .title  {
-    display: inline-block;
-    margin-bottom: 15px;
-    width: 650px;
-    font-family: "AppleSDGothicNeo";
-    font-size: 36px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -0.36px;
-    text-align: center;
-    color: #000;
-}
-.modalContainer .button_modal .info_container .description {
-    display: inline-block;
-    width: 650px;
-    font-family: "AppleSDGothicNeo";
-    font-size: 28px;
+.check-options > div > span > span {
+    font-size: min(4vw, 28px);
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.25;
-    letter-spacing: -0.7px;
-    text-align: center;
+    line-height: 1.43;
+    letter-spacing: -0.28px;
+    text-align: left;
     color: #8f8f8f;
 }
-.button_modal .button_container {
-    position: absolute;
-    clear:left;
-    float:left;
-    left: 0px;
-    bottom: 0px;
-    width: 650px;
-    height: 110px;
-    font-family: 'AppleSDGothicNeo';
-    font-size: 34px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -0.34px;
-}
-.button_modal .left_button {
-    width: 325px;
-    height: 110px;
-    background: #f0f0f0;
-    color: #444444;
-    border:none;
-    border-bottom-left-radius: 40px;
-}
-.button_modal .right_button {
-    width: 325px;
-    height: 110px;
-    position: absolute;
-    background: #ff723a;
-    color: #ffffff;
-    border:none;
-    border-bottom-right-radius: 40px;
-}
-.button_modal .center_button {
-    width: 650px;
-    height: 110px;
-    background: #ff723a;
-    color: #ffffff ;
-    border:none;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-}
-@keyframes animate {
-    from {
-        transform: scale(0.5);
-    }
-    to {
-        transform: scale(1);
-    }
+.check-options > div > span > span.highlight {
+    color: #ff723a;
 }

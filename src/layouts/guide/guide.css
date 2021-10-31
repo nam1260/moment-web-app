@@ -31,7 +31,7 @@
 }
 
 @media (max-width: 750px) {
-    .container > div:nth-child(1) {
+    .introduction-wrapper .container > div:nth-child(1) {
         overflow: hidden;
     }
 

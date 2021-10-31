@@ -18,13 +18,17 @@ export default function FaqComponent() {
                 
                 <FaqItem 
                     title={'원하는 스타가 없을 땐 어떻게 하죠? '}
-                    des={'추가하세요.'}
+                    des={<p><span>Moment 팀에게</span>원하는 스타를 추천해주세요<br /> 당신이 원하는 스타를 빠르게 Moment에 초대할게요!</p>}
                 />
                 <FaqItem 
                     title={'모먼트에 있는 스타들이 진짜인가요?'}
-                    des={'진짜입니다.'}
+                    des={<p>네 물론입니다. 여러 단계의 인증을 거친 스타들만이<br />Moment에 등록되어 영상을 제작할 수 있는 권한을 받습니다.</p>}
                 />
-                  <FaqItem 
+                <FaqItem 
+                    title={'동일한 스타에게 다시 영상 제작 요청이 가능한가요?'}
+                    des={<p>네 물론입니다. 요청 횟수에 대한 제약 없이 얼마든지 요청이 가능해요.</p>}
+                />
+                <FaqItem 
                     title={'영상 제작 요청 후 얼마 후에 영상을\n받을 수 있을까요? '}
                     des={<p><span>스타의 상세 페이지</span>에서 예상되는 영상 제작<br />기간을 확인할 수 있어요. </p>}
                 />

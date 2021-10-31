@@ -1,18 +1,21 @@
-/**
- * Login.js
- * @author wook
- * @since 2021/09/06
- * description
- */
 
 import "./login.css";
+import "../popup/modalPopup.css";
+import "../header/header.css";
 import React, { useState, useRef} from "react";
 import { useHistory } from 'react-router'; 
-import { Modal } from "./Modal";
+import { Modal } from "../popup/ModalPopup";
+import CryptoJS from "crypto-js";
+import axios from "axios";
 
 const editPath = "assets/icons/list-ico-edit.png"
+const checkOffPath = "assets/icons/check-off.svg"
+const checkOnPath = "assets/icons/check-on.svg"
+
+const closeIcon = "/assets/icons/ico-close.png";
+const logoPath = '/assets/images/yhlee/logo.png'
  
-export default function LoginComponent() {
+export default function AddAccountComponent() {
     const history = useHistory();
     const userList = [
         {
@@ -27,7 +30,17 @@ export default function LoginComponent() {
     const openModal = () => {
         setShowModal(true);
     };
- 
+
+    const [isTerms, setToggleTerms] = useState(false);
+    const toggleTerms = () => {
+        setToggleTerms(isTerms => !isTerms);
+    }
+
+    const [isCommercial, setToggleCommercial] = useState(false); 
+    const toggleCommercial = () => {
+        setToggleCommercial(isCommercial => !isCommercial);
+    }
+
     const [inputs, setInputs] = useState({
         email: '',
         pw: '',
@@ -79,6 +92,8 @@ export default function LoginComponent() {
 
     const addAccount = ()=>{
         console.log('inputs =' + JSON.stringify(inputs));
+        // show term and condition 
+        openModal();
     } 
 
     const checkDuplecate = (type)=>{
@@ -89,14 +104,97 @@ export default function LoginComponent() {
 
         if(isDuplicate) {
             console.log('duplicate');
-            openModal();
+            // openModal();
         } else {
-            
         }
     } 
 
+    const send_message =(phone, authNumber) => {
+        var user_phone_number = phone; 
+        var user_auth_number = authNumber;
+        var resultCode = 404; 
+        const date = Date.now().toString(); 
+        const uri = "ncp:sms:kr:273557210863:moment"; 
+        const secretKey = "myNuDZbXE2U9PoV0CCRDvhfoW7sTwS91VFlIeWwJ"; 
+        const accessKey = "OSZkDUqDvR4n6ESrsX0v"; 
+        const method = "POST"; 
+        const space = " "; 
+        const newLine = "\n"; 
+        const url = "https://sens.apigw.ntruss.com/sms/v2/services/"+uri+"/messages"; 
+        const url2 = "/sms/v2/services/"+uri+"/messages"; 
+        const hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, secretKey); 
+        hmac.update(method); 
+        hmac.update(space); 
+        hmac.update(url2); 
+        hmac.update(newLine); 
+        hmac.update(date); 
+        hmac.update(newLine); 
+        hmac.update(accessKey); 
+        const hash = hmac.finalize(); 
+        const signature = hash.toString(CryptoJS.enc.Base64); 
+        
+        
+        // const options = {
+        //     method: method, 
+        //     json: true,
+        //     uri: url, 
+        //     headers: { 
+        //         "Content-type": "application/json; charset=utf-8", 
+        //         "x-ncp-iam-access-key": accessKey, 
+        //         "x-ncp-apigw-timestamp": date, 
+        //         "x-ncp-apigw-signature-v2": signature, 
+        //     }, 
+        //     data: { 
+        //         type: "SMS", 
+        //         countryCode: "82", 
+        //         from: "01023403907", 
+        //         content: `인증번호 ${user_auth_number} 입니다.`, 
+        //         messages: [ { 
+        //             to: `${user_phone_number}`, 
+        //         }, ], 
+        //     }, 
+        // };
+         
+        var options = {
+            headers: { 
+                "Content-type": "application/json; charset=utf-8", 
+                "x-ncp-iam-access-key": accessKey, 
+                "x-ncp-apigw-timestamp": date, 
+                "x-ncp-apigw-signature-v2": signature, 
+                "Access-Control-Allow-Origin" : "*",
+            }
+        };
+        var data = { 
+            type: "SMS", 
+            countryCode: "82", 
+            from: "01023403907", 
+            content: "인증번호 "+ user_auth_number + " 입니다.", 
+            messages: [ 
+                { 
+                    to: user_phone_number 
+                } 
+            ]
+        };
+        axios.post(url, data, options)
+            .then(response => {
+                console.log(response.status);
+                resultCode = 200; 
+            })
+            .catch((response) => {
+                console.log('Error! = ' + response)
+            });
+        return resultCode; 
+    }
+
     const certificatePhone = ()=>{
-        console.log('certificatePhone');
+        var phoneNumber = inputs['phoneNumber'];
+        var authNum = '';
+        for (let i = 0; i < 6; i++) {
+            authNum += parseInt(Math.random() * 10);
+        }
+        var result = send_message(phoneNumber, authNum);
+        console.log('certificatePhone = ' + phoneNumber + ', authNum =' + authNum + ', resultCode = ' + result);
+        
     } 
 
     return (
@@ -135,7 +233,7 @@ export default function LoginComponent() {
                                 onChange={onChangePassword}
                                 name="pw"
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             비밀번호 확인
@@ -148,7 +246,7 @@ export default function LoginComponent() {
                                 onChange={onChangePasswordConfirm}
                                 name="pwConfirm"
                             ></input>
-                            <img src={editPath} />
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             휴대폰 번호 (숫자만)
@@ -184,12 +282,86 @@ export default function LoginComponent() {
                     </span>
                 </div>
             </section> 
+            <section className="check-options">
+                <div>
+                    <span>
+                        <img alt="none" src={isTerms ? checkOnPath : checkOffPath} onClick={()=>{
+                            console.log('개인정보');
+                            toggleTerms();
+                        }}/>
+                        <span class="highlight">개인정보처리방침</span>
+                        <span> 및 </span>                    
+                        <span class="highlight">서비스이용약관</span>
+                        <span>에 동의합니다.</span>
+                    </span>
+                    <br/>
+                    <span>
+                        <img alt="none" src={isCommercial ? checkOnPath : checkOffPath} onClick={()=>{
+                            console.log('마케팅');
+                            toggleCommercial();
+                        }}/>
+                        <span>제 3자 제공 및 마케팅 수신 동의 (선택)</span>
+                    </span>
+                </div>
+            </section>
             <section className="login-button">
                 <div>
                     <button onClick={addAccount}>
                         회원가입
                     </button>
-                    {showModal ? <Modal setShowModal={setShowModal} /> : null}
+                    {showModal ? 
+                        <Modal setShowModal={setShowModal}> 
+                            <div className="fullSize_modal">
+                                <div className="App-Header layout">
+                                    <div className="navigation-bar">
+                                        <div onClick={() => {setShowModal(false);}}>
+                                            <img alt="none" className={"top-icon"} src={closeIcon} />
+                                        </div>
+                                        <div>
+                                            <img alt="none" onClick={() => history.push('/')} className={'top-logo'} src={logoPath} />
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <section className="login-header">
+                                    <div className="container">
+                                        <span>서비스 이용약관</span>
+                                    </div>
+                                </section>
+                                <section className="description">
+                                    <div className="container">
+                                        <span>
+                                            총칙
+                                            <br/>
+                                            제 1 조(목적)
+                                            <br/>
+                                            이 약관은 모멘트(박재영) (이하 ”사업자”) 운영
+                                            인터넷사이트 모멘트(이하 “모멘트”)에서 제공하는
+                                            서비스 (이하 “서비스”) 이용에 있어 모멘트와
+                                            회원의 권리·의무 및 책임사항을 규정함을
+                                            목적으로 합니다.
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            제 2 조(정의)
+                                            <br/>
+                                            사업자가 운영하는 사이트는 아래와 같습니다.
+                                            <br/>
+                                            moment.com
+                                        </span>
+                                    </div>
+                                </section> 
+                                <section className="login-button">
+                                    <div>
+                                        <button onClick={() => history.push('/')}>
+                                            회원가입
+                                        </button>
+                                    </div>
+                                </section>
+                            </div>
+                        </Modal> : null
+                    }
                 </div>
             </section>
             <section className="login-options">
