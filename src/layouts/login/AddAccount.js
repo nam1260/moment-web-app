@@ -161,7 +161,6 @@ export default function AddAccountComponent() {
                 "x-ncp-iam-access-key": accessKey, 
                 "x-ncp-apigw-timestamp": date, 
                 "x-ncp-apigw-signature-v2": signature, 
-                "Access-Control-Allow-Origin" : "*",
             }
         };
         var data = { 
