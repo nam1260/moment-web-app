@@ -16,7 +16,7 @@ const headers = {
 
 const AWSManager = (function() {
 
-    const reqUserInfo = async (props) => {
+     const reqUserInfo = async (props) => {
 
         const url = SERVER_URL + "/reg-user-info";
 
@@ -31,10 +31,14 @@ const AWSManager = (function() {
 
         },{headers})
 
-
-
     };
 
 
+    return {
+        reqUserInfo
+    }
+
 
 }());
+
+export default AWSManager
