@@ -18,18 +18,27 @@ const AWSManager = (function() {
 
      const reqUserInfo = async (params) => {
 
-        const url = SERVER_URL + "/user/regUserInfo";
-  
-        return await axios.post(url,{
+        const url = SERVER_URL + "/user/reg-user-info";
+        let result;
 
-            userId: params ? params.userId : "testUserId2",
-            userNm: params ? params.userNm : "testUserId",
-            userNickNm: params ? params.userNickNm : "testUserId",
-            phoneNum: params ? params.phoneNum : "testUserId",
+        if(!params) params = {};
 
-        },{headers})
+        console.log("reqUserInfo = " +JSON.stringify(params));
+
+        if(!params.userId)  params.userId = "testUserId";
+
+        result = await axios.post(url,params,{headers});
+
+         //성공
+         console.log(result);
+         if(result && result.rspCode === "200") {
+             return result;
+         }else {
+             return null;
+         }
 
     };
+
 
 
     return {
