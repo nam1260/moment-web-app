@@ -10,7 +10,7 @@ export const CONFIG = {};
 
 Object.defineProperty(CONFIG, "STORAGE_KEY", {
     value: {
-        "USER_TOKEN": "key.user_token"
+        "USER_INFO": "key.user_info"
     },
     writable : true
 });

@@ -14,7 +14,7 @@ const StorageManager = (function() {
     let localStorage;
 
     let CACHED_KEYS = [
-        "key.user_token"
+        "key.user_info"
     ];
 
     let cachedStorage = [];
@@ -73,14 +73,14 @@ const StorageManager = (function() {
         save,
         remove,
 
-        saveUserToken : (token)=> {
-            save(DEF.CONFIG.STORAGE_KEY.USER_TOKEN,token);
+        saveUserInfo : (token)=> {
+            save(DEF.CONFIG.STORAGE_KEY.USER_INFO,token);
         },
-        loadUserToken : () => {
-           return load(DEF.CONFIG.STORAGE_KEY.USER_TOKEN);
+        loadUserInfo : () => {
+           return load(DEF.CONFIG.STORAGE_KEY.USER_INFO);
         },
         removeUserToken : () => {
-            remove(DEF.CONFIG.STORAGE_KEY.USER_TOKEN);
+            remove(DEF.CONFIG.STORAGE_KEY.USER_INFO);
         }
     }
 
