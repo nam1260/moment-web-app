@@ -7,7 +7,7 @@
  * 로그인 토큰 및 세션 관리용 매니저,
  */
 
-export const StorageManager = (function() {
+const StorageManager = (function() {
 
     let localStorage;
 
@@ -74,3 +74,6 @@ export const StorageManager = (function() {
 
 
 }());
+
+
+export default StorageManager;
