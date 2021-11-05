@@ -9,8 +9,13 @@
 import axios from "axios"
 
 const SERVER_URL  =  "https://8wuahwyzk9.execute-api.ap-northeast-2.amazonaws.com/test";
-const REQ_USERINFO  =  "/user/request-user-info";
+
+// APIUrls
+const REG_USER_INFO  =  "/user/reg-user-info";
 const LOGIN_USER  =  "/login-user";
+const LOGOUT_USER = "/logout-user";
+const GET_USER_INFO = "/get-user-info";
+
 const API_KEYS = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
 const headers = {
     'x-api-key' : API_KEYS,
@@ -28,9 +33,9 @@ const AWSManager = (function() {
 
     const reqUserInfo = async (params) => {
         if(!params) params = {};
-        console.log("reqUserInfo = " + JSON.stringify(params));
+        console.log("regUserInfo = " + JSON.stringify(params));
         if(!params.userId)  params.userId = "testUserId";
-        return await request(getUrl(REQ_USERINFO), params);
+        return await request(getUrl(REG_USER_INFO), params);
     };
 
     const loginUser = async (params) => {
@@ -38,11 +43,22 @@ const AWSManager = (function() {
         return await request(getUrl(LOGIN_USER), params);
    };
 
+    const logoutUser = async (params) => {
+        console.log("logoutUser = " +JSON.stringify(params));
+        return await request(getUrl(LOGOUT_USER), params);
+    };
+
+    const getUserInfo = async (params) => {
+        console.log("getUserInfo = " +JSON.stringify(params));
+        return await request(getUrl(GET_USER_INFO), params);
+    };
 
 
     return {
         reqUserInfo,
         loginUser,
+        logoutUser,
+        getUserInfo
     }
 
 
