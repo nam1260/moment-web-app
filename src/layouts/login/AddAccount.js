@@ -110,7 +110,11 @@ export default function AddAccountComponent() {
         AWSManager.regUserInfo(userinfo).then((result)=> {
             if(result && result.status == 200 && result.data.Authorization && result.data.Authorization.length > 20) {
                 console.log('계정 생성 성공');
-                StorageManager.saveUserToken(result.data.Authorization);
+                StorageManager.saveUserInfo({
+                    token : result.data.Authorization,
+                    userNickNm : inputs.nickname,
+                    userId: inputs.email,
+                });
                 history.push('/');
             } else {
                 console.log('계정 생성 실패 result =' + JSON.stringify(result));
