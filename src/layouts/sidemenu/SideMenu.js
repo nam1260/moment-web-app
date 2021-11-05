@@ -1,5 +1,6 @@
 import "./sidemenu.css";
 import { useHistory } from "react-router";
+import StorageManager from "../../managers/StorageManager.js";
 
 const closeIcon = "/assets/icons/ico-close.png";
 const nextIcon = "/assets/icons/icoNext.png";
@@ -29,7 +30,16 @@ export default function SideMenu({ isOpen, setIsMenuOpen }) {
             </div>
             <span className="now-start-comment">지금 시작해 보세요 <img alt="none" src={nextIcon} /> </span>
             <ul className="menu-list">
-                <li onClick={() => movePage('/login')} >로그인하기</li>
+                <li onClick={() => {
+                    let userInfo = StorageManager.loadUserInfo();
+                    if(userInfo && userInfo.token) {
+                        StorageManager.removeUserInfo();
+                        setIsMenuOpen(false);
+                        movePage('/');
+                    } else {
+                        movePage('/login');
+                    }
+                }} >로그인하기</li>
                 <li onClick={() => movePage('/guide/moment/1')} >모먼트 소개</li>
                 <li onClick={() => movePage('/guide/user')} >서비스 이용가이드</li>
                 <li onClick={() => movePage('/guide/moment/2')} >자주 묻는 질문</li>
