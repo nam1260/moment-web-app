@@ -15,6 +15,10 @@ const checkOnPath = "assets/icons/check-on.svg"
 
 const closeIcon = "/assets/icons/ico-close.png";
 const logoPath = '/assets/images/yhlee/logo.png'
+
+const REG_USER_INPUT_EMAIL = "이메일 입력";
+const REG_USER_CHECK_EMAIL_SUCCESS = "사용가능한 이메일 입니다.";
+const REG_USER_CHECK_EMAIL_FAIL = "이메일 형식이 올바르지 않습니다.";
  
 export default function AddAccountComponent() {
     const history = useHistory();
@@ -49,7 +53,7 @@ export default function AddAccountComponent() {
         phoneNumber: '',
         nickname: '',
     });
-    const { email, pw, pwConfirm, phoneNumber, nickname } = inputs
+    const { email, name,  pw, pwConfirm, phoneNumber, nickname } = inputs
     const onChange = (e) => {
         const { name, value } = e.target
         const nextInputs = {
@@ -96,7 +100,7 @@ export default function AddAccountComponent() {
         // openModal();
         let userinfo = {
             userId: inputs.email,
-            userNm: '', // inputs.nickname,
+            userNm: inputs.name,
             userPw: inputs.pw,
             userNickNm: inputs.nickname,
             phoneNum: inputs.phoneNumber, 
@@ -112,14 +116,19 @@ export default function AddAccountComponent() {
 
     const checkDuplecate = (type)=>{
         console.log('checkDuplecate type = ' + type);
-        var isDuplicate = userList.some((info)=>{
-            return info[type] == inputs[type];
-        });
-
-        if(isDuplicate) {
-            console.log('duplicate');
-            // openModal();
+        if(type == 'email') {
+            AWSManager.checkDuplId({userId:inputs.email}).then((result)=> {
+                console.log('result =' + JSON.stringify(result));
+                console.log(JSON.stringify(result));
+            }).catch(e => {
+                console.error(e.message);
+            });
         } else {
+            AWSManager.checkDuplId({userId:inputs.nickname}).then((result)=> {
+                console.log('result =' + JSON.stringify(result));
+            }).catch(e => {
+                console.error(e.message);
+            });
         }
     } 
 
@@ -206,7 +215,7 @@ export default function AddAccountComponent() {
                 <div>
                     <span>
                         <span>
-                            이메일 입력
+                            {REG_USER_INPUT_EMAIL}
                         </span>
                         <div>
                             <input
@@ -217,6 +226,17 @@ export default function AddAccountComponent() {
                             <span onClick={()=>{checkDuplecate('email');}}>
                                 중복확인
                             </span>
+                        </div>
+                        <span>
+                            사용자 이름 입력
+                        </span>
+                        <div>
+                            <input
+                                type="text"
+                                onChange={onChange}
+                                name="name"
+                            ></input>
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             비밀번호 입력
