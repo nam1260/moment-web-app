@@ -10,6 +10,7 @@ import "../popup/modalPopup.css";
 import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "../popup/ModalPopup";
+import AWSManager from "../../managers/AWSManager.js";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const failIcon = "assets/icons/icoFace3@3x.png"
@@ -64,11 +65,20 @@ export default function LoginComponent() {
             }
         });
 
-        if(userInfo) {
-            console.log('로그인 성공');
-        } else {
-            openWrongLoginInformaionPopup();
-        }
+        
+        AWSManager.loginUser({
+            userId: inputs.id,
+            userPw: inputs.pw,
+        }).then((result)=> {
+            if(result.status == 200) {
+                console.log('로그인 성공' , result);
+            } else {
+                openWrongLoginInformaionPopup();
+            }
+        }).catch(e => {
+            console.error('fail = ' + e.message);
+        });
+
     } 
 
     return (
