@@ -11,6 +11,7 @@ import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "../popup/ModalPopup";
 import AWSManager from "../../managers/AWSManager.js";
+import StorageManager from "../../managers/StorageManager.js";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const failIcon = "assets/icons/icoFace3@3x.png"
@@ -19,14 +20,6 @@ const successIcon = "assets/icons/icoFace1@3x.png"
 
 export default function LoginComponent() {
     const history = useHistory();
-    const userList = [
-        {
-            id: "test@naver.com",
-            pw: "test123",
-            phone: "01012345678",
-            nickname: "test",
-        },
-    ];
 
     const [showModal, setShowModal] = useState(false);
     const openWrongLoginInformaionPopup = () => {
@@ -56,22 +49,18 @@ export default function LoginComponent() {
     };
 
     const loginAction = ()=>{
-        const userInfo = null;
-        console.log('inputs =' + JSON.stringify(inputs));
-        userList.some((info)=>{
-            if(info.id == inputs.id && info.pw == inputs.pw) {
-                userInfo = info;
-                return true;
-            }
-        });
-
-        
         AWSManager.loginUser({
             userId: inputs.id,
             userPw: inputs.pw,
         }).then((result)=> {
-            if(result.status == 200) {
+            if(result.status == 200 && result.data.Authorization) {
                 console.log('로그인 성공' , result);
+                StorageManager.saveUserInfo({
+                    token : result.data.Authorization,
+                    userNickNm : result.data.nickname,
+                    userId: result.data.email,
+                });
+                history.push('/');
             } else {
                 openWrongLoginInformaionPopup();
             }
