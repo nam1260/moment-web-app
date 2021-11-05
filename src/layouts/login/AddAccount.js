@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 import { Modal } from "../popup/ModalPopup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
+import AWSManager from "../../managers/AWSManager.js";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const checkOffPath = "assets/icons/check-off.svg"
@@ -91,9 +92,22 @@ export default function AddAccountComponent() {
     }
 
     const addAccount = ()=>{
-        console.log('inputs =' + JSON.stringify(inputs));
         // show term and condition 
-        openModal();
+        // openModal();
+        let userinfo = {
+            userId: inputs.email,
+            userNm: '', // inputs.nickname,
+            userPw: inputs.pw,
+            userNickNm: inputs.nickname,
+            phoneNum: inputs.phoneNumber, 
+            mrktAgreeYn: isCommercial? 'y': 'n',
+        };
+        console.log('userinfo =' + JSON.stringify(userinfo));
+        AWSManager.reqUserInfo(userinfo).then((result)=> {
+            console.log('result =' + JSON.stringify(result));
+        }).catch(e => {
+            console.error(e.message);
+        });
     } 
 
     const checkDuplecate = (type)=>{
@@ -133,28 +147,6 @@ export default function AddAccountComponent() {
         const hash = hmac.finalize(); 
         const signature = hash.toString(CryptoJS.enc.Base64); 
         
-        
-        // const options = {
-        //     method: method, 
-        //     json: true,
-        //     uri: url, 
-        //     headers: { 
-        //         "Content-type": "application/json; charset=utf-8", 
-        //         "x-ncp-iam-access-key": accessKey, 
-        //         "x-ncp-apigw-timestamp": date, 
-        //         "x-ncp-apigw-signature-v2": signature, 
-        //     }, 
-        //     data: { 
-        //         type: "SMS", 
-        //         countryCode: "82", 
-        //         from: "01023403907", 
-        //         content: `인증번호 ${user_auth_number} 입니다.`, 
-        //         messages: [ { 
-        //             to: `${user_phone_number}`, 
-        //         }, ], 
-        //     }, 
-        // };
-         
         var options = {
             headers: { 
                 "Content-type": "application/json; charset=utf-8", 
@@ -215,9 +207,9 @@ export default function AddAccountComponent() {
                             <input
                                 type="text"
                                 onChange={onChangeEmailFormat}
-                                name="id"
+                                name="email"
                             ></input>
-                            <span onClick={()=>{checkDuplecate('id');}}>
+                            <span onClick={()=>{checkDuplecate('email');}}>
                                 중복확인
                             </span>
                         </div>
