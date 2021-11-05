@@ -9,6 +9,8 @@
 import axios from "axios"
 
 const SERVER_URL  =  "https://8wuahwyzk9.execute-api.ap-northeast-2.amazonaws.com/test";
+const REQ_USERINFO  =  "/user/request-user-info";
+const LOGIN_USER  =  "/login-user";
 const API_KEYS = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
 const headers = {
     'x-api-key' : API_KEYS,
@@ -16,33 +18,31 @@ const headers = {
 
 const AWSManager = (function() {
 
-     const reqUserInfo = async (params) => {
+    const getUrl = (url) => {
+        return SERVER_URL + url;
+    }
 
-        const url = SERVER_URL + "/user/reg-user-info";
-        let result;
-
-        if(!params) params = {};
-
-        console.log("reqUserInfo = " +JSON.stringify(params));
-
-        if(!params.userId)  params.userId = "testUserId";
-
-        result = await axios.post(url,params,{headers});
-
-         //성공
-        console.log(result);
-        if(result && result.rspCode === "200") {
-            return result;
-        }else {
-            return null;
-        }
-
+    const request = (url, params) => {
+        return axios.post(url, params, {headers});
     };
+
+    const reqUserInfo = async (params) => {
+        if(!params) params = {};
+        console.log("reqUserInfo = " + JSON.stringify(params));
+        if(!params.userId)  params.userId = "testUserId";
+        return await request(getUrl(REQ_USERINFO), params);
+    };
+
+    const loginUser = async (params) => {
+        console.log("loginUser = " +JSON.stringify(params));
+        return await request(getUrl(LOGIN_USER), params);
+   };
 
 
 
     return {
-        reqUserInfo
+        reqUserInfo,
+        loginUser,
     }
 
 
