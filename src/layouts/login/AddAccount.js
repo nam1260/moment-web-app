@@ -294,7 +294,8 @@ export default function AddAccountComponent() {
                             console.log('마케팅');
                             toggleCommercial();
                         }}/>
-                        <span>제 3자 제공 및 마케팅 수신 동의 (선택)</span>
+                        <span class="highlight" onClick={showTermAndCondition}>제 3자 제공 및 마케팅</span>
+                        <span> 수신 동의 (선택)</span>
                     </span>
                 </div>
             </section>
