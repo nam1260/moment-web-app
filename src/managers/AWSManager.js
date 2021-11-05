@@ -15,7 +15,7 @@ const REG_USER_INFO  =  "/user/reg-user-info";
 const LOGIN_USER  =  "/login-user";
 const LOGOUT_USER = "/logout-user";
 const GET_USER_INFO = "/get-user-info";
-
+const VERIFY_SMS_NUM = "/verify-sms-number";
 const API_KEYS = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
 const headers = {
     'x-api-key' : API_KEYS,
@@ -51,12 +51,18 @@ const AWSManager = (function() {
         return await request(getUrl(GET_USER_INFO), params);
     };
 
+    const verifySMSNumber = async (params) => {
+        console.log("verifySMSNumber = " +JSON.stringify(params));
+        return await request(getUrl(VERIFY_SMS_NUM), params);
+    }
+
 
     return {
-        regUserInfo: regUserInfo,
+        regUserInfo,
         loginUser,
         logoutUser,
-        getUserInfo
+        getUserInfo,
+        verifySMSNumber
     }
 
 
