@@ -8,7 +8,7 @@
 
 import axios from "axios"
 
-const SERVER_URL  =  "https://8wuahwyzk9.execute-api.ap-northeast-2.amazonaws.com/test/user";
+const SERVER_URL  =  "https://8wuahwyzk9.execute-api.ap-northeast-2.amazonaws.com/test";
 const API_KEYS = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
 const headers = {
     'x-api-key' : API_KEYS,
@@ -30,12 +30,12 @@ const AWSManager = (function() {
         result = await axios.post(url,params,{headers});
 
          //성공
-         console.log(result);
-         if(result && result.rspCode === "200") {
-             return result;
-         }else {
-             return null;
-         }
+        console.log(result);
+        if(result && result.rspCode === "200") {
+            return result;
+        }else {
+            return null;
+        }
 
     };
 
