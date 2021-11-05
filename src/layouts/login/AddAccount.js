@@ -123,6 +123,11 @@ export default function AddAccountComponent() {
         }
     } 
 
+    const showTermAndCondition = ()=>{
+        console.log('showTermAndCondition');
+        openModal();
+    };
+
     const send_message =(phone, authNumber) => {
         var user_phone_number = phone; 
         var user_auth_number = authNumber;
@@ -280,9 +285,7 @@ export default function AddAccountComponent() {
                             console.log('개인정보');
                             toggleTerms();
                         }}/>
-                        <span class="highlight">개인정보처리방침</span>
-                        <span> 및 </span>                    
-                        <span class="highlight">서비스이용약관</span>
+                        <span class="highlight" onClick={showTermAndCondition}>개인정보처리방침 및 서비스이용약관</span>
                         <span>에 동의합니다.</span>
                     </span>
                     <br/>
@@ -343,13 +346,6 @@ export default function AddAccountComponent() {
                                         </span>
                                     </div>
                                 </section> 
-                                <section className="login-button">
-                                    <div>
-                                        <button onClick={() => history.push('/')}>
-                                            회원가입
-                                        </button>
-                                    </div>
-                                </section>
                             </div>
                         </Modal> : null
                     }
