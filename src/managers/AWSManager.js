@@ -13,6 +13,7 @@ const SERVER_URL  =  "https://8wuahwyzk9.execute-api.ap-northeast-2.amazonaws.co
 // APIUrls
 const REG_USER_INFO  =  "/user/reg-user-info";
 const CHECK_DUPL_ID  =  "/user/check-dupl-id";
+const CHECK_DUPL_NICK_NAME  =  "/user/check-dupl-nicknm";
 const LOGIN_USER  =  "/user/login-user";
 const LOGOUT_USER = "/user/logout-user";
 const GET_USER_INFO = "/user/get-user-info";
@@ -28,43 +29,49 @@ const AWSManager = (function() {
         return SERVER_URL + url;
     };
 
-    const request = (url, params) => {
+    const requestPost = (url, params) => {
         return axios.post(url, params, {headers});
     };
 
     const regUserInfo = async (params) => {
         console.log("regUserInfo = " + JSON.stringify(params));
-        return await request(getUrl(REG_USER_INFO), params);
+        return await requestPost(getUrl(REG_USER_INFO), params);
     };
 
     const checkDuplId = async (params) => {
         console.log("checkDuplId = " + JSON.stringify(params));
-        return await request(getUrl(CHECK_DUPL_ID), params);
+        return await requestPost(getUrl(CHECK_DUPL_ID), params);
+    };
+
+    const checkDuplNickNm = async (params) => {
+        console.log("checkDuplNickNm = " + JSON.stringify(params));
+        return await requestPost(getUrl(CHECK_DUPL_NICK_NAME), params);
     };
 
     const loginUser = async (params) => {
         console.log("loginUser = " +JSON.stringify(params));
-        return await request(getUrl(LOGIN_USER), params);
+        return await requestPost(getUrl(LOGIN_USER), params);
    };
 
     const logoutUser = async (params) => {
         console.log("logoutUser = " +JSON.stringify(params));
-        return await request(getUrl(LOGOUT_USER), params);
+        return await requestPost(getUrl(LOGOUT_USER), params);
     };
 
     const getUserInfo = async (params) => {
         console.log("getUserInfo = " +JSON.stringify(params));
-        return await request(getUrl(GET_USER_INFO), params);
+        return await requestPost(getUrl(GET_USER_INFO), params);
     };
 
     const verifySMSNumber = async (params) => {
         console.log("verifySMSNumber = " +JSON.stringify(params));
-        return await request(getUrl(VERIFY_SMS_NUM), params);
+        return await requestPost(getUrl(VERIFY_SMS_NUM), params);
     }
 
     return {
         regUserInfo,
         checkDuplId,
+        checkDuplNickNm,
         loginUser,
         logoutUser,
         getUserInfo,

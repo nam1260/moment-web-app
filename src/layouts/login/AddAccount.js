@@ -8,6 +8,7 @@ import { Modal } from "../popup/ModalPopup";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import AWSManager from "../../managers/AWSManager.js";
+import StorageManager from "../../managers/StorageManager.js";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const checkOffPath = "assets/icons/check-off.svg"
@@ -106,9 +107,14 @@ export default function AddAccountComponent() {
             phoneNum: inputs.phoneNumber, 
             mrktAgreeYn: isCommercial? 'y': 'n',
         };
-        console.log('userinfo =' + JSON.stringify(userinfo));
         AWSManager.regUserInfo(userinfo).then((result)=> {
-            console.log('result =' + JSON.stringify(result));
+            if(result && result.status == 200 && result.data.Authorization && result.data.Authorization.length > 20) {
+                console.log('계정 생성 성공');
+                StorageManager.saveUserToken(result.data.Authorization);
+                history.push('/');
+            } else {
+                console.log('계정 생성 실패 result =' + JSON.stringify(result));
+            }
         }).catch(e => {
             console.error(e.message);
         });
