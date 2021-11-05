@@ -31,10 +31,8 @@ const AWSManager = (function() {
         return axios.post(url, params, {headers});
     };
 
-    const reqUserInfo = async (params) => {
-        if(!params) params = {};
+    const regUserInfo = async (params) => {
         console.log("regUserInfo = " + JSON.stringify(params));
-        if(!params.userId)  params.userId = "testUserId";
         return await request(getUrl(REG_USER_INFO), params);
     };
 
@@ -55,7 +53,7 @@ const AWSManager = (function() {
 
 
     return {
-        reqUserInfo,
+        regUserInfo: regUserInfo,
         loginUser,
         logoutUser,
         getUserInfo

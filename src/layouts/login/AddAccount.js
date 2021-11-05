@@ -103,7 +103,7 @@ export default function AddAccountComponent() {
             mrktAgreeYn: isCommercial? 'y': 'n',
         };
         console.log('userinfo =' + JSON.stringify(userinfo));
-        AWSManager.reqUserInfo(userinfo).then((result)=> {
+        AWSManager.regUserInfo(userinfo).then((result)=> {
             console.log('result =' + JSON.stringify(result));
         }).catch(e => {
             console.error(e.message);
