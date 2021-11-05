@@ -17,7 +17,12 @@ const CHECK_DUPL_NICK_NAME  =  "/user/check-dupl-nicknm";
 const LOGIN_USER  =  "/user/login-user";
 const LOGOUT_USER = "/user/logout-user";
 const GET_USER_INFO = "/user/get-user-info";
+const FIND_USER_ID = "/user/find-user-id";
+
+
 const VERIFY_SMS_NUM = "/verify-sms-number";
+
+
 const API_KEYS = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
 const headers = {
     'x-api-key' : API_KEYS,
@@ -68,6 +73,11 @@ const AWSManager = (function() {
         return await requestPost(getUrl(VERIFY_SMS_NUM), params);
     }
 
+    const findUserId = async (params) => {
+        console.log("findUserId = " +JSON.stringify(params));
+        return await requestPost(getUrl(FIND_USER_ID), params);
+    }
+
     return {
         regUserInfo,
         checkDuplId,
@@ -75,6 +85,7 @@ const AWSManager = (function() {
         loginUser,
         logoutUser,
         getUserInfo,
+        findUserId,
         verifySMSNumber
     }
 
