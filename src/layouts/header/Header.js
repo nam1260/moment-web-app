@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import '../../Common.css';
 import './header.css';
+import StorageManager from "../../managers/StorageManager.js";
 
 const menuPath = '/assets/icons/icoMenu.png'
 const searchPath = '/assets/icons/icoSearch.png'
@@ -22,7 +23,14 @@ function Header({ setIsMenuOpen }) {
                 </div>
                 <div>
                     <img alt="none" className={"top-icon"} src={searchPath} onClick={()=> { history.push('/search') }} />
-                    <img alt="none" className={"top-icon"} src={loginPath} onClick={()=> { history.push('/modifyAccount') }}/>
+                    <img alt="none" className={"top-icon"} src={loginPath} onClick={()=> { 
+                        let userInfo = StorageManager.loadUserInfo();
+                        if(userInfo && userInfo.token) {
+                            history.push('/modifyAccount');
+                        } else {
+                            history.push('/login');
+                        }
+                    }}/>
                 </div>
             </div>
         </div>

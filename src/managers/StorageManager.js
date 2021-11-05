@@ -74,12 +74,12 @@ const StorageManager = (function() {
         remove,
 
         saveUserInfo : (userInfo)=> {
-            save(DEF.CONFIG.STORAGE_KEY.USER_INFO,userInfo);
+            save(DEF.CONFIG.STORAGE_KEY.USER_INFO,JSON.stringify(userInfo));
         },
         loadUserInfo : () => {
-           return load(DEF.CONFIG.STORAGE_KEY.USER_INFO);
+           return JSON.parse(load(DEF.CONFIG.STORAGE_KEY.USER_INFO));
         },
-        removeUserToken : () => {
+        removeUserInfo : () => {
             remove(DEF.CONFIG.STORAGE_KEY.USER_INFO);
         }
     }
