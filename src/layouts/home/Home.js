@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../App.css";
 import "../../Common.css";
 import "./home.css";
@@ -34,7 +34,9 @@ const fbLogo = "/assets/icons/ico-fb.png";
 */
 function Home() {
     const history = useHistory();
-
+    useEffect(() => {
+        document.documentElement.scrollTo({ top: 0, left: 0 }) 
+    }, [])
     return (
         <main>
             <section className="app-home-header">
