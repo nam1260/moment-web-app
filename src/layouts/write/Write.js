@@ -3,9 +3,11 @@ import WriteLabel from '../../shared/component/write/WriteLabel'
 import MomentDatePicker from '../../shared/component/write/MomentDatePicker';
 import MomentModal from '../../shared/component/common/modal';
 import SpeechBubble from '../../shared/component/write/SpeechBubble';
+import PaymentModal from '../../shared/component/write/PaymentModal.componet';
 
 import { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+
 
 const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
 const letterImage = "/assets/images/yhlee/icoLetter.png";
@@ -70,6 +72,7 @@ const WriteComponent = () => {
     const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
     const [isUnder100ModalOpen, setIsUnder100ModalOpen] = useState(false);
     const [isOver300ModalOpen, setIsOver300ModalOpen] = useState(false);
+    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
     const [count, setCount] = useState(0);
     const history = useHistory();
     const textareaElement = useRef();
@@ -126,15 +129,16 @@ const WriteComponent = () => {
 
     const onClickSendStory = () => {
         try {
-            checkStoryValidation();
+            // checkStoryValidation();
         } catch(e) {
             return false;
         }
-        setIsLoadingModalOpen(true); 
-        setTimeout(() => {
-            setIsLoadingModalOpen(false)
-            history.push('/writesuccess')
-        }, 1000)
+        setIsPaymentModalOpen(true);
+        // setIsLoadingModalOpen(true); 
+        // setTimeout(() => {
+        //     setIsLoadingModalOpen(false)
+        //     history.push('/writesuccess')
+        // }, 1000)
     }
 
     return (
@@ -171,6 +175,11 @@ const WriteComponent = () => {
                 onClickHandlerConfirm={() => setIsOver300ModalOpen(false)}
                 width={650}
                 height={520}
+            />
+
+            <PaymentModal 
+                isModalOpen={isPaymentModalOpen}
+                setIsModalOpen={setIsPaymentModalOpen}
             />
             
             <section className="app-write-header">
