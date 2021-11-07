@@ -2,9 +2,9 @@ import React from 'react';
 import styled from "styled-components"
 
 
-const naverImage = "/assets/images/yhlee/payIcoNaver.png"
-const kakaoImage = "/assets/images/yhlee/payIcoKakao.png"
-const normalImage = "/assets/images/yhlee/payIcoNormal.png"
+const naverImage = "/assets/images/payIcoNaver.png"
+const kakaoImage = "/assets/images/payIcoKakao.png"
+const normalImage = "/assets/images/payIcoNormal.png"
 
 const PaymentBox = styled.div`
     width: 570px;

@@ -15,7 +15,7 @@ const checkOffPath = "assets/icons/check-off.svg"
 const checkOnPath = "assets/icons/check-on.svg"
 
 const closeIcon = "/assets/icons/ico-close.png";
-const logoPath = '/assets/images/yhlee/logo.png'
+const logoPath = '/assets/images/logo.png'
 
 const REG_USER_INPUT_EMAIL = "이메일 입력";
 const REG_USER_CHECK_EMAIL_SUCCESS = "사용가능한 이메일 입니다.";

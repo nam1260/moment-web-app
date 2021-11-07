@@ -4,7 +4,7 @@ import CommentOfFanComponent from '../../shared/component/star/CommentOfFan.comp
 import { useHistory } from 'react-router';
 import { useEffect } from 'react';
 
-const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
+const homeThum1_1 = "/assets/images/thum160Px1.png";
 const plusIcon = "/assets/icons/ico-plus.png"
 
 export default function StarComponent(props) {

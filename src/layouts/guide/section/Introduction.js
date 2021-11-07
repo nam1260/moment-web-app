@@ -1,10 +1,10 @@
 import TabsComponent from '../../../shared/component/guide/IntroductionItem';
 
-const backgroundImage = "/assets/images/yhlee/present-1-img-main.png";
+const backgroundImage = "/assets/images/present-1-img-main.png";
 const introImage = [ 
-    "/assets/images/yhlee/present-img-1.png",
-    "/assets/images/yhlee/present-img-2.png",
-    "/assets/images/yhlee/present-img-3.png"
+    "/assets/images/present-img-1.png",
+    "/assets/images/present-img-2.png",
+    "/assets/images/present-img-3.png"
 ]
 
 

@@ -59,13 +59,13 @@ export default function SearchComponent() {
             name: "최인기맨",
             job: "대한민국 유튜버",
             info: "구독자 100만명 핫 인플루언서",
-            imgPath: 'assets/images/yhlee/home-thum-1-1.png'
+            imgPath: 'assets/images/home-thum-1-1.png'
         },
         {
             name: "김연아",
             job: "대한민국 피겨스케이팅 선수",
             info: "피겨 채널 운영 중",
-            imgPath: 'assets/images/yhlee/home-thum-2-2.png'
+            imgPath: 'assets/images/home-thum-2-2.png'
         },
     ];
 

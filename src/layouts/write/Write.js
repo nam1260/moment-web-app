@@ -9,8 +9,8 @@ import { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
-const letterImage = "/assets/images/yhlee/icoLetter.png";
+const homeThum1_1 = "/assets/images/thum160Px1.png";
+const letterImage = "/assets/images/icoLetter.png";
 const iconFace = "/assets/icons/icoFace6.png";
 
 

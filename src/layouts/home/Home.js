@@ -5,22 +5,22 @@ import "./home.css";
 import { useHistory } from "react-router";
 
 
-const homeImage = "/assets/images/yhlee/mov.png";
+const homeImage = "/assets/images/mov.png";
 const moveArrowPath = "/assets/icons/home-arrow.png";
 const crownPath = "/assets/icons/icoCrown.png";
-const homeThum1_1 = "/assets/images/yhlee/home-thum-1-1.png";
-const homeThum1_2 = "/assets/images/yhlee/home-thum-1-2.png";
+const homeThum1_1 = "/assets/images/home-thum-1-1.png";
+const homeThum1_2 = "/assets/images/home-thum-1-2.png";
 const dummyIcon = "/assets/icons/main-ico-dummy.png";
 const plusIcon = "/assets/icons/main-plus-request.png";
 const thunderIcon = "/assets/icons/icoThunder.png";
-const homeThum2_1 = "/assets/images/yhlee/home-thum-2-1.png";
-const homeThum2_2 = "/assets/images/yhlee/home-thum-2-2.png";
-const homeThum2_3 = "/assets/images/yhlee/home-thum-2-3.png";
-const homeThum2_4 = "/assets/images/yhlee/home-thum-2-4.png";
+const homeThum2_1 = "/assets/images/home-thum-2-1.png";
+const homeThum2_2 = "/assets/images/home-thum-2-2.png";
+const homeThum2_3 = "/assets/images/home-thum-2-3.png";
+const homeThum2_4 = "/assets/images/home-thum-2-4.png";
 const circlePlusIcon = "/assets/icons/ico-plus.png";
-const desThumb1 = "/assets/images/yhlee/main-1.png";
-const desThumb2 = "/assets/images/yhlee/main-2.png";
-const footerLogo = "/assets/images/yhlee/logo-gray.png";
+const desThumb1 = "/assets/images/main-1.png";
+const desThumb2 = "/assets/images/main-2.png";
+const footerLogo = "/assets/images/logo-gray.png";
 const instaLogo = "/assets/icons/ico-insta.png";
 const fbLogo = "/assets/icons/ico-fb.png";
 

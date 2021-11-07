@@ -4,7 +4,7 @@ import StorageManager from "../../managers/StorageManager.js";
 
 const closeIcon = "/assets/icons/ico-close.png";
 const nextIcon = "/assets/icons/icoNext.png";
-const logoPath = '/assets/images/yhlee/menu-logo.png'
+const logoPath = '/assets/images/menu-logo.png'
 
 /* 
   * 사이드 메뉴 바

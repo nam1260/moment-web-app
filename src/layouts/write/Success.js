@@ -2,7 +2,7 @@ import SpeechBubble from '../../shared/component/write/SpeechBubble';
 import  './write.css'
 
 
-const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
+const homeThum1_1 = "/assets/images/thum160Px1.png";
 
 
 const WriteSuccessComponent = () => {

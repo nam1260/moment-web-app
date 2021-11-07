@@ -7,7 +7,7 @@ import StorageManager from "../../managers/StorageManager.js";
 const menuPath = '/assets/icons/icoMenu.png'
 const searchPath = '/assets/icons/icoSearch.png'
 const loginPath = '/assets/icons/ico-login.png'
-const logoPath = '/assets/images/yhlee/logo.png'
+const logoPath = '/assets/images/logo.png'
 
 
 function Header({ setIsMenuOpen }) {
