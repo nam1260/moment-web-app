@@ -80,7 +80,7 @@ function App() {
                 
             </div>
             </Switch>
-            {isMenuOpen && <div className="wrapper" />}
+            {isMenuOpen && <div className="wrapper" onClick={() => {setIsMenuOpen(false)}} />}
         </Router>
 
     );
