@@ -14,6 +14,7 @@ const SERVER_URL  =  "https://8wuahwyzk9.execute-api.ap-northeast-2.amazonaws.co
 const REG_USER_INFO  =  "/user/reg-user-info";
 const CHECK_DUPL_ID  =  "/user/check-dupl-id";
 const CHECK_DUPL_NICK_NAME  =  "/user/check-dupl-nicknm";
+const CHECK_PW_VERIFICATION  =  "/user/check-pw-vericification";
 const LOGIN_USER  =  "/user/login-user";
 const LOGOUT_USER = "/user/logout-user";
 const GET_USER_INFO = "/user/get-user-info";
@@ -52,6 +53,11 @@ const AWSManager = (function() {
         return await requestPost(getUrl(CHECK_DUPL_NICK_NAME), params);
     };
 
+    const checkPasswordVerification = async (params) => {
+        console.log("checkPasswordVerification = " + JSON.stringify(params));
+        return await requestPost(getUrl(CHECK_PW_VERIFICATION), params);
+    }
+
     const loginUser = async (params) => {
         console.log("loginUser = " +JSON.stringify(params));
         return await requestPost(getUrl(LOGIN_USER), params);
@@ -85,6 +91,7 @@ const AWSManager = (function() {
         regUserInfo,
         checkDuplId,
         checkDuplNickNm,
+        checkPasswordVerification,
         loginUser,
         logoutUser,
         getUserInfo,
