@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from "styled-components"
-
+import { kakaoPaymentService } from '../../service/payment.service';
 
 const naverImage = "/assets/images/payIcoNaver.png"
 const kakaoImage = "/assets/images/payIcoKakao.png"
 const normalImage = "/assets/images/payIcoNormal.png"
+const kakaoServiceInstance = new kakaoPaymentService();
 
 const PaymentBox = styled.div`
     width: 570px;
@@ -19,7 +20,6 @@ const PaymentBox = styled.div`
         width: 100%;
         margin-bottom: min(2vw, 20px);
     }
-    
 `
 
 const NaverPaymentBox = styled(PaymentBox)`
@@ -108,8 +108,11 @@ const NaverPayment = () => {
 }
 
 const KaKaoPayment = () => {
+    const requirePaymentApi = () => {
+        kakaoServiceInstance.requirePrepareApi();
+    }
     return (
-        <KaKaoPaymentBox>
+        <KaKaoPaymentBox onClick={() => {requirePaymentApi()}}>
             <img src={kakaoImage} alt="none" />
         </KaKaoPaymentBox>
     )
