@@ -17,9 +17,8 @@ const CHECK_DUPL_NICK_NAME  =  "/user/check-dupl-nicknm";
 const LOGIN_USER  =  "/user/login-user";
 const LOGOUT_USER = "/user/logout-user";
 const GET_USER_INFO = "/user/get-user-info";
+const UPDATE_USER_INFO ="/user/update-user-info";
 const FIND_USER_ID = "/user/find-user-id";
-
-
 const VERIFY_SMS_NUM = "/verify-sms-number";
 
 
@@ -77,6 +76,10 @@ const AWSManager = (function() {
         console.log("findUserId = " +JSON.stringify(params));
         return await requestPost(getUrl(FIND_USER_ID), params);
     }
+    const updateUserInfo = async (params) => {
+        console.log("updateUserInfo = " +JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_USER_INFO), params);
+    }
 
     return {
         regUserInfo,
@@ -85,6 +88,7 @@ const AWSManager = (function() {
         loginUser,
         logoutUser,
         getUserInfo,
+        updateUserInfo,
         findUserId,
         verifySMSNumber
     }
