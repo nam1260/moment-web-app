@@ -11,6 +11,7 @@ import Login from './layouts/login/Login';
 import AddAccount from './layouts/login/AddAccount';
 import FindAccount from './layouts/login/FindAccount';
 import FindPassword from './layouts/login/FindPassword';
+import ConfirmPw from './layouts/mypage/ConfirmPw';
 import ModifyAccount from './layouts/mypage/ModifyAccount';
 import ReceiveMessageHistory from './layouts/mypage/ReceiveMessageHistory';
 import SendMessageHistory from './layouts/mypage/SendMessageHistory';
@@ -55,6 +56,7 @@ function App() {
                 <Route exact path="/addAccount" component={AddAccount} />
                 <Route exact path="/findAccount" component={FindAccount} />
                 <Route exact path="/findPassword" component={FindPassword} />
+                <Route exact path="/confirmPw" component={ConfirmPw} />
                 <Route exact path="/modifyAccount" component={ModifyAccount} />
                 <Route exact path="/receiveMessageHistory" component={ReceiveMessageHistory} />
                 <Route exact path="/sendMessageHistory" component={SendMessageHistory} />

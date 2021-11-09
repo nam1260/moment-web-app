@@ -26,7 +26,8 @@ function Header({ setIsMenuOpen }) {
                     <img alt="none" className={"top-icon"} src={loginPath} onClick={()=> { 
                         let userInfo = StorageManager.loadUserInfo();
                         if(userInfo && userInfo.token) {
-                            history.push('/modifyAccount');
+                            history.push('/confirmPw');
+                            // history.push('/modifyAccount');
                         } else {
                             history.push('/login');
                         }
