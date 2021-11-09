@@ -7,7 +7,7 @@ import MypageHeader from './MypageHeader';
 
 const editPath = "assets/icons/list-ico-edit.png"
 const cameraPath = "assets/icons/ico-camera.svg"
-const thumPath = "assets/images/hskim/thum-160-px-1.png"
+const thumPath = "assets/images/thum-160-px-1.png"
 const downArrowPath = "/assets/icons/list-ico-open.png"
 
 export default function StartProfile() {
