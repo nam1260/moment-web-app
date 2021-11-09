@@ -57,8 +57,8 @@ export default function LoginComponent() {
                 console.log('로그인 성공' , result);
                 StorageManager.saveUserInfo({
                     token : result.data.Authorization,
-                    userNickNm : result.data.nickname,
-                    userId: result.data.email,
+                    userNickNm : result.data.userNickNm,
+                    userId: result.data.userId,
                 });
                 history.push('/');
             } else {
