@@ -134,7 +134,7 @@ export default function AddAccountComponent() {
                 console.error(e.message);
             });
         } else {
-            AWSManager.checkDuplId({userId:inputs.nickname}).then((result)=> {
+            AWSManager.checkDuplNickNm({userId:inputs.nickname}).then((result)=> {
                 console.log('result =' + JSON.stringify(result));
             }).catch(e => {
                 console.error(e.message);
