@@ -26,7 +26,7 @@ export default function ConfirmPwComponent() {
             userId: userInfo.userId,
             userPw: inputs.pw,
         }).then((result)=> {
-            if(result.status == 200 && result.data.isCorrectPw && result.data.isCorrectPw == 'True') {
+            if(result.status == 200 && result.data.isCorrectPw) {
                 console.log('비밀번호 검증 완료');
                 history.push('/modifyAccount');
             } else {
