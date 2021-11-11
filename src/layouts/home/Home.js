@@ -174,10 +174,11 @@ function Home() {
                         <img alt="none" src={footerLogo} />
                     </div>
                     <div className="footer-content">
-                        <p>사업자 등록 번호 : 111-111-1111</p>
+                        <p>사업자 등록 번호 : 255-49-00797</p>
+                        <p>상호: 모먼트</p>
                         <p>대표: 박재영</p>
-                        <p>통신 판매업 신고 번호: 2021-서울강남-1863</p>
-                        <p>E-mail: mooment@gmail.com</p>
+                        <p>정보통신업 / 소프트웨어 개발 및 공급업</p>
+                        <p>E-mail: mtm.moment@gmail.com</p>
                     </div>
                     <div className="footer-list">
                         <span>이용약관</span>
