@@ -147,10 +147,7 @@ export default function AddAccountComponent() {
         openModal();
     };
 
-    const send_message =(phone, authNumber) => {
-        var user_phone_number = phone; 
-        var user_auth_number = authNumber;
-        var resultCode = 404; 
+    const makeSMSKeys =() => {
         const date = Date.now().toString(); 
         const uri = "ncp:sms:kr:273557210863:moment"; 
         const secretKey = "myNuDZbXE2U9PoV0CCRDvhfoW7sTwS91VFlIeWwJ"; 
@@ -172,44 +169,35 @@ export default function AddAccountComponent() {
         const signature = hash.toString(CryptoJS.enc.Base64); 
         
         var options = {
-            headers: { 
-                "Content-type": "application/json; charset=utf-8", 
-                "x-ncp-iam-access-key": accessKey, 
-                "x-ncp-apigw-timestamp": date, 
-                "x-ncp-apigw-signature-v2": signature, 
-            }
+            accessKey: accessKey, 
+            date: date, 
+            signature: signature, 
         };
-        var data = { 
-            type: "SMS", 
-            countryCode: "82", 
-            from: "01023403907", 
-            content: "인증번호 "+ user_auth_number + " 입니다.", 
-            messages: [ 
-                { 
-                    to: user_phone_number 
-                } 
-            ]
-        };
-        axios.post(url, data, options)
-            .then(response => {
-                console.log(response.status);
-                resultCode = 200; 
-            })
-            .catch((response) => {
-                console.log('Error! = ' + response)
-            });
-        return resultCode; 
+        return options; 
     }
 
     const certificatePhone = ()=>{
         var phoneNumber = inputs['phoneNumber'];
-        var authNum = '';
+        let authNum = '';
+        let smsInfo = makeSMSKeys();
         for (let i = 0; i < 6; i++) {
             authNum += parseInt(Math.random() * 10);
         }
-        var result = send_message(phoneNumber, authNum);
-        console.log('certificatePhone = ' + phoneNumber + ', authNum =' + authNum + ', resultCode = ' + result);
+        let smsParam = {
+            signature : smsInfo.signature,
+            timestamp : smsInfo.date, 
+            access : smsInfo.accessKey,
+            receiverNum : phoneNumber,
+            authNum : authNum,
+        };
         
+        console.log('certificatePhone = ' + phoneNumber + ', authNum =' + authNum);
+        AWSManager.verifySMSNumber(smsParam).then((result)=> {
+            console.log('result =' + JSON.stringify(result));
+            console.log(JSON.stringify(result));
+        }).catch(e => {
+            console.error(e.message);
+        });
     } 
 
     return (

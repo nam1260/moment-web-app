@@ -20,7 +20,7 @@ const LOGOUT_USER = "/user/logout-user";
 const GET_USER_INFO = "/user/get-user-info";
 const UPDATE_USER_INFO ="/user/update-user-info";
 const FIND_USER_ID = "/user/find-user-id";
-const VERIFY_SMS_NUM = "/verify-sms-number";
+const VERIFY_SMS_NUM = "/user/send-sms";
 
 
 const API_KEYS = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
