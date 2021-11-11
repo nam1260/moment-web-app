@@ -193,8 +193,12 @@ export default function AddAccountComponent() {
         
         console.log('certificatePhone = ' + phoneNumber + ', authNum =' + authNum);
         AWSManager.verifySMSNumber(smsParam).then((result)=> {
-            console.log('result =' + JSON.stringify(result));
-            console.log(JSON.stringify(result));
+            if(result.data && result.data.indexOf('202')){
+                console.log('문자 전송 성공');
+                // 문자 입력 팝업 추가 
+            } else {
+                console.error('certificatePhone result =' + JSON.stringify(result));
+            }
         }).catch(e => {
             console.error(e.message);
         });
