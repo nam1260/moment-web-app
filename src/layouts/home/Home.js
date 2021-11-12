@@ -22,7 +22,7 @@ const desThumb1 = "/assets/images/main-1.png";
 const desThumb2 = "/assets/images/main-2.png";
 const footerLogo = "/assets/images/logo-gray.png";
 const instaLogo = "/assets/icons/ico-insta.png";
-const fbLogo = "/assets/icons/ico-fb.png";
+const youtubeLogo = "/assets/icons/ico-youtube.png";
 
 
 /* 
@@ -188,7 +188,7 @@ function Home() {
                     </div>
                     <div className="footer-sns">
                         <img alt="none" src={instaLogo} />
-                        <img alt="none" src={fbLogo} />
+                        <img alt="none" src={youtubeLogo} />
                     </div>
                 </div>
             </section>
