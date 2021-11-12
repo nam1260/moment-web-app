@@ -25,6 +25,8 @@ export default function LoginComponent() {
     const openWrongLoginInformaionPopup = () => {
         setShowModal(true);
     };
+    
+    const [isEnableLogin, setIsEnableLogin] = useState(false);
 
     const [inputs, setInputs] = useState({
         id: '',
@@ -38,6 +40,8 @@ export default function LoginComponent() {
             [name]: value,
         };
         setInputs(nextInputs);
+        if(id.length > 1 && pw.length > 1) setIsEnableLogin(true);
+        else setIsEnableLogin(false);
     };
  
     const onReset = () => {
@@ -49,25 +53,28 @@ export default function LoginComponent() {
     };
 
     const loginAction = ()=>{
-        AWSManager.loginUser({
-            userId: inputs.id,
-            userPw: inputs.pw,
-        }).then((result)=> {
-            if(result.status == 200 && result.data.Authorization) {
-                console.log('로그인 성공' , result);
-                StorageManager.saveUserInfo({
-                    token : result.data.Authorization,
-                    userNickNm : result.data.userNickNm,
-                    userId: result.data.userId,
-                });
-                history.push('/');
-            } else {
-                openWrongLoginInformaionPopup();
-            }
-        }).catch(e => {
-            console.error('fail = ' + e.message);
-        });
-
+        if(isEnableLogin) {
+            AWSManager.loginUser({
+                userId: inputs.id,
+                userPw: inputs.pw,
+            }).then((result)=> {
+                if(result.status == 200 && result.data.Authorization) {
+                    console.log('로그인 성공' , result);
+                    StorageManager.saveUserInfo({
+                        token : result.data.Authorization,
+                        userNickNm : result.data.userNickNm,
+                        userId: result.data.userId,
+                    });
+                    history.push('/');
+                } else {
+                    openWrongLoginInformaionPopup();
+                }
+            }).catch(e => {
+                console.error('fail = ' + e.message);
+            });
+        } else {
+            console.log('id / pw 입력 필요');
+        }
     } 
 
     return (
@@ -111,7 +118,7 @@ export default function LoginComponent() {
             </section> 
             <section className="login-button">
                 <div>
-                    <button onClick={loginAction}>
+                    <button onClick={loginAction} className= {isEnableLogin ? "enable" : "disable"}>
                         로그인하기
                     </button>
                     {showModal ? 
