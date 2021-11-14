@@ -7,20 +7,25 @@
 
 import "./login.css";
 import "../popup/modalPopup.css";
-import React, { useState, useRef, Component} from "react";
+import React, { useState } from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "../popup/ModalPopup";
 import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager.js";
+import { useDispatch } from "react-redux";
+import { saveUser } from '../../redux/user';
+
 
 const editPath = "assets/icons/list-ico-edit.png"
 const failIcon = "assets/icons/icoFace3@3x.png"
 const successIcon = "assets/icons/icoFace1@3x.png"
 
 
+
+
 export default function LoginComponent() {
     const history = useHistory();
-
+    const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const openWrongLoginInformaionPopup = () => {
         setShowModal(true);
@@ -65,7 +70,12 @@ export default function LoginComponent() {
                         userNickNm : result.data.userNickNm,
                         userId: result.data.userId,
                     });
-                    history.push('/');
+                    dispatch(saveUser({
+                        userNickNm: result.data.userNickNm,
+                        userId: result.data.userId
+                    }))
+                    const pathName = checkHaveBackPath();
+                    history.push(pathName || '/');
                 } else {
                     openWrongLoginInformaionPopup();
                 }
@@ -76,6 +86,21 @@ export default function LoginComponent() {
             console.log('id / pw 입력 필요');
         }
     } 
+
+    const checkHaveBackPath = () => {
+        const {
+            state
+        } = history.location;
+
+        if(state !== undefined) {
+            if(state?.hasGoBack) {
+                return state?.backPathName
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
 
     return (
 
