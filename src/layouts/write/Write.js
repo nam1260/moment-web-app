@@ -5,8 +5,11 @@ import MomentModal from '../../shared/component/common/modal';
 import SpeechBubble from '../../shared/component/write/SpeechBubble';
 import PaymentModal from '../../shared/component/write/PaymentModal.componet';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
+import StorageManager from '../../managers/StorageManager';
+import { message } from 'antd';
 
 
 const homeThum1_1 = "/assets/images/thum160Px1.png";
@@ -67,7 +70,7 @@ const Over300Modal = (
 
 
 
-const WriteComponent = () => {
+const WriteComponent = ({ isLogined }) => {
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
     const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
     const [isUnder100ModalOpen, setIsUnder100ModalOpen] = useState(false);
@@ -77,6 +80,16 @@ const WriteComponent = () => {
     const history = useHistory();
     const textareaElement = useRef();
     
+    useEffect(() => {
+        if(!StorageManager.checkUserIsLogined()) {
+            message.warn('사연을 보내기 위해 로그인이 필요합니다.', 1, () => {
+                history.push({
+                    pathname: '/login',
+                    state: { hasGoBack: true, backPathName: '/write/2' }
+                })
+            })
+        }
+    }, [])
 
     const onKeyupCountStoryCharacter = (event) => {
         try {
@@ -234,4 +247,4 @@ const WriteComponent = () => {
     )
 }
 
-export default WriteComponent
+export default WrapLoginedComponent(WriteComponent)
