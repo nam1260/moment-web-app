@@ -2,16 +2,29 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import '../../Common.css';
 import './header.css';
-import StorageManager from "../../managers/StorageManager.js";
+import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
 
 const menuPath = '/assets/icons/icoMenu.png'
 const searchPath = '/assets/icons/icoSearch.png'
-const loginPath = '/assets/icons/ico-login.png'
+
 const logoPath = '/assets/images/logo.png'
 
 
-function Header({ setIsMenuOpen }) {
+function Header({ setIsMenuOpen, isLogined, userNickNm, userId }) {
     const history = useHistory();
+
+
+    let loginPath = isLogined ? '/assets/images/thum160Px1.png' : '/assets/icons/ico-login.png'
+
+    const onClickProfile = () => {
+        if(isLogined) {
+            history.push('/confirmPw');
+        } else {
+            history.push('/login');
+        }
+    }
+
+
     return (
         <div className="App-Header layout">
             <div className="navigation-bar">
@@ -23,15 +36,7 @@ function Header({ setIsMenuOpen }) {
                 </div>
                 <div>
                     <img alt="none" className={"top-icon"} src={searchPath} onClick={()=> { history.push('/search') }} />
-                    <img alt="none" className={"top-icon"} src={loginPath} onClick={()=> { 
-                        let userInfo = StorageManager.loadUserInfo();
-                        if(userInfo && userInfo.token) {
-                            history.push('/confirmPw');
-                            // history.push('/modifyAccount');
-                        } else {
-                            history.push('/login');
-                        }
-                    }}/>
+                    <img alt="none" className={"top-icon"} src={loginPath} onClick={onClickProfile}/>
                 </div>
             </div>
         </div>
@@ -39,4 +44,4 @@ function Header({ setIsMenuOpen }) {
 }
 
 
-export default Header;
+export default WrapLoginedComponent(Header);
