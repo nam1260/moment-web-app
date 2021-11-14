@@ -1,6 +1,7 @@
 
 import './App.css';
-
+import { Provider } from 'react-redux';
+import store from './redux-store';
 import Header from './layouts/header/Header.js';
 import Home from './layouts/home/Home';
 import Momentor from './layouts/momentor/MomentorHome';
@@ -23,12 +24,12 @@ import GuideComponent from './layouts/guide/Guide';
 // import Amplify from 'aws-amplify';
 // import aws_exports from './aws-exports';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import StarComponent from './layouts/star/star.component';
 import StarCommentListComponent from './layouts/star/commentList.component';
-// Amplify.configure(aws_exports);
 
+// Amplify.configure(aws_exports);
 
 
 const ModalWrapper = styled.div`
@@ -47,43 +48,45 @@ const ModalWrapper = styled.div`
 function App() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     return (
-        <Router>
-            <Switch>
-            <div className="App">
-                <ModalWrapper className="modal-wrapper" />
-                <Header setIsMenuOpen={setIsMenuOpen} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/addAccount" component={AddAccount} />
-                <Route exact path="/findAccount" component={FindAccount} />
-                <Route exact path="/findPassword" component={FindPassword} />
-                <Route exact path="/confirmPw" component={ConfirmPw} />
-                <Route exact path="/modifyAccount" component={ModifyAccount} />
-                <Route exact path="/receiveMessageHistory" component={ReceiveMessageHistory} />
-                <Route exact path="/sendMessageHistory" component={SendMessageHistory} />
-                <Route exact path="/starProfile" component={StarProfile} />
-                <Route exact path="/starRegister" component={StarRegister} />
-                <Route exact path="/starRegisterHistory" component={StarRegisterHistory} />
-                <SideMenu isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-                <div className="App-main layout">
-                    <Route exact path="/" component={Home}/>
-                    <Route exact path="/Momentor" component={Momentor}/>
-                    <Route exact path="/writesuccess" component={WriteSuccessComponent}/>
-                    <Route exact path="/write/:id" component={Write}/>
-                    <Route exact path="/star/:id" component={StarComponent}/>
-                    <Route exact path="/star/:id/comment" component={StarCommentListComponent}/>
-                    <Route exact path="/search" component={Search} />
-                    <Route exact path="/guide">
-                        <Redirect to="/guide/moment" />
-                    </Route>
-                    <Route path={["/guide/moment/:type", "/guide/moment"]} component={GuideComponent.IntroComponent}/>
-                    <Route exact path="/guide/user" component={GuideComponent.UserComponent}/>
+        <Provider store={store}>
+            <Router>
+                <Switch>
+                <div className="App">
+                    <ModalWrapper className="modal-wrapper" />
+                    <Header setIsMenuOpen={setIsMenuOpen} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/addAccount" component={AddAccount} />
+                    <Route exact path="/findAccount" component={FindAccount} />
+                    <Route exact path="/findPassword" component={FindPassword} />
+                    <Route exact path="/confirmPw" component={ConfirmPw} />
+                    <Route exact path="/modifyAccount" component={ModifyAccount} />
+                    <Route exact path="/receiveMessageHistory" component={ReceiveMessageHistory} />
+                    <Route exact path="/sendMessageHistory" component={SendMessageHistory} />
+                    <Route exact path="/starProfile" component={StarProfile} />
+                    <Route exact path="/starRegister" component={StarRegister} />
+                    <Route exact path="/starRegisterHistory" component={StarRegisterHistory} />
+                    <SideMenu isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+                    <div className="App-main layout">
+                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/Momentor" component={Momentor}/>
+                        <Route exact path="/writesuccess" component={WriteSuccessComponent}/>
+                        <Route exact path="/write/:id" component={Write}/>
+                        <Route exact path="/star/:id" component={StarComponent}/>
+                        <Route exact path="/star/:id/comment" component={StarCommentListComponent}/>
+                        <Route exact path="/search" component={Search} />
+                        <Route exact path="/guide">
+                            <Redirect to="/guide/moment" />
+                        </Route>
+                        <Route path={["/guide/moment/:type", "/guide/moment"]} component={GuideComponent.IntroComponent}/>
+                        <Route exact path="/guide/user" component={GuideComponent.UserComponent}/>
+                        
+                    </div>
                     
                 </div>
-                
-            </div>
-            </Switch>
-            {isMenuOpen && <div className="wrapper" onClick={() => {setIsMenuOpen(false)}} />}
-        </Router>
+                </Switch>
+                {isMenuOpen && <div className="wrapper" onClick={() => {setIsMenuOpen(false)}} />}
+            </Router>
+        </Provider>
 
     );
 }
