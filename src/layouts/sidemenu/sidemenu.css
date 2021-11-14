@@ -92,6 +92,7 @@
     }
 
     .menu-list {
+        margin-top: min(7vw, 101px);
         margin-left: max(4vw, 20px);
     }
     
