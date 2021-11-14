@@ -81,6 +81,10 @@ const StorageManager = (function() {
         },
         removeUserInfo : () => {
             remove(DEF.CONFIG.STORAGE_KEY.USER_INFO);
+        },
+        checkUserIsLogined: () => {
+            const userInfo = JSON.parse(load(DEF.CONFIG.STORAGE_KEY.USER_INFO));
+            return !!(userInfo && userInfo?.token)
         }
     }
 
