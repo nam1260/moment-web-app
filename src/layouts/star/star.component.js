@@ -3,17 +3,36 @@ import StarRatingComponent from '../../shared/component/star/StarRating.componen
 import CommentOfFanComponent from '../../shared/component/star/CommentOfFan.component';
 import { useHistory } from 'react-router';
 import { useEffect } from 'react';
+import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
+import { message } from "antd";
 
 const homeThum1_1 = "/assets/images/thum160Px1.png";
 const plusIcon = "/assets/icons/ico-plus.png"
 
-export default function StarComponent(props) {
+function StarComponent(props) {
     const history = useHistory();
-    const { id : starId } = props.match.params
+    const { id : starId } = props.match.params;
+    const {
+        isLogined
+    } = props;
+
+    const onClickGoToWritePage = () => {
+        if(isLogined) {
+            history.push('/write/2')
+        } else {
+            message.warn('사연을 보내기 위해 로그인이 필요합니다.', 1, () => {
+                history.push({
+                    pathname: '/login',
+                    state: { hasGoBack: true, backPathName: '/write/2' }
+                })
+            })
+        }
+    }
 
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, left: 0 }) 
     }, [])
+
     return (
         <main className='star-main'>
             <section className="app-star-header">
@@ -47,7 +66,7 @@ export default function StarComponent(props) {
                             1일
                         </span>
                     </div>
-                    <button onClick={() => { history.push('/write/2')}}>
+                    <button onClick={onClickGoToWritePage}>
                         사연 보내기
                     </button>
                     <div className="introduce-box">
@@ -79,3 +98,5 @@ export default function StarComponent(props) {
         
     )
 }
+
+export default WrapLoginedComponent(StarComponent);
