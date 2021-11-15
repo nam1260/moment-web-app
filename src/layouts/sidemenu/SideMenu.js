@@ -53,7 +53,7 @@ function SideMenu({ isOpen, setIsMenuOpen, isLogined, userId, userNickNm }) {
                 {
                     isLogined
                     ? [
-                        <li onClick={() => movePage('/modifyAccount')} >회원정보 수정</li>,
+                        <li onClick={() => movePage('/confirmPw')} >회원정보 수정</li>,
                         <li onClick={() => movePage('/sendMessageHistory')} >나의 사연 관리</li>  
                     ]
                     : <li onClick={() => movePage('/login')} >로그인하기</li>
