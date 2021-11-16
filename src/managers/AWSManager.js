@@ -22,6 +22,11 @@ const UPDATE_USER_INFO ="/user/update-user-info";
 const FIND_USER_ID = "/user/find-user-id";
 const VERIFY_SMS_NUM = "/user/send-sms";
 
+const GET_SENT_MSG_LIST = "/msg/get-sent-msg-list";
+const UPDATE_MSG_INFO = "/msg/update-msg-info";
+const GET_FAN_MSG_LIST = "/msg/get-fan-msg-list";
+const UPDATE_FAN_MSG = "/msg/update-fan-msg";
+
 
 const API_KEYS = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
 const headers = {
@@ -86,6 +91,33 @@ const AWSManager = (function() {
         console.log("updateUserInfo = " +JSON.stringify(params));
         return await requestPost(getUrl(UPDATE_USER_INFO), params);
     }
+    /**
+     * 스타에게 보낸 사연을 조회힌다.
+     * @param params
+     * @returns {Promise<*>}
+     */
+    const getSentMsgList = async (params) => {
+        console.log("getSentMsgList = " +JSON.stringify(params));
+        return await requestPost(getUrl(GET_SENT_MSG_LIST), params);
+    }
+    /**
+     * 사연 정보를 업데이트한다.
+     * @param params
+     * @returns {Promise<*>}
+     */
+    const updateMsgInfo = async (params) => {
+        console.log("updateMsgInfo = " +JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_MSG_INFO), params);
+    };
+    /**
+     * 팬으로부터 받은 사연을 조회힌다.
+     * @param params
+     * @returns {Promise<*>}
+     */
+    const getFanMsgList = async (params) => {
+        console.log("getFanMsgList = " +JSON.stringify(params));
+        return await requestPost(getUrl(GET_FAN_MSG_LIST), params);
+    };
 
     return {
         regUserInfo,
@@ -97,7 +129,12 @@ const AWSManager = (function() {
         getUserInfo,
         updateUserInfo,
         findUserId,
-        verifySMSNumber
+        verifySMSNumber,
+        //사연관리
+        getSentMsgList,
+        updateMsgInfo,
+        getFanMsgList
+
     }
 
 
