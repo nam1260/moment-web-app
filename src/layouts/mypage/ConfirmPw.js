@@ -11,6 +11,8 @@ export default function ConfirmPwComponent() {
         pw: '',
     });
     const {pw} = inputs
+    const [isEnableButton, setIsEnableButton] = useState(false);
+
     const onChange = (e) => {
         const { name, value } = e.target;
         const nextInputs = {
@@ -18,6 +20,8 @@ export default function ConfirmPwComponent() {
             [name]: value,
         };
         setInputs(nextInputs);
+        if(pw.length > 1) setIsEnableButton(true);
+        else setIsEnableButton(false);
     };
     const confirmPw = () => {
         let userInfo = StorageManager.loadUserInfo();
@@ -61,9 +65,9 @@ export default function ConfirmPwComponent() {
                     </span>
                 </div>
             </section> 
-            <section className="mypage-button">
+            <section className="mypage-button" >
                 <div>
-                    <button className="full-button" onClick={confirmPw}>
+                    <button className="full-button" onClick={isEnableButton ? confirmPw : ()=>{console.log('입력값이 없음')}} className= {isEnableButton ? "enable" : "disable"}>
                         비밀번호 확인
                     </button>
                 </div>
