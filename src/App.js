@@ -28,6 +28,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import StarComponent from './layouts/star/star.component';
 import StarCommentListComponent from './layouts/star/commentList.component';
+import StorageManager from "./managers/StorageManager.js";
 
 // Amplify.configure(aws_exports);
 
@@ -54,7 +55,7 @@ function App() {
                 <div className="App">
                     <ModalWrapper className="modal-wrapper" />
                     <Header setIsMenuOpen={setIsMenuOpen} />
-                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/login" component={StorageManager.checkUserIsLogined() ? Home : Login} />
                     <Route exact path="/addAccount" component={AddAccount} />
                     <Route exact path="/findAccount" component={FindAccount} />
                     <Route exact path="/findPassword" component={FindPassword} />
