@@ -320,6 +320,7 @@ export default function AddAccountComponent() {
                                 type="text"
                                 onChange={onChangeEmailFormat}
                                 name="email"
+                                disabled={isDuplicateEmail == CHECK_SUCCESS}
                             ></input>
                             <span onClick={()=>{checkDuplecate('email');}}>
                                 중복확인
@@ -389,6 +390,7 @@ export default function AddAccountComponent() {
                                 maxlength='13'
                                 onChange={onChangeNickNmFormat}
                                 name="nickname"
+                                disabled={isDuplicateNickNm == CHECK_SUCCESS}
                             ></input>
                             <span onClick={()=>{checkDuplecate('nickname');}}>
                                 중복확인
