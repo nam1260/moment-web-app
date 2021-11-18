@@ -27,6 +27,13 @@ const REG_USER_CHECK_NICKNM_FAIL = "닉네임 형식이 올바르지 않습니�
 const REG_USER_CHECK_NICKNM_DUPLICATION_SUCCESS = "사용가능한 닉네임입니다.";
 const REG_USER_CHECK_NICKNM_DUPLICATION_FAIL = "사용할 수 없는 닉네임입니다.";
 
+const REG_USER_INPUT_PW = "비빌번호 입력";
+const REG_USER_CHECK_PW_FAIL = "비밀번호 형식이 올바르지 않습니다.";
+const REG_USER_CHECK_PW_SUCCESS = "사용가능한 비밀번호입니다.";
+const REG_USER_INPUT_PW_CONFIRM = "비빌번호 확인";
+const REG_USER_CHECK_PW_CONFIRM_FAIL = "비밀번호가 일치 하지 않습니다.";
+const REG_USER_CHECK_PW_CONFIRM_SUCCESS = "비밀번호가 일치 합니다.";
+
 const CHECK_NOTYET = 0;
 const CHECK_SUCCESS = 1;
 const CHECK_FAIL = 2;
@@ -129,13 +136,13 @@ export default function AddAccountComponent() {
             console.log('비밀번호 규칙에 맞지 않음');
             setInputsAvalilables({
                 ...inputsAvalilables,  
-                isPW: false,
+                isPw: false,
             });
         } else {
             console.log('비밀번호 규칙에 맞음');
             setInputsAvalilables({
                 ...inputsAvalilables,  
-                isPW: true,
+                isPw: true,
             });
         }
         onChange(e);
@@ -330,7 +337,7 @@ export default function AddAccountComponent() {
                             <img alt="none" src={editPath} />
                         </div>
                         <span>
-                            비밀번호 입력
+                            {pw.length > 0 ? (isPw ? REG_USER_CHECK_PW_SUCCESS : REG_USER_CHECK_PW_FAIL) : REG_USER_INPUT_PW}
                         </span>
                         <div>
                             <input
@@ -343,7 +350,7 @@ export default function AddAccountComponent() {
                             <img alt="none" src={editPath} />
                         </div>
                         <span>
-                            비밀번호 확인
+                            {pwConfirm.length > 0 ? (isPwConfirm ? REG_USER_CHECK_PW_CONFIRM_SUCCESS : REG_USER_CHECK_PW_CONFIRM_FAIL) : REG_USER_INPUT_PW_CONFIRM}
                         </span>
                         <div>
                             <input
