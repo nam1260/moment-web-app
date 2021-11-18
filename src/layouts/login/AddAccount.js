@@ -18,33 +18,55 @@ const closeIcon = "/assets/icons/ico-close.png";
 const logoPath = '/assets/images/logo.png'
 
 const REG_USER_INPUT_EMAIL = "이메일 입력";
-const REG_USER_CHECK_EMAIL_SUCCESS = "사용가능한 이메일 입니다.";
 const REG_USER_CHECK_EMAIL_FAIL = "이메일 형식이 올바르지 않습니다.";
- 
+const REG_USER_CHECK_EMAIL_DUPLICATION_SUCCESS = "사용가능한 이메일입니다.";
+const REG_USER_CHECK_EMAIL_DUPLICATION_FAIL = "사용할 수 없는 이메일입니다.";
+
+const REG_USER_INPUT_NICKNM = "닉네임";
+const REG_USER_CHECK_NICKNM_FAIL = "닉네임 형식이 올바르지 않습니다.";
+const REG_USER_CHECK_NICKNM_DUPLICATION_SUCCESS = "사용가능한 닉네임입니다.";
+const REG_USER_CHECK_NICKNM_DUPLICATION_FAIL = "사용할 수 없는 닉네임입니다.";
+
+const CHECK_NOTYET = 0;
+const CHECK_SUCCESS = 1;
+const CHECK_FAIL = 2;
+
 export default function AddAccountComponent() {
     const history = useHistory();
-    const userList = [
-        {
-            id: "test@naver.com",
-            pw: "test123",
-            phone: "01012345678",
-            nickname: "test",
-        },
-    ];
 
     const [showModal, setShowModal] = useState(false);
     const openModal = () => {
         setShowModal(true);
     };
 
-    const [isTerms, setToggleTerms] = useState(false);
-    const toggleTerms = () => {
-        setToggleTerms(isTerms => !isTerms);
-    }
+    const [inputsAvalilables, setInputsAvalilables] = useState({
+        isEmail: false,
+        isName: false,
+        isPw: false,
+        isPwConfirm: false,
+        isPhone: false,
+        isNickNm: false,
+    }); 
+    const { isEmail, isName, isPw, isPwConfirm, isPhone, isNickNm } = inputsAvalilables;
 
-    const [isCommercial, setToggleCommercial] = useState(false); 
-    const toggleCommercial = () => {
-        setToggleCommercial(isCommercial => !isCommercial);
+    const [inputsDuplicate, setInputsDuplicate] = useState({
+        isDuplicateEmail: CHECK_NOTYET,
+        isDuplicateNickNm: CHECK_NOTYET,
+    }); 
+    const { isDuplicateEmail, isDuplicateNickNm } = inputsDuplicate;
+
+    const [toggles, setToggle] = useState({
+        terms: false,
+        commercial: false,
+    }); 
+    const { terms, commercial } = toggles;
+    const onToggle = (e) => {
+        const { name } = e.target
+        const nextInputs = {
+            ...toggles,  
+            [name]: !toggles[name],
+        }
+        setToggle(nextInputs);
     }
 
     const [inputs, setInputs] = useState({
@@ -54,7 +76,7 @@ export default function AddAccountComponent() {
         phoneNumber: '',
         nickname: '',
     });
-    const { email, name,  pw, pwConfirm, phoneNumber, nickname } = inputs
+    const { email, name,  pw, pwConfirm, phoneNumber, nickname } = inputs;
     const onChange = (e) => {
         const { name, value } = e.target
         const nextInputs = {
@@ -71,8 +93,33 @@ export default function AddAccountComponent() {
         var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
         if(!emailRule.test(e.target.value)) {
             console.log('email 규칙에 맞지 않음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isEmail: false,
+            });
         } else {
             console.log('email 규칙에 맞음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isEmail: true,
+            });
+        }
+        onChange(e);
+    }
+    const onChangeNickNmFormat = (e) => {
+        var nickNmRule = /^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{5,13}$/;
+        if(!nickNmRule.test(e.target.value)) {
+            console.log('닉네임 규칙에 맞지 않음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isNickNm: false,
+            });
+        } else {
+            console.log('닉네임 규칙에 맞음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isNickNm: true,
+            });
         }
         onChange(e);
     }
@@ -80,8 +127,16 @@ export default function AddAccountComponent() {
         var passRule = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 특수문자 / 문자 / 숫자 포함 형태의 8~20자리 이내의 암호 정규식
         if(!passRule.test(e.target.value)) {
             console.log('비밀번호 규칙에 맞지 않음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isPW: false,
+            });
         } else {
             console.log('비밀번호 규칙에 맞음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isPW: true,
+            });
         }
         onChange(e);
     }
@@ -90,8 +145,16 @@ export default function AddAccountComponent() {
         var pw = inputs['pw'];
         if(confirm != pw ) {
             console.log('입력한 비밀번호가 다름');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isPwConfirm: false,
+            });
         } else {
             console.log('입력한 비밀번호가 같음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isPwConfirm: true,
+            });
         }
         onChange(e);
     }
@@ -105,7 +168,7 @@ export default function AddAccountComponent() {
             userPw: inputs.pw,
             userNickNm: inputs.nickname,
             phoneNum: inputs.phoneNumber, 
-            mrktAgreeYn: isCommercial? 'y': 'n',
+            mrktAgreeYn: commercial? 'y': 'n',
         };
         AWSManager.regUserInfo(userinfo).then((result)=> {
             if(result && result.status == 200 && result.data.Authorization && result.data.Authorization.length > 20) {
@@ -127,18 +190,43 @@ export default function AddAccountComponent() {
     const checkDuplecate = (type)=>{
         console.log('checkDuplecate type = ' + type);
         if(type == 'email') {
-            AWSManager.checkDuplId({userId:inputs.email}).then((result)=> {
-                console.log('result =' + JSON.stringify(result));
-                console.log(JSON.stringify(result));
-            }).catch(e => {
-                console.error(e.message);
-            });
+            if(isEmail) {
+                AWSManager.checkDuplId({userId:inputs.email}).then((result)=> {
+                    console.log('result =' + JSON.stringify(result));
+                    if(result.data && result.data.isDupl) {
+                        setInputsDuplicate({
+                            ...inputsDuplicate,  
+                            isDuplicateEmail: CHECK_FAIL,
+                        });
+                    } else {
+                        setInputsDuplicate({
+                            ...inputsDuplicate,  
+                            isDuplicateEmail: CHECK_SUCCESS,
+                        });
+                    }
+                }).catch(e => {
+                    console.error(e.message);
+                });
+            }
         } else {
-            AWSManager.checkDuplNickNm({userNickNm:inputs.nickname}).then((result)=> {
-                console.log('result =' + JSON.stringify(result));
-            }).catch(e => {
-                console.error(e.message);
-            });
+            if(isNickNm) {
+                AWSManager.checkDuplNickNm({userNickNm:inputs.nickname}).then((result)=> {
+                    console.log('result =' + JSON.stringify(result));
+                    if(result.data && result.data.isDupl) {
+                        setInputsDuplicate({
+                            ...inputsDuplicate,  
+                            isDuplicateNickNm: CHECK_FAIL,
+                        });
+                    } else {
+                        setInputsDuplicate({
+                            ...inputsDuplicate,  
+                            isDuplicateNickNm: CHECK_SUCCESS,
+                        });
+                    }
+                }).catch(e => {
+                    console.error(e.message);
+                });
+            }
         }
     } 
 
@@ -217,7 +305,8 @@ export default function AddAccountComponent() {
                 <div>
                     <span>
                         <span>
-                            {REG_USER_INPUT_EMAIL}
+                            { isDuplicateEmail == CHECK_NOTYET ? (email.length > 0 && !isEmail ? REG_USER_CHECK_EMAIL_FAIL : REG_USER_INPUT_EMAIL) 
+                            : (isDuplicateEmail == CHECK_SUCCESS ? REG_USER_CHECK_EMAIL_DUPLICATION_SUCCESS : REG_USER_CHECK_EMAIL_DUPLICATION_FAIL)}
                         </span>
                         <div>
                             <input
@@ -283,14 +372,15 @@ export default function AddAccountComponent() {
                             </span>
                         </div>
                         <span>
-                            닉네임
+                            { isDuplicateNickNm == CHECK_NOTYET ? (nickname.length > 0 && !isNickNm ? REG_USER_CHECK_NICKNM_FAIL : REG_USER_INPUT_NICKNM) 
+                            : (isDuplicateNickNm == CHECK_SUCCESS ? REG_USER_CHECK_NICKNM_DUPLICATION_SUCCESS : REG_USER_CHECK_NICKNM_DUPLICATION_FAIL)}
                         </span>
                         <div>
                             <input
                                 placeholder={"5~13자 (특수문자 제외)"}
                                 type="text"
                                 maxlength='13'
-                                onChange={onChange}
+                                onChange={onChangeNickNmFormat}
                                 name="nickname"
                             ></input>
                             <span onClick={()=>{checkDuplecate('nickname');}}>
@@ -303,19 +393,13 @@ export default function AddAccountComponent() {
             <section className="check-options">
                 <div>
                     <span>
-                        <img alt="none" src={isTerms ? checkOnPath : checkOffPath} onClick={()=>{
-                            console.log('개인정보');
-                            toggleTerms();
-                        }}/>
+                        <img alt="none" name="terms" src={terms ? checkOnPath : checkOffPath} onClick={onToggle}/>
                         <span class="highlight" onClick={showTermAndCondition}>개인정보처리방침 및 서비스이용약관</span>
                         <span>에 동의합니다.</span>
                     </span>
                     <br/>
                     <span>
-                        <img alt="none" src={isCommercial ? checkOnPath : checkOffPath} onClick={()=>{
-                            console.log('마케팅');
-                            toggleCommercial();
-                        }}/>
+                        <img alt="none" name="commercial" src={commercial ? checkOnPath : checkOffPath} onClick={onToggle}/>
                         <span class="highlight" onClick={showTermAndCondition}>제 3자 제공 및 마케팅</span>
                         <span> 수신 동의 (선택)</span>
                     </span>

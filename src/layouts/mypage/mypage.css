@@ -355,6 +355,9 @@ main {
     background-color: #ff723a;
     border : none;
 }
+.mypage-button > div > button.disable {
+    background-color: #525252;
+}
 .mypage-button > div > button.cancel-button {
     color: #444444;
     background-color: #ffffff;
