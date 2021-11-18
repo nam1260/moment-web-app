@@ -11,7 +11,7 @@ function MypageHeader( { index } ) {
         <div className="mypage-Header show">
         {/* <div className={`mypage-Header ${isOpen ? 'show' : 'hide'}`}> */}
             <div className="navigation-bar">
-                <div className={`${index==0 ? 'selected' : 'unselected'}`} onClick={() => history.push('modifyAccount')}>
+                <div className={`${index==0 ? 'selected' : 'unselected'}`} onClick={() => history.push('confirmPw')}>
                     회원 정보 수정
                 </div>
                 <div className={`${index==1 ? 'selected' : 'unselected'}`}onClick={() => history.push('sendMessageHistory')}>
