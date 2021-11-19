@@ -51,7 +51,7 @@ export default function AddAccountComponent() {
         isName: false,
         isPw: false,
         isPwConfirm: false,
-        isPhone: false,
+        isPhone: true, // 핸드폰 번호 인증 
         isNickNm: false,
     }); 
     const { isEmail, isName, isPw, isPwConfirm, isPhone, isNickNm } = inputsAvalilables;
@@ -130,6 +130,23 @@ export default function AddAccountComponent() {
         }
         onChange(e);
     }
+    const onChangeNameFormat = (e) => {
+        var nickNmRule = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+        if(!nickNmRule.test(e.target.value)) {
+            console.log('이름 규칙에 맞지 않음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isName: false,
+            });
+        } else {
+            console.log('이름 규칙에 맞음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                isName: true,
+            });
+        }
+        onChange(e);
+    }
     const onChangePassword = (e) => {
         var passRule = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 특수문자 / 문자 / 숫자 포함 형태의 8~20자리 이내의 암호 정규식
         if(!passRule.test(e.target.value)) {
@@ -169,29 +186,31 @@ export default function AddAccountComponent() {
     const addAccount = ()=>{
         // show term and condition 
         // openModal();
-        let userinfo = {
-            userId: inputs.email,
-            userNm: inputs.name,
-            userPw: inputs.pw,
-            userNickNm: inputs.nickname,
-            phoneNum: inputs.phoneNumber, 
-            mrktAgreeYn: commercial? 'y': 'n',
-        };
-        AWSManager.regUserInfo(userinfo).then((result)=> {
-            if(result && result.status == 200 && result.data.Authorization && result.data.Authorization.length > 20) {
-                console.log('계정 생성 성공');
-                StorageManager.saveUserInfo({
-                    token : result.data.Authorization,
-                    userNickNm : inputs.nickname,
-                    userId: inputs.email,
-                });
-                history.push('/');
-            } else {
-                console.log('계정 생성 실패 result =' + JSON.stringify(result));
-            }
-        }).catch(e => {
-            console.error(e.message);
-        });
+        if(isAvailableAddCount) {
+            let userinfo = {
+                userId: inputs.email,
+                userNm: inputs.name,
+                userPw: inputs.pw,
+                userNickNm: inputs.nickname,
+                phoneNum: inputs.phoneNumber, 
+                mrktAgreeYn: commercial? 'y': 'n',
+            };
+            AWSManager.regUserInfo(userinfo).then((result)=> {
+                if(result && result.status == 200 && result.data.Authorization && result.data.Authorization.length > 20) {
+                    console.log('계정 생성 성공');
+                    StorageManager.saveUserInfo({
+                        token : result.data.Authorization,
+                        userNickNm : inputs.nickname,
+                        userId: inputs.email,
+                    });
+                    history.push('/');
+                } else {
+                    console.log('계정 생성 실패 result =' + JSON.stringify(result));
+                }
+            }).catch(e => {
+                console.error(e.message);
+            });
+        }
     } 
 
     const checkDuplecate = (type)=>{
@@ -299,6 +318,7 @@ export default function AddAccountComponent() {
         });
     } 
 
+    let isAvailableAddCount = (terms && isDuplicateEmail == CHECK_SUCCESS && isDuplicateNickNm == CHECK_SUCCESS && isPw && isPwConfirm && isPhone && isName);
     return (
         <main>
             <section className="login-header">
@@ -332,7 +352,7 @@ export default function AddAccountComponent() {
                         <div>
                             <input
                                 type="text"
-                                onChange={onChange}
+                                onChange={onChangeNameFormat}
                                 name="name"
                             ></input>
                             <img alt="none" src={editPath} />
@@ -416,7 +436,8 @@ export default function AddAccountComponent() {
             </section>
             <section className="login-button">
                 <div>
-                    <button onClick={addAccount}>
+                    <button onClick={addAccount} 
+                        className = {isAvailableAddCount ? "enale" : "disable"}>
                         회원가입
                     </button>
                     {showModal ? 
