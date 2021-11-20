@@ -27,6 +27,8 @@ const UPDATE_MSG_INFO = "/msg/update-msg-info";
 const GET_FAN_MSG_LIST = "/msg/get-fan-msg-list";
 const UPDATE_FAN_MSG = "/msg/update-fan-msg";
 
+const GET_STAR_LIST = "/star/get-star-list";
+
 
 const API_KEYS = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
 const headers = {
@@ -119,6 +121,11 @@ const AWSManager = (function() {
         return await requestPost(getUrl(GET_FAN_MSG_LIST), params);
     };
 
+    const getStarList = async (params) => {
+        console.log("getStarList = " +JSON.stringify(params));
+        return await requestPost(getUrl(GET_STAR_LIST), params);
+    };
+
     return {
         regUserInfo,
         checkDuplId,
@@ -133,7 +140,8 @@ const AWSManager = (function() {
         //사연관리
         getSentMsgList,
         updateMsgInfo,
-        getFanMsgList
+        getFanMsgList,
+        getStarList
 
     }
 
