@@ -78,7 +78,7 @@ const ItemBox = styled.div`
     }
 `
 
-const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
+const homeThum1_1 = "/assets/images/thum160Px1.png";
 
 export default function CommentOfFanComponent({ comment = '', score = 0}) {
     return (

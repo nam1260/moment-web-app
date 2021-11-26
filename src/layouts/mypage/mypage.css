@@ -355,6 +355,9 @@ main {
     background-color: #ff723a;
     border : none;
 }
+.mypage-button > div > button.disable {
+    background-color: #525252;
+}
 .mypage-button > div > button.cancel-button {
     color: #444444;
     background-color: #ffffff;
@@ -367,6 +370,9 @@ main {
     border-radius: 55px;
     background-color: #ffffff;
     border : 2px #ff723a solid;
+}
+.mypage-button > div > button.full-button {
+    width: min(70vw, 650px);
 }
 .mypage-options {
     display: flex;

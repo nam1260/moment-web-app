@@ -62,7 +62,7 @@ const Item = styled.div`
 
 `
 
-const underLineImage = "/assets/images/yhlee/present-num-box.png"
+const underLineImage = "/assets/images/present-num-box.png"
 
 export default function GuideItemComponent({ title = "", index = 1 }) {
   

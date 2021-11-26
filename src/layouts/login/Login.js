@@ -7,30 +7,31 @@
 
 import "./login.css";
 import "../popup/modalPopup.css";
-import React, { useState, useRef, Component} from "react";
+import React, { useState } from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "../popup/ModalPopup";
+import AWSManager from "../../managers/AWSManager.js";
+import StorageManager from "../../managers/StorageManager.js";
+import { useDispatch } from "react-redux";
+import { saveUser } from '../../redux/user';
+
 
 const editPath = "assets/icons/list-ico-edit.png"
 const failIcon = "assets/icons/icoFace3@3x.png"
 const successIcon = "assets/icons/icoFace1@3x.png"
 
 
+
+
 export default function LoginComponent() {
     const history = useHistory();
-    const userList = [
-        {
-            id: "test@naver.com",
-            pw: "test123",
-            phone: "01012345678",
-            nickname: "test",
-        },
-    ];
-
+    const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const openWrongLoginInformaionPopup = () => {
         setShowModal(true);
     };
+    
+    const [isEnableLogin, setIsEnableLogin] = useState(false);
 
     const [inputs, setInputs] = useState({
         id: '',
@@ -44,6 +45,8 @@ export default function LoginComponent() {
             [name]: value,
         };
         setInputs(nextInputs);
+        if(id.length > 1 && pw.length > 1) setIsEnableLogin(true);
+        else setIsEnableLogin(false);
     };
  
     const onReset = () => {
@@ -55,21 +58,49 @@ export default function LoginComponent() {
     };
 
     const loginAction = ()=>{
-        const userInfo = null;
-        console.log('inputs =' + JSON.stringify(inputs));
-        userList.some((info)=>{
-            if(info.id == inputs.id && info.pw == inputs.pw) {
-                userInfo = info;
-                return true;
-            }
-        });
-
-        if(userInfo) {
-            console.log('로그인 성공');
+        if(isEnableLogin) {
+            AWSManager.loginUser({
+                userId: inputs.id,
+                userPw: inputs.pw,
+            }).then((result)=> {
+                if(result.status == 200 && result.data.Authorization) {
+                    console.log('로그인 성공' , result);
+                    StorageManager.saveUserInfo({
+                        token : result.data.Authorization,
+                        userNickNm : result.data.userNickNm,
+                        userId: result.data.userId,
+                    });
+                    dispatch(saveUser({
+                        userNickNm: result.data.userNickNm,
+                        userId: result.data.userId
+                    }))
+                    const pathName = checkHaveBackPath();
+                    history.push(pathName || '/');
+                } else {
+                    openWrongLoginInformaionPopup();
+                }
+            }).catch(e => {
+                console.error('fail = ' + e.message);
+            });
         } else {
-            openWrongLoginInformaionPopup();
+            console.log('id / pw 입력 필요');
         }
     } 
+
+    const checkHaveBackPath = () => {
+        const {
+            state
+        } = history.location;
+
+        if(state !== undefined) {
+            if(state?.hasGoBack) {
+                return state?.backPathName
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
 
     return (
 
@@ -112,7 +143,7 @@ export default function LoginComponent() {
             </section> 
             <section className="login-button">
                 <div>
-                    <button onClick={loginAction}>
+                    <button onClick={loginAction} className= {isEnableLogin ? "enable" : "disable"}>
                         로그인하기
                     </button>
                     {showModal ? 

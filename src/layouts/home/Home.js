@@ -1,28 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../App.css";
 import "../../Common.css";
 import "./home.css";
 import { useHistory } from "react-router";
 
 
-const homeImage = "/assets/images/yhlee/mov.png";
+const homeImage = "/assets/images/mov.png";
 const moveArrowPath = "/assets/icons/home-arrow.png";
 const crownPath = "/assets/icons/icoCrown.png";
-const homeThum1_1 = "/assets/images/yhlee/home-thum-1-1.png";
-const homeThum1_2 = "/assets/images/yhlee/home-thum-1-2.png";
+const homeThum1_1 = "/assets/images/home-thum-1-1.png";
+const homeThum1_2 = "/assets/images/home-thum-1-2.png";
 const dummyIcon = "/assets/icons/main-ico-dummy.png";
 const plusIcon = "/assets/icons/main-plus-request.png";
 const thunderIcon = "/assets/icons/icoThunder.png";
-const homeThum2_1 = "/assets/images/yhlee/home-thum-2-1.png";
-const homeThum2_2 = "/assets/images/yhlee/home-thum-2-2.png";
-const homeThum2_3 = "/assets/images/yhlee/home-thum-2-3.png";
-const homeThum2_4 = "/assets/images/yhlee/home-thum-2-4.png";
+const homeThum2_1 = "/assets/images/home-thum-2-1.png";
+const homeThum2_2 = "/assets/images/home-thum-2-2.png";
+const homeThum2_3 = "/assets/images/home-thum-2-3.png";
+const homeThum2_4 = "/assets/images/home-thum-2-4.png";
 const circlePlusIcon = "/assets/icons/ico-plus.png";
-const desThumb1 = "/assets/images/yhlee/main-1.png";
-const desThumb2 = "/assets/images/yhlee/main-2.png";
-const footerLogo = "/assets/images/yhlee/logo-gray.png";
+const desThumb1 = "/assets/images/main-1.png";
+const desThumb2 = "/assets/images/main-2.png";
+const footerLogo = "/assets/images/logo-gray.png";
 const instaLogo = "/assets/icons/ico-insta.png";
-const fbLogo = "/assets/icons/ico-fb.png";
+const youtubeLogo = "/assets/icons/ico-youtube.png";
 
 
 /* 
@@ -34,7 +34,9 @@ const fbLogo = "/assets/icons/ico-fb.png";
 */
 function Home() {
     const history = useHistory();
-
+    useEffect(() => {
+        document.documentElement.scrollTo({ top: 0, left: 0 }) 
+    }, [])
     return (
         <main>
             <section className="app-home-header">
@@ -172,10 +174,11 @@ function Home() {
                         <img alt="none" src={footerLogo} />
                     </div>
                     <div className="footer-content">
-                        <p>사업자 등록 번호 : 111-111-1111</p>
+                        <p>사업자 등록 번호 : 255-49-00797</p>
+                        <p>상호: 모먼트</p>
                         <p>대표: 박재영</p>
-                        <p>통신 판매업 신고 번호: 2021-서울강남-1863</p>
-                        <p>E-mail: mooment@gmail.com</p>
+                        <p>정보통신업 / 소프트웨어 개발 및 공급업</p>
+                        <p>E-mail: mtm.moment@gmail.com</p>
                     </div>
                     <div className="footer-list">
                         <span>이용약관</span>
@@ -185,7 +188,7 @@ function Home() {
                     </div>
                     <div className="footer-sns">
                         <img alt="none" src={instaLogo} />
-                        <img alt="none" src={fbLogo} />
+                        <img alt="none" src={youtubeLogo} />
                     </div>
                 </div>
             </section>

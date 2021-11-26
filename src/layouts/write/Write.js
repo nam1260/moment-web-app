@@ -3,12 +3,17 @@ import WriteLabel from '../../shared/component/write/WriteLabel'
 import MomentDatePicker from '../../shared/component/write/MomentDatePicker';
 import MomentModal from '../../shared/component/common/modal';
 import SpeechBubble from '../../shared/component/write/SpeechBubble';
+import PaymentModal from '../../shared/component/write/PaymentModal.componet';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
+import StorageManager from '../../managers/StorageManager';
+import { message } from 'antd';
 
-const homeThum1_1 = "/assets/images/yhlee/thum160Px1.png";
-const letterImage = "/assets/images/yhlee/icoLetter.png";
+
+const homeThum1_1 = "/assets/images/thum160Px1.png";
+const letterImage = "/assets/images/icoLetter.png";
 const iconFace = "/assets/icons/icoFace6.png";
 
 
@@ -65,15 +70,26 @@ const Over300Modal = (
 
 
 
-const WriteComponent = () => {
+const WriteComponent = ({ isLogined }) => {
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
     const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
     const [isUnder100ModalOpen, setIsUnder100ModalOpen] = useState(false);
     const [isOver300ModalOpen, setIsOver300ModalOpen] = useState(false);
+    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
     const [count, setCount] = useState(0);
     const history = useHistory();
     const textareaElement = useRef();
     
+    useEffect(() => {
+        if(!StorageManager.checkUserIsLogined()) {
+            message.warn('사연을 보내기 위해 로그인이 필요합니다.', 1, () => {
+                history.push({
+                    pathname: '/login',
+                    state: { hasGoBack: true, backPathName: '/write/2' }
+                })
+            })
+        }
+    }, [])
 
     const onKeyupCountStoryCharacter = (event) => {
         try {
@@ -126,15 +142,16 @@ const WriteComponent = () => {
 
     const onClickSendStory = () => {
         try {
-            checkStoryValidation();
+            // checkStoryValidation();
         } catch(e) {
             return false;
         }
-        setIsLoadingModalOpen(true); 
-        setTimeout(() => {
-            setIsLoadingModalOpen(false)
-            history.push('/writesuccess')
-        }, 1000)
+        setIsPaymentModalOpen(true);
+        // setIsLoadingModalOpen(true); 
+        // setTimeout(() => {
+        //     setIsLoadingModalOpen(false)
+        //     history.push('/writesuccess')
+        // }, 1000)
     }
 
     return (
@@ -171,6 +188,11 @@ const WriteComponent = () => {
                 onClickHandlerConfirm={() => setIsOver300ModalOpen(false)}
                 width={650}
                 height={520}
+            />
+
+            <PaymentModal 
+                isModalOpen={isPaymentModalOpen}
+                setIsModalOpen={setIsPaymentModalOpen}
             />
             
             <section className="app-write-header">
@@ -225,4 +247,4 @@ const WriteComponent = () => {
     )
 }
 
-export default WriteComponent
+export default WrapLoginedComponent(WriteComponent)

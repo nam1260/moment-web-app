@@ -118,6 +118,9 @@ main {
     background-color: #ff723a;
     border : none;
 }
+.login-button > div > button.disable {
+    background-color: #525252;
+}
 .login-options {
     display: flex;
     flex-direction: row;
