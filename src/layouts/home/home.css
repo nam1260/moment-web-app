@@ -116,7 +116,7 @@ main {
     background-color: rgb(255, 114, 58);
     margin-right: 0px;
 }
-
+.app-moment-content-star > div > div > article > img:not(.none-logo) { height: 100% }
 .app-moment-content-star > div > div > article > div { position: absolute; bottom:30px; flex: 1; left: 30px; }
 .app-moment-content-star > div > div > article > div > b { font-size:32px; color: white;height:29px; display: inline-block; color:#101010; line-height: 2.06;}
 .app-moment-content-star > div > div > article > div > p { color: white; font-size: 26px; opacity: .8; margin:0px; }
@@ -131,8 +131,9 @@ main {
     font-weight: 600;
     margin-top:102px;
 }
+
 .app-moment-content-sns > div:first-child { display:  flex; flex-direction: column;}
-.app-moment-content-sns > div > h3 {display:flex;align-items: center ;margin: 0px 0px 32px 0px; font-size: 34px; font-weight: 800; letter-spacing: -0.34px; color:#101010}
+.app-moment-content-sns > div > h3 {display:flex;align-items: center ;margin-bottom:32px; font-size: 34px; font-weight: 800; letter-spacing: -0.34px; color:#101010}
 .app-moment-content-sns > div > h3 > img {margin: 0px 9px 0px 43px; }
 .app-moment-content-sns > div > div { display: flex; flex-direction: row; justify-content: space-between; flex: 1; overflow-x: auto; margin-left: 50px;}
 .app-moment-content-sns > div > div > article { 
@@ -148,6 +149,10 @@ main {
     width:210px;
     height:340px;
     overflow: hidden;
+}
+
+.app-moment-content-sns > div > div > article > .img-content > img {
+    height: 100%;
 }
 
 .app-moment-content-sns > div > div > article > .article-footer {
@@ -327,6 +332,8 @@ main {
 
     .app-home-header > div > span {
         width: 100%;
+        padding-top: min(6vw, 28px);
+        padding-left: min(6vw, 51px);
     }
 
     .app-moment-content-star {
@@ -334,8 +341,20 @@ main {
     }
 
     .app-moment-content-star > div > div > article {
-        min-width: max(38.5vw, 320px);
-        height: max(50vw, 415px);
+        min-width: min(35.5vw, 320px);
+        height: min(50vw, 415px);
+    }
+
+    .app-moment-content-star > div > div > article > div { 
+        bottom: min(4vw, 30px); 
+        left: min(4vw, 30px); 
+    }
+    .app-moment-content-star > div > div > article > div > b { 
+        font-size: min(5vw, 32px);
+        height: min(5vw, 29px);
+    }
+    .app-moment-content-star > div > div > article > div > p { 
+        font-size: min(4vw, 26px);
     }
 
     .app-moment-content-star > div > h3 > span, .app-moment-content-sns > div > h3 > span {
@@ -349,7 +368,50 @@ main {
     .app-moment-content-star > div > div, .app-moment-content-sns > div > div {
         margin-left:3vw;
     }
+    
 
+    .app-moment-content-sns {
+        margin-top:min(10vw ,102px);
+    }
+
+    .app-moment-content-star > div > h3, .app-moment-content-sns > div > h3 {
+        margin-bottom: min(3vw, 32px);
+    }
+
+    .app-moment-content-sns > div > div > article { 
+        margin-right: min(1vw, 10px);
+    }
+
+
+    .app-moment-content-sns > div > div > article > .img-content {
+        width:min(28vw, 210px);
+        height:min(40vw, 340px);
+    }
+    
+    .app-moment-content-sns > div > div > article > .article-footer {
+        margin-top: min(1vw, 16px);
+    }
+
+    .app-moment-content-sns > div > div > article > .article-footer > b {
+        font-size: min(6vw, 30px);
+    }
+    
+    .app-moment-content-sns > div > div > article > .article-footer > span {
+        margin-top:min(1vw, 14px);
+        font-size: min(5vw, 24px);
+    }
+    
+
+    .app-moment-more {
+        margin-top: min(7vw, 58px);
+        margin-bottom: min(10vw, 97px);
+        font-size: min(5vw, 28px);
+    }
+
+    .app-moment-more > img {
+        width: min(7vw, 30px);
+        height: min(7vw, 30px);
+    }
 
     .app-moment-description {
         height: auto;
@@ -357,15 +419,20 @@ main {
 
     .app-moment-description > .container > h3 {
         font-size:min(7vw, 34px);
-        margin: 62px 0px 36px 10px;
+        margin-top: min(7vw, 62px);
+        margin-bottom: min(5vw, 36px);
+        margin-left: 10px
     }
 
     .app-moment-description > .container > div > .description-card {
         overflow: hidden;
-        width: 45vw;
-        height:63.3vw;
-        max-width: 320px;
-        max-height: 440px;
+        width: min(45vw, 320px);
+        height:min(63.3vw, 400px);
+    }
+
+    .app-moment-description > .container > div > .description-card > div {
+        margin-top: min(3vw, 26px);
+        margin-left: min(5vw, 31px);
     }
 
     
@@ -392,25 +459,63 @@ main {
     .app-moment-description > .container > div > .description-card > div > span:nth-child(3) {
         font-size: min(3vw, 18px);
         color:#ff723a;
+        left:min(5vw, 31px);
     }
 
     .app-moment-description > .container > div > .description-card > div > span:nth-child(3) > img {
         width: 24px
     }
+
     .app-moment-description > .container > div > .description-card > div > span {
         font-size: min(5vw, 30px);
     }
 
-
-    div.footer-header > img {
-        width:min(70vw, 289px);
         
+    .app-moment-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        font-size: 1.3em;
+        font-weight: 600;
+        height: 540px;
+        background-color: #f7f7f7;
     }
 
-    .app-moment-footer > .container > .footer-content > p {
-        font-size:min(5vw, 24px)
+    .app-moment-footer > .container > .footer-header > img {
+        width: min(50vw, 289px)
     }
 
+    .app-moment-footer > .container > .footer-header {
+        margin-top: min(7vw, 60px);
+        margin-bottom: min(7vw, 60px);
+        margin-left: min(5vw, 50px);
+    }
+
+    .app-moment-footer > .container > .footer-content {
+        margin-left:min(5vw, 49px);
+        font-size: min(5vw, 24px);
+        margin-bottom: min(5vw, 40px);
+    }
+
+    .app-moment-footer > .container > .footer-list {
+        margin-bottom: min(6vw, 64px);
+        margin-left: min(5vw, 49px);
+    }
+
+    .app-moment-footer > .container > .footer-list > span {
+        border-right: 1px solid #dddddd;
+        padding-left:min(2vw, 20px);
+        padding-right:min(2vw, 20px);
+        font-size: min(4vw, 24px);
+    }
+
+    .app-moment-footer > .container > .footer-list > span:first-child {
+        padding-right: min(1vw, 20px);
+    }
+
+    .app-moment-footer > .container > .footer-sns > img:first-child {
+        margin-left:min(5vw, 50px);
+    }
  
 }
 

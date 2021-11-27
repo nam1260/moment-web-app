@@ -80,14 +80,14 @@ function Home() {
                             </div>
                         </article>
                         <article onClick={() => history.push('star/1')}>
-                            <img alt="none" src={dummyIcon} />
+                            <img className={'none-logo'} alt="none" src={dummyIcon} />
                             <div>
                                 <b>아이유</b>
                                 <p>가수, 탤런트</p>
                             </div>
                         </article>
                         <article>
-                            <img alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
+                            <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
                             <div>
                                 <img alt="none" src={plusIcon} />
                                 <p>요청해주세요</p>
