@@ -93,6 +93,9 @@ main {
     text-align: right;
     color: #ff723a;
 }
+.login-container > div > span > div > span.disable {
+    color: #525252;
+}
 .login-container > div > span > div > img {
     width: min(10vw, 44px);
     height: min(10vw, 44px);
