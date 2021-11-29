@@ -81,6 +81,7 @@ export default function LoginComponent() {
                 }
             }).catch(e => {
                 console.error('fail = ' + e.message);
+                openWrongLoginInformaionPopup();
             });
         } else {
             console.log('id / pw 입력 필요');
