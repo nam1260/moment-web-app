@@ -30,7 +30,8 @@ const UPDATE_FAN_MSG = "/msg/update-fan-msg";
 const GET_STAR_LIST = "/star/get-star-list";
 
 
-const API_KEYS = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
+const API_KEYS_TEST = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
+const API_KEYS = 'HjkKpsNqsI4iqOdZcFJck16xFuMUfCGa7LaYy9Ra'
 const headers = {
     'x-api-key' : API_KEYS,
 }
