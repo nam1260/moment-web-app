@@ -181,8 +181,8 @@ function Home() {
                         <p>E-mail: mtm.moment@gmail.com</p>
                     </div>
                     <div className="footer-list">
-                        <span>이용약관</span>
-                        <span>개인정보처리방침</span>
+                        <span onClick={() => history.push('/doc/3')}>이용약관</span>
+                        <span onClick={() => history.push('/doc/2')}>개인정보처리방침</span>
                         <span>고객센터</span>
                         <span>파트너 문의</span>
                     </div>
