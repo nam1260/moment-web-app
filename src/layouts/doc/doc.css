@@ -1,0 +1,57 @@
+
+.doc-wrapper {
+    font-family: 'AppleSDGothicNeo';
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 100px;
+}
+
+.doc-wrapper > .container > .doc-content {
+    margin-top: 60px;
+}
+
+.doc-wrapper > .container > .doc-content > h3 {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.36;
+    letter-spacing: -1.1px;
+}
+.doc-wrapper > .container > .doc-content  ol, .doc-wrapper > .container > .doc-content ul {
+    padding-left: 15px;
+}
+.doc-wrapper > .container > .doc-content > ol, .doc-wrapper > .container > .doc-content > ul {    
+    font-size: 18px;
+    line-height: 1.5;
+    letter-spacing: -0.8px;
+}
+
+.doc-wrapper > .container > .doc-content > ol > li, .doc-wrapper > .container > .doc-content > ul > li {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -0.8px;
+    margin-top: 20px
+}
+
+
+@media (max-width: 750px) {
+    .doc-wrapper > .container > .doc-content {
+        margin-top: min(10vw, 60px);
+        padding-left: 4vw;
+        padding-right: 4vw;
+    }
+
+    .doc-wrapper > .container > .doc-content > h3 {
+        font-size: min(10vw, 44px);
+    }
+    
+    .doc-wrapper > .container > .doc-content > ol, .doc-wrapper > .container > .doc-content > ul {
+        font-size: min(4vw, 18px);
+    }
+    
+    .doc-wrapper > .container > .doc-content > ol > li, .doc-wrapper > .container > .doc-content > ul > li {
+        font-size: min(5vw, 22px);
+    }
+    
+}
