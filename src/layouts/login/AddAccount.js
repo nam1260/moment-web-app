@@ -51,7 +51,7 @@ export default function AddAccountComponent() {
         isName: false,
         isPw: false,
         isPwConfirm: false,
-        isPhone: true, // 핸드폰 번호 인증 
+        isPhone: false, // 핸드폰 번호 인증 
         isNickNm: false,
     }); 
     const { isEmail, isName, isPw, isPwConfirm, isPhone, isNickNm } = inputsAvalilables;
@@ -61,6 +61,8 @@ export default function AddAccountComponent() {
         isDuplicateNickNm: CHECK_NOTYET,
     }); 
     const { isDuplicateEmail, isDuplicateNickNm } = inputsDuplicate;
+    
+    const [isValidPhoneNum, setIsValidPhoneNum] = useState( false ); 
 
     const [toggles, setToggle] = useState({
         terms: false,
@@ -95,6 +97,8 @@ export default function AddAccountComponent() {
     const onChangeOnlyNumber = (e) => {
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
         onChange(e);
+        if(e.target.value.length > 9) setIsValidPhoneNum(true);
+        else setIsValidPhoneNum(false);
     }
     const onChangeEmailFormat = (e) => {
         var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
@@ -291,6 +295,7 @@ export default function AddAccountComponent() {
     }
 
     const certificatePhone = ()=>{
+        if(!isValidPhoneNum) return;
         var phoneNumber = inputs['phoneNumber'];
         let authNum = '';
         let smsInfo = makeSMSKeys();
@@ -395,7 +400,7 @@ export default function AddAccountComponent() {
                                 name="phoneNumber"
                                 value={phoneNumber}
                             ></input>
-                            <span onClick={certificatePhone}>
+                            <span className={isValidPhoneNum? 'enable':'disable'} onClick={certificatePhone}>
                                 인증요청
                             </span>
                         </div>

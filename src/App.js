@@ -29,6 +29,7 @@ import styled from 'styled-components';
 import StarComponent from './layouts/star/star.component';
 import StarCommentListComponent from './layouts/star/commentList.component';
 import StorageManager from "./managers/StorageManager.js";
+import DocComponent from './layouts/doc/Doc';
 
 // Amplify.configure(aws_exports);
 
@@ -80,7 +81,7 @@ function App() {
                         </Route>
                         <Route path={["/guide/moment/:type", "/guide/moment"]} component={GuideComponent.IntroComponent}/>
                         <Route exact path="/guide/user" component={GuideComponent.UserComponent}/>
-                        
+                        <Route path={["/doc/:type", "/doc"]} component={DocComponent} />
                     </div>
                     
                 </div>

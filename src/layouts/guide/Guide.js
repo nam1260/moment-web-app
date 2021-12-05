@@ -4,6 +4,7 @@ import FaqComponent from './section/Faq'
 import UserGuideComponent from './section/UserGuide'
 import StarGuideComponent from './section/StarGuide'
 import IntroductionComponent from './section/Introduction'
+import { ScrollTopHoc } from '../../shared/component/common/ScrollTopHoc'
 import  './guide.css'
 
 
@@ -43,23 +44,9 @@ const UserComponent = () => {
     )
 }
 
-const ScrollTopComponent = (WrapComponent) => {
-
-    return class extends React.Component {
-        constructor(props) {
-            super(props)
-            document.documentElement.scrollTo({ top: 0, left: 0 }) 
-        }
-
-        render() {
-            return <WrapComponent {...this.props}/>
-        }
-    }
-}
-
 const GuideComponent = {
-    IntroComponent: ScrollTopComponent(IntroComponent),
-    UserComponent: ScrollTopComponent(UserComponent)
+    IntroComponent: ScrollTopHoc(IntroComponent),
+    UserComponent: ScrollTopHoc(UserComponent)
 }
 
 export default GuideComponent
