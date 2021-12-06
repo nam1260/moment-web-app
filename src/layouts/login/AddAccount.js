@@ -159,7 +159,7 @@ export default function AddAccountComponent() {
         onChange(e);
     };
     const onChangePassword = (e) => {
-        var passRule = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 특수문자 / 문자 / 숫자 포함 형태의 8~20자리 이내의 암호 정규식
+        var passRule = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^*()&+=]).*$/; // 특수문자 / 문자 / 숫자 포함 형태의 8~20자리 이내의 암호 정규식
         if(!passRule.test(e.target.value)) {
             console.log('비밀번호 규칙에 맞지 않음');
             setInputsAvalilables({
