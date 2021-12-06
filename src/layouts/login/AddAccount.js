@@ -45,6 +45,9 @@ export default function AddAccountComponent() {
     const openModal = () => {
         setShowModal(true);
     };
+    const closeModal = () => {
+        setShowModal(false);
+    };
 
     const [inputsAvalilables, setInputsAvalilables] = useState({
         isEmail: false,
@@ -76,7 +79,7 @@ export default function AddAccountComponent() {
             [name]: !toggles[name],
         }
         setToggle(nextInputs);
-    }
+    };
 
     const [inputs, setInputs] = useState({
         email: '',
@@ -84,8 +87,10 @@ export default function AddAccountComponent() {
         pwConfirm: '',
         phoneNumber: '',
         nickname: '',
+        authNum:'',
+        validNumber: '',
     });
-    const { email, name,  pw, pwConfirm, phoneNumber, nickname } = inputs;
+    const { email, name,  pw, pwConfirm, phoneNumber, nickname, validNumber, authNum } = inputs;
     const onChange = (e) => {
         const { name, value } = e.target
         const nextInputs = {
@@ -97,9 +102,11 @@ export default function AddAccountComponent() {
     const onChangeOnlyNumber = (e) => {
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
         onChange(e);
-        if(e.target.value.length > 9) setIsValidPhoneNum(true);
-        else setIsValidPhoneNum(false);
-    }
+        if(e.target.name == "phoneNumber") {
+            if(e.target.value.length > 9) setIsValidPhoneNum(true);
+            else setIsValidPhoneNum(false);
+        }
+    };
     const onChangeEmailFormat = (e) => {
         var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
         if(!emailRule.test(e.target.value)) {
@@ -116,7 +123,7 @@ export default function AddAccountComponent() {
             });
         }
         onChange(e);
-    }
+    };
     const onChangeNickNmFormat = (e) => {
         var nickNmRule = /^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{5,13}$/;
         if(!nickNmRule.test(e.target.value)) {
@@ -133,7 +140,7 @@ export default function AddAccountComponent() {
             });
         }
         onChange(e);
-    }
+    };
     const onChangeNameFormat = (e) => {
         var nickNmRule = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
         if(!nickNmRule.test(e.target.value)) {
@@ -150,7 +157,7 @@ export default function AddAccountComponent() {
             });
         }
         onChange(e);
-    }
+    };
     const onChangePassword = (e) => {
         var passRule = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/; // 특수문자 / 문자 / 숫자 포함 형태의 8~20자리 이내의 암호 정규식
         if(!passRule.test(e.target.value)) {
@@ -167,7 +174,7 @@ export default function AddAccountComponent() {
             });
         }
         onChange(e);
-    }
+    };
     const onChangePasswordConfirm = (e) => {
         var confirm = e.target.value;
         var pw = inputs['pw'];
@@ -185,11 +192,10 @@ export default function AddAccountComponent() {
             });
         }
         onChange(e);
-    }
+    };
 
     const addAccount = ()=>{
         // show term and condition 
-        // openModal();
         if(isAvailableAddCount) {
             let userinfo = {
                 userId: inputs.email,
@@ -215,7 +221,7 @@ export default function AddAccountComponent() {
                 console.error(e.message);
             });
         }
-    } 
+    };
 
     const checkDuplecate = (type)=>{
         console.log('checkDuplecate type = ' + type);
@@ -258,11 +264,6 @@ export default function AddAccountComponent() {
                 });
             }
         }
-    } 
-
-    const showTermAndCondition = ()=>{
-        console.log('showTermAndCondition');
-        openModal();
     };
 
     const makeSMSKeys =() => {
@@ -292,7 +293,7 @@ export default function AddAccountComponent() {
             signature: signature, 
         };
         return options; 
-    }
+    };
 
     const certificatePhone = ()=>{
         if(!isValidPhoneNum) return;
@@ -309,19 +310,37 @@ export default function AddAccountComponent() {
             receiverNum : phoneNumber,
             authNum : authNum,
         };
-        
+        const nextInputs = {
+            ...inputs,  
+            ['authNum']: authNum,
+        }
+        setInputs(nextInputs);
+
         console.log('certificatePhone = ' + phoneNumber + ', authNum =' + authNum);
         AWSManager.verifySMSNumber(smsParam).then((result)=> {
             if(result.data && result.data.indexOf('202')){
                 console.log('문자 전송 성공');
-                // 문자 입력 팝업 추가 
+                openModal();
             } else {
                 console.error('certificatePhone result =' + JSON.stringify(result));
             }
         }).catch(e => {
             console.error(e.message);
         });
-    } 
+    };
+    
+    const confirmCerttificatePhone = () => {
+        console.log('authNum = ' + authNum + ', validNumber =' + validNumber + ', confirm ? ' + (validNumber == authNum));
+        
+        const nextInputs = {
+            ...inputs,  
+            ['isPhone']: (validNumber == authNum),
+        }
+        setInputsAvalilables(nextInputs)
+    };
+    
+    const [smsTimerText, setSmsTimerText] = useState('00 : 00'); 
+    
 
     let isAvailableAddCount = (terms && isDuplicateEmail == CHECK_SUCCESS && isDuplicateNickNm == CHECK_SUCCESS && isPw && isPwConfirm && isPhone && isName);
     return (
@@ -400,9 +419,43 @@ export default function AddAccountComponent() {
                                 name="phoneNumber"
                                 value={phoneNumber}
                             ></input>
-                            <span className={isValidPhoneNum? 'enable':'disable'} onClick={certificatePhone}>
+                            <span className={isValidPhoneNum? 'enable':'disable'} onClick={()=>{
+                                certificatePhone();
+                            }}>
                                 인증요청
                             </span>
+                            {showModal ? 
+                            <Modal setShowModal={setShowModal} blockClickBG={true}> 
+                                <div className="input_modal">
+                                    <div className="info_container">
+                                        <div className="title_container">
+                                            <span className="title">인증번호</span>
+                                        </div>
+                                        <div className="input_container">
+                                            <input
+                                                type="text"
+                                                maxlength='6'
+                                                onChange={onChangeOnlyNumber}
+                                                name="validNumber"
+                                                value={validNumber}
+                                                placeholder={"숫자 6 자리 입력"}
+                                            ></input>
+                                            {/* <span>{smsTimerText}</span> */}
+                                        </div>
+                                        <div className="button_container">
+                                            <button className="left_button" onClick={()=>{
+                                                console.log('인증번호 취소'); 
+                                                closeModal();
+                                            }}>취소</button>
+                                            <button className="right_button" onClick={()=>{
+                                                console.log('인증번호 입력');
+                                                confirmCerttificatePhone();
+                                                closeModal();
+                                            }}>확인</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Modal> : null}
                         </div>
                         <span>
                             { isDuplicateNickNm == CHECK_NOTYET ? (nickname.length > 0 && !isNickNm ? REG_USER_CHECK_NICKNM_FAIL : REG_USER_INPUT_NICKNM) 
@@ -428,13 +481,13 @@ export default function AddAccountComponent() {
                 <div>
                     <span>
                         <img alt="none" name="terms" src={terms ? checkOnPath : checkOffPath} onClick={onToggle}/>
-                        <span class="highlight" onClick={showTermAndCondition}>개인정보처리방침 및 서비스이용약관</span>
+                        <span class="highlight" onClick={()=>{history.push('/doc/3')}}>개인정보처리방침 및 서비스이용약관</span>
                         <span>에 동의합니다.</span>
                     </span>
                     <br/>
                     <span>
                         <img alt="none" name="commercial" src={commercial ? checkOnPath : checkOffPath} onClick={onToggle}/>
-                        <span class="highlight" onClick={showTermAndCondition}>제 3자 제공 및 마케팅</span>
+                        <span class="highlight" onClick={()=>{history.push('/doc/1')}}>제 3자 제공 및 마케팅</span>
                         <span> 수신 동의 (선택)</span>
                     </span>
                 </div>
@@ -445,52 +498,6 @@ export default function AddAccountComponent() {
                         className = {isAvailableAddCount ? "enale" : "disable"}>
                         회원가입
                     </button>
-                    {showModal ? 
-                        <Modal setShowModal={setShowModal}> 
-                            <div className="fullSize_modal">
-                                <div className="App-Header layout">
-                                    <div className="navigation-bar">
-                                        <div onClick={() => {setShowModal(false);}}>
-                                            <img alt="none" className={"top-icon"} src={closeIcon} />
-                                        </div>
-                                        <div>
-                                            <img alt="none" onClick={() => history.push('/')} className={'top-logo'} src={logoPath} />
-                                        </div>
-                                        <div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <section className="login-header">
-                                    <div className="container">
-                                        <span>서비스 이용약관</span>
-                                    </div>
-                                </section>
-                                <section className="description">
-                                    <div className="container">
-                                        <span>
-                                            총칙
-                                            <br/>
-                                            제 1 조(목적)
-                                            <br/>
-                                            이 약관은 모멘트(박재영) (이하 ”사업자”) 운영
-                                            인터넷사이트 모멘트(이하 “모멘트”)에서 제공하는
-                                            서비스 (이하 “서비스”) 이용에 있어 모멘트와
-                                            회원의 권리·의무 및 책임사항을 규정함을
-                                            목적으로 합니다.
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            제 2 조(정의)
-                                            <br/>
-                                            사업자가 운영하는 사이트는 아래와 같습니다.
-                                            <br/>
-                                            moment.com
-                                        </span>
-                                    </div>
-                                </section> 
-                            </div>
-                        </Modal> : null
-                    }
                 </div>
             </section>
             <section className="login-options">
