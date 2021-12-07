@@ -149,3 +149,110 @@ main {
     text-align: left;
     color: var(--black);
 }
+
+
+.modalContainer .input_modal {
+    z-index: 1;
+    width: min(70vw,650px);
+    height: min(29vw, 290px);
+    border-radius: min(5vw, 40px);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: animate 0.3s;
+}
+.modalContainer .input_modal .info_container{
+    top: 0;
+    left: 0;
+    width: min(70vw,650px);
+    height: min(29vw, 290px);
+}
+.modalContainer .input_modal .info_container .title_container {
+    margin-top: min(3vw,30px);
+    margin-bottom: min(1.5vw,15px);
+    width: min(70vw,650px);
+    height: min(6.5vw, 65px);
+    display: inline-block;
+}
+.modalContainer .input_modal .info_container .title_container .title  {
+    width: min(70vw,650px);
+    font-family: "AppleSDGothicNeo";
+    font-size: min(4vw, 36px);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: center;
+    color: #000;
+    display: inline-block;
+}
+.modalContainer .input_modal .info_container .input_container {
+    margin-left: min(7vw,70px);
+    width: min(56vw, 510px);
+    height: min(6.5vw, 65px);
+    text-align: left;
+}
+.modalContainer .input_modal .info_container .input_container > input {
+    /* width: min(20vw, 200px); */
+    width: min(54vw,510px);
+    height: min(6vw, 60px);
+    margin-right: min(10vw,100px);
+    font-size: min(3.6vw, 28px);
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: center;
+    color: #101010;
+    border:none;
+}
+.modalContainer .input_modal .info_container .input_container > span {
+    font-family: 'AppleSDGothicNeo';
+    font-size: min(4vw, 28px);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    text-align: right;
+    color: #ff723a;
+}
+.modalContainer .input_modal .info_container .button_container {
+    position: absolute;
+    clear:left;
+    float:left;
+    left: 0px;
+    bottom: 0px;
+    width: min(70vw,650px);
+    height: min(14vw,110px);
+    font-family: 'AppleSDGothicNeo';
+    font-size: min(4vw, 34px);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.34px;
+}
+
+.modalContainer .input_modal .info_container .button_container > button.left_button {
+    width: min(35vw,325px);
+    height: min(14vw,110px);
+    background: #f0f0f0;
+    color: #444444;
+    border:none;
+    /* background-color: #525252; */
+    border-bottom-left-radius: min(5vw, 40px);
+}
+.modalContainer .input_modal .info_container .button_container > button.right_button {
+    width: min(35vw,325px);
+    height: min(14vw,110px);
+    position: absolute;
+    background: #ff723a;
+    color: #ffffff;
+    border:none;
+    border-bottom-right-radius: min(5vw, 40px);
+}
