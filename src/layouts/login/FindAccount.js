@@ -20,6 +20,7 @@ const REG_USER_INPUT_PHONE = "휴대폰 번호 (숫자만)";
 const REG_USER_CHECK_PHONE = "휴대폰 번호 인증이 완료되었습니다.";
 
 export default function LoginComponent() {
+    const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const openModal = () => {
         setShowModal(true);
@@ -243,6 +244,7 @@ export default function LoginComponent() {
             </section>
             <section className="login-options">
                 <div>
+                    <a onClick={()=> { history.push('/findPassword') }}>비밀번호 찾기</a>
                 </div>
             </section>
         </main>
