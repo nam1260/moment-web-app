@@ -34,6 +34,9 @@ const REG_USER_INPUT_PW_CONFIRM = "비빌번호 확인";
 const REG_USER_CHECK_PW_CONFIRM_FAIL = "비밀번호가 일치 하지 않습니다.";
 const REG_USER_CHECK_PW_CONFIRM_SUCCESS = "비밀번호가 일치 합니다.";
 
+const REG_USER_INPUT_PHONE = "휴대폰 번호 (숫자만)";
+const REG_USER_CHECK_PHONE = "휴대폰 번호 인증이 완료되었습니다.";
+
 const CHECK_NOTYET = 0;
 const CHECK_SUCCESS = 1;
 const CHECK_FAIL = 2;
@@ -408,7 +411,7 @@ export default function AddAccountComponent() {
                             <img alt="none" src={editPath} />
                         </div>
                         <span>
-                            휴대폰 번호 (숫자만)
+                            {isPhone ? REG_USER_CHECK_PHONE : REG_USER_INPUT_PHONE}
                         </span>
                         <div>
                             <input
@@ -418,6 +421,7 @@ export default function AddAccountComponent() {
                                 onChange={onChangeOnlyNumber}
                                 name="phoneNumber"
                                 value={phoneNumber}
+                                disabled={isDuplicateEmail == CHECK_SUCCESS}
                             ></input>
                             <span className={isValidPhoneNum? 'enable':'disable'} onClick={()=>{
                                 certificatePhone();
