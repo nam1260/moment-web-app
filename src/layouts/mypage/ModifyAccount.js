@@ -1,52 +1,76 @@
 
 import "./mypage.css";
-import React, { useState, useRef, Component} from "react";
+import React, { useState, useEffect, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import MypageHeader from './MypageHeader';
+import AWSManager from "../../managers/AWSManager.js";
+import StorageManager from "../../managers/StorageManager";
+
+
+
 
 const editPath = "assets/icons/list-ico-edit.png"
 const cameraPath = "assets/icons/ico-camera.svg"
 const thumPath = "assets/images/thum-160-px-1.png"
+const checkOffPath = "assets/icons/check-off.svg"
+const checkOnPath = "assets/icons/check-on.svg"
 
 
 export default function ModifyAccountComponent() {
-    const userInfo = {
-        id: "starkim@moment.com",
-        pw: "test123",
-        phone: "01012344567",
-        nickname: "김스타",
-    };
-
+    const history = useHistory();
     const [inputs, setInputs] = useState({
-        email: '',
+        userId:'',
+        userNm:'',
         pw: '',
         pwConfirm: '',
-        phoneNumber: '',
-        nickname: '',
+        phoneNum: '',
+        userNickNm: '',
     });
-    const { email, pw, pwConfirm, phoneNumber, nickname } = inputs
+
+    const { pw, pwConfirm, phoneNum, userNickNm } = inputs
     const onChange = (e) => {
         const { name, value } = e.target;
         const nextInputs = {
-            ...inputs,  
+            ...inputs,
             [name]: value,
         };
         setInputs(nextInputs);
     };
-    const _reset = () => {
-        const resetInputs = {
-            id: '',
-            pw: '',
+
+    const [toggles, setToggle] = useState({
+        commercial: false,
+    });
+    const {commercial } = toggles;
+    const onToggle = (e) => {
+        const { name } = e.target
+        const nextInputs = {
+            ...toggles,
+            [name]: !toggles[name],
         }
-        setInputs(resetInputs)
+        setToggle(nextInputs);
+    };
+
+    const _reset = () => {
+        history.push("/");
     };
     const _complete = () => {
-        const resetInputs = {
-            id: '',
-            pw: '',
-        }
-        setInputs(resetInputs)
+        AWSManager.updateUserInfo({
+
+        })
     };
+
+    useEffect(() =>{
+        console.log("modifyAccount, 랜더링 될 떄마다 호출");
+        let userId = StorageManager.loadUserInfo() ? StorageManager.loadUserInfo().userId : "";
+        AWSManager.getUserInfo({
+            userId
+        }).then((result) =>{
+            if(result && result.status === 200 && result.data) {
+                setInputs(result.data);
+            }
+        });
+
+    },[]);
  
     return (
         <main>
@@ -64,7 +88,7 @@ export default function ModifyAccountComponent() {
                         </span>
                         <div className="mypage-email">
                             <div>
-                                <div>{userInfo.id}</div>
+                                <div>{inputs.userId}</div>
                             </div>
                             <div className="thumbnail"> 
                                 <img className="thumbnail-img" alt="none" src={thumPath} />
@@ -75,7 +99,7 @@ export default function ModifyAccountComponent() {
                             이름
                         </span>
                         <div className="nickname">
-                            <div>{userInfo.nickname}</div>
+                            <div>{inputs.userNm}</div>
                         </div>
                         <span>
                             비밀번호
@@ -104,10 +128,9 @@ export default function ModifyAccountComponent() {
                         </span>
                         <div>
                             <input
-                                placeholder={userInfo.nickname}
+                                placeholder={inputs.userNickNm}
                                 type="text"
                                 onChange={onChange}
-                                value={nickname}
                                 name="nickname"
                             ></input>
                             <img alt="none" src={editPath} />
@@ -117,14 +140,22 @@ export default function ModifyAccountComponent() {
                         </span>
                         <div>
                             <input
-                                placeholder={userInfo.phone}
+                                placeholder={inputs.phoneNum}
                                 type="text"
                                 onChange={onChange}
-                                value={phoneNumber}
                                 name="phoneNumber"
                             ></input>
-                            <img alt="none" src={editPath} />
+                            <img alt="none" src={editPath}/>
                         </div>
+                          <br/>
+                        <span>
+                            <img alt="none" name="commercial" src={commercial ? checkOnPath : checkOffPath}
+                                 onClick={onToggle}/>
+                            <span class="highlight" onClick={() => {
+                                history.push('/doc/1')
+                            }}>제 3자 제공 및 마케팅</span>
+                            <span> 수신 동의 (선택)</span>
+                        </span>
                     </span>
                 </div>
             </section> 

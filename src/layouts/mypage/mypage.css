@@ -293,6 +293,10 @@ main {
 .mypage-container > div.messageList > div > .info > b.highlight{
     font-weight: bold;
 }
+.mypage-container span.highlight {
+    color: #ff723a;
+}
+
 .mypage-container > div.messageList > div > div.messageButton {
     display: block;
     width: min(70vw, 650px);
