@@ -421,7 +421,7 @@ export default function AddAccountComponent() {
                                 onChange={onChangeOnlyNumber}
                                 name="phoneNumber"
                                 value={phoneNumber}
-                                disabled={isDuplicateEmail == CHECK_SUCCESS}
+                                disabled={isPhone == CHECK_SUCCESS}
                             ></input>
                             <span className={isValidPhoneNum? 'enable':'disable'} onClick={()=>{
                                 certificatePhone();
