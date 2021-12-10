@@ -396,3 +396,14 @@ main {
     text-align: left;
     color: #8f8f8f;
 }
+
+.mypage-container #subText{
+    font-size: min(2.5vw, 16px);
+    color: #ff723a;
+}
+.mypage-container #mrktAgreeYn {
+    width: min(9vw, 40px);
+    height: min(9vw, 40px);
+    object-fit: contain;
+    float: left;
+}
