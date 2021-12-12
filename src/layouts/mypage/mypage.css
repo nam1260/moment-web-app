@@ -6,7 +6,7 @@ main {
     flex-direction: row;
     justify-content: center;
     background-color: #ffffff;
-    margin-top: min(1vh, 60px);     
+    margin-top: min(1vh, 60px);
     max-width: 100%;
 }
 
@@ -81,7 +81,7 @@ main {
     border-bottom: 2px solid #f0f0f0;
     margin-bottom: min(2vw, 20px);
 }
-    
+
 .mypage-container > div > span > div > input {
     width: min(70vw, 650px);
     height: min(10vw, 60px);
@@ -170,7 +170,7 @@ main {
 .mypage-container > div > span > div.mypage-email > div.thumbnail > img.thumbnail-img {
     width: min(20vw, 160px);
     height: min(20vw, 160px);
-    object-fit: contain;    
+    object-fit: contain;
     border-radius: min(10vw, 80px);
 ;
 }
@@ -181,7 +181,7 @@ main {
     object-fit: contain;
     bottom: 0;
     right: 0;
-    
+
 }
 .mypage-container > div > span > div > div > img {
     width: min(10vw, 44px);
@@ -199,7 +199,7 @@ main {
     -webkit-letter-spacing: -0.26px;
     -moz-letter-spacing: -0.26px;
     -ms-letter-spacing: -0.26px;
-    letter-spacing: -0.26px;   
+    letter-spacing: -0.26px;
 }
 .mypage-container > div > span > div > .write-wrapper > span {
     font-size: 22px;
@@ -318,7 +318,7 @@ main {
     text-align: center;
     color: #444444;
     margin-right: min(0.2vw , 5px);
-    
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -406,4 +406,11 @@ main {
     height: min(9vw, 40px);
     object-fit: contain;
     float: left;
+}
+
+.mypage-container #duplCheckBtn.disable{
+    color: #8f8f8f;
+}
+.mypage-button #complete.disable {
+
 }
