@@ -14,6 +14,7 @@ import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager.js";
 import { useDispatch } from "react-redux";
 import { saveUser } from '../../redux/user';
+import EncryptionManager from "../../managers/EncryptionManager.js";
 
 
 const editPath = "assets/icons/list-ico-edit.png"
@@ -59,29 +60,37 @@ export default function LoginComponent() {
 
     const loginAction = ()=>{
         if(isEnableLogin) {
-            AWSManager.loginUser({
-                userId: inputs.id,
-                userPw: inputs.pw,
-            }).then((result)=> {
-                if(result.status == 200 && result.data.Authorization) {
-                    console.log('로그인 성공' , result);
-                    StorageManager.saveUserInfo({
-                        token : result.data.Authorization,
-                        userNickNm : result.data.userNickNm,
-                        userId: result.data.userId,
+            AWSManager.getSalt({userId: inputs.id}).then((result)=>{
+                console.log('getSalt = ' + result.data.salt); 
+                let salt = result.data.salt;
+                EncryptionManager.makePassword(inputs.pw, salt).then((hashedPassword)=>{
+                    console.log('getHashedPassword = ' + hashedPassword); 
+                    AWSManager.loginUser({
+                        userId: inputs.id,
+                        userPw: hashedPassword,
+                    }).then((result)=> {
+                        if(result.status == 200 && result.data.Authorization) {
+                            console.log('로그인 성공' , result);
+                            StorageManager.saveUserInfo({
+                                token : result.data.Authorization,
+                                userNickNm : result.data.userNickNm,
+                                userId: result.data.userId,
+                            });
+                            StorageManager.saveSalt(salt);
+                            dispatch(saveUser({
+                                userNickNm: result.data.userNickNm,
+                                userId: result.data.userId
+                            }))
+                            const pathName = checkHaveBackPath();
+                            history.push(pathName || '/');
+                        } else {
+                            openWrongLoginInformaionPopup();
+                        }
+                    }).catch(e => {
+                        console.error('fail = ' + e.message);
+                        openWrongLoginInformaionPopup();
                     });
-                    dispatch(saveUser({
-                        userNickNm: result.data.userNickNm,
-                        userId: result.data.userId
-                    }))
-                    const pathName = checkHaveBackPath();
-                    history.push(pathName || '/');
-                } else {
-                    openWrongLoginInformaionPopup();
-                }
-            }).catch(e => {
-                console.error('fail = ' + e.message);
-                openWrongLoginInformaionPopup();
+                });
             });
         } else {
             console.log('id / pw 입력 필요');

@@ -9,6 +9,7 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager.js";
+import EncryptionManager from "../../managers/EncryptionManager.js";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const checkOffPath = "assets/icons/check-off.svg"
@@ -200,29 +201,35 @@ export default function AddAccountComponent() {
     const addAccount = ()=>{
         // show term and condition 
         if(isAvailableAddCount) {
-            let userinfo = {
-                userId: inputs.email,
-                userNm: inputs.name,
-                userPw: inputs.pw,
-                userNickNm: inputs.nickname,
-                phoneNum: inputs.phoneNumber, 
-                mrktAgreeYn: commercial? 'y': 'n',
-            };
-            AWSManager.regUserInfo(userinfo).then((result)=> {
-                if(result && result.status == 200 && result.data.Authorization && result.data.Authorization.length > 20) {
-                    console.log('계정 생성 성공');
-                    StorageManager.saveUserInfo({
-                        token : result.data.Authorization,
-                        userNickNm : inputs.nickname,
-                        userId: inputs.email,
-                    });
-                    history.push('/');
-                } else {
-                    console.log('계정 생성 실패 result =' + JSON.stringify(result));
-                }
-            }).catch(e => {
-                console.error(e.message);
+            EncryptionManager.createPassword(inputs.pw).then((result)=>{
+                let salt = result.salt;
+                let userinfo = {
+                    userId: inputs.email,
+                    userNm: inputs.name,
+                    userPw: result.password,
+                    userNickNm: inputs.nickname,
+                    phoneNum: inputs.phoneNumber, 
+                    mrktAgreeYn: commercial? 'y': 'n',
+                    salt : salt,
+                };
+                AWSManager.regUserInfo(userinfo).then((result)=> {
+                    if(result && result.status == 200 && result.data.Authorization && result.data.Authorization.length > 20) {
+                        console.log('계정 생성 성공');
+                        StorageManager.saveUserInfo({
+                            token : result.data.Authorization,
+                            userNickNm : inputs.nickname,
+                            userId: inputs.email,
+                        });
+                        StorageManager.saveSalt(salt);
+                        history.push('/');
+                    } else {
+                        console.log('계정 생성 실패 result =' + JSON.stringify(result));
+                    }
+                }).catch(e => {
+                    console.error(e.message);
+                });
             });
+
         }
     };
 

@@ -85,7 +85,16 @@ const StorageManager = (function() {
         checkUserIsLogined: () => {
             const userInfo = JSON.parse(load(DEF.CONFIG.STORAGE_KEY.USER_INFO));
             return !!(userInfo && userInfo?.token)
-        }
+        },
+        saveSalt : (salt)=> {
+            save(DEF.CONFIG.STORAGE_KEY.SALT_KEY, salt);
+        },
+        loadSalt : () => {
+           return load(DEF.CONFIG.STORAGE_KEY.SALT_KEY);
+        },
+        removeSalt : () => {
+            remove(DEF.CONFIG.STORAGE_KEY.SALT_KEY);
+        },
     }
 
 

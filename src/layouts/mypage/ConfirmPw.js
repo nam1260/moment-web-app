@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager.js";
 import { Modal } from "../popup/ModalPopup";
+import EncryptionManager from "../../managers/EncryptionManager.js";
 
 const failIcon = "assets/icons/icoFace3@3x.png"
 
@@ -29,20 +30,23 @@ export default function ConfirmPwComponent() {
     };
     const confirmPw = () => {
         let userInfo = StorageManager.loadUserInfo();
+        let salt = StorageManager.loadSalt();
         console.log('입력 비밀번호 = ' + inputs.pw + ', userId = ' + userInfo.userId);
-        AWSManager.checkPasswordVerification({
-            userId: userInfo.userId,
-            userPw: inputs.pw,
-        }).then((result)=> {
-            if(result.status == 200 && result.data.isCorrectPw) {
-                console.log('비밀번호 검증 완료');
-                history.push('/modifyAccount');
-            } else {
-                console.log('경고 팝업');
-                setShowModal(true);
-            }
-        }).catch(e => {
-            console.error('fail = ' + e.message);
+        EncryptionManager.makePassword(inputs.pw, salt).then((hashedPassword)=>{
+            AWSManager.checkPasswordVerification({
+                userId: userInfo.userId,
+                userPw: hashedPassword,
+            }).then((result)=> {
+                if(result.status == 200 && result.data.isCorrectPw) {
+                    console.log('비밀번호 검증 완료');
+                    history.push('/modifyAccount');
+                } else {
+                    console.log('경고 팝업');
+                    setShowModal(true);
+                }
+            }).catch(e => {
+                console.error('fail = ' + e.message);
+            });
         });
     };
  

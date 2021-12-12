@@ -25,6 +25,7 @@ function SideMenu({ isOpen, setIsMenuOpen, isLogined, userId, userNickNm }) {
     
     const signOutUser = () => {
         StorageManager.removeUserInfo();
+        StorageManager.removeSalt();
         dispatch(removeUser());
         movePage('/login')
     }
