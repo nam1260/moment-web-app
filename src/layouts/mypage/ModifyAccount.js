@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import MypageHeader from './MypageHeader';
 import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager";
+import EncryptionManager from "../../managers/EncryptionManager.js";
 
 
 
@@ -18,6 +19,7 @@ const checkOnPath = "assets/icons/check-on.svg";
 
 
 // TODO 이미지 등록 처리 필요
+// TODO 동일 닉네임 저장 시 그대로 저장되도록 처리 필요
 export default function ModifyAccountComponent() {
     const history = useHistory();
 
@@ -30,18 +32,19 @@ export default function ModifyAccountComponent() {
         userNickNm: '',
         starYn: '',
         mrktAgreeYn: '',
+        salt: ''
     });
 
     const [checkVariables, setValidVariables] = useState({
         isValidPhoneNum: true,
         isValidUserNickNm: true,
+        isCheckedNickNmDupl:true,
         isValidPw: false,
         isPwConfirm: false,
     });
 
-    const [isCheckedNickNmDupl, setCheckedNickNmDupl] = useState(true);
 
-    const [nickNmAlertText, setNickNmAlertText] = useState('닉네임 중복 체크를 해주세요(미 변경 시 수정x)');
+    const [nickNmAlertText, setNickNmAlertText] = useState('중복 닉네임 존재 시 변경되지 않습니다');
     const [phoneNumAlertText, setPhoneNumAlertText] = useState('휴대폰 번호를 입력해 주세요(숫자만 입력 가능)');
     const [pwAlertText, setPwAlertText] = useState('비밀번호를 입력해 주세요');
     const [pwConfirmAlertText, setPwConfirmAlertText] = useState('');
@@ -65,12 +68,13 @@ export default function ModifyAccountComponent() {
             nickNmAlertText = "닉네임을 입력해주세요";
         }else {
             isValidUserNickNm = nickNmRule.test(e.target.value);
-            nickNmAlertText =  isValidUserNickNm ? '닉네임 중복 체크를 해주세요(미 변경 시 수정x)' : '닉네임이 올바르지 않습니다';
+            nickNmAlertText =  isValidUserNickNm ? '중복 닉네임 존재 시 변경되지 않습니다' : '닉네임이 올바르지 않습니다';
         }
 
         setValidVariables({
             ...checkVariables,
-            isValidUserNickNm
+            isValidUserNickNm,
+            isCheckedNickNmDupl: false
         })
         setNickNmAlertText(nickNmAlertText);
 
@@ -80,26 +84,6 @@ export default function ModifyAccountComponent() {
         onChange(e);
     };
 
-    const checkDuplNick = (type)=>{
-        if(!checkVariables.isValidUserNickNm) return;
-        let nickNmAlertText = "";
-        let duplResult = false;
-        AWSManager.checkDuplNickNm({userNickNm}).then((result) => {
-            if(result && result.status === 200) {
-                if(result.data.isDupl) {
-                    nickNmAlertText = "중복된 닉네임이 존재합니다.";
-                }else {
-                    duplResult = true;
-                    nickNmAlertText = "사용 가능한 닉네임 입니다.";
-                }
-                //TODO 중복 닉네임 체크 관련 비동기 확인 필요 (setState 이슈)
-                setCheckedNickNmDupl(duplResult);
-                setNickNmAlertText(nickNmAlertText);
-            }else {
-                alert("server error");
-            }
-        })
-    };
 
     const onChangePhoneNumber = (e) => {
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -117,7 +101,7 @@ export default function ModifyAccountComponent() {
 
         let inputPw = e.target.value;
         let isValidPw = inputPw && passRule.test(inputPw);
-
+        let pwConfirm = userInfo['pwConfirm'];
         //text set
         if(!inputPw) {
             setPwAlertText("비밀번호를 입력하세요");
@@ -125,10 +109,22 @@ export default function ModifyAccountComponent() {
             setPwAlertText(isValidPw ? "올바른 비밀번호 입니다" : "비밀번호가 올바르지 않습니다(특수문자, 숫자, 영문 포함 8~20자리)");
         }
 
+        let confirmPwText = "";
+        let isPwConfirm = false;
+        if(inputPw && inputPw === pwConfirm) {
+            confirmPwText ="비밀번호가 일치합니다";
+            isPwConfirm = true;
+        }else if(inputPw && pwConfirm){
+            confirmPwText = "비밀번호가 일치하지 않습니다";
+        }
+
+        setPwConfirmAlertText(confirmPwText);
+
         //flag set
         setValidVariables({
             ...checkVariables,
-            isValidPw
+            isValidPw,
+            isPwConfirm
         });
 
 
@@ -147,7 +143,7 @@ export default function ModifyAccountComponent() {
         }
         else confirmText = "비밀번호가 일치하지 않습니다";
 
-        //test set
+        //text set
         setPwConfirmAlertText(confirmText);
 
         //flag set
@@ -175,18 +171,65 @@ export default function ModifyAccountComponent() {
         console.log(userInfo);
 
         if(checkVariables.isValidPhoneNum && checkVariables.isValidUserNickNm && checkVariables.isValidPw && checkVariables.isPwConfirm) {
-            AWSManager.updateUserInfo({
-                ...userInfo
-            }).then((result)=>{
-                if(result && result.status===200) {
-                    _returnToHome();
-                }
+
+            checkDuplNick().then(() => {
+
+                EncryptionManager.createPassword(userInfo.userPw).then((result) => {
+                    console.log(result);
+                    let salt = result.salt;
+                    AWSManager.updateUserInfo({
+                        ...userInfo,
+                        userPw: result.password,
+                        salt: salt
+                    }).then((result) => {
+                        if (result && result.status === 200) {
+                            StorageManager.saveSalt(salt);
+                            _returnToHome();
+                        }
+                    })
+
+                })
+            }).catch((e) => {
+                console.log(e)
             })
         }else {
             alert("유효하지 않은 접근입니다")
         }
 
     };
+
+    const checkDuplNick = (type)=>{
+        if(!checkVariables.isValidUserNickNm) return;
+        let nickNmAlertText = "";
+        let duplResult = false;
+        return new Promise((resolve,reject) => {
+
+            if(checkVariables.isCheckedNickNmDupl) resolve();
+            else {
+                AWSManager.checkDuplNickNm({userNickNm}).then((result) => {
+                    if(result && result.status === 200) {
+                        if(result.data.isDupl) {
+                            nickNmAlertText = "중복된 닉네임이 존재합니다.";
+                            reject("error");
+                        }else {
+                            duplResult = true;
+                            nickNmAlertText = "사용 가능한 닉네임 입니다.";
+                            resolve();
+                        }
+                        //TODO 중복 닉네임 체크 관련 비동기 확인 필요 (setState 이슈)
+                        //setCheckedNickNmDupl(duplResult);
+                        setNickNmAlertText(nickNmAlertText);
+                    }else {
+                        alert("server error");
+                        reject("server error");
+                    }
+                })
+            }
+
+        })
+
+    };
+
 
     //function 의 lifeCycle을 담당한다.
     useEffect(() =>{
@@ -267,9 +310,9 @@ export default function ModifyAccountComponent() {
                                 name="userNickNm"
                             ></input>
 
-                           <span id="duplCheckBtn" className= { checkVariables.isValidUserNickNm? "enable" : "disable"} onClick={()=>{checkDuplNick('nickname');}}>
-                                중복확인
-                            </span>
+                           {/*<span id="duplCheckBtn" className= { checkVariables.isValidUserNickNm? "enable" : "disable"} onClick={()=>{checkDuplNick('nickname');}}>*/}
+                                {/*중복확인*/}
+                            {/*</span>*/}
                         </div>
 
                         <span>
