@@ -4,9 +4,14 @@ import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager.js";
+import { Modal } from "../popup/ModalPopup";
+import EncryptionManager from "../../managers/EncryptionManager.js";
+
+const failIcon = "assets/icons/icoFace3@3x.png"
 
 export default function ConfirmPwComponent() {
     const history = useHistory();
+    const [showModal, setShowModal] = useState(false);
     const [inputs, setInputs] = useState({
         pw: '',
     });
@@ -25,22 +30,33 @@ export default function ConfirmPwComponent() {
     };
     const confirmPw = () => {
         let userInfo = StorageManager.loadUserInfo();
+        let salt = StorageManager.loadSalt();
         console.log('입력 비밀번호 = ' + inputs.pw + ', userId = ' + userInfo.userId);
-        AWSManager.checkPasswordVerification({
-            userId: userInfo.userId,
-            userPw: inputs.pw,
-        }).then((result)=> {
-            if(result.status == 200 && result.data.isCorrectPw) {
-                console.log('비밀번호 검증 완료');
-                history.push('/modifyAccount');
-            } else {
-                console.log('경고 팝업');
-            }
-        }).catch(e => {
-            console.error('fail = ' + e.message);
+        EncryptionManager.makePassword(inputs.pw, salt).then((hashedPassword)=>{
+            AWSManager.checkPasswordVerification({
+                userId: userInfo.userId,
+                userPw: hashedPassword,
+            }).then((result)=> {
+                if(result.status == 200 && result.data.isCorrectPw) {
+                    console.log('비밀번호 검증 완료');
+                    history.push('/modifyAccount');
+                } else {
+                    console.log('경고 팝업');
+                    setShowModal(true);
+                }
+            }).catch(e => {
+                console.error('fail = ' + e.message);
+            });
         });
     };
  
+    const onReset = () => {
+        const resetInputs = {
+            pw: '',
+        }
+        setInputs(resetInputs)
+    };
+
     return (
         <main>
             <section className="mypage-header">
@@ -70,6 +86,28 @@ export default function ConfirmPwComponent() {
                     <button className="full-button" onClick={isEnableButton ? confirmPw : ()=>{console.log('입력값이 없음')}} className= {isEnableButton ? "enable" : "disable"}>
                         비밀번호 확인
                     </button>
+                    {showModal ? 
+                    <Modal setShowModal={setShowModal}> 
+                        <div className="button_modal">
+                            <div className="info_container">
+                                <img alt="none" src={failIcon} />
+                                <span className="title">일치하는 비밀번호가 틀립니다.</span>
+                                <br/>
+                                <span className="description">입력하신 비밀번호가 올바른지 </span>
+                                <br/>
+                                <span className="description">다시 확인해 주세요.</span>
+                            </div>
+                            <div className="button_container">
+                                <button className="center_button" onClick={()=>{
+                                        console.log("retry");
+                                        setShowModal(false);
+                                        onReset();
+                                    }}>
+                                    다시입력
+                                </button>
+                            </div>
+                        </div>
+                    </Modal> : null}
                 </div>
             </section>
         </main>

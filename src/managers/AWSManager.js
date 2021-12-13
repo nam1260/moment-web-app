@@ -15,6 +15,7 @@ const REG_USER_INFO  =  "/user/reg-user-info";
 const CHECK_DUPL_ID  =  "/user/check-dupl-id";
 const CHECK_DUPL_NICK_NAME  =  "/user/check-dupl-nicknm";
 const CHECK_PW_VERIFICATION  =  "/user/check-pw-verification";
+const GET_SALT  =  "/user/get-salt";
 const LOGIN_USER  =  "/user/login-user";
 const LOGOUT_USER = "/user/logout-user";
 const GET_USER_INFO = "/user/get-user-info";
@@ -59,6 +60,11 @@ const AWSManager = (function() {
     const checkDuplNickNm = async (params) => {
         console.log("checkDuplNickNm = " + JSON.stringify(params));
         return await requestPost(getUrl(CHECK_DUPL_NICK_NAME), params);
+    };
+
+    const getSalt = async (params) => {
+        console.log("getSalt = " + JSON.stringify(params));
+        return await requestPost(getUrl(GET_SALT), params);
     };
 
     const checkPasswordVerification = async (params) => {
@@ -131,6 +137,7 @@ const AWSManager = (function() {
         regUserInfo,
         checkDuplId,
         checkDuplNickNm,
+        getSalt,
         checkPasswordVerification,
         loginUser,
         logoutUser,

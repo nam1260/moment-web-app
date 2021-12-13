@@ -9,6 +9,7 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager.js";
+import EncryptionManager from "../../managers/EncryptionManager.js";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const checkOffPath = "assets/icons/check-off.svg"
@@ -33,6 +34,9 @@ const REG_USER_CHECK_PW_SUCCESS = "사용가능한 비밀번호입니다.";
 const REG_USER_INPUT_PW_CONFIRM = "비빌번호 확인";
 const REG_USER_CHECK_PW_CONFIRM_FAIL = "비밀번호가 일치 하지 않습니다.";
 const REG_USER_CHECK_PW_CONFIRM_SUCCESS = "비밀번호가 일치 합니다.";
+
+const REG_USER_INPUT_PHONE = "휴대폰 번호 (숫자만)";
+const REG_USER_CHECK_PHONE = "휴대폰 번호 인증이 완료되었습니다.";
 
 const CHECK_NOTYET = 0;
 const CHECK_SUCCESS = 1;
@@ -197,29 +201,35 @@ export default function AddAccountComponent() {
     const addAccount = ()=>{
         // show term and condition 
         if(isAvailableAddCount) {
-            let userinfo = {
-                userId: inputs.email,
-                userNm: inputs.name,
-                userPw: inputs.pw,
-                userNickNm: inputs.nickname,
-                phoneNum: inputs.phoneNumber, 
-                mrktAgreeYn: commercial? 'y': 'n',
-            };
-            AWSManager.regUserInfo(userinfo).then((result)=> {
-                if(result && result.status == 200 && result.data.Authorization && result.data.Authorization.length > 20) {
-                    console.log('계정 생성 성공');
-                    StorageManager.saveUserInfo({
-                        token : result.data.Authorization,
-                        userNickNm : inputs.nickname,
-                        userId: inputs.email,
-                    });
-                    history.push('/');
-                } else {
-                    console.log('계정 생성 실패 result =' + JSON.stringify(result));
-                }
-            }).catch(e => {
-                console.error(e.message);
+            EncryptionManager.createPassword(inputs.pw).then((result)=>{
+                let salt = result.salt;
+                let userinfo = {
+                    userId: inputs.email,
+                    userNm: inputs.name,
+                    userPw: result.password,
+                    userNickNm: inputs.nickname,
+                    phoneNum: inputs.phoneNumber, 
+                    mrktAgreeYn: commercial? 'y': 'n',
+                    salt : salt,
+                };
+                AWSManager.regUserInfo(userinfo).then((result)=> {
+                    if(result && result.status == 200 && result.data.Authorization && result.data.Authorization.length > 20) {
+                        console.log('계정 생성 성공');
+                        StorageManager.saveUserInfo({
+                            token : result.data.Authorization,
+                            userNickNm : inputs.nickname,
+                            userId: inputs.email,
+                        });
+                        StorageManager.saveSalt(salt);
+                        history.push('/');
+                    } else {
+                        console.log('계정 생성 실패 result =' + JSON.stringify(result));
+                    }
+                }).catch(e => {
+                    console.error(e.message);
+                });
             });
+
         }
     };
 
@@ -408,7 +418,7 @@ export default function AddAccountComponent() {
                             <img alt="none" src={editPath} />
                         </div>
                         <span>
-                            휴대폰 번호 (숫자만)
+                            {isPhone ? REG_USER_CHECK_PHONE : REG_USER_INPUT_PHONE}
                         </span>
                         <div>
                             <input
@@ -418,6 +428,7 @@ export default function AddAccountComponent() {
                                 onChange={onChangeOnlyNumber}
                                 name="phoneNumber"
                                 value={phoneNumber}
+                                disabled={isPhone == CHECK_SUCCESS}
                             ></input>
                             <span className={isValidPhoneNum? 'enable':'disable'} onClick={()=>{
                                 certificatePhone();
