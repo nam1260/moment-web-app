@@ -343,7 +343,7 @@ export default function AddAccountComponent() {
         console.log('authNum = ' + authNum + ', validNumber =' + validNumber + ', confirm ? ' + (validNumber == authNum));
         
         const nextInputs = {
-            ...inputs,  
+            ...inputsAvalilables,  
             ['isPhone']: (validNumber == authNum),
         }
         setInputsAvalilables(nextInputs)
