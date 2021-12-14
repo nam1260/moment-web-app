@@ -66,30 +66,38 @@ function Home() {
                     </h3>
                     <div>
                         <article onClick={() => history.push('star/1')}>
-                            <img alt="none" src={homeThum1_1} />
-                            <div>
+                            <div className="img-content">
+                                <img className={'star-img'} alt="none" src={homeThum1_1} />
+                            </div>
+                            <div className="article-footer">
                                 <b>지수</b>
                                 <p>가수, 탤런트</p>
                             </div>
                         </article>
                         <article onClick={() => history.push('star/1')}>
-                            <img alt="none" src={homeThum1_2} />
-                            <div>
+                            <div className="img-content">
+                                <img className={'star-img'} alt="none" src={homeThum1_2} />
+                            </div>
+                            <div className="article-footer">
                                 <b>지수</b>
                                 <p>가수, 탤런트</p>
                             </div>
                         </article>
                         <article onClick={() => history.push('star/1')}>
-                            <img className={'none-logo'} alt="none" src={dummyIcon} />
-                            <div>
+                            <div className="img-content">
+                                <img className={'none-logo'} alt="none" src={dummyIcon} />
+                            </div>
+                            <div className="article-footer">
                                 <b>아이유</b>
                                 <p>가수, 탤런트</p>
                             </div>
                         </article>
                         <article>
-                            <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
-                            <div>
-                                <img alt="none" src={plusIcon} />
+                            <div className="img-content">
+                                <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
+                                <img className={'plus-img'} alt="none" src={plusIcon} />
+                            </div>
+                            <div className="article-footer">
                                 <p>요청해주세요</p>
                             </div>
                         </article>
