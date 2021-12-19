@@ -105,7 +105,6 @@ main {
     margin-right:5px;
     border-radius: 4px;
     position: relative;
-    min-width: 320px;
 }
 
 .app-moment-content-star > div > div > article:last-child > .img-content {
@@ -352,10 +351,6 @@ main {
         margin-top: 33vw;
     }
     
-    .app-moment-content-star > div > div > article {
-        min-width: min(35.5vw, 320px);
-    }
-
     .app-moment-content-star > div > div > article > .img-content {
         min-width:min(23vw, 170px);
         height:min(35vw, 240px);
@@ -463,7 +458,7 @@ main {
     }
 
     .app-moment-description > .container > div > .description-card:nth-child(1) {
-        margin-left: 3vw;
+        margin-left: 2vw;
     }
     
     .app-moment-description > .container > div > .description-card > div > span:nth-child(2) {
