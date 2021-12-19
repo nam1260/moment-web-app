@@ -1,9 +1,12 @@
 
 import "./mypage.css";
-import React, { useState, useRef, Component} from "react";
-import { useHistory } from 'react-router'; 
+import React, { useState, useEffect, useRef, Component} from "react";
+import { useHistory } from 'react-router';
 import { Modal } from "../popup/ModalPopup";
 import MypageHeader from './MypageHeader';
+import AWSManager from '../../managers/AWSManager'
+import { useSelector, useDispatch } from "react-redux";
+
 
 const editPath = "assets/icons/list-ico-edit.png"
 const downArrowPath = "/assets/icons/list-ico-open.png"
@@ -11,6 +14,7 @@ const checkOffPath = "assets/icons/check-off.svg"
 const checkOnPath = "assets/icons/check-on.svg"
 
 export default function StarRegister() {
+    const userInfo = useSelector(state => state.user) || {};
     const history = useHistory();
     const userList = [
         {
@@ -22,7 +26,8 @@ export default function StarRegister() {
             bankAccountOwner: "",
         },
     ];
-    
+
+    const [isApplying, setIsApplying] = useState(true);
     const [inputs, setInputs] = useState({
         kakaoId: "",
         instagramId: "",
@@ -31,6 +36,7 @@ export default function StarRegister() {
         bankAccountNumber: "",
         bankAccountOwner: "",
     });
+
 
     const { kakaoId, instagramId, youtubeName, bankAccountName, bankAccountNumber, bankAccountOwner } = inputs
 
@@ -67,8 +73,31 @@ export default function StarRegister() {
         setInputs(nextInputs);
     };
 
+    useEffect(() => {
+        AWSManager.getRgstStarStatus({
+            userId: userInfo.userId
+        }).then((result)=>{
+            let isApplying = false;
+            if(result && result.status=== 200){
+                if(result.data.length> 0) {
+                    let status = result.data[0];
+                    if(status.starRegStatus === 2) {
+                        //화면 노출 가능
+                    }else {
+                        isApplying = true;
+                    }
+                }
+            }else {
+               alert("error")
+            }
+            console.log("isApplying === "+isApplying)
+            setIsApplying(isApplying);
+        })
+    }, []);
+
     return (
         <main>
+
             <MypageHeader index={3}/>
             <section className="mypage-header">
                 <div className="container">
@@ -81,8 +110,10 @@ export default function StarRegister() {
                     </span>
                 </div>
             </section>
-            <section className="mypage-container">
-                <div>
+
+            {isApplying? "": <div>
+                <section className="mypage-container">
+                    <div>
                     <span>
                         <span>
                             카카오톡 ID
@@ -93,7 +124,7 @@ export default function StarRegister() {
                                 name="kakaoId"
                                 onChange={onChangeEmailFormat}
                             ></input>
-                            <img alt="none" src={editPath} />
+                            <img alt="none" src={editPath}/>
                         </div>
                         <span>
                             인스타그램 ID (블루뱃지 인증 ID만 승인가능)
@@ -104,7 +135,7 @@ export default function StarRegister() {
                                 name="instagramId"
                                 onChange={onChange}
                             ></input>
-                            <img alt="none" src={editPath} />
+                            <img alt="none" src={editPath}/>
                         </div>
                         <span>
                             Youtube 채널명
@@ -115,7 +146,7 @@ export default function StarRegister() {
                                 name="youtubeName"
                                 onChange={onChange}
                             ></input>
-                            <img alt="none" src={editPath} />
+                            <img alt="none" src={editPath}/>
                         </div>
                         <span>
                             수익금 지급 계좌
@@ -129,7 +160,7 @@ export default function StarRegister() {
                                 value={bankAccountName}
                                 onChange={onChange}
                             ></input>
-                            <img alt="none" src={downArrowPath} />
+                            <img alt="none" src={downArrowPath}/>
                         </div>
                         <div>
                             <input
@@ -138,7 +169,7 @@ export default function StarRegister() {
                                 name="bankAccountNumber"
                                 onChange={onChangeOnlyNumber}
                             ></input>
-                            <img alt="none" src={editPath} />
+                            <img alt="none" src={editPath}/>
                         </div>
                         <div>
                             <input
@@ -147,43 +178,47 @@ export default function StarRegister() {
                                 name="bankAccountOwner"
                                 onChange={onChange}
                             ></input>
-                            <img alt="none" src={editPath} />
+                            <img alt="none" src={editPath}/>
                         </div>
                     </span>
-                </div>
-            </section> 
-            <section className="check-options">
-                <div>
-                    <span>
-                        <img alt="none" src={isTerms ? checkOnPath : checkOffPath} onClick={()=>{
-                            toggleTerms();
-                        }}/>
-                        <span class="highlight">모먼트 스타 이용 약관</span>
-                        <span>에 동의합니다.(필수)</span>
-                    </span>
-                    <br/>
-                    <span>
-                        <img alt="none" src={isCommercial ? checkOnPath : checkOffPath} onClick={()=>{
-                            toggleCommercial();
-                        }}/>
-                        <span>  </span>
-                    </span>
-                </div>
-            </section>
-            <section className="mypage-button">
-                <div>
-                    <button onClick={()=>{
-                        console.log('스타 등록신청');
-                    }}>
-                        등록신청
-                    </button>
-                </div>
-            </section>
-            <section className="mypage-options">
-                <div>
-                </div>
-            </section>
+                    </div>
+                </section>
+                <section className="check-options">
+                    <div>
+                <span>
+                <img alt="none" src={isTerms ? checkOnPath : checkOffPath} onClick={() => {
+                    toggleTerms();
+                }}/>
+                <span class="highlight">모먼트 스타 이용 약관</span>
+                <span>에 동의합니다.(필수)</span>
+                </span>
+                        <br/>
+                        <span>
+                <img alt="none" src={isCommercial ? checkOnPath : checkOffPath} onClick={() => {
+                    toggleCommercial();
+                }}/>
+                <span>  </span>
+                </span>
+                    </div>
+                </section>
+                <section className="mypage-button">
+                    <div>
+                        <button onClick={() => {
+                            console.log('스타 등록신청');
+                        }}>
+                            등록신청
+                        </button>
+                    </div>
+                </section>
+                <section className="mypage-options">
+                    <div>
+                    </div>
+                </section>
+            </div>}
+
+
+
         </main>
-     );
- }
+    );
+}
  

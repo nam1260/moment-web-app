@@ -30,6 +30,10 @@ const UPDATE_FAN_MSG = "/msg/update-fan-msg";
 
 const GET_STAR_LIST = "/star/get-star-list";
 
+const GET_RGST_STAR_STATUS = "/star/get-rgst-star-status";
+const UPDATE_RGST_STAR_STATUS = "/star/update-rgst-star-status";
+
+
 
 const API_KEYS_TEST = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
 const API_KEYS = 'HjkKpsNqsI4iqOdZcFJck16xFuMUfCGa7LaYy9Ra'
@@ -133,6 +137,17 @@ const AWSManager = (function() {
         return await requestPost(getUrl(GET_STAR_LIST), params);
     };
 
+    const getRgstStarStatus = async (params) => {
+        console.log("getRgstStarStatus");
+        return await requestPost(getUrl(GET_RGST_STAR_STATUS), params);
+    };
+
+    const updateRgstStarStatus = async (params) => {
+        console.log("updateRgstStarStatus = " + JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_RGST_STAR_STATUS), params);
+    };
+
+
     return {
         regUserInfo,
         checkDuplId,
@@ -145,6 +160,8 @@ const AWSManager = (function() {
         updateUserInfo,
         findUserId,
         verifySMSNumber,
+        getRgstStarStatus,
+        updateRgstStarStatus,
         //사연관리
         getSentMsgList,
         updateMsgInfo,
