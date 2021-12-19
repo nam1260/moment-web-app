@@ -147,6 +147,24 @@ function Home() {
                                 <span>유투버</span>
                             </div>
                         </article>
+                        <article onClick={() => history.push('star/1')}>
+                            <div className={"img-content"}>
+                                <img alt="none" src={homeThum2_2} />
+                            </div>
+                            <div className={"article-footer"}>
+                                <b>도버마켓</b>
+                                <span>유투버</span>
+                            </div>
+                        </article>
+                        <article onClick={() => history.push('star/1')}>
+                            <div className={"img-content"}>
+                                <img alt="none" src={homeThum2_4} />
+                            </div>
+                            <div className={"article-footer"}>
+                                <b>도버마켓</b>
+                                <span>유투버</span>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </section>
