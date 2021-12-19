@@ -60,7 +60,7 @@ function App() {
                     <Route exact path="/addAccount" component={AddAccount} />
                     <Route exact path="/findAccount" component={FindAccount} />
                     <Route exact path="/findPassword" component={FindPassword} />
-                    <Route exact path="/confirmPw" component={StorageManager.checkUserIsLogined() ? ConfirmPw : Login} />
+                    <Route exact path="/confirmPw" component={ConfirmPw} />
                     <Route exact path="/modifyAccount" component={StorageManager.checkUserIsLogined() ? ModifyAccount : Login} />
                     <Route exact path="/receiveMessageHistory" component={StorageManager.checkUserIsLogined() ? ReceiveMessageHistory : Login} />
                     <Route exact path="/sendMessageHistory" component={StorageManager.checkUserIsLogined() ? SendMessageHistory : Login} />
