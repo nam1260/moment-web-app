@@ -219,6 +219,7 @@ export default function AddAccountComponent() {
                             token : result.data.Authorization,
                             userNickNm : inputs.nickname,
                             userId: inputs.email,
+                            userImgUrl: '',
                         });
                         StorageManager.saveSalt(salt);
                         history.push('/');

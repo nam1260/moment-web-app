@@ -75,6 +75,7 @@ export default function LoginComponent() {
                                 token : result.data.Authorization,
                                 userNickNm : result.data.userNickNm,
                                 userId: result.data.userId,
+                                userImgUrl: result.data.userImgUrl,
                             });
                             StorageManager.saveSalt(salt);
                             dispatch(saveUser({
