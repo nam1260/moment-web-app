@@ -20,6 +20,7 @@ const LOGIN_USER  =  "/user/login-user";
 const LOGOUT_USER = "/user/logout-user";
 const GET_USER_INFO = "/user/get-user-info";
 const UPDATE_USER_INFO ="/user/update-user-info";
+const SAVE_USER_IMAGE_URL ="/user/save-user-img-url";
 const FIND_USER_ID = "/user/find-user-id";
 const VERIFY_SMS_NUM = "/user/send-sms";
 
@@ -104,6 +105,10 @@ const AWSManager = (function() {
         console.log("updateUserInfo = " +JSON.stringify(params));
         return await requestPost(getUrl(UPDATE_USER_INFO), params);
     }
+    const saveUserImageUrl = async (params) => {
+        console.log("saveUserImageUrl = " +JSON.stringify(params));
+        return await requestPost(getUrl(SAVE_USER_IMAGE_URL), params);
+    }
     /**
      * 스타에게 보낸 사연을 조회힌다.
      * @param params
@@ -158,6 +163,7 @@ const AWSManager = (function() {
         logoutUser,
         getUserInfo,
         updateUserInfo,
+        saveUserImageUrl,
         findUserId,
         verifySMSNumber,
         getRgstStarStatus,

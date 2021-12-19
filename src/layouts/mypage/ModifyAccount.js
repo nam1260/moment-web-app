@@ -254,17 +254,29 @@ export default function ModifyAccountComponent() {
  
     const onImgChange = async (event)=>{
         var file = event.target.files[0];
-        if(file.type.indexOf('jpeg') > -1 || file.type.indexOf('png') > -1) {
+        
+        console.log(file);
+        if(file && (file.type.indexOf('jpeg') > -1 || file.type.indexOf('png') > -1)) {
             // 미리 보기 반영 
             const reader = new FileReader();
             reader.onload = e => {
                 setprofileImage(e.target.result);
             }
             reader.readAsDataURL(file);
-            console.log(file);
 
             // S3 저장 
-            // AWSS3Manager.uploadImage(file, userInfo.userId, 'profile');
+            let fileNm = 'profile';
+            let fileType = file.type.split('/');
+            let extension = fileType[fileType.length-1];
+            AWSS3Manager.uploadImage(file, userInfo.userId, fileNm)
+            .then((data)=> {
+                AWSManager.saveUserImageUrl({
+                    userId: userInfo.userId, 
+                    fileNm: fileNm + '.' + extension,
+                }).then(result => console.log(result));
+            })
+            .catch(err => console.error(err));
+
         } else {
             alert('jpg, png 형식의 파일만 첨부하실 수 있습니다.');
         }
