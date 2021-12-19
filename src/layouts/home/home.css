@@ -104,9 +104,8 @@ main {
     flex: 1;
     margin-right:5px;
     border-radius: 4px;
-    /* background: linear-gradient(rgb(236, 236, 236),rgb(236, 236, 236),rgb(207, 207, 207)); */
     position: relative;
-    
+    min-width: 320px;
 }
 
 .app-moment-content-star > div > div > article:last-child > .img-content {
@@ -120,8 +119,8 @@ main {
     height: 240px;
     overflow: hidden;
     position: relative;
-    border-radius: 10px;
-    border: 2px solid #f5f5f5;
+    border-radius: 4px;
+    background: linear-gradient(rgb(236, 236, 236),rgb(236, 236, 236),rgb(207, 207, 207));
 }
 
 .app-moment-content-star > div > div > article > .img-content > .star-img { height: 100% }
@@ -353,6 +352,9 @@ main {
         margin-top: 33vw;
     }
     
+    .app-moment-content-star > div > div > article {
+        min-width: min(35.5vw, 320px);
+    }
 
     .app-moment-content-star > div > div > article > .img-content {
         min-width:min(23vw, 170px);
