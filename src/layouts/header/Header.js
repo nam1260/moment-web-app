@@ -11,6 +11,8 @@ const searchPath = '/assets/icons/icoSearch.png'
 
 const logoPath = '/assets/images/logo.png'
 
+const ICON_USER_DEFAULT ='/assets/icons/ico-user-default.png'
+
 
 
 
@@ -18,7 +20,7 @@ function Header({ setIsMenuOpen, isLogined, userNickNm, userId }) {
     const history = useHistory();
 
 
-    let loginPath = isLogined ? (StorageManager.loadUserInfo().userImgUrl ? StorageManager.loadUserInfo().userImgUrl : '/assets/images/thum160Px1.png') : '/assets/icons/ico-login.png'
+    let loginPath = isLogined ? (StorageManager.loadUserInfo().userImgUrl ? StorageManager.loadUserInfo().userImgUrl : ICON_USER_DEFAULT) : '/assets/icons/ico-login.png'
 
     const onClickProfile = () => {
         if(isLogined) {
