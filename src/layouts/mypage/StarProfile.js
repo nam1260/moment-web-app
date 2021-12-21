@@ -4,6 +4,7 @@ import "../popup/modalPopup.css";
 import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import MypageHeader from './MypageHeader';
+import StorageManager from "../../managers/StorageManager";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const cameraPath = "assets/icons/ico-camera.svg"
@@ -76,8 +77,8 @@ export default function StartProfile() {
                                 name="nickname}"
                             ></input>
                             <div className="thumbnail"> 
-                                <img className="thumbnail-img" alt="none" src={thumPath} />
-                                <img className="thumbnail-icon" alt="none" src={cameraPath} />
+                                <img className="thumbnail-img" alt="none" src={StorageManager.loadUserInfo().userImgUrl ? StorageManager.loadUserInfo().userImgUrl : thumPath} />
+                                {/* <img className="thumbnail-icon" alt="none" src={cameraPath} /> */}
                             </div>
                         </div>
                         <span>
