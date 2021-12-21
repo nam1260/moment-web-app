@@ -13,7 +13,7 @@ import EncryptionManager from "../../managers/EncryptionManager.js";
 
 const editPath = "assets/icons/list-ico-edit.png";
 const cameraPath = "assets/icons/ico-camera.svg";
-const thumPath = "assets/images/thum-160-px-1.png";
+const thumPath = "assets/icons/ico-user-default.png";
 const checkOffPath = "assets/icons/check-off.svg";
 const checkOnPath = "assets/icons/check-on.svg";
 
