@@ -1,5 +1,5 @@
+import React from 'react';
 import styled from "styled-components"
-
 
 const Item = styled.div`
     display:flex;
@@ -39,7 +39,7 @@ const Item = styled.div`
     }
 `
 
-export default function WriteLabel({label = "", content = ""}) {
+function WriteLabel({label = "", content = ""}) {
     return (
         <Item>
             <span>
@@ -51,3 +51,5 @@ export default function WriteLabel({label = "", content = ""}) {
         </Item>
     )
 }
+
+export default React.memo(WriteLabel);

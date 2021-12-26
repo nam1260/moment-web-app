@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import StarRatingComponent from './StarRating.component'; 
 
@@ -80,7 +81,7 @@ const ItemBox = styled.div`
 
 const homeThum1_1 = "/assets/images/thum160Px1.png";
 
-export default function CommentOfFanComponent({ comment = '', score = 0}) {
+function CommentOfFanComponent({ comment = '', score = 0}) {
     return (
         <ItemBox>
             <StarRatingComponent score={score} />
@@ -94,3 +95,6 @@ export default function CommentOfFanComponent({ comment = '', score = 0}) {
         </ItemBox>
     )
 }
+
+export default React.memo(CommentOfFanComponent);
+

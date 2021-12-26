@@ -1,5 +1,5 @@
+import React from 'react';
 import styled from "styled-components";
-
 
 const onStar = "/assets/icons/star-2-on.png";
 const offStar = "/assets/icons/star-2-off.png";
@@ -41,7 +41,7 @@ const StarElement = styled.img.attrs((props) => ({
 
 const TOTAL_RATING = 5;
 
-export default function StarRatingComponent({ score = 0 }) {
+function StarRatingComponent({ score = 0 }) {
     const scoreToInt = Math.round(score);
     let StarElements = Array(TOTAL_RATING).fill().reduce((prev, _, index) => 
         [...prev, <StarElement flag={ index >= scoreToInt ? 'off' : 'on'} />]
@@ -55,3 +55,5 @@ export default function StarRatingComponent({ score = 0 }) {
     )
 
 }
+
+export default React.memo(StarRatingComponent);

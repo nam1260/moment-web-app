@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 
 
@@ -82,7 +82,7 @@ const Item = styled.div`
     }
 `
 
-export default function FaqItem({title = "", des = ""}) {
+function FaqItem({title = "", des = ""}) {
     const [isOpen, setIsOpen] = useState(false);
     
     return (
@@ -103,3 +103,5 @@ export default function FaqItem({title = "", des = ""}) {
         </Item>
     )
 }
+
+export default React.memo(FaqItem);
