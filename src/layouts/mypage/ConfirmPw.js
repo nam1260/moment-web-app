@@ -7,9 +7,9 @@ import StorageManager from "../../managers/StorageManager.js";
 import { Modal } from "../popup/ModalPopup";
 import EncryptionManager from "../../managers/EncryptionManager.js";
 import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
+import {Redirect} from 'react-router-dom'
 
 const failIcon = "assets/icons/icoFace3@3x.png"
-
 
 function ConfirmPwComponent({ setIsMenuOpen, isLogined}) {
 
@@ -36,7 +36,7 @@ function ConfirmPwComponent({ setIsMenuOpen, isLogined}) {
     const confirmPw = () => {
         let userInfo = StorageManager.loadUserInfo();
         let salt = StorageManager.loadSalt();
-        console.log('입력 비밀번호 = ' + inputs.pw + ', userId = ' + userInfo.userId);
+        console.log('userId = ' + userInfo.userId);
         EncryptionManager.makePassword(inputs.pw, salt).then((hashedPassword)=>{
             AWSManager.checkPasswordVerification({
                 userId: userInfo.userId,
@@ -63,8 +63,7 @@ function ConfirmPwComponent({ setIsMenuOpen, isLogined}) {
     };
 
     return (
-
-        !isLogined? history.push("/login") :
+        !isLogined? <Redirect to="/login"/> :
         <main>
             <section className="mypage-header">
                 <div>

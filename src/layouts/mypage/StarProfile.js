@@ -5,13 +5,14 @@ import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import MypageHeader from './MypageHeader';
 import StorageManager from "../../managers/StorageManager";
-
+import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
+import {Redirect} from 'react-router-dom'
 const editPath = "assets/icons/list-ico-edit.png"
 const cameraPath = "assets/icons/ico-camera.svg"
 const thumPath = "assets/images/thum-160-px-1.png"
 const downArrowPath = "/assets/icons/list-ico-open.png"
 
-export default function StartProfile() {
+function StartProfile({isLogined}) {
     const userInfo = {
         id: "starkim@moment.com",
         nickname: "김스타",
@@ -54,7 +55,7 @@ export default function StartProfile() {
     };
 
     return (
-
+        !isLogined? <Redirect to="/login"/> :
         <main>
             <MypageHeader index={5}/>
             <section className="mypage-header">
@@ -141,5 +142,5 @@ export default function StartProfile() {
             </section>
         </main>
      );
- }
+ } export default WrapLoginedComponent(StartProfile)
  
