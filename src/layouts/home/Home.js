@@ -3,6 +3,8 @@ import "../../App.css";
 import "../../Common.css";
 import "./home.css";
 import { useHistory } from "react-router";
+import TopStarComponent from "../../shared/component/home/TopStar.component";
+import CelebrityComponent from "../../shared/component/home/Celebrity.component";
 
 
 const homeImage = "/assets/images/mov.png";
@@ -10,8 +12,7 @@ const moveArrowPath = "/assets/icons/home-arrow.png";
 const crownPath = "/assets/icons/icoCrown.png";
 const homeThum1_1 = "/assets/images/home-thum-1-1.png";
 const homeThum1_2 = "/assets/images/home-thum-1-2.png";
-const dummyIcon = "/assets/icons/main-ico-dummy.png";
-const plusIcon = "/assets/icons/main-plus-request.png";
+
 const thunderIcon = "/assets/icons/icoThunder.png";
 const homeThum2_1 = "/assets/images/home-thum-2-1.png";
 const homeThum2_2 = "/assets/images/home-thum-2-2.png";
@@ -65,42 +66,27 @@ function Home() {
                         <span>모먼트 TOP STAR</span>
                     </h3>
                     <div>
-                        <article onClick={() => history.push('star/1')}>
-                            <div className="img-content">
-                                <img className={'star-img'} alt="none" src={homeThum1_1} />
-                            </div>
-                            <div className="article-footer">
-                                <b>지수</b>
-                                <p>가수, 탤런트</p>
-                            </div>
-                        </article>
-                        <article onClick={() => history.push('star/1')}>
-                            <div className="img-content">
-                                <img className={'star-img'} alt="none" src={homeThum1_2} />
-                            </div>
-                            <div className="article-footer">
-                                <b>지수</b>
-                                <p>가수, 탤런트</p>
-                            </div>
-                        </article>
-                        <article onClick={() => history.push('star/1')}>
-                            <div className="img-content">
-                                <img className={'none-logo'} alt="none" src={dummyIcon} />
-                            </div>
-                            <div className="article-footer">
-                                <b>아이유</b>
-                                <p>가수, 탤런트</p>
-                            </div>
-                        </article>
-                        <article>
-                            <div className="img-content">
-                                <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
-                                <img className={'plus-img'} alt="none" src={plusIcon} />
-                            </div>
-                            <div className="article-footer">
-                                <p>요청해주세요</p>
-                            </div>
-                        </article>
+                        <TopStarComponent
+                            name={'지수'}
+                            secondary={'가수, 탤런트'}
+                            imgPath={homeThum1_1}
+                            starId={1}
+                            history={history}
+                        />
+                        <TopStarComponent
+                            name={'아이유'}
+                            secondary={'가수, 탤런트'}
+                            imgPath={homeThum1_1}
+                            starId={1}
+                            history={history}
+                        />
+                        <TopStarComponent
+                            isAdd
+                        />
+                        <TopStarComponent
+                            isAdd
+                        />
+                        
                     </div>
                 </div>
             </section>
@@ -111,60 +97,42 @@ function Home() {
                         <span>지금 핫한 SNS 셀럽</span>
                     </h3>
                     <div>
-                        <article onClick={() => history.push('star/1')}>
-                            <div className={"img-content"}>
-                                <img alt="none" src={homeThum2_1} />
-                            </div>
-                            <div className={"article-footer"}>
-                                <b>도버마켓</b>
-                                <span>유투버</span>
-                            </div>
-                        </article>
-                        <article onClick={() => history.push('star/1')}>
-                            <div className={"img-content"}>
-                                <img alt="none" src={homeThum2_2} />
-                            </div>
-                            <div className={"article-footer"}>
-                                <b>도버마켓</b>
-                                <span>유투버</span>
-                            </div>
-                        </article>
-                        <article onClick={() => history.push('star/1')}>
-                            <div className={"img-content"}>
-                                <img alt="none" src={homeThum2_3} />
-                            </div>
-                            <div className={"article-footer"}>
-                                <b>도버마켓</b>
-                                <span>유투버</span>
-                            </div>
-                        </article>
-                        <article onClick={() => history.push('star/1')}>
-                            <div className={"img-content"}>
-                                <img alt="none" src={homeThum2_4} />
-                            </div>
-                            <div className={"article-footer"}>
-                                <b>도버마켓</b>
-                                <span>유투버</span>
-                            </div>
-                        </article>
-                        <article onClick={() => history.push('star/1')}>
-                            <div className={"img-content"}>
-                                <img alt="none" src={homeThum2_2} />
-                            </div>
-                            <div className={"article-footer"}>
-                                <b>도버마켓</b>
-                                <span>유투버</span>
-                            </div>
-                        </article>
-                        <article onClick={() => history.push('star/1')}>
-                            <div className={"img-content"}>
-                                <img alt="none" src={homeThum2_4} />
-                            </div>
-                            <div className={"article-footer"}>
-                                <b>도버마켓</b>
-                                <span>유투버</span>
-                            </div>
-                        </article>
+                        <CelebrityComponent 
+                            name='도버마켓'
+                            secondary={'유투버'}
+                            imgPath={homeThum2_1}
+                            history={history}
+                            starId={1}
+                        />
+                        <CelebrityComponent 
+                            name='도버마켓'
+                            secondary={'유투버'}
+                            imgPath={homeThum2_2}
+                            history={history}
+                            starId={1}
+                        />
+                        <CelebrityComponent 
+                            name='도버마켓'
+                            secondary={'유투버'}
+                            imgPath={homeThum2_3}
+                            history={history}
+                            starId={1}
+                        />
+                        <CelebrityComponent 
+                            name='도버마켓'
+                            secondary={'유투버'}
+                            imgPath={homeThum2_4}
+                            history={history}
+                            starId={1}
+                        />
+                        <CelebrityComponent 
+                            name='도버마켓'
+                            secondary={'유투버'}
+                            imgPath={homeThum2_1}
+                            history={history}
+                            starId={1}
+                        />
+                        <CelebrityComponent isAdd />
                     </div>
                 </div>
             </section>
