@@ -6,14 +6,15 @@ import { Modal } from "../popup/ModalPopup";
 import MypageHeader from './MypageHeader';
 import AWSManager from '../../managers/AWSManager'
 import { useSelector, useDispatch } from "react-redux";
-
+import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
+import {Redirect} from 'react-router-dom'
 
 const editPath = "assets/icons/list-ico-edit.png"
 const downArrowPath = "/assets/icons/list-ico-open.png"
 const checkOffPath = "assets/icons/check-off.svg"
 const checkOnPath = "assets/icons/check-on.svg"
 
-export default function StarRegister() {
+function StarRegister({isLogined}) {
     const userInfo = useSelector(state => state.user) || {};
     const history = useHistory();
     const userList = [
@@ -96,6 +97,9 @@ export default function StarRegister() {
     }, []);
 
     return (
+
+        !isLogined? <Redirect to="/login"/> :
+
         <main>
 
             <MypageHeader index={3}/>
@@ -220,5 +224,5 @@ export default function StarRegister() {
 
         </main>
     );
-}
+} export default WrapLoginedComponent(StarRegister);
  

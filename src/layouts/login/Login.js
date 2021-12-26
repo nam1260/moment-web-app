@@ -15,7 +15,8 @@ import StorageManager from "../../managers/StorageManager.js";
 import { useDispatch } from "react-redux";
 import { saveUser } from '../../redux/user';
 import EncryptionManager from "../../managers/EncryptionManager.js";
-
+import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
+import {Redirect} from 'react-router-dom'
 
 const editPath = "assets/icons/list-ico-edit.png"
 const failIcon = "assets/icons/icoFace3@3x.png"
@@ -24,14 +25,15 @@ const successIcon = "assets/icons/icoFace1@3x.png"
 
 
 
-export default function LoginComponent() {
+function LoginComponent({isLogined}) {
+    console.log("loginComponent "+isLogined);
     const history = useHistory();
     const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const openWrongLoginInformaionPopup = () => {
         setShowModal(true);
     };
-    
+
     const [isEnableLogin, setIsEnableLogin] = useState(false);
 
     const [inputs, setInputs] = useState({
@@ -42,14 +44,14 @@ export default function LoginComponent() {
     const onChange = (e) => {
         const { name, value } = e.target;
         const nextInputs = {
-            ...inputs,  
+            ...inputs,
             [name]: value,
         };
         setInputs(nextInputs);
         if(id.length > 1 && pw.length > 1) setIsEnableLogin(true);
         else setIsEnableLogin(false);
     };
- 
+
     const onReset = () => {
         const resetInputs = {
             id: '',
@@ -61,10 +63,10 @@ export default function LoginComponent() {
     const loginAction = ()=>{
         if(isEnableLogin) {
             AWSManager.getSalt({userId: inputs.id}).then((result)=>{
-                console.log('getSalt = ' + result.data.salt); 
+                console.log('getSalt = ' + result.data.salt);
                 let salt = result.data.salt;
                 EncryptionManager.makePassword(inputs.pw, salt).then((hashedPassword)=>{
-                    console.log('getHashedPassword = ' + hashedPassword); 
+                    console.log('getHashedPassword = ' + hashedPassword);
                     AWSManager.loginUser({
                         userId: inputs.id,
                         userPw: hashedPassword,
@@ -96,7 +98,7 @@ export default function LoginComponent() {
         } else {
             console.log('id / pw 입력 필요');
         }
-    } 
+    }
 
     const checkHaveBackPath = () => {
         const {
@@ -114,7 +116,7 @@ export default function LoginComponent() {
     }
 
     return (
-
+        isLogined? <Redirect to="/"/> :
         <main>
             <section className="login-header">
                 <div className="container">
@@ -151,14 +153,14 @@ export default function LoginComponent() {
                         </div>
                     </span>
                 </div>
-            </section> 
+            </section>
             <section className="login-button">
                 <div>
                     <button onClick={loginAction} className= {isEnableLogin ? "enable" : "disable"}>
                         로그인하기
                     </button>
-                    {showModal ? 
-                    <Modal setShowModal={setShowModal}> 
+                    {showModal ?
+                    <Modal setShowModal={setShowModal}>
                         <div className="button_modal">
                             <div className="info_container">
                                 <img alt="none" src={failIcon} />
@@ -196,5 +198,4 @@ export default function LoginComponent() {
             </section>
         </main>
      );
- }
- 
+ } export default WrapLoginedComponent(LoginComponent);

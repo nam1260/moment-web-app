@@ -7,8 +7,8 @@ import AWSManager from "../../managers/AWSManager.js";
 import AWSS3Manager from "../../managers/AWSS3Manager.js";
 import StorageManager from "../../managers/StorageManager";
 import EncryptionManager from "../../managers/EncryptionManager.js";
-
-
+import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
+import {Redirect} from 'react-router-dom'
 
 
 const editPath = "assets/icons/list-ico-edit.png";
@@ -22,7 +22,7 @@ const contentType = 'image/jpeg, image/png';
 
 // TODO 이미지 등록 처리 필요
 // TODO 동일 닉네임 저장 시 그대로 저장되도록 처리 필요
-export default function ModifyAccountComponent() {
+function ModifyAccountComponent({isLogined}) {
     const history = useHistory();
 
     const [userInfo, setUserInfo] = useState({
@@ -283,6 +283,9 @@ export default function ModifyAccountComponent() {
     };
 
     return (
+
+        !isLogined ? <Redirect to="/"/> :
+            
         <main>
             <MypageHeader index={0}/>
             <section className="mypage-header">
@@ -390,5 +393,5 @@ export default function ModifyAccountComponent() {
             </section>
         </main>
      );
- }
+ } export default WrapLoginedComponent(ModifyAccountComponent);
  

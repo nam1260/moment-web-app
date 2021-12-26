@@ -5,15 +5,17 @@ import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "../popup/ModalPopup";
 import MypageHeader from './MypageHeader';
-
+import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
+import {Redirect} from 'react-router-dom'
 const editPath = "assets/icons/list-ico-edit.png"
 const failIcon = "assets/icons/icoFace3@3x.png"
 const successIcon = "assets/icons/icoFace1@3x.png"
 
 
-export default function StartRegisterHistory() {
-
+function StarRegisterHistory({isLogined}) {
+    console.log("StarRegisterHistory" +isLogined)
     return (
+        !isLogined ? <Redirect to="/login"/> :
         <main>
             <MypageHeader index={4}/>
             <section className="mypage-header">
@@ -23,5 +25,5 @@ export default function StartRegisterHistory() {
             </section>
         </main>
      );
- }
+ } export default WrapLoginedComponent(StarRegisterHistory)
  

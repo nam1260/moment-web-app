@@ -61,12 +61,12 @@ function App() {
                     <Route exact path="/findAccount" component={FindAccount} />
                     <Route exact path="/findPassword" component={FindPassword} />
                     <Route exact path="/confirmPw" component={ConfirmPw} />
-                    <Route exact path="/modifyAccount" component={StorageManager.checkUserIsLogined() ? ModifyAccount : Login} />
-                    <Route exact path="/receiveMessageHistory" component={StorageManager.checkUserIsLogined() ? ReceiveMessageHistory : Login} />
-                    <Route exact path="/sendMessageHistory" component={StorageManager.checkUserIsLogined() ? SendMessageHistory : Login} />
-                    <Route exact path="/starProfile" component={StorageManager.checkUserIsLogined() ? StarProfile : Login} />
-                    <Route exact path="/starRegister" component={StorageManager.checkUserIsLogined() ? StarRegister : Login} />
-                    <Route exact path="/starRegisterHistory" component={StorageManager.checkUserIsLogined() ? StarRegisterHistory : Login} />
+                    <Route exact path="/modifyAccount" component={ModifyAccount} />
+                    <Route exact path="/receiveMessageHistory" component={ReceiveMessageHistory} />
+                    <Route exact path="/sendMessageHistory" component={SendMessageHistory} />
+                    <Route exact path="/starProfile" component={StarProfile} />
+                    <Route exact path="/starRegister" component={StarRegister} />
+                    <Route exact path="/starRegisterHistory" component={StarRegisterHistory} />
                     <SideMenu isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
                     <div className="App-main layout">
                         <Route exact path="/" component={HomeComponent}/>
