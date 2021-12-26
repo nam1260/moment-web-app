@@ -14,7 +14,13 @@ const CelebrityCard = styled.article`
     height: 180px;
     overflow: hidden;
     position: relative;
-
+    background: ${(props) => props.isAdd ||
+    `   linear-gradient(
+        rgb(236, 236, 236),
+        rgb(236, 236, 236),
+        rgb(207, 207, 207)
+      );
+    `};
     background-color: ${(props) => props.isAdd && "rgb(255, 114, 58)"};
 
     & > .star-image {
@@ -121,9 +127,10 @@ function CelebrityComponent({
             />
             <img className={"plus-img"} alt="none" src={plusIcon} />
           </>
-        ) : (
-          <img className="star-image" alt="none" src={imgPath} />
-        )}
+        ) 
+          : imgPath === 'None' || imgPath === '' ? <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
+          : <img className={"star-image"} alt="none" src={imgPath} />
+        }
       </div>
       <div className="article-footer">
         {isAdd || <b>{name}</b>}

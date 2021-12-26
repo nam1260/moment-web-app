@@ -109,6 +109,7 @@ function TopStarComponent({ name, secondary, imgPath, starId, history, isAdd }) 
               <img className={'plus-img'} alt="none" src={plusIcon} />
             </>
           )
+          : imgPath === 'None' || imgPath === '' ? <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
           : <img className={"star-img"} alt="none" src={imgPath} />
         }
         

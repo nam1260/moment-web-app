@@ -77,8 +77,8 @@ function Home({ history, getStarListAsync, starList}) {
                                 : <TopStarComponent
                                     name={star.starNm}
                                     secondary={star.catNm}
-                                    imgPath={homeThum1_1}
-                                    starId={star.starid}
+                                    imgPath={star.starImgUrl}
+                                    starId={star.starId}
                                     history={history}
                                 />
                             )
@@ -105,8 +105,8 @@ function Home({ history, getStarListAsync, starList}) {
                                 : <CelebrityComponent
                                     name={star.starNm}
                                     secondary={star.catNm}
-                                    imgPath={homeThum2_1}
-                                    starId={star.starid}
+                                    imgPath={star.starImgUrl}
+                                    starId={star.starId}
                                     history={history}
                                 />
                             )
