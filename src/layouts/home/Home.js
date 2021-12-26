@@ -33,11 +33,13 @@ const youtubeLogo = "/assets/icons/ico-youtube.png";
   - 각 카드 별 이벤트 확인
   - 반복 되는 부분 컴포넌트 화 적용 => 모먼트 TOP STAR 카드, SNS 셀럽 추가하기
 */
-function Home() {
-    const history = useHistory();
+const nullCards = [null, null, null, null, null, null]
+function Home({ history, getStarListAsync, starList}) {
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, left: 0 }) 
+        getStarListAsync();
     }, [])
+
     return (
         <main>
             <section className="app-home-header">
@@ -66,27 +68,24 @@ function Home() {
                         <span>모먼트 TOP STAR</span>
                     </h3>
                     <div>
-                        <TopStarComponent
-                            name={'지수'}
-                            secondary={'가수, 탤런트'}
-                            imgPath={homeThum1_1}
-                            starId={1}
-                            history={history}
-                        />
-                        <TopStarComponent
-                            name={'아이유'}
-                            secondary={'가수, 탤런트'}
-                            imgPath={homeThum1_1}
-                            starId={1}
-                            history={history}
-                        />
-                        <TopStarComponent
-                            isAdd
-                        />
+                        {
+                            [...starList, ...nullCards].slice(0, 3).map((star) => 
+                                star === null ?
+                                <TopStarComponent
+                                    isAdd
+                                />
+                                : <TopStarComponent
+                                    name={star.starNm}
+                                    secondary={star.catNm}
+                                    imgPath={homeThum1_1}
+                                    starId={star.starid}
+                                    history={history}
+                                />
+                            )
+                        }
                         <TopStarComponent
                             isAdd
                         />
-                        
                     </div>
                 </div>
             </section>
@@ -97,41 +96,21 @@ function Home() {
                         <span>지금 핫한 SNS 셀럽</span>
                     </h3>
                     <div>
-                        <CelebrityComponent 
-                            name='도버마켓'
-                            secondary={'유투버'}
-                            imgPath={homeThum2_1}
-                            history={history}
-                            starId={1}
-                        />
-                        <CelebrityComponent 
-                            name='도버마켓'
-                            secondary={'유투버'}
-                            imgPath={homeThum2_2}
-                            history={history}
-                            starId={1}
-                        />
-                        <CelebrityComponent 
-                            name='도버마켓'
-                            secondary={'유투버'}
-                            imgPath={homeThum2_3}
-                            history={history}
-                            starId={1}
-                        />
-                        <CelebrityComponent 
-                            name='도버마켓'
-                            secondary={'유투버'}
-                            imgPath={homeThum2_4}
-                            history={history}
-                            starId={1}
-                        />
-                        <CelebrityComponent 
-                            name='도버마켓'
-                            secondary={'유투버'}
-                            imgPath={homeThum2_1}
-                            history={history}
-                            starId={1}
-                        />
+                        {
+                            [...starList, ...nullCards].slice(0, 5).map((star) => 
+                                star === null ?
+                                <CelebrityComponent
+                                    isAdd
+                                />
+                                : <CelebrityComponent
+                                    name={star.starNm}
+                                    secondary={star.catNm}
+                                    imgPath={homeThum2_1}
+                                    starId={star.starid}
+                                    history={history}
+                                />
+                            )
+                        }
                         <CelebrityComponent isAdd />
                     </div>
                 </div>

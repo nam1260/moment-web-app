@@ -3,7 +3,7 @@ import './App.css';
 import { Provider } from 'react-redux';
 import store from './redux-store';
 import Header from './layouts/header/Header.js';
-import Home from './layouts/home/Home';
+import HomeComponent from './layouts/container/HomeContainer';
 import Momentor from './layouts/momentor/MomentorHome';
 import Write from './layouts/write/Write';
 import WriteSuccessComponent from './layouts/write/Success';
@@ -56,7 +56,7 @@ function App() {
                 <div className="App">
                     <ModalWrapper className="modal-wrapper" />
                     <Header setIsMenuOpen={setIsMenuOpen} />
-                    <Route exact path="/login" component={StorageManager.checkUserIsLogined() ? Home : Login} />
+                    <Route exact path="/login" component={StorageManager.checkUserIsLogined() ? HomeComponent : Login} />
                     <Route exact path="/addAccount" component={AddAccount} />
                     <Route exact path="/findAccount" component={FindAccount} />
                     <Route exact path="/findPassword" component={FindPassword} />
@@ -69,7 +69,7 @@ function App() {
                     <Route exact path="/starRegisterHistory" component={StorageManager.checkUserIsLogined() ? StarRegisterHistory : Login} />
                     <SideMenu isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
                     <div className="App-main layout">
-                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/" component={HomeComponent}/>
                         <Route exact path="/Momentor" component={Momentor}/>
                         <Route exact path="/writesuccess" component={WriteSuccessComponent}/>
                         <Route exact path="/write/:id" component={Write}/>
