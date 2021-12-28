@@ -8,6 +8,9 @@ import { useHistory } from "react-router";
 const ICON_QUESTION = "/assets/icons/ico-question.png";
 const dummyIcon = "/assets/icons/main-ico-dummy.png";
 const plusIcon = "/assets/icons/main-plus-request.png";
+
+const SERVEY_URL = "https://docs.google.com/forms/d/e/1FAIpQLScHxVABrNFNAU2y180xopkBvSvZIbre7GuIwzBtiqsbgEUJjg/viewform"
+
 /**
  * requestStar
  * @author wook
@@ -116,7 +119,6 @@ const StyledReuqestStar = Styled.section`
     
     }
     
-    
 `
 
 //TODO 클릭 시 링크 처
@@ -132,7 +134,7 @@ const RequestStar = () => {
                 </h3>
                 <div>
                     <article>
-                        <div className="img-content">
+                        <div className="img-content" onClick={()=>{console.log("onclick"); window.open(SERVEY_URL, '_blank')}}>
                             <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
                             <img className={'plus-img'} alt="none" src={plusIcon} />
                             <span> 딱 30초만에 요청하세요!</span>
