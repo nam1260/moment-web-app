@@ -72,9 +72,7 @@ function Home({ history, getStarListAsync, starList}) {
                         {
                             [...starList, ...nullCards].slice(0, 3).map((star) => 
                                 star === null ?
-                                <TopStarComponent
-                                    isAdd
-                                />
+                              ""
                                 : <TopStarComponent
                                     name={star.starNm}
                                     secondary={star.catNm}
@@ -84,9 +82,9 @@ function Home({ history, getStarListAsync, starList}) {
                                 />
                             )
                         }
-                        <TopStarComponent
-                            isAdd
-                        />
+                        {/*<TopStarComponent*/}
+                            {/*isAdd*/}
+                        {/*/>*/}
                     </div>
                 </div>
             </section>
