@@ -22,6 +22,7 @@ const StyledReuqestStar = Styled.section`
     font-size: 1.3em;
     font-weight: 600;
     margin-top: 102px;
+    margin-bottom: 50px;
     
     & > div {
     
@@ -95,6 +96,8 @@ const StyledReuqestStar = Styled.section`
     }
     
     @media (max-width: 750px) {
+    
+        margin-top: 13vh;
     
         & > div > h3 > span {
             font-size: min(7vw, 34px);

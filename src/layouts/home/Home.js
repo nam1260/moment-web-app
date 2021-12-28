@@ -5,6 +5,7 @@ import "./home.css";
 import { useHistory } from "react-router";
 import TopStarComponent from "../../shared/component/home/TopStar.component";
 import CelebrityComponent from "../../shared/component/home/Celebrity.component";
+import RequestStarComponent from "../../shared/component/home/RequestStar.component";
 
 
 const homeImage = "/assets/images/mov.png";
@@ -89,35 +90,36 @@ function Home({ history, getStarListAsync, starList}) {
                     </div>
                 </div>
             </section>
-            <section className="app-moment-content-sns">
-                <div className="container">
-                    <h3>
-                        <img alt="none" src={thunderIcon} />
-                        <span>지금 핫한 SNS 셀럽</span>
-                    </h3>
-                    <div>
-                        {
-                            [...starList, ...nullCards].slice(0, 5).map((star) => 
-                                star === null ?
-                                <CelebrityComponent
-                                    isAdd
-                                />
-                                : <CelebrityComponent
-                                    name={star.starNm}
-                                    secondary={star.catNm}
-                                    imgPath={star.starImgUrl}
-                                    starId={star.starId}
-                                    history={history}
-                                />
-                            )
-                        }
-                        <CelebrityComponent isAdd />
-                    </div>
-                </div>
-            </section>
-            <section className="app-moment-more">
-                <span>SNS 셀럽 더보기</span> <img alt="none" src={circlePlusIcon} />
-            </section>
+            <RequestStarComponent/>
+            {/*<section className="app-moment-content-sns">*/}
+                {/*<div className="container">*/}
+                    {/*<h3>*/}
+                        {/*<img alt="none" src={thunderIcon} />*/}
+                        {/*<span>지금 핫한 SNS 셀럽</span>*/}
+                    {/*</h3>*/}
+                    {/*<div>*/}
+                        {/*{*/}
+                            {/*[...starList, ...nullCards].slice(0, 5).map((star) => */}
+                                {/*star === null ?*/}
+                                {/*<CelebrityComponent*/}
+                                    {/*isAdd*/}
+                                {/*/>*/}
+                                {/*: <CelebrityComponent*/}
+                                    {/*name={star.starNm}*/}
+                                    {/*secondary={star.catNm}*/}
+                                    {/*imgPath={star.starImgUrl}*/}
+                                    {/*starId={star.starId}*/}
+                                    {/*history={history}*/}
+                                {/*/>*/}
+                            {/*)*/}
+                        {/*}*/}
+                        {/*<CelebrityComponent isAdd />*/}
+                    {/*</div>*/}
+                {/*</div>*/}
+            {/*</section>*/}
+            {/*<section className="app-moment-more">*/}
+                {/*<span>SNS 셀럽 더보기</span> <img alt="none" src={circlePlusIcon} />*/}
+            {/*</section>*/}
             <section className="app-moment-description">
                 <div className="container">
                     <h3>잠깐, 모먼트는 처음이신가요?</h3>
