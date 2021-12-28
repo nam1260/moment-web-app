@@ -146,6 +146,6 @@ const PaymentComponent = (WrappedComponent) => {
     }
 }
 
-export const NaverPaymentComponent = PaymentComponent(NaverPayment)
-export const KaKaoPaymentComponent = PaymentComponent(KaKaoPayment)
-export const NormalPaymentComponent = PaymentComponent(NormalPayment)
+export const NaverPaymentComponent = React.memo(PaymentComponent(NaverPayment));
+export const KaKaoPaymentComponent = React.memo(PaymentComponent(KaKaoPayment));
+export const NormalPaymentComponent = React.memo(PaymentComponent(NormalPayment));

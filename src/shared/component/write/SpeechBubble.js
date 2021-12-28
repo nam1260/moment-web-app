@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from "styled-components"
 
 const Item = styled.div`
@@ -37,7 +38,7 @@ const Item = styled.div`
     }
 `
 
-export default function SpeechBubble({ content = '' }) {
+function SpeechBubble({ content = '' }) {
 
     return (
         <Item>
@@ -45,3 +46,5 @@ export default function SpeechBubble({ content = '' }) {
         </Item>
     )
 }
+
+export default React.memo(SpeechBubble);

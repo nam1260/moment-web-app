@@ -352,7 +352,7 @@ main {
 .mypage-button > div > button {
     height: min(15vw, 110px);
     width: min(35vw, 320px);
-    font-size: min(6.5vw, 32px);
+    font-size: min(4.5vw, 32px);
     color: #ffffff;
     text-align: center;
     border-radius: 55px;

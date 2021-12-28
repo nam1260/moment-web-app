@@ -1,3 +1,4 @@
+import { Tabs } from 'antd'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
@@ -52,7 +53,7 @@ const Tab = styled.div`
 
 `
 
-export default function TabsComponent({ children, value, defaultValue = 0 }) {
+function TabsComponent({ children, value, defaultValue = 0 }) {
     const [active, setActive] = useState(defaultValue)
     
     return (
@@ -77,3 +78,5 @@ export default function TabsComponent({ children, value, defaultValue = 0 }) {
     )
 
 }
+
+export default React.memo(TabsComponent);

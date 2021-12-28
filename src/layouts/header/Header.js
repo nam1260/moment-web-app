@@ -3,18 +3,24 @@ import { useHistory } from 'react-router';
 import '../../Common.css';
 import './header.css';
 import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
+import { message } from "antd";
+import StorageManager from "../../managers/StorageManager";
 
 const menuPath = '/assets/icons/icoMenu.png'
 const searchPath = '/assets/icons/icoSearch.png'
 
 const logoPath = '/assets/images/logo.png'
 
+const ICON_USER_DEFAULT ='/assets/icons/ico-user-default.png'
+
+
+
 
 function Header({ setIsMenuOpen, isLogined, userNickNm, userId }) {
     const history = useHistory();
 
 
-    let loginPath = isLogined ? '/assets/images/thum160Px1.png' : '/assets/icons/ico-login.png'
+    let loginPath = isLogined ? (StorageManager.loadUserInfo().userImgUrl ? StorageManager.loadUserInfo().userImgUrl : ICON_USER_DEFAULT) : '/assets/icons/ico-login.png'
 
     const onClickProfile = () => {
         if(isLogined) {
@@ -35,7 +41,9 @@ function Header({ setIsMenuOpen, isLogined, userNickNm, userId }) {
                     <img alt="none" onClick={() => history.push('/')} className={'top-logo'} src={logoPath} />
                 </div>
                 <div>
-                    <img alt="none" className={"top-icon"} src={searchPath} onClick={()=> { history.push('/search') }} />
+                    <img alt="none" className={"top-icon"} src={searchPath} onClick={()=> {
+                        message.warn("서비스 준비중입니다",1); return ;history.push('/search')
+                    }} />
                     <img alt="none" className={"top-icon"} src={loginPath} onClick={onClickProfile}/>
                 </div>
             </div>

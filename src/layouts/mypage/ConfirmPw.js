@@ -6,10 +6,14 @@ import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager.js";
 import { Modal } from "../popup/ModalPopup";
 import EncryptionManager from "../../managers/EncryptionManager.js";
+import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
+import {Redirect} from 'react-router-dom'
 
 const failIcon = "assets/icons/icoFace3@3x.png"
 
-export default function ConfirmPwComponent() {
+function ConfirmPwComponent({ setIsMenuOpen, isLogined}) {
+
+
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const [inputs, setInputs] = useState({
@@ -17,6 +21,7 @@ export default function ConfirmPwComponent() {
     });
     const {pw} = inputs
     const [isEnableButton, setIsEnableButton] = useState(false);
+
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -31,7 +36,7 @@ export default function ConfirmPwComponent() {
     const confirmPw = () => {
         let userInfo = StorageManager.loadUserInfo();
         let salt = StorageManager.loadSalt();
-        console.log('입력 비밀번호 = ' + inputs.pw + ', userId = ' + userInfo.userId);
+        console.log('userId = ' + userInfo.userId);
         EncryptionManager.makePassword(inputs.pw, salt).then((hashedPassword)=>{
             AWSManager.checkPasswordVerification({
                 userId: userInfo.userId,
@@ -58,6 +63,7 @@ export default function ConfirmPwComponent() {
     };
 
     return (
+        !isLogined? <Redirect to="/login"/> :
         <main>
             <section className="mypage-header">
                 <div>
@@ -113,4 +119,4 @@ export default function ConfirmPwComponent() {
         </main>
      );
  }
- 
+export default WrapLoginedComponent(ConfirmPwComponent);

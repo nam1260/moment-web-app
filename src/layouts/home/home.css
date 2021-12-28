@@ -96,31 +96,13 @@ main {
     margin-left: 50px;
 }
 
-.app-moment-content-star > div > div > article { 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    margin-right:10px;
-    border-radius: 4px;
-    min-width: 320px;
-    height: 415px;
-    background: linear-gradient(rgb(236, 236, 236),rgb(236, 236, 236),rgb(207, 207, 207));
-    position: relative;
-    overflow: hidden;
-}
-
-.app-moment-content-star > div > div > article:last-child {
+/* 
+.app-moment-content-star > div > div > article:last-child > .img-content {
     background:none;
     background-color: rgb(255, 114, 58);
     margin-right: 0px;
 }
-.app-moment-content-star > div > div > article > img:not(.none-logo) { height: 100% }
-.app-moment-content-star > div > div > article > div { position: absolute; bottom:30px; flex: 1; left: 30px; }
-.app-moment-content-star > div > div > article > div > b { font-size:32px; color: white;height:29px; display: inline-block; color:#101010; line-height: 2.06;}
-.app-moment-content-star > div > div > article > div > p { color: white; font-size: 26px; opacity: .8; margin:0px; }
-
+*/
 
 .app-moment-content-sns {
     display: flex;
@@ -135,55 +117,7 @@ main {
 .app-moment-content-sns > div:first-child { display:  flex; flex-direction: column;}
 .app-moment-content-sns > div > h3 {display:flex;align-items: center ;margin-bottom:32px; font-size: 34px; font-weight: 800; letter-spacing: -0.34px; color:#101010}
 .app-moment-content-sns > div > h3 > img {margin: 0px 9px 0px 43px; }
-.app-moment-content-sns > div > div { display: flex; flex-direction: row; justify-content: space-between; flex: 1; overflow-x: auto; margin-left: 50px;}
-.app-moment-content-sns > div > div > article { 
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-}
-
-.app-moment-content-sns > div > div > article > .img-content {
-    width:210px;
-    height:340px;
-    overflow: hidden;
-}
-
-.app-moment-content-sns > div > div > article > .img-content > img {
-    height: 100%;
-}
-
-.app-moment-content-sns > div > div > article > .article-footer {
-    display: flex;
-    width: 100%;
-    margin-top: 16px;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-.app-moment-content-sns > div > div > article > .article-footer > b {
-    height: 28px;
-    font-size: 30px;
-    font-stretch: normal;
-    text-align: left;
-    color: #101010;
-}
-
-.app-moment-content-sns > div > div > article > .article-footer > span {
-    margin-top:14px;
-  opacity: 0.8;
-  font-family: AppleSDGothicNeo;
-  font-size: 24px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  color: rgba(143, 143, 143, 0.8);
-}
-
-
+.app-moment-content-sns > div > div { display: flex; flex-direction: row; flex: 1; overflow-x: auto; margin-left: 50px; align-items: flex-start;}
 
 
 .app-moment-more {
@@ -339,23 +273,8 @@ main {
     .app-moment-content-star {
         margin-top: 33vw;
     }
+    
 
-    .app-moment-content-star > div > div > article {
-        min-width: min(35.5vw, 320px);
-        height: min(50vw, 415px);
-    }
-
-    .app-moment-content-star > div > div > article > div { 
-        bottom: min(4vw, 30px); 
-        left: min(4vw, 30px); 
-    }
-    .app-moment-content-star > div > div > article > div > b { 
-        font-size: min(5vw, 32px);
-        height: min(5vw, 29px);
-    }
-    .app-moment-content-star > div > div > article > div > p { 
-        font-size: min(4vw, 26px);
-    }
 
     .app-moment-content-star > div > h3 > span, .app-moment-content-sns > div > h3 > span {
         font-size: min(7vw, 34px);
@@ -368,39 +287,14 @@ main {
     .app-moment-content-star > div > div, .app-moment-content-sns > div > div {
         margin-left:3vw;
     }
-    
-
-    .app-moment-content-sns {
-        margin-top:min(10vw ,102px);
-    }
 
     .app-moment-content-star > div > h3, .app-moment-content-sns > div > h3 {
         margin-bottom: min(3vw, 32px);
     }
 
-    .app-moment-content-sns > div > div > article { 
-        margin-right: min(1vw, 10px);
+    .app-moment-content-sns {
+        margin-top:min(10vw ,102px);
     }
-
-
-    .app-moment-content-sns > div > div > article > .img-content {
-        width:min(28vw, 210px);
-        height:min(40vw, 340px);
-    }
-    
-    .app-moment-content-sns > div > div > article > .article-footer {
-        margin-top: min(1vw, 16px);
-    }
-
-    .app-moment-content-sns > div > div > article > .article-footer > b {
-        font-size: min(6vw, 30px);
-    }
-    
-    .app-moment-content-sns > div > div > article > .article-footer > span {
-        margin-top:min(1vw, 14px);
-        font-size: min(5vw, 24px);
-    }
-    
 
     .app-moment-more {
         margin-top: min(7vw, 58px);
@@ -446,7 +340,7 @@ main {
     }
 
     .app-moment-description > .container > div > .description-card:nth-child(1) {
-        margin-left: 3vw;
+        margin-left: 2vw;
     }
     
     .app-moment-description > .container > div > .description-card > div > span:nth-child(2) {

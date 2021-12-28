@@ -10,6 +10,7 @@ import axios from "axios";
 import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager.js";
 import EncryptionManager from "../../managers/EncryptionManager.js";
+import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const checkOffPath = "assets/icons/check-off.svg"
@@ -42,7 +43,7 @@ const CHECK_NOTYET = 0;
 const CHECK_SUCCESS = 1;
 const CHECK_FAIL = 2;
 
-export default function AddAccountComponent() {
+function AddAccountComponent({isLoginded}) {
     const history = useHistory();
 
     const [showModal, setShowModal] = useState(false);
@@ -219,6 +220,7 @@ export default function AddAccountComponent() {
                             token : result.data.Authorization,
                             userNickNm : inputs.nickname,
                             userId: inputs.email,
+                            userImgUrl: '',
                         });
                         StorageManager.saveSalt(salt);
                         history.push('/');
@@ -343,7 +345,7 @@ export default function AddAccountComponent() {
         console.log('authNum = ' + authNum + ', validNumber =' + validNumber + ', confirm ? ' + (validNumber == authNum));
         
         const nextInputs = {
-            ...inputs,  
+            ...inputsAvalilables,  
             ['isPhone']: (validNumber == authNum),
         }
         setInputsAvalilables(nextInputs)
@@ -517,4 +519,4 @@ export default function AddAccountComponent() {
             </section>
         </main>
     );
-}
+} export default WrapLoginedComponent(AddAccountComponent);

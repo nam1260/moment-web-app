@@ -64,7 +64,7 @@ const Item = styled.div`
 
 const underLineImage = "/assets/images/present-num-box.png"
 
-export default function GuideItemComponent({ title = "", index = 1 }) {
+function GuideItemComponent({ title = "", index = 1 }) {
   
     return (
         <Item>
@@ -79,3 +79,5 @@ export default function GuideItemComponent({ title = "", index = 1 }) {
         </Item>
     )
 }
+
+export default React.memo(GuideItemComponent);

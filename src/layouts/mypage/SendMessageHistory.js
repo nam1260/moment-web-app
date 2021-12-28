@@ -5,10 +5,11 @@ import React, { useState, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "../popup/ModalPopup";
 import MypageHeader from './MypageHeader';
-
+import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
+import {Redirect} from 'react-router-dom'
 const failPath = '/assets/icons/ico-face-3-b.png'
 
-export default function SendMessageHistory() {
+function SendMessageHistory({isLogined}) {
     // message state 
     // 0 : 확인중 / 수신대기
     // 1 : 수락됨 / 수락함
@@ -106,7 +107,7 @@ export default function SendMessageHistory() {
     };
 
     return (
-
+        !isLogined ? <Redirect to="/login"/> :
         <main>
             <MypageHeader index={1}/>
             <section className="mypage-header">
@@ -163,5 +164,5 @@ export default function SendMessageHistory() {
             </section>
         </main>
      );
- }
+ } export default WrapLoginedComponent(SendMessageHistory)
  

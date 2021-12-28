@@ -4,23 +4,25 @@ import React, { useState, useEffect, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import MypageHeader from './MypageHeader';
 import AWSManager from "../../managers/AWSManager.js";
+import AWSS3Manager from "../../managers/AWSS3Manager.js";
 import StorageManager from "../../managers/StorageManager";
 import EncryptionManager from "../../managers/EncryptionManager.js";
-
-
+import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
+import {Redirect} from 'react-router-dom'
 
 
 const editPath = "assets/icons/list-ico-edit.png";
 const cameraPath = "assets/icons/ico-camera.svg";
-const thumPath = "assets/images/thum-160-px-1.png";
+const thumPath = "assets/icons/ico-user-default.png";
 const checkOffPath = "assets/icons/check-off.svg";
 const checkOnPath = "assets/icons/check-on.svg";
 
+const contentType = 'image/jpeg, image/png';
 
 
 // TODO 이미지 등록 처리 필요
 // TODO 동일 닉네임 저장 시 그대로 저장되도록 처리 필요
-export default function ModifyAccountComponent() {
+function ModifyAccountComponent({isLogined}) {
     const history = useHistory();
 
     const [userInfo, setUserInfo] = useState({
@@ -32,7 +34,8 @@ export default function ModifyAccountComponent() {
         userNickNm: '',
         starYn: '',
         mrktAgreeYn: '',
-        salt: ''
+        userImgUrl: '',
+        salt: '',
     });
 
     const [checkVariables, setValidVariables] = useState({
@@ -43,6 +46,8 @@ export default function ModifyAccountComponent() {
         isPwConfirm: false,
     });
 
+    const fileInput = useRef(null);
+    const [profileImage, setprofileImage] = useState(undefined);
 
     const [nickNmAlertText, setNickNmAlertText] = useState('중복 닉네임 존재 시 변경되지 않습니다');
     const [phoneNumAlertText, setPhoneNumAlertText] = useState('휴대폰 번호를 입력해 주세요(숫자만 입력 가능)');
@@ -247,7 +252,40 @@ export default function ModifyAccountComponent() {
 
     },[]);
  
+    const onImgChange = async (event)=>{
+        var file = event.target.files[0];
+        
+        console.log(file);
+        if(file && (file.type.indexOf('jpeg') > -1 || file.type.indexOf('png') > -1)) {
+            // 미리 보기 반영 
+            const reader = new FileReader();
+            reader.onload = e => {
+                setprofileImage(e.target.result);
+            }
+            reader.readAsDataURL(file);
+
+            // S3 저장 
+            let fileNm = 'profile';
+            let fileType = file.type.split('/');
+            let extension = fileType[fileType.length-1];
+            AWSS3Manager.uploadImage(file, userInfo.userId, fileNm)
+            .then((data)=> {
+                AWSManager.saveUserImageUrl({
+                    userId: userInfo.userId, 
+                    fileNm: fileNm + '.' + extension,
+                }).then(result => console.log(result));
+            })
+            .catch(err => console.error(err));
+
+        } else {
+            alert('jpg, png 형식의 파일만 첨부하실 수 있습니다.');
+        }
+    };
+
     return (
+
+        !isLogined ? <Redirect to="/"/> :
+            
         <main>
             <MypageHeader index={0}/>
             <section className="mypage-header">
@@ -266,8 +304,9 @@ export default function ModifyAccountComponent() {
                                 <div>{userInfo.userId}</div>
                             </div>
                             <div className="thumbnail"> 
-                                <img className="thumbnail-img" alt="none" src={thumPath} />
-                                <img className="thumbnail-icon" alt="none" src={cameraPath} />
+                                <img className="thumbnail-img" alt="none" src={profileImage ? profileImage : (userInfo.userImgUrl ? userInfo.userImgUrl : thumPath)} />
+                                <img className="thumbnail-icon" alt="none" src={cameraPath} for="inputLogoImg" onClick={() => fileInput.current.click()} />
+                                <input type='file' ref={fileInput} accept={contentType} name='file' style={{ display: 'none' }} onChange={onImgChange}/>
                             </div>
                         </div>
                         <span>
@@ -354,5 +393,5 @@ export default function ModifyAccountComponent() {
             </section>
         </main>
      );
- }
+ } export default WrapLoginedComponent(ModifyAccountComponent);
  

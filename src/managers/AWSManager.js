@@ -20,6 +20,7 @@ const LOGIN_USER  =  "/user/login-user";
 const LOGOUT_USER = "/user/logout-user";
 const GET_USER_INFO = "/user/get-user-info";
 const UPDATE_USER_INFO ="/user/update-user-info";
+const SAVE_USER_IMAGE_URL ="/user/save-user-img-url";
 const FIND_USER_ID = "/user/find-user-id";
 const VERIFY_SMS_NUM = "/user/send-sms";
 
@@ -29,6 +30,10 @@ const GET_FAN_MSG_LIST = "/msg/get-fan-msg-list";
 const UPDATE_FAN_MSG = "/msg/update-fan-msg";
 
 const GET_STAR_LIST = "/star/get-star-list";
+
+const GET_RGST_STAR_STATUS = "/star/get-rgst-star-status";
+const UPDATE_RGST_STAR_STATUS = "/star/update-rgst-star-status";
+
 
 
 const API_KEYS_TEST = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
@@ -100,6 +105,10 @@ const AWSManager = (function() {
         console.log("updateUserInfo = " +JSON.stringify(params));
         return await requestPost(getUrl(UPDATE_USER_INFO), params);
     }
+    const saveUserImageUrl = async (params) => {
+        console.log("saveUserImageUrl = " +JSON.stringify(params));
+        return await requestPost(getUrl(SAVE_USER_IMAGE_URL), params);
+    }
     /**
      * 스타에게 보낸 사연을 조회힌다.
      * @param params
@@ -133,6 +142,17 @@ const AWSManager = (function() {
         return await requestPost(getUrl(GET_STAR_LIST), params);
     };
 
+    const getRgstStarStatus = async (params) => {
+        console.log("getRgstStarStatus");
+        return await requestPost(getUrl(GET_RGST_STAR_STATUS), params);
+    };
+
+    const updateRgstStarStatus = async (params) => {
+        console.log("updateRgstStarStatus = " + JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_RGST_STAR_STATUS), params);
+    };
+
+
     return {
         regUserInfo,
         checkDuplId,
@@ -143,8 +163,11 @@ const AWSManager = (function() {
         logoutUser,
         getUserInfo,
         updateUserInfo,
+        saveUserImageUrl,
         findUserId,
         verifySMSNumber,
+        getRgstStarStatus,
+        updateRgstStarStatus,
         //사연관리
         getSentMsgList,
         updateMsgInfo,
