@@ -10,7 +10,7 @@ const TopStarCard = styled.article`
   margin-right: 5px;
   border-radius: 4px;
   position: relative;
-
+  max-width: 170px;
   & > .img-content {
     min-width: 170px;
     height: 240px;
@@ -63,7 +63,7 @@ const TopStarCard = styled.article`
   }
 
   @media (max-width: 750px) {
-
+   max-width: min(23vw, 170px);
     & > .img-content {
       min-width: min(23vw, 170px);
       height: min(35vw, 240px);
