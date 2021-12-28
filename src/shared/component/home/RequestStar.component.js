@@ -128,14 +128,14 @@ const RequestStar = () => {
             <div className="container">
                 <h3>
                     <img alt="none" src={ICON_QUESTION}/>
-                    <span>나의 최애가 여기 없다면</span>
+                    <span>내가 찾는 최애가 없다면 ↓↓↓</span>
                 </h3>
                 <div>
                     <article>
                         <div className="img-content">
                             <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
                             <img className={'plus-img'} alt="none" src={plusIcon} />
-                            <span> 지금 요청해 주세요!</span>
+                            <span> 딱 30초만에 요청하세요!</span>
                         </div>
                     </article>
                 </div>

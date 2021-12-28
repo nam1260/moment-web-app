@@ -50,11 +50,11 @@ function Home({ history, getStarListAsync, starList}) {
                     </div>
                     <span>
                         <span>
-                            내가 좋아하는
+                            나만의
                             <br />
-                            스타가 만들어주는
+                            최애가 만들어주는
                             <br />
-                            나만의 순간
+                            특별한 순간
                         </span>
                         <div onClick={() => history.push('guide/moment')}>
                             모먼트 서비스 소개 <img alt="none" src={moveArrowPath} />{" "}
@@ -126,7 +126,7 @@ function Home({ history, getStarListAsync, starList}) {
                             <img alt="none" src={desThumb1} />
                             <div>
                                 <span>모먼트가 무엇인가요?</span>
-                                <span>모먼트는 네모 네모<br />테스트 문구</span>
+                                <span>모먼트를 소개합니다</span>
                                 <span onClick={() => history.push('guide/moment')}>모먼트 소개 <img alt="none" src={moveArrowPath} />{" "} </span>
                             </div>
                         </div>
@@ -134,7 +134,7 @@ function Home({ history, getStarListAsync, starList}) {
                             <img alt="none" src={desThumb2} />
                             <div>
                                 <span>모먼트가 무엇인가요?</span>
-                                <span>모먼트 이용가이드<br />테스트 문구</span>
+                                <span>모먼트 이용가이드</span>
                                 <span onClick={() => history.push('guide/user')} >이용 가이드 <img alt="none" src={moveArrowPath} />{" "} </span>
                             </div>
                         </div>
