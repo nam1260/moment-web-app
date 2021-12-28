@@ -69,7 +69,7 @@ const StyledReuqestStar = Styled.section`
                     height: 200px;
                     overflow: hidden;
                     position: relative;
-                    border-radius: 4px;
+                    border-radius: 40px;
                     background-color: rgb(255, 114, 58);
                     margin-right: 0px;
                     text-align: center;
