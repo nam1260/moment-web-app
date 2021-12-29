@@ -124,8 +124,8 @@ function ReceiveMessageHistory({isLogined}) {
                                     <b>{new Date(message.regDate).toLocaleDateString()}</b>
                                 </span>
                                 <span className="info">
-                                    희망배송일
-                                    <b>{new Date(message.deliveryDate).toLocaleDateString()}</b>
+                                    수신일
+                                    <b>{message.deliveryDate.substring(0,4) + '. ' + message.deliveryDate.substring(4, 6)  + '. ' + message.deliveryDate.substring(6,8) + '.'}</b>
                                 </span>
                                 <span className="info">
                                     상태
