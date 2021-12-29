@@ -1,13 +1,21 @@
 
 import "./mypage.css";
 import "../popup/modalPopup.css";
-import React, { useState, useRef, Component} from "react";
+import React, { useState, useEffect, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "../popup/ModalPopup";
 import MypageHeader from './MypageHeader';
 import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
 import {Redirect} from 'react-router-dom'
-const failPath = '/assets/icons/ico-face-3-b.png'
+import AWSManager from "../../managers/AWSManager.js";
+import StorageManager from "../../managers/StorageManager";
+
+const notFoundPath = "/assets/icons/icoFace3B.png"
+const listStatus = {
+    INIT: 1,
+    NOT_FOUND:2,
+    FOUND:3
+}
 
 function SendMessageHistory({isLogined}) {
     // message state 
@@ -23,50 +31,9 @@ function SendMessageHistory({isLogined}) {
     ];
     const IDX_SENDDER = 0;
     const IDX_RECEIVER = 1;
-
-    const messageList = [
-        {
-            id: 32520,
-            title: "이건 못참지~",
-            description: "안녕하세요 소왕님, 이번에 제가 사연을 보내게 되어 감사합니다.",
-            sender : "소왕팬",
-            receiver : "소왕",
-            createDate : 1635499262507,
-            receivedDate : 1635699262507,
-            state : 0,
-        },
-        {
-            id: 32414,
-            title: "저 졸업해요. 축하해주세요!",
-            description: "안녕하세요 소왕님, 이번에 제가 사연을 보내게 되어 감사합니다.",
-            sender : "김인기 찐팬",
-            receiver : "소왕",
-            createDate : 1635498262507,
-            receivedDate : 1635699962507,
-            state : 1,
-        },
-        {
-            id: 32212,
-            title: "카페창업 영상 부탁해요~",
-            description: "안녕하세요 소왕님, 이번에 제가 사연을 보내게 되어 감사합니다.",
-            sender : "카페왕",
-            receiver : "소왕",
-            createDate : 1635498262507,
-            receivedDate : 1635699962507,
-            state : 2,
-        },
-        {
-            id: 32176,
-            title: "결혼 축사 부탁합니다.",
-            description: "안녕하세요 소왕님, 이번에 제가 사연을 보내게 되어 감사합니다.",
-            sender : "카페왕",
-            receiver : "소왕",
-            createDate : 1635498262507,
-            receivedDate : 1635699962507,
-            state : 3,
-        },
-    ];
-
+    
+    const [messageList, setMessageList] = useState([]);
+    const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
     const [showModal, setShowModal] = useState(false);
 
     const getButtons = (state)=> {
@@ -106,6 +73,76 @@ function SendMessageHistory({isLogined}) {
 
     };
 
+    const NotFoundComponent = () => {
+        return (
+            <div className="emptyMessage">
+                <img alt="none" src={notFoundPath} />
+                <p>작성된 사연이 없습니다.</p>
+            </div>
+        )
+    };
+    const FoundComponent = () => {
+        return (
+            <div className="message">
+                {
+                    messageList.map((message) => {
+                        return (
+                            <div>
+                                <div className="border">
+                                </div>
+                                <span className="id">
+                                    #{String(message.msgId).padStart(7, 0)}
+                                </span>
+                                <span className="title">
+                                    {message.title}
+                                </span>
+                                <span className="description">
+                                    {message.msgContents}
+                                </span>
+                                <span className="info">
+                                    수신자
+                                    <b>{message.userId}</b>
+                                </span>
+                                <span className="info">
+                                    작성일
+                                    <b>{new Date(message.regDate).toLocaleDateString()}</b>
+                                </span>
+                                <span className="info">
+                                    희망배송일
+                                    <b>{new Date(message.deliveryDate).toLocaleDateString()}</b>
+                                </span>
+                                <span className="info">
+                                    상태
+                                    <b className="highlight">{stateString[message.msgStatus][IDX_SENDDER]}</b>
+                                </span>
+                                <div className="messageButton">
+                                    {getButtons(message.msgStatus)}
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
+    };
+    
+    useEffect(() =>{
+        console.log("랜더링 시마다 호출");
+        let userId = StorageManager.loadUserInfo() ? StorageManager.loadUserInfo().userId : "";
+        AWSManager.getMsgList({
+            userId: userId,
+            type: "user",
+        }).then((result) =>{
+            console.log("getMsgList = " , result);
+            if(result && result.status === 200 && result.data && result.data.length > 0) {
+                setListBodyStatus(listStatus.FOUND);
+                setMessageList(result.data);
+            } else {
+                setListBodyStatus(listStatus.NOT_FOUND);
+            }
+        });
+    },[]);
+
     return (
         !isLogined ? <Redirect to="/login"/> :
         <main>
@@ -117,40 +154,13 @@ function SendMessageHistory({isLogined}) {
             </section>
             <section className="mypage-container">
                 <div className="messageList">
-                    {messageList.map(message => (
-                        <div>
-                            <div className="border">
-                            </div>
-                            <span className="id">
-                                #{String(message.id).padStart(7, 0)}
-                            </span>
-                            <span className="title">
-                                {message.title}
-                            </span>
-                            <span className="description">
-                                {message.description}
-                            </span>
-                            <span className="info">
-                                수신자
-                                <b>{message.sender}</b>
-                            </span>
-                            <span className="info">
-                                작성일
-                                <b>{new Date(message.createDate).toLocaleDateString()}</b>
-                            </span>
-                            <span className="info">
-                                희망배송일
-                                <b>{new Date(message.receivedDate).toLocaleDateString()}</b>
-                            </span>
-                            <span className="info">
-                                상태
-                                <b className="highlight">{stateString[message.state][IDX_SENDDER]}</b>
-                            </span>
-                            <div className="messageButton">
-                                {getButtons(message.state)}
-                            </div>
-                        </div>
-                    ))}
+                    {
+                        {
+                            [listStatus.INIT] : <></>,
+                            [listStatus.NOT_FOUND] : <NotFoundComponent />,
+                            [listStatus.FOUND] : <FoundComponent />
+                        }[listhBodyStatus]   
+                    }
                 </div>
                 <div>
                     <span class="loadingGuide">

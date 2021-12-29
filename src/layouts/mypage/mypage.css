@@ -133,6 +133,19 @@ main {
     object-fit: contain;
     float: right;
 }
+/* .mypage-container > div > span > div > div.combobox {
+    width: min(70vw, 650px);
+    height: min(10vw, 60px);
+    font-size: min(4vw, 36px);
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #101010;
+    border:none;
+} */
 
 .mypage-container > div > span > div.mypage-email{
     border: none;
@@ -229,19 +242,49 @@ main {
     font-style: normal;
     line-height: normal;
 }
-/* .mypage-container > div.messageList > div{
-    font-weight: normal;
+.mypage-container > div.messageList > div.emptyMessage {
+    margin-top:min(20vw, 200px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mypage-container > div.messageList > div.emptyMessage > img {
+    width: min(20vw, 150px);
+    height: min(20vw, 150px);
+}
+.mypage-container > div.messageList > div.emptyMessage > p {
+    font-size: min(5vw, 36px);
+    font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-} */
-.mypage-container > div.messageList > div > .border{
+    letter-spacing: -0.9px;    
+    margin: 37px 0px 40px 0px
+}
+.mypage-container > div.messageList > div.emptyMessage > div {
+    width: 338px;
+    height: 80px;
+    padding: 28px 41px;
+    text-align: center;
+    border-radius: 40px;
+    border: solid 2px #ff723a;
+    font-size: 25px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 25px;
+    letter-spacing: -0.65px;
+    text-align: center;
+    color: #ff723a;
+}
+
+.mypage-container > div.messageList > div.message > div > .border{
     width: min(70vw, 650px);
     height: 1px;
     outline: 1px solid #f9f9f9;
     margin-bottom: min(10vw , 39px);
 }
-.mypage-container > div.messageList > div > .id{
+.mypage-container > div.messageList > div.message > div > .id{
     display: block;
     font-size: min(6vw , 26px);
     letter-spacing: -0.65px;
@@ -249,7 +292,7 @@ main {
     color: #ff723a;
     margin-bottom: min(7vw , 31px);
 }
-.mypage-container > div.messageList > div > .title{
+.mypage-container > div.messageList > div.message > div > .title{
     display: block;
     font-size: min(9vw , 38px);
     font-weight: bold;
@@ -262,7 +305,7 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.mypage-container > div.messageList > div > .description{
+.mypage-container > div.messageList > div.message > div > .description{
     display: block;
     font-size: min(7vw , 30px);
     font-style: normal;
@@ -276,7 +319,7 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.mypage-container > div.messageList > div > .info{
+.mypage-container > div.messageList > div.message > div > .info{
     display: block;
     font-size: min(6vw , 26px);
     line-height: 1.54;
@@ -284,26 +327,26 @@ main {
     text-align: left;
     color: #8f8f8f;
 }
-.mypage-container > div.messageList > div > .info > b{
+.mypage-container > div.messageList > div.message > div > .info > b{
     font-weight: 500;
     text-align: right;
     color: #101010;
     float: right;
 }
-.mypage-container > div.messageList > div > .info > b.highlight{
+.mypage-container > div.messageList > div.message > div > .info > b.highlight{
     font-weight: bold;
 }
 .mypage-container span.highlight {
     color: #ff723a;
 }
 
-.mypage-container > div.messageList > div > div.messageButton {
+.mypage-container > div.messageList > div.message > div > div.messageButton {
     display: block;
     width: min(70vw, 650px);
     margin-top: min(4vw, 50px);
     margin-bottom: min(4vw, 50px);
 }
-.mypage-container > div.messageList > div > div.messageButton > button{
+.mypage-container > div.messageList > div.message > div > div.messageButton > button{
     width: min(33.5vw, 320px);
     height: min(13vw, 80px);
     border-radius: min(10vw, 40px);
@@ -323,18 +366,18 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.mypage-container > div.messageList > div > div.messageButton > button.full{
+.mypage-container > div.messageList > div.message > div > div.messageButton > button.full{
     width: min(70vw, 650px);
     border: solid 2px #e9e9e9;
 }
-.mypage-container > div.messageList > div > div.messageButton > button.highlight{
+.mypage-container > div.messageList > div.message > div > div.messageButton > button.highlight{
     border-color: #ff723a;
     color: #ff723a;
 }
-.mypage-container > div.messageList > div > div.messageButton > button.third{
+.mypage-container > div.messageList > div.message > div > div.messageButton > button.third{
     width: min(22vw, 206px);
 }
-.mypage-container > div.messageList > div > div.messageButton > button.fill{
+.mypage-container > div.messageList > div.message > div > div.messageButton > button.fill{
     border-color: #ff723a;
     background-color: #ff723a;
     color: #ffffff;

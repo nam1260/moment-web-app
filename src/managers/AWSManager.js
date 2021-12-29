@@ -24,6 +24,7 @@ const SAVE_USER_IMAGE_URL ="/user/save-user-img-url";
 const FIND_USER_ID = "/user/find-user-id";
 const VERIFY_SMS_NUM = "/user/send-sms";
 
+const GET_MSG_LIST = "/msg/get-msg-list";
 const GET_SENT_MSG_LIST = "/msg/get-sent-msg-list";
 const UPDATE_MSG_INFO = "/msg/update-msg-info";
 const GET_FAN_MSG_LIST = "/msg/get-fan-msg-list";
@@ -109,6 +110,10 @@ const AWSManager = (function() {
         console.log("saveUserImageUrl = " +JSON.stringify(params));
         return await requestPost(getUrl(SAVE_USER_IMAGE_URL), params);
     }
+    const getMsgList = async (params) => {
+        console.log("getMsgList = " +JSON.stringify(params));
+        return await requestPost(getUrl(GET_MSG_LIST), params);
+    }
     /**
      * 스타에게 보낸 사연을 조회힌다.
      * @param params
@@ -169,6 +174,7 @@ const AWSManager = (function() {
         getRgstStarStatus,
         updateRgstStarStatus,
         //사연관리
+        getMsgList,
         getSentMsgList,
         updateMsgInfo,
         getFanMsgList,
