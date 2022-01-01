@@ -8,26 +8,92 @@ import AWSManager from '../../managers/AWSManager'
 import { useSelector, useDispatch } from "react-redux";
 import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
 import {Redirect} from 'react-router-dom'
+import Styled from "styled-components"
 
 const editPath = "assets/icons/list-ico-edit.png"
 const downArrowPath = "/assets/icons/list-ico-open.png"
 const checkOffPath = "assets/icons/check-off.svg"
 const checkOnPath = "assets/icons/check-on.svg"
 
+
+
+
+const StyledInputBox = Styled.div`
+
+     & > span {
+        margin-top: min(0.9vh, 60px);
+        width: min(90vw, 239px);
+        height: min(9vw, 53px);
+        font-size: min(4vw, 26px);
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.26px;
+        text-align: left;
+        color: #8f8f8f;
+     }
+     
+     & > div {
+        border-bottom: 2px solid #f0f0f0;
+        margin-bottom: min(2vw, 20px);
+        
+        & > input {
+            width: min(70vw, 650px);
+            height: min(10vw, 60px);
+            font-size: min(4vw, 36px);
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: -0.36px;
+            text-align: left;
+            color: #101010;
+            border: none;
+        
+        }
+        
+        & > input::placeholder {
+          color: rgba(16,16,16,0.25);
+        }
+        
+        & > img {
+            width: min(10vw, 44px);
+            height: min(10vw, 44px);
+            object-fit: contain;
+            float: right;
+        }
+     }
+     
+    
+`
+
+
+
+const InputBox = ({text,subText,imgSrc,inputName,onChangeEvent,phText}) => {
+
+    return (
+        <StyledInputBox>
+            <span>
+                {text}<span>{subText}</span>
+            </span>
+            <div>
+                <input
+                    placeholder= {phText? phText : ""}
+                    type="text"
+                    name={inputName}
+                    onChange={onChangeEvent}>
+                </input>
+                <img alt="none" src ={imgSrc}/>
+            </div>
+        </StyledInputBox>
+    )
+
+}
+
 function StarRegister({isLogined}) {
     const userInfo = useSelector(state => state.user) || {};
     const history = useHistory();
-    const userList = [
-        {
-            kakaoId: "",
-            instagramId: "",
-            youtubeName: "",
-            bankAccountName: "",
-            bankAccountNumber: "",
-            bankAccountOwner: "",
-        },
-    ];
-
     const [isApplying, setIsApplying] = useState(true);
     const [inputs, setInputs] = useState({
         kakaoId: "",
@@ -37,7 +103,6 @@ function StarRegister({isLogined}) {
         bankAccountNumber: "",
         bankAccountOwner: "",
     });
-
 
     const { kakaoId, instagramId, youtubeName, bankAccountName, bankAccountNumber, bankAccountOwner } = inputs
 
@@ -73,6 +138,10 @@ function StarRegister({isLogined}) {
         }
         setInputs(nextInputs);
     };
+
+    const onClickApplyBtn = () => {
+       // AWSManager.checkDuplId()
+    }
 
     useEffect(() => {
         AWSManager.getRgstStarStatus({
@@ -115,96 +184,67 @@ function StarRegister({isLogined}) {
                 </div>
             </section>
 
-            {isApplying? "": <div>
+            {isApplying? "":
+                <div>
                 <section className="mypage-container">
                     <div>
-                    <span>
-                        <span>
-                            카카오톡 ID
-                        </span>
-                        <div>
-                            <input
-                                type="text"
-                                name="kakaoId"
-                                onChange={onChangeEmailFormat}
-                            ></input>
-                            <img alt="none" src={editPath}/>
-                        </div>
-                        <span>
-                            인스타그램 ID (블루뱃지 인증 ID만 승인가능)
-                        </span>
-                        <div>
-                            <input
-                                type="text"
-                                name="instagramId"
-                                onChange={onChange}
-                            ></input>
-                            <img alt="none" src={editPath}/>
-                        </div>
-                        <span>
-                            Youtube 채널명
-                        </span>
-                        <div>
-                            <input
-                                type="text"
-                                name="youtubeName"
-                                onChange={onChange}
-                            ></input>
-                            <img alt="none" src={editPath}/>
-                        </div>
-                        <span>
-                            수익금 지급 계좌
-                        </span>
-                        <div>
-                            {/* combobox ui 추가 필요  */}
-                            <input
-                                placeholder={"은행을 선택해주세요"}
-                                type="text"
-                                name="bankAccountName"
-                                value={bankAccountName}
-                                onChange={onChange}
-                            ></input>
-                            <img alt="none" src={downArrowPath}/>
-                        </div>
-                        <div>
-                            <input
-                                placeholder={"계좌번호를 입력해주세요"}
-                                type="text"
-                                name="bankAccountNumber"
-                                onChange={onChangeOnlyNumber}
-                            ></input>
-                            <img alt="none" src={editPath}/>
-                        </div>
-                        <div>
-                            <input
-                                placeholder={"예금주 (본인과 일치하는 계좌만 가능)"}
-                                type="text"
-                                name="bankAccountOwner"
-                                onChange={onChange}
-                            ></input>
-                            <img alt="none" src={editPath}/>
-                        </div>
-                    </span>
+                        <InputBox
+                            text = "카카오톡 ID"
+                            onChangeEvent={onChangeEmailFormat}
+                            name ="kakaoId"
+                            imgSrc ={editPath}
+                        />
+                        <InputBox
+                            text = "인스타그램 ID (블루뱃지 인증 ID만 승인가능)"
+                            onChangeEvent={onChange}
+                            name ="instagramId"
+                            imgSrc ={editPath}
+                        />
+                        <InputBox
+                            text = "Youtube 채널명"
+                            onChangeEvent={onChange}
+                            name ="youtubeName"
+                            imgSrc ={editPath}
+                        />
+                        <InputBox
+                            text = "수익금 지급 계좌"
+                            phText="어디 은행인가요?"
+                            onChangeEvent={onChange}
+                            name ="bankAccountName"
+                            imgSrc ={editPath}
+                        />
+                        <InputBox
+                            phText="계좌번호를 입력해주세요"
+                            onChangeEvent={onChangeOnlyNumber}
+                            name ="bankAccountNumber"
+                            imgSrc ={editPath}
+                        />
+                        <InputBox
+                            phText="예금주 (실명과 일치하는 계좌만 가능)"
+                            onChangeEvent={onChange}
+                            name ="bankAccountOwner"
+                            imgSrc ={editPath}
+                        />
                     </div>
                 </section>
-                <section className="check-options">
-                    <div>
-                <span>
-                <img alt="none" src={isTerms ? checkOnPath : checkOffPath} onClick={() => {
-                    toggleTerms();
-                }}/>
-                <span class="highlight">모먼트 스타 이용 약관</span>
-                <span>에 동의합니다.(필수)</span>
-                </span>
-                        <br/>
-                        <span>
-                <img alt="none" src={isCommercial ? checkOnPath : checkOffPath} onClick={() => {
-                    toggleCommercial();
-                }}/>
-                <span>  </span>
-                </span>
-                    </div>
-                </section>
+                {/*<section className="check-options">*/}
+                    {/*<div>*/}
+                {/*<span>*/}
+                {/*<img alt="none" src={isTerms ? checkOnPath : checkOffPath} onClick={() => {*/}
+                    {/*toggleTerms();*/}
+                {/*}}/>*/}
+                {/*<span class="highlight">모먼트 스타 이용 약관</span>*/}
+                {/*<span>에 동의합니다.(필수)</span>*/}
+                {/*</span>*/}
+                        {/*<br/>*/}
+                        {/*<span>*/}
+                {/*<img alt="none" src={isCommercial ? checkOnPath : checkOffPath} onClick={() => {*/}
+                    {/*toggleCommercial();*/}
+                {/*}}/>*/}
+                {/*<span>  </span>*/}
+                {/*</span>*/}
+                    {/*</div>*/}
+                {/*</section>*/}
                 <section className="mypage-button">
                     <div>
                         <button onClick={() => {
