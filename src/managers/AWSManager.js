@@ -36,6 +36,7 @@ const GET_RGST_STAR_STATUS = "/star/get-rgst-star-status";
 const UPDATE_RGST_STAR_STATUS = "/star/update-rgst-star-status";
 const GET_STAR_INFO = "/star/get-star-detail-info";
 const UPDATE_STAR_INFO = "/star/update-star-detail-info";
+const REQ_RGST_STAR = "/star/req-rgst-star";
 
 
 
@@ -170,6 +171,11 @@ const AWSManager = (function() {
         return await requestPost(getUrl(UPDATE_STAR_INFO), params);
     };
 
+    const reqRgstStar = async(params) => {
+        console.log("reqRgstStar = " + JSON.stringify(params));
+        return await requestPost(getUrl(REQ_RGST_STAR), params);
+    }
+
 
     return {
         regUserInfo,
@@ -195,6 +201,7 @@ const AWSManager = (function() {
 
         getStarInfo,
         updateStarInfo,
+        reqRgstStar
 
     }
 

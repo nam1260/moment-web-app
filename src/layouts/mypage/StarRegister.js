@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
 import {Redirect} from 'react-router-dom'
 import Styled from "styled-components"
+import StorageManager from "../../managers/StorageManager";
 
 const editPath = "assets/icons/list-ico-edit.png"
 const downArrowPath = "/assets/icons/list-ico-open.png"
@@ -97,14 +98,12 @@ function StarRegister({isLogined}) {
     const [isApplying, setIsApplying] = useState(true);
     const [inputs, setInputs] = useState({
         kakaoId: "",
-        instagramId: "",
-        youtubeName: "",
-        bankAccountName: "",
-        bankAccountNumber: "",
-        bankAccountOwner: "",
+        instaId: "",
+        youtubeChNm: "",
+        bankNm: "",
+        accountNum: "",
+        accountNm: "",
     });
-
-    const { kakaoId, instagramId, youtubeName, bankAccountName, bankAccountNumber, bankAccountOwner } = inputs
 
     const [isTerms, setToggleTerms] = useState(false);
     const toggleTerms = () => {
@@ -132,6 +131,8 @@ function StarRegister({isLogined}) {
 
     const onChange = (e) => {
         const { name, value } = e.target
+        console.log(name);
+        console.log(value);
         const nextInputs = {
             ...inputs,  
             [name]: value,
@@ -141,6 +142,31 @@ function StarRegister({isLogined}) {
 
     const onClickApplyBtn = () => {
        // AWSManager.checkDuplId()
+        AWSManager.checkDuplId({
+            userId: userInfo.userId
+        }).then((result)=>{
+            if (result && result.status === 200) {
+                if (!result.data.isDupl) alert("모먼트 가입 유저만 사용자만 스타 등록이 가능합니다.");
+                else {
+                    AWSManager.reqRgstStar({
+                        userId: userInfo.userId,
+                        kakoId: inputs.kakaoId,
+                        youtubeChNm: inputs.youtubeChNm,
+                        bankNm: inputs.bankNm,
+                        accountNum: inputs.accountNum,
+                        accountNm : inputs.accountNm
+                    }).then((result)=>{
+                        if(result && result.status === 200) {
+                            alert("스타 등록 신청이 완료되었습니다");
+                        }else {
+                            alert("서버 에러 ");
+                        }
+                    });
+                }
+             //   StorageManager.saveSalt(salt);
+             //   _returnToHome();
+            }
+        })
     }
 
     useEffect(() => {
@@ -191,38 +217,38 @@ function StarRegister({isLogined}) {
                         <InputBox
                             text = "카카오톡 ID"
                             onChangeEvent={onChangeEmailFormat}
-                            name ="kakaoId"
+                            inputName ="kakaoId"
                             imgSrc ={editPath}
                         />
                         <InputBox
                             text = "인스타그램 ID (블루뱃지 인증 ID만 승인가능)"
                             onChangeEvent={onChange}
-                            name ="instagramId"
+                            inputName ="instaId"
                             imgSrc ={editPath}
                         />
                         <InputBox
                             text = "Youtube 채널명"
                             onChangeEvent={onChange}
-                            name ="youtubeName"
+                            inputName ="youtubeChNm"
                             imgSrc ={editPath}
                         />
                         <InputBox
                             text = "수익금 지급 계좌"
                             phText="어디 은행인가요?"
                             onChangeEvent={onChange}
-                            name ="bankAccountName"
+                            inputName ="bankNm"
                             imgSrc ={editPath}
                         />
                         <InputBox
                             phText="계좌번호를 입력해주세요"
                             onChangeEvent={onChangeOnlyNumber}
-                            name ="bankAccountNumber"
+                            inputName ="accountNum"
                             imgSrc ={editPath}
                         />
                         <InputBox
                             phText="예금주 (실명과 일치하는 계좌만 가능)"
                             onChangeEvent={onChange}
-                            name ="bankAccountOwner"
+                            inputName ="accountNm"
                             imgSrc ={editPath}
                         />
                     </div>
@@ -247,9 +273,7 @@ function StarRegister({isLogined}) {
                 {/*</section>*/}
                 <section className="mypage-button">
                     <div>
-                        <button onClick={() => {
-                            console.log('스타 등록신청');
-                        }}>
+                        <button onClick={onClickApplyBtn}>
                             등록신청
                         </button>
                     </div>
