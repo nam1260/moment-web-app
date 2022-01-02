@@ -119,16 +119,34 @@ function StartProfile({isLogined}) {
 
     const categoryData = [
         {
-          value: '가수',
-          text: '가수',
+            value: 'influencer',
+            id: "1001",
+            text: '유명인',
         },
         {
-          value: '예술인',
-          text: '예술인',
+            value: '방송인',
+            id: "1002",
+            text: '방송인',
         },
         {
-          value: '운동선수',
-          text: '운동선수',
+            value: '예술인',
+            id: "1003",
+            text: '예술인',
+        },
+        {
+            value: '교육자',
+            id: "1004",
+            text: '교육자',
+        },
+        {
+            value: '운동선수',
+            id: "1005",
+            text: '운동선수',
+        },
+        {
+            value: '크리에이터',
+            id: "1006",
+            text: '크리에이터'
         }
     ];
     const DropdownIndicator = (
