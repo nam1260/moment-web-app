@@ -11,6 +11,7 @@ import {Redirect} from 'react-router-dom'
 import Styled from "styled-components"
 import StorageManager from "../../managers/StorageManager";
 
+const notFoundPath = "/assets/icons/icoFace3B.png"
 const editPath = "assets/icons/list-ico-edit.png"
 const downArrowPath = "/assets/icons/list-ico-open.png"
 const checkOffPath = "assets/icons/check-off.svg"
@@ -95,7 +96,7 @@ const InputBox = ({text,subText,imgSrc,inputName,onChangeEvent,phText}) => {
 function StarRegister({isLogined}) {
     const userInfo = useSelector(state => state.user) || {};
     const history = useHistory();
-    const [isApplying, setIsApplying] = useState(true);
+    const [isApplying, setIsApplying] = useState(false);
     const [inputs, setInputs] = useState({
         kakaoId: "",
         instaId: "",
@@ -212,9 +213,9 @@ function StarRegister({isLogined}) {
                 </div>
             </section>
 
-            {isApplying? "":
-                <div>
+            <div>
                 <section className="mypage-container">
+                    {!isApplying? 
                     <div>
                         <InputBox
                             text = "카카오톡 ID"
@@ -253,7 +254,15 @@ function StarRegister({isLogined}) {
                             inputName ="accountNm"
                             imgSrc ={editPath}
                         />
+                    </div> :
+                    <div className="messageList">
+                        <div className="emptyMessage">
+                            <img alt="none" src={notFoundPath} />
+                            <p>이미 스타 등록이</p>
+                            <p className="second">완료되었거나 처리중입니다..</p>
+                        </div>
                     </div>
+                    }
                 </section>
                 {/*<section className="check-options">*/}
                     {/*<div>*/}
@@ -275,19 +284,21 @@ function StarRegister({isLogined}) {
                 {/*</section>*/}
                 <section className="mypage-button">
                     <div>
+                    {!isApplying? 
                         <button onClick={onClickApplyBtn}>
                             등록신청
+                        </button> : 
+                        <button className="detail-button" onClick={()=>{history.push('starRegisterHistory')}}>
+                            스타등록현황
                         </button>
-                    </div>
+                    }
+                    </div> 
                 </section>
                 <section className="mypage-options">
                     <div>
                     </div>
                 </section>
-            </div>}
-
-
-
+            </div>
         </main>
     );
 } export default WrapLoginedComponent(StarRegister);
