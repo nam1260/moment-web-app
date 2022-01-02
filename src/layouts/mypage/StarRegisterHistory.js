@@ -182,8 +182,11 @@ function StarRegisterHistory({isLogined}) {
                         취소
                     </button>
                     <button className="right_button" onClick={()=>{
-                            AWSManager.updateRgstStarStatus(starRegInfo).then((result) =>{
-                                console.log("cnclRgstStar = " , result);
+                            AWSManager.updateRgstUserComment({
+                                userId: starRegInfo.userId,
+                                userComment: starRegInfo.userComment
+                            }).then((result) =>{
+                                console.log("updateRgstUserComment = " , result);
                             });
                             setShowModal(false);
                         }}>

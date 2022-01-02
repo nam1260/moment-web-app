@@ -36,6 +36,7 @@ const GET_STAR_LIST = "/star/get-star-list";
 
 const GET_RGST_STAR_STATUS = "/star/get-rgst-star-status";
 const UPDATE_RGST_STAR_STATUS = "/star/update-rgst-star-status";
+const UPDATE_RGST_USER_COMMENT = "/star/update-rgst-user-comment";
 const GET_STAR_INFO = "/star/get-star-detail-info";
 const UPDATE_STAR_INFO = "/star/update-star-detail-info";
 const REQ_RGST_STAR = "/star/req-rgst-star";
@@ -171,6 +172,10 @@ const AWSManager = (function() {
         console.log("updateRgstStarStatus = " + JSON.stringify(params));
         return await requestPost(getUrl(UPDATE_RGST_STAR_STATUS), params);
     };
+    const updateRgstUserComment = async (params) => {
+        console.log("updateRgstUserComment = " + JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_RGST_USER_COMMENT), params);
+    };
 
     const getStarInfo = async (params) => {
         console.log("getStarInfo = " + JSON.stringify(params));
@@ -207,6 +212,7 @@ const AWSManager = (function() {
         verifySMSNumber,
         getRgstStarStatus,
         updateRgstStarStatus,
+        updateRgstUserComment,
         //사연관리
         getMsgList,
         getSentMsgList,
