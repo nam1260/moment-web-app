@@ -35,6 +35,12 @@ function StarRegisterHistory({isLogined}) {
         let buttonCancel = (
             <button className="normal" onClick={()=>{
                     console.log('buttonCancel');
+                    let userId = StorageManager.loadUserInfo() ? StorageManager.loadUserInfo().userId : "";
+                    AWSManager.cnclRgstStar({
+                        userId,
+                    }).then((result) =>{
+                        console.log("cnclRgstStar = " , result);
+                    });
                 }
             }> 취소</button>);
         let buttonReply = (
