@@ -143,7 +143,12 @@ function StartProfile({isLogined}) {
             </components.DropdownIndicator>
         );
       };
-     
+
+    const findCatId = useCallback((value)=>{
+        const target = categoryData.filter(item=> item.value === value);
+
+        return target && target[0].id || "9999";
+    },[])
     const [categorySelectedOption, setCategorySelectedOption] = useState(null);
     const categoryChange = e => {
         setCategorySelectedOption(e);
