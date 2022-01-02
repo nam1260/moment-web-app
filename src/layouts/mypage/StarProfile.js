@@ -48,6 +48,23 @@ function StartProfile({isLogined}) {
         
     }
 
+    const updatePriceUnit = (e) => {
+        console.log('updatePriceUnit');
+        console.log(e)
+        let price = starInfo.price;
+        if(starInfo.price < 50000) {
+            alert('영상 단가의 최솟값은 50000입니다.');;
+            price = 50000;
+        }else if(starInfo.price % 1000 != 0) {
+            alert('1000 단위 숫자만 입력 할 수 있습니다.');
+            price = Math.ceil(starInfo.price / 1000)*1000;
+        }
+        const nextInputs = {
+            ...starInfo,  
+            'price': price
+        };
+        setStarInfo(nextInputs);
+    };
     const onChange = (e) => {
         const { name, value } = e.target;
         const nextInputs = {
@@ -69,20 +86,6 @@ function StartProfile({isLogined}) {
         {
           value: '운동선수',
           text: '운동선수',
-        }
-    ];
-    const priceData = [
-        {
-          value: '50,000원',
-          text: '50,000원',
-        },
-        {
-          value: '100,000원',
-          text: '100,000원',
-        },
-        {
-          value: '150,000원',
-          text: '150,000원',
         }
     ];
     const DropdownIndicator = (
@@ -203,19 +206,17 @@ function StartProfile({isLogined}) {
                             영상단가
                         </span>
                         <div>
-                            <Select
-                                placeholder=""
-                                value={priceSelectedOption}
-                                options={priceData}
-                                components={{ DropdownIndicator }}
-                                onChange={priceChange}
-                                styles={customStyle}
-                                getOptionLabel={e => (
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <span style={{ fontSize:"3.4vw", fontWeight: "bold", }}>{e.text}</span>
-                                </div>
-                                )}
-                            />
+                            <input
+                                type="number"
+                                onChange={onChange}
+                                onBlur={updatePriceUnit}
+                                value={starInfo.price}
+                                name="price"
+                                min="50000"
+                                step='1000'
+                                max="1000000"
+                            ></input>
+                            <img alt="none" src={editPath} />
                         </div>
                         <span>
                             한줄소개
