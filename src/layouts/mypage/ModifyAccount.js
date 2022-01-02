@@ -198,7 +198,7 @@ function ModifyAccountComponent({isLogined}) {
                 console.log(e)
             })
         }else {
-            alert("유효하지 않은 접근입니다")
+            alert("비밀번호 / 닉네임 / 휴대폰 번호 가 정상 입력되었는지 확인해주세요")
         }
 
     };
