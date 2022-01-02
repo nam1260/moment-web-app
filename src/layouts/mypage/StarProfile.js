@@ -27,12 +27,13 @@ function StartProfile({isLogined}) {
 
     const [starInfo, setStarInfo] = useState({
         starNm: '',
-        field: '',
+        catNm: '',
+        catId:'',
         price: '',
         shortComment: '',
         longComment: '',
     });
-    const { starNm, field, price, shortComment, longComment} = starInfo
+    const { starNm, catNm, catId, price, shortComment, longComment} = starInfo
 
 
     const [count, setCount] = useState(0);
@@ -106,7 +107,8 @@ function StartProfile({isLogined}) {
         setCategorySelectedOption(e);
         setStarInfo( {
             ...starInfo,  
-            'field': e.value,
+            'catNm': e.value,
+            'catId': "1001",
         });
     }
     const [priceSelectedOption, setPriceSelectedOption] = useState(null);
@@ -143,7 +145,7 @@ function StartProfile({isLogined}) {
         }).then((result) =>{
             if(result && result.status === 200 && result.data) {
                 setStarInfo(result.data);
-                setCategorySelectedOption({value: result.data.field, text: result.data.field});
+                setCategorySelectedOption({value: result.data.catNm, text: result.data.catNm});
                 setPriceSelectedOption({value: result.data.price, text: result.data.price});
             }
         });
