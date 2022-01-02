@@ -266,6 +266,7 @@ function ModifyAccountComponent({isLogined}) {
 
             // S3 저장 
             let fileNm = 'profile';
+            // let fileNm = file.name.split('.')[0]; // 실제 파일 명으로 저장 
             let fileType = file.type.split('/');
             let extension = fileType[fileType.length-1];
             AWSS3Manager.uploadImage(file, userInfo.userId, fileNm)
@@ -273,7 +274,15 @@ function ModifyAccountComponent({isLogined}) {
                 AWSManager.saveUserImageUrl({
                     userId: userInfo.userId, 
                     fileNm: fileNm + '.' + extension,
-                }).then(result => console.log(result));
+                }).then((result) => {
+                    console.log(result);
+                    if(result.data.userImgUrl) {
+                        StorageManager.saveUserInfo({
+                            ...StorageManager.loadUserInfo(),
+                            userImgUrl: result.data.userImgUrl
+                        });
+                    }
+                });
             })
             .catch(err => console.error(err));
 
