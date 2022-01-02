@@ -278,6 +278,12 @@ function ModifyAccountComponent({isLogined}) {
                 }).then((result) => {
                     console.log(result);
                     if(result.data.userImgUrl) {
+                        const nextInputs = {
+                            ...userInfo,
+                            "userImgUrl": result.data.userImgUrl,
+                        };
+                        setUserInfo(nextInputs);
+                        
                         StorageManager.saveUserInfo({
                             ...StorageManager.loadUserInfo(),
                             userImgUrl: result.data.userImgUrl
