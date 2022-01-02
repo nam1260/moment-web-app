@@ -98,7 +98,7 @@ function StarRegisterHistory({isLogined}) {
                         <div className="border">
                         </div>
                         <span className="id">
-                            {starRegInfo.applyingNum}
+                            #{String(starRegInfo.applyingNum).padStart(7, 0)}
                         </span>
                         <span className="title">
                             {StorageManager.loadUserInfo().userNickNm}
