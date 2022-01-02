@@ -12,7 +12,7 @@ const searchPath = '/assets/icons/icoSearch.png'
 const logoPath = '/assets/images/logo.png'
 
 const ICON_USER_DEFAULT ='/assets/icons/ico-user-default.png'
-
+const SERVEY_URL = "https://docs.google.com/forms/d/e/1FAIpQLScHxVABrNFNAU2y180xopkBvSvZIbre7GuIwzBtiqsbgEUJjg/viewform";
 
 
 
@@ -41,9 +41,7 @@ function Header({ setIsMenuOpen, isLogined, userNickNm, userId }) {
                     <img alt="none" onClick={() => history.push('/')} className={'top-logo'} src={logoPath} />
                 </div>
                 <div>
-                    <img alt="none" className={"top-icon"} src={searchPath} onClick={()=> {
-                        message.warn("서비스 준비중입니다",1); return ;history.push('/search')
-                    }} />
+                    <img alt="none" className={"top-icon"} src={searchPath} onClick={()=>{console.log("onclick"); window.open(SERVEY_URL, '_blank')}}/>
                     <img alt="none" className={"top-icon"} src={loginPath} onClick={onClickProfile}/>
                 </div>
             </div>
