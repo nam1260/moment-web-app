@@ -221,16 +221,6 @@ function ReceiveMessageHistory({isLogined}) {
             console.log("getMsgList = " , result);
             if(result && result.status === 200 && result.data && result.data.length > 0) {
                 setListBodyStatus(listStatus.FOUND);
-                result.data[1] = {
-                    deliveryDate: "20211222",
-                    msgContents: "떡상가즈아",
-                    msgId: 3,
-                    msgStatus: "0",
-                    regDate: "2021-12-22 11:11:11",
-                    starId: "222",
-                    userId: "nam1260@gmail.com",
-                    msgTitle: "test123"
-                };
                 console.log("getMsgList = " , result);
                 setMessageList(result.data);
             } else {
