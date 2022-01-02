@@ -77,7 +77,7 @@ const StorageManager = (function() {
             save(DEF.CONFIG.STORAGE_KEY.USER_INFO,JSON.stringify(userInfo));
         },
         loadUserInfo : () => {
-           return JSON.parse(load(DEF.CONFIG.STORAGE_KEY.USER_INFO));
+           return JSON.parse(load(DEF.CONFIG.STORAGE_KEY.USER_INFO)) || {};
         },
         removeUserInfo : () => {
             remove(DEF.CONFIG.STORAGE_KEY.USER_INFO);

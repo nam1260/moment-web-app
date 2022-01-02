@@ -9,7 +9,8 @@ import StorageManager from "../../managers/StorageManager";
 import EncryptionManager from "../../managers/EncryptionManager.js";
 import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
 import {Redirect} from 'react-router-dom'
-
+import {saveUser} from "../../redux/user";
+import { useSelector, useDispatch } from "react-redux";
 
 const editPath = "assets/icons/list-ico-edit.png";
 const cameraPath = "assets/icons/ico-camera.svg";
@@ -24,7 +25,7 @@ const contentType = 'image/jpeg, image/png';
 // TODO 동일 닉네임 저장 시 그대로 저장되도록 처리 필요
 function ModifyAccountComponent({isLogined}) {
     const history = useHistory();
-
+    const dispatch = useDispatch();
     const [userInfo, setUserInfo] = useState({
         userId:'',
         userNm:'',
@@ -281,6 +282,10 @@ function ModifyAccountComponent({isLogined}) {
                             ...StorageManager.loadUserInfo(),
                             userImgUrl: result.data.userImgUrl
                         });
+                        dispatch(saveUser({
+                            ...StorageManager.loadUserInfo(),
+                            userImgUrl: result.data.userImgUrl,
+                        }))
                     }
                 });
             })
