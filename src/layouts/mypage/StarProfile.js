@@ -1,7 +1,7 @@
 
 import "./mypage.css";
 import "../popup/modalPopup.css";
-import React, { useState, useRef, useEffect, Component} from "react";
+import React, { useState, useRef, useEffect, useCallback, Component} from "react";
 import { useHistory } from 'react-router'; 
 import MypageHeader from './MypageHeader';
 import AWSManager from "../../managers/AWSManager.js";
@@ -15,6 +15,41 @@ const cameraPath = "assets/icons/ico-camera.svg"
 const thumPath = "assets/icons/ico-user-default.png"
 const downArrowPath = "/assets/icons/list-ico-open.png"
 const notFoundPath = "/assets/icons/icoFace3B.png"
+
+
+
+const categoryData = [
+    {
+        value: 'influencer',
+        id: "1001",
+        text: '유명인',
+    },
+    {
+        value: '방송인',
+        id: "1002",
+        text: '방송인',
+    },
+    {
+        value: '예술인',
+        id: "1003",
+        text: '예술인',
+    },
+    {
+        value: '교육자',
+        id: "1004",
+        text: '교육자',
+    },
+    {
+        value: '운동선수',
+        id: "1005",
+        text: '운동선수',
+    },
+    {
+        value: '크리에이터',
+        id: "1006",
+        text: '크리에이터'
+    }
+];
 
 const regBodyStatus = {
     INIT: 0,
@@ -61,7 +96,7 @@ function StartProfile({isLogined}) {
         console.log(e)
         let price = starInfo.price;
         if(starInfo.price < 50000) {
-            alert('영상 단가의 최솟값은 50000입니다.');;
+            alert('영상 단가의 최솟값은 50000입니다.');
             price = 50000;
         }else if(starInfo.price % 1000 != 0) {
             alert('1000 단위 숫자만 입력 할 수 있습니다.');
@@ -115,7 +150,7 @@ function StartProfile({isLogined}) {
         setStarInfo( {
             ...starInfo,  
             'catNm': e.value,
-            'catId': "1001",
+            'catId': findCatId(e.value),
         });
     }
     const [priceSelectedOption, setPriceSelectedOption] = useState(null);
@@ -174,7 +209,7 @@ function StartProfile({isLogined}) {
             console.log(result);
         })
     };
-    
+
     const NotFoundComponent = () => {
         console.log('NotFoundComponent');
         return (
@@ -187,7 +222,7 @@ function StartProfile({isLogined}) {
         )
     };
 
-    
+
     const FoundComponent = () => {
         return (
             <div>
@@ -199,8 +234,8 @@ function StartProfile({isLogined}) {
                         <span className="nickname">
                             {starInfo.starNm}
                         </span>
-                        
-                        <div className="thumbnail"> 
+
+                        <div className="thumbnail">
                             <img className="thumbnail-img" alt="none" src={StorageManager.loadUserInfo().userImgUrl ? StorageManager.loadUserInfo().userImgUrl : thumPath} />
                             {/* <img className="thumbnail-icon" alt="none" src={cameraPath} /> */}
                         </div>
@@ -256,12 +291,12 @@ function StartProfile({isLogined}) {
                     </span>
                     <div>
                         <div className="write-wrapper">
-                            <textarea 
+                            <textarea
                                 // placeholder={starInfo.longComment}
                                 onChange={onChange}
                                 value={starInfo.longComment}
                                 onKeyUp={onKeyupCountStoryCharacter}
-                                ref={textareaElement} 
+                                ref={textareaElement}
                                 name="longComment"
                             ></textarea>
                         </div>
@@ -287,11 +322,11 @@ function StartProfile({isLogined}) {
                             [regBodyStatus.INIT] :   <></>,
                             [regBodyStatus.FAIL] : <NotFoundComponent />,
                             [regBodyStatus.SUCCESS] : <FoundComponent />
-                        }[bodyStatus]   
+                        }[bodyStatus]
                     }
-            </section> 
+            </section>
             <section className="mypage-button">
-                {bodyStatus == regBodyStatus.SUCCESS? 
+                {bodyStatus == regBodyStatus.SUCCESS?
                     <div>
                     <button className="full-button" onClick={_complete}>
                         수정완료

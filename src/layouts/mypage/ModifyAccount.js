@@ -67,7 +67,7 @@ function ModifyAccountComponent({isLogined}) {
     };
 
     const onChangeNickNmFormat = (e) => {
-        var nickNmRule = /^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{5,13}$/;
+        var nickNmRule = /^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,13}$/;
         let nickNmAlertText ="";
         let isValidUserNickNm = false;
         if(!e.target.value) {
