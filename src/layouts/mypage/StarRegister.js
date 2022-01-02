@@ -150,7 +150,8 @@ function StarRegister({isLogined}) {
                 else {
                     AWSManager.reqRgstStar({
                         userId: userInfo.userId,
-                        kakoId: inputs.kakaoId,
+                        kakaoId: inputs.kakaoId,
+                        instaId: inputs.instaId,
                         youtubeChNm: inputs.youtubeChNm,
                         bankNm: inputs.bankNm,
                         accountNum: inputs.accountNum,
@@ -175,10 +176,11 @@ function StarRegister({isLogined}) {
         }).then((result)=>{
             let isApplying = false;
             if(result && result.status=== 200){
+                console.log(result);
                 if(result.data.length> 0) {
-                    let status = result.data[0];
-                    if(status.starRegStatus === 2) {
-                        //화면 노출 가능
+                    let response = result.data[0];
+                    console.log(response.starRegStatus);
+                    if(response.starRegStatus === "1") {
                     }else {
                         isApplying = true;
                     }
@@ -186,7 +188,7 @@ function StarRegister({isLogined}) {
             }else {
                alert("error")
             }
-            console.log("isApplying === "+isApplying)
+            console.log("isApplying === "+isApplying);
             setIsApplying(isApplying);
         })
     }, []);
