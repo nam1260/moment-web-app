@@ -12,6 +12,7 @@ const TopStarCard = styled.article`
   border-radius: 4px;
   position: relative;
   max-width: 170px;
+  cursor: pointer;
   & > .img-content {
     min-width: 170px;
     height: 240px;

@@ -26,7 +26,7 @@ const StyledReuqestStar = Styled.section`
     font-weight: 600;
     margin-top: 102px;
     margin-bottom: 50px;
-    
+    cursor: pointer;
     & > div {
     
         display: flex;
