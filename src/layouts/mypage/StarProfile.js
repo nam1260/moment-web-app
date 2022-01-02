@@ -14,8 +14,15 @@ const editPath = "assets/icons/list-ico-edit.png"
 const cameraPath = "assets/icons/ico-camera.svg"
 const thumPath = "assets/icons/ico-user-default.png"
 const downArrowPath = "/assets/icons/list-ico-open.png"
+const notFoundPath = "/assets/icons/icoFace3B.png"
 
+const regBodyStatus = {
+    INIT: 0,
+    FAIL: 1,
+    SUCCESS:2,
+}
 function StartProfile({isLogined}) {
+    const [bodyStatus, setBodyStatus] = useState(regBodyStatus.INIT);
     const userInfo = {
         id: "starkim@moment.com",
         nickname: "김스타",
@@ -147,7 +154,13 @@ function StartProfile({isLogined}) {
                 setStarInfo(result.data);
                 setCategorySelectedOption({value: result.data.catNm, text: result.data.catNm});
                 setPriceSelectedOption({value: result.data.price, text: result.data.price});
+                setBodyStatus(regBodyStatus.SUCCESS);
+            } else {
+                setBodyStatus(regBodyStatus.FAIL);
             }
+        }).catch(e => {
+            console.error(e.message);
+            setBodyStatus(regBodyStatus.FAIL);
         });
 
     },[]);
@@ -161,6 +174,104 @@ function StartProfile({isLogined}) {
             console.log(result);
         })
     };
+    
+    const NotFoundComponent = () => {
+        console.log('NotFoundComponent');
+        return (
+            <div className="messageList">
+                <div className="emptyMessage">
+                    <img alt="none" src={notFoundPath} />
+                    <p>아직 스타등록을 하지 않았습니다.</p>
+                </div>
+            </div>
+        )
+    };
+
+    
+    const FoundComponent = () => {
+        return (
+            <div>
+                <span>
+                    <span>
+                        이름
+                    </span>
+                    <div className="mypage-email">
+                        <span className="nickname">
+                            {starInfo.starNm}
+                        </span>
+                        
+                        <div className="thumbnail"> 
+                            <img className="thumbnail-img" alt="none" src={StorageManager.loadUserInfo().userImgUrl ? StorageManager.loadUserInfo().userImgUrl : thumPath} />
+                            {/* <img className="thumbnail-icon" alt="none" src={cameraPath} /> */}
+                        </div>
+                    </div>
+                    <span>
+                        분야
+                    </span>
+                    <div>
+                        <Select
+                            placeholder=""
+                            value={categorySelectedOption}
+                            options={categoryData}
+                            components={{ DropdownIndicator }}
+                            onChange={categoryChange}
+                            styles={customStyle}
+                            getOptionLabel={e => (
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <span style={{ fontSize:"3.4vw", fontWeight: "bold", }}>{e.text}</span>
+                            </div>
+                            )}
+                        />
+                    </div>
+                    <span>
+                        영상단가
+                    </span>
+                    <div>
+                        <input
+                            type="number"
+                            onChange={onChange}
+                            onBlur={updatePriceUnit}
+                            value={starInfo.price}
+                            name="price"
+                            min="50000"
+                            step='1000'
+                            max="1000000"
+                        ></input>
+                        <img alt="none" src={editPath} />
+                    </div>
+                    <span>
+                        한줄소개
+                    </span>
+                    <div>
+                        <input
+                            type="text"
+                            onChange={onChange}
+                            value={starInfo.shortComment}
+                            name="shortComment"
+                        ></input>
+                        <img alt="none" src={editPath} />
+                    </div>
+                    <span>
+                        본인 소개
+                    </span>
+                    <div>
+                        <div className="write-wrapper">
+                            <textarea 
+                                // placeholder={starInfo.longComment}
+                                onChange={onChange}
+                                value={starInfo.longComment}
+                                onKeyUp={onKeyupCountStoryCharacter}
+                                ref={textareaElement} 
+                                name="longComment"
+                            ></textarea>
+                        </div>
+                    </div>
+                </span>
+            </div>
+        )
+    };
+
+
     return (
         !isLogined? <Redirect to="/login"/> :
         <main>
@@ -171,91 +282,23 @@ function StartProfile({isLogined}) {
                 </div>
             </section>
             <section className="mypage-container">
-                <div>
-                    <span>
-                        <span>
-                            이름
-                        </span>
-                        <div className="mypage-email">
-                            <span className="nickname">
-                                {starInfo.starNm}
-                            </span>
-                            
-                            <div className="thumbnail"> 
-                                <img className="thumbnail-img" alt="none" src={StorageManager.loadUserInfo().userImgUrl ? StorageManager.loadUserInfo().userImgUrl : thumPath} />
-                                {/* <img className="thumbnail-icon" alt="none" src={cameraPath} /> */}
-                            </div>
-                        </div>
-                        <span>
-                            분야
-                        </span>
-                        <div>
-                            <Select
-                                placeholder=""
-                                value={categorySelectedOption}
-                                options={categoryData}
-                                components={{ DropdownIndicator }}
-                                onChange={categoryChange}
-                                styles={customStyle}
-                                getOptionLabel={e => (
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <span style={{ fontSize:"3.4vw", fontWeight: "bold", }}>{e.text}</span>
-                                </div>
-                                )}
-                            />
-                        </div>
-                        <span>
-                            영상단가
-                        </span>
-                        <div>
-                            <input
-                                type="number"
-                                onChange={onChange}
-                                onBlur={updatePriceUnit}
-                                value={starInfo.price}
-                                name="price"
-                                min="50000"
-                                step='1000'
-                                max="1000000"
-                            ></input>
-                            <img alt="none" src={editPath} />
-                        </div>
-                        <span>
-                            한줄소개
-                        </span>
-                        <div>
-                            <input
-                                type="text"
-                                onChange={onChange}
-                                value={starInfo.shortComment}
-                                name="shortComment"
-                            ></input>
-                            <img alt="none" src={editPath} />
-                        </div>
-                        <span>
-                            본인 소개
-                        </span>
-                        <div>
-                            <div className="write-wrapper">
-                                <textarea 
-                                    // placeholder={starInfo.longComment}
-                                    onChange={onChange}
-                                    value={starInfo.longComment}
-                                    onKeyUp={onKeyupCountStoryCharacter}
-                                    ref={textareaElement} 
-                                    name="longComment"
-                                ></textarea>
-                            </div>
-                        </div>
-                    </span>
-                </div>
+                    {
+                        {
+                            [regBodyStatus.INIT] :   <></>,
+                            [regBodyStatus.FAIL] : <NotFoundComponent />,
+                            [regBodyStatus.SUCCESS] : <FoundComponent />
+                        }[bodyStatus]   
+                    }
             </section> 
             <section className="mypage-button">
-                <div>
+                {bodyStatus == regBodyStatus.SUCCESS? 
+                    <div>
                     <button className="full-button" onClick={_complete}>
                         수정완료
                     </button>
-                </div>
+                    </div>
+                    : ""
+                }
             </section>
         </main>
      );
