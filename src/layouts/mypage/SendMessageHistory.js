@@ -16,6 +16,14 @@ const listStatus = {
     NOT_FOUND:2,
     FOUND:3
 }
+const MODAL_TYPE = {
+    INIT: 0,
+    BUTTON: 1,
+    BUTTONS: 2,
+    DETAIL:3,
+    VIDEO1:4,
+    VIDEO2:5,
+}
 
 function SendMessageHistory({isLogined}) {
     // message state 
@@ -35,27 +43,88 @@ function SendMessageHistory({isLogined}) {
     const [messageList, setMessageList] = useState([]);
     const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
     const [showModal, setShowModal] = useState(false);
+    const [modalType, setModalType] = useState(MODAL_TYPE.INIT);
+    const [selectedMessage, setSelectedMessage] = useState(null);
 
-    const getButtons = (state)=> {
+    const buttonModalComponent = () => {
+        return (
+            <div className="button_modal_short">
+                <div className="info_container">
+                    <br/>
+                    <span className="title">사연 전달이</span>
+                    <span className="title">취소되었습니다.</span>
+                </div>
+                <div className="button_container">
+                    <button className="center_button" onClick={()=>{
+                            setShowModal(false);
+                        }}>
+                        확인
+                    </button>
+                </div>
+            </div>
+        )
+    };
+    const buttonsModalComponent = () => {
+        return (
+            <div className="button_modal_short">
+                <div className="info_container">
+                    <br/>
+                    <span className="title">사연 전달을</span>
+                    <span className="title">취소하시겠습니까?</span>
+                </div>
+                <div className="button_container">
+                    <button className="left_button" onClick={()=>{
+                            setShowModal(false);
+                        }}>
+                        아니요
+                    </button>
+                    <button className="right_button" onClick={()=>{
+                            setShowModal(false);
+                        }}>
+                        예
+                    </button>
+                </div>
+            </div>
+        )
+    };
+
+    const detailModalComponent = () => {
+        return (
+            <div className="button_modal_short"></div>
+        )
+    };
+    const getButtons = (state, message)=> {
         let buttonDetail = (
         <button className="normal" onClick={()=>{
                 console.log('buttonDetail');
+                setModalType(MODAL_TYPE.DETAIL);
+                setSelectedMessage(message);
+                setShowModal(true);
             }
         }>자세히 보기</button>);
         let buttonDetailFull = (
         <button className="full" onClick={()=>{
                 console.log('buttonDetailFull');
+                setModalType(MODAL_TYPE.DETAIL);
+                setSelectedMessage(message);
+                setShowModal(true);
             }
         }>자세히 보기</button>);
         let buttonCancel = (
         <button className="normal" onClick={()=>{
                 console.log('buttonCancel');
+                setModalType(MODAL_TYPE.BUTTONS);
+                setSelectedMessage(message);
+                setShowModal(true);
             }
         }>전달취소</button>
         );
         let buttonViewVideo = (
         <button className="highlight" onClick={()=>{
                 console.log('buttonViewVideo');
+                setModalType(MODAL_TYPE.VIDEO1);
+                setSelectedMessage(message);
+                setShowModal(true);
             }
         }>영상확인</button>
         );
@@ -161,6 +230,17 @@ function SendMessageHistory({isLogined}) {
                             [listStatus.FOUND] : <FoundComponent />
                         }[listhBodyStatus]   
                     }
+                    {showModal ?
+                    <Modal setShowModal={setShowModal}>
+                        {
+                            {
+                                [MODAL_TYPE.INIT] :   <></>,
+                                [MODAL_TYPE.BUTTON] : buttonModalComponent(),
+                                [MODAL_TYPE.BUTTONS] : buttonsModalComponent(),
+                                [MODAL_TYPE.DETAIL] : detailModalComponent(),
+                            }[modalType]
+                        }
+                    </Modal> : null}
                 </div>
                 <div>
                     <span class="loadingGuide">

@@ -114,6 +114,8 @@ main {
     border-bottom-left-radius: min(5vw, 40px);
     border-bottom-right-radius: min(5vw, 40px);
 }
+
+
 .modalContainer .button_modal_short {
     z-index: 1;
     width: min(70vw,650px);
@@ -370,6 +372,128 @@ main {
     border-bottom-left-radius: min(5vw, 40px);
     border-bottom-right-radius: min(5vw, 40px);
 }
+
+
+.modalContainer .button_modal_detail {
+    z-index: 1;
+    width: min(70vw,650px);
+    height: min(73vw, 730px);
+    border-radius: min(5vw, 40px);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: animate 0.3s;
+}
+.modalContainer .button_modal_detail .info_container{
+    top: 0;
+    left: min(2vw,25px);
+    width: min(70vw,600px);
+    height: min(73vw, 730px);
+}
+.modalContainer .button_modal_detail .info_container .border{
+    width: min(70vw, 550px);
+    height: 1px;
+    outline: 1px solid #f9f9f9;
+    margin-bottom: min(10vw , 39px);
+}
+.modalContainer .button_modal_detail .info_container .id{
+    display: block;
+    font-size: min(6vw , 26px);
+    letter-spacing: -0.65px;
+    text-align: left;
+    color: #ff723a;
+    margin-bottom: min(7vw , 31px);
+}
+.modalContainer .button_modal_detail .info_container .title{
+    display: block;
+    font-size: min(9vw , 38px);
+    font-weight: bold;
+    letter-spacing: -0.95px;
+    text-align: left;
+    color: #000000;
+    margin-bottom: min(3.5vw , 19px);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.modalContainer .button_modal_detail .info_container .description{
+    display: block;
+    height: min(20vw, 2000px);
+    font-size: min(7vw , 30px);
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: -0.75px;
+    text-align: left;
+    color: #444444;
+    margin-bottom: min(10vw , 39px);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.modalContainer .button_modal_detail .info_container .info{
+    display: block;
+    font-size: min(6vw , 26px);
+    line-height: 1.54;
+    letter-spacing: -0.65px;
+    text-align: left;
+    color: #8f8f8f;
+}
+.modalContainer .button_modal_detail .info_container .info > b{
+    font-weight: 500;
+    text-align: right;
+    color: #101010;
+    float: right;
+}
+.modalContainer .button_modal_detail .info_container .info > b.highlight{
+    font-weight: bold;
+}
+.button_modal_detail .button_container {
+    position: absolute;
+    clear:left;
+    float:left;
+    left: 0px;
+    bottom: 0px;
+    width: min(70vw,650px);
+    height: min(14vw,110px);
+    font-family: 'AppleSDGothicNeo';
+    font-size: min(4vw, 34px);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.34px;
+}
+.button_modal_detail .left_button {
+    width: min(35vw,325px);
+    height: min(14vw,110px);
+    background: #f0f0f0;
+    color: #444444;
+    border:none;
+    border-bottom-left-radius: min(5vw, 40px);
+}
+.button_modal_detail .right_button {
+    width: min(35vw,325px);
+    height: min(14vw,110px);
+    position: absolute;
+    background: #ff723a;
+    color: #ffffff;
+    border:none;
+    border-bottom-right-radius: min(5vw, 40px);
+}
+.button_modal_detail .center_button {
+    width: min(70vw,650px);
+    height: min(14vw,110px);
+    background: #ff723a;
+    color: #ffffff ;
+    border:none;
+    border-bottom-left-radius: min(5vw, 40px);
+    border-bottom-right-radius: min(5vw, 40px);
+}
+
 
 @keyframes animate {
     from {
