@@ -31,6 +31,7 @@ const TopStarCard = styled.article`
     background-color:${(props) => props.isAdd && 'rgb(255, 114, 58)'};
     & > .star-img {
       height: 100%;
+      width: 100%;
     }
     & > .none-logo {
       position: absolute;
