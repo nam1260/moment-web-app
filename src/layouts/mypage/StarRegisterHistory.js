@@ -112,7 +112,7 @@ function StarRegisterHistory({isLogined}) {
             userId: userId,
         }).then((result) =>{
             console.log("getRgstStarStatus = " , result);
-            if(result && result.status === 200 && result.data && result.data.length > -1) {
+            if(result && result.status === 200 && result.data && result.data.length > 0) {
                 console.log("starRegStatus.IN_PROGRESS");
                 setStarRegInfo(result.data[0]);
                 setBodyStatus(regBodyStatus.IN_PROGRESS);
