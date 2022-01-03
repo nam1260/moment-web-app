@@ -193,6 +193,7 @@ main {
     bottom:29px;
     left:31px;
     color:#ff723a;
+    cursor: pointer;
 }
 
 .app-moment-footer {
@@ -241,6 +242,7 @@ main {
     padding: 0px 20px;
     font-size: 24px;
     color:#666666;
+    cursor: pointer;
 }
 
 .app-moment-footer > .container > .footer-list > span:first-child {

@@ -39,6 +39,7 @@
     letter-spacing: -0.24px;
     color: #ff723a;
     margin: 39px 0px 0px 50px;
+    cursor: pointer;
 }
 
 .side-menu > .now-start-comment > img {
@@ -60,6 +61,7 @@
     letter-spacing: -0.8px;
     color: #101010;
     margin-bottom: 27px;
+    cursor: pointer;
 }
 
 .side-menu > .side-menu-logo {

@@ -70,7 +70,7 @@ function Home({ history, getStarListAsync, starList}) {
                     </h3>
                     <div>
                         {
-                            [...starList, ...nullCards].slice(0, 3).map((star) => 
+                            [...starList, ...nullCards].map((star) =>
                                 star === null ?
                               ""
                                 : <TopStarComponent

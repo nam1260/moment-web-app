@@ -9,7 +9,8 @@ import StorageManager from "../../managers/StorageManager";
 import EncryptionManager from "../../managers/EncryptionManager.js";
 import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
 import {Redirect} from 'react-router-dom'
-
+import {saveUser} from "../../redux/user";
+import { useSelector, useDispatch } from "react-redux";
 
 const editPath = "assets/icons/list-ico-edit.png";
 const cameraPath = "assets/icons/ico-camera.svg";
@@ -24,7 +25,7 @@ const contentType = 'image/jpeg, image/png';
 // TODO 동일 닉네임 저장 시 그대로 저장되도록 처리 필요
 function ModifyAccountComponent({isLogined}) {
     const history = useHistory();
-
+    const dispatch = useDispatch();
     const [userInfo, setUserInfo] = useState({
         userId:'',
         userNm:'',
@@ -66,7 +67,7 @@ function ModifyAccountComponent({isLogined}) {
     };
 
     const onChangeNickNmFormat = (e) => {
-        var nickNmRule = /^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{5,13}$/;
+        var nickNmRule = /^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,13}$/;
         let nickNmAlertText ="";
         let isValidUserNickNm = false;
         if(!e.target.value) {
@@ -198,7 +199,7 @@ function ModifyAccountComponent({isLogined}) {
                 console.log(e)
             })
         }else {
-            alert("유효하지 않은 접근입니다")
+            alert("비밀번호 / 닉네임 / 휴대폰 번호 가 정상 입력되었는지 확인해주세요")
         }
 
     };
@@ -266,6 +267,7 @@ function ModifyAccountComponent({isLogined}) {
 
             // S3 저장 
             let fileNm = 'profile';
+            // let fileNm = file.name.split('.')[0]; // 실제 파일 명으로 저장 
             let fileType = file.type.split('/');
             let extension = fileType[fileType.length-1];
             AWSS3Manager.uploadImage(file, userInfo.userId, fileNm)
@@ -273,7 +275,25 @@ function ModifyAccountComponent({isLogined}) {
                 AWSManager.saveUserImageUrl({
                     userId: userInfo.userId, 
                     fileNm: fileNm + '.' + extension,
-                }).then(result => console.log(result));
+                }).then((result) => {
+                    console.log(result);
+                    if(result.data.userImgUrl) {
+                        const nextInputs = {
+                            ...userInfo,
+                            "userImgUrl": result.data.userImgUrl,
+                        };
+                        setUserInfo(nextInputs);
+                        
+                        StorageManager.saveUserInfo({
+                            ...StorageManager.loadUserInfo(),
+                            userImgUrl: result.data.userImgUrl
+                        });
+                        dispatch(saveUser({
+                            ...StorageManager.loadUserInfo(),
+                            userImgUrl: result.data.userImgUrl,
+                        }))
+                    }
+                });
             })
             .catch(err => console.error(err));
 

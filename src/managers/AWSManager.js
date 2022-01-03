@@ -24,8 +24,11 @@ const SAVE_USER_IMAGE_URL ="/user/save-user-img-url";
 const FIND_USER_ID = "/user/find-user-id";
 const VERIFY_SMS_NUM = "/user/send-sms";
 
+const GET_MSG_LIST = "/msg/get-msg-list";
 const GET_SENT_MSG_LIST = "/msg/get-sent-msg-list";
 const UPDATE_MSG_INFO = "/msg/update-msg-info";
+const UPDATE_STAR_MSG_INFO = "/msg/update-star-msg-info";
+const UPDATE_USER_MSG_INFO = "/msg/update-user-msg-info";
 const GET_FAN_MSG_LIST = "/msg/get-fan-msg-list";
 const UPDATE_FAN_MSG = "/msg/update-fan-msg";
 
@@ -33,6 +36,12 @@ const GET_STAR_LIST = "/star/get-star-list";
 
 const GET_RGST_STAR_STATUS = "/star/get-rgst-star-status";
 const UPDATE_RGST_STAR_STATUS = "/star/update-rgst-star-status";
+const UPDATE_RGST_USER_COMMENT = "/star/update-rgst-user-comment";
+const GET_STAR_INFO = "/star/get-star-detail-info";
+const UPDATE_STAR_INFO = "/star/update-star-detail-info";
+const REQ_RGST_STAR = "/star/req-rgst-star";
+const CNCL_RGST_STAR = "/star/cncl-rgst-star";
+
 
 
 
@@ -109,6 +118,10 @@ const AWSManager = (function() {
         console.log("saveUserImageUrl = " +JSON.stringify(params));
         return await requestPost(getUrl(SAVE_USER_IMAGE_URL), params);
     }
+    const getMsgList = async (params) => {
+        console.log("getMsgList = " +JSON.stringify(params));
+        return await requestPost(getUrl(GET_MSG_LIST), params);
+    }
     /**
      * 스타에게 보낸 사연을 조회힌다.
      * @param params
@@ -126,6 +139,14 @@ const AWSManager = (function() {
     const updateMsgInfo = async (params) => {
         console.log("updateMsgInfo = " +JSON.stringify(params));
         return await requestPost(getUrl(UPDATE_MSG_INFO), params);
+    };
+    const updateStarMsgInfo = async (params) => {
+        console.log("updateStarMsgInfo = " +JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_STAR_MSG_INFO), params);
+    };
+    const updateUserMsgInfo = async (params) => {
+        console.log("updateUserMsgInfo = " +JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_USER_MSG_INFO), params);
     };
     /**
      * 팬으로부터 받은 사연을 조회힌다.
@@ -151,6 +172,29 @@ const AWSManager = (function() {
         console.log("updateRgstStarStatus = " + JSON.stringify(params));
         return await requestPost(getUrl(UPDATE_RGST_STAR_STATUS), params);
     };
+    const updateRgstUserComment = async (params) => {
+        console.log("updateRgstUserComment = " + JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_RGST_USER_COMMENT), params);
+    };
+
+    const getStarInfo = async (params) => {
+        console.log("getStarInfo = " + JSON.stringify(params));
+        return await requestPost(getUrl(GET_STAR_INFO), params);
+    };
+
+    const updateStarInfo = async (params) => {
+        console.log("updateStarInfo = " + JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_STAR_INFO), params);
+    };
+
+    const reqRgstStar = async(params) => {
+        console.log("reqRgstStar = " + JSON.stringify(params));
+        return await requestPost(getUrl(REQ_RGST_STAR), params);
+    }
+    const cnclRgstStar = async(params) => {
+        console.log("cnclRgstStar = " + JSON.stringify(params));
+        return await requestPost(getUrl(CNCL_RGST_STAR), params);
+    }
 
 
     return {
@@ -168,11 +212,20 @@ const AWSManager = (function() {
         verifySMSNumber,
         getRgstStarStatus,
         updateRgstStarStatus,
+        updateRgstUserComment,
         //사연관리
+        getMsgList,
         getSentMsgList,
         updateMsgInfo,
+        updateStarMsgInfo,
+        updateUserMsgInfo,
         getFanMsgList,
-        getStarList
+        getStarList,
+
+        getStarInfo,
+        updateStarInfo,
+        reqRgstStar,
+        cnclRgstStar
 
     }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { message } from "antd";
 
 const TopStarCard = styled.article`
   display: flex;
@@ -11,6 +12,7 @@ const TopStarCard = styled.article`
   border-radius: 4px;
   position: relative;
   max-width: 170px;
+  cursor: pointer;
   & > .img-content {
     min-width: 170px;
     height: 240px;
@@ -30,6 +32,7 @@ const TopStarCard = styled.article`
     background-color:${(props) => props.isAdd && 'rgb(255, 114, 58)'};
     & > .star-img {
       height: 100%;
+      width: 100%;
     }
     & > .none-logo {
       position: absolute;
@@ -98,13 +101,14 @@ const plusIcon = "/assets/icons/main-plus-request.png";
 
 function TopStarComponent({ name, secondary, imgPath, starId, history, isAdd }) {
   const onClickEvent = isAdd ? () => console.log('Add') : () => history.push(`/star/${starId}`);
+  const onClickTBDEvent = () => message.warn("서비스 준비중입니다");
   
   return (
-    <TopStarCard isAdd={isAdd} onClick={onClickEvent}>
+    <TopStarCard isAdd={isAdd} onClick={onClickTBDEvent}>
       <div className="img-content">
         {
           isAdd ? (
-            <>
+            <>픈
               <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
               <img className={'plus-img'} alt="none" src={plusIcon} />
             </>
