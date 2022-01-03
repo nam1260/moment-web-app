@@ -119,6 +119,7 @@
     line-height: 1.43;
     letter-spacing: -0.28px;
     width: 100%;
+    min-height: 400px;
 }
 
 .app-star-bottom > .container > div:nth-child(1) {
@@ -224,6 +225,7 @@
     .app-star-body > .container > .introduce-box > div {
         padding: 30px 29px;
         font-size: min(5vw , 28px);
+        min-height: min(75vw, 400px);
     }
     
     .app-star-bottom > .container > div:nth-child(1) {

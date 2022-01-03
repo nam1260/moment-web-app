@@ -101,14 +101,14 @@ const plusIcon = "/assets/icons/main-plus-request.png";
 
 function TopStarComponent({ name, secondary, imgPath, starId, history, isAdd }) {
   const onClickEvent = isAdd ? () => console.log('Add') : () => history.push(`/star/${starId}`);
-  const onClickTBDEvent = () => message.warn("서비스 준비중입니다");
+  // const onClickTBDEvent = () => message.warn("서비스 준비중입니다");
   
   return (
-    <TopStarCard isAdd={isAdd} onClick={onClickTBDEvent}>
+    <TopStarCard isAdd={isAdd} onClick={onClickEvent}>
       <div className="img-content">
         {
           isAdd ? (
-            <>픈
+            <>
               <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
               <img className={'plus-img'} alt="none" src={plusIcon} />
             </>
