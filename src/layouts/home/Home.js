@@ -2,38 +2,19 @@ import React, { useEffect } from "react";
 import "../../App.css";
 import "../../Common.css";
 import "./home.css";
-import { useHistory } from "react-router";
 import TopStarComponent from "../../shared/component/home/TopStar.component";
-import CelebrityComponent from "../../shared/component/home/Celebrity.component";
 import RequestStarComponent from "../../shared/component/home/RequestStar.component";
 
 
 const homeImage = "/assets/images/mov.png";
 const moveArrowPath = "/assets/icons/home-arrow.png";
 const crownPath = "/assets/icons/icoCrown.png";
-const homeThum1_1 = "/assets/images/home-thum-1-1.png";
-const homeThum1_2 = "/assets/images/home-thum-1-2.png";
-
-const thunderIcon = "/assets/icons/icoThunder.png";
-const homeThum2_1 = "/assets/images/home-thum-2-1.png";
-const homeThum2_2 = "/assets/images/home-thum-2-2.png";
-const homeThum2_3 = "/assets/images/home-thum-2-3.png";
-const homeThum2_4 = "/assets/images/home-thum-2-4.png";
-const circlePlusIcon = "/assets/icons/ico-plus.png";
 const desThumb1 = "/assets/images/main-1.png";
 const desThumb2 = "/assets/images/main-2.png";
 const footerLogo = "/assets/images/logo-gray.png";
 const instaLogo = "/assets/icons/ico-insta.png";
 const youtubeLogo = "/assets/icons/ico-youtube.png";
 
-
-/* 
-  * 홈 컴포넌트
-  - 로그인 전, 로그인 후 분기 (필)
-  - 반응형 확인
-  - 각 카드 별 이벤트 확인
-  - 반복 되는 부분 컴포넌트 화 적용 => 모먼트 TOP STAR 카드, SNS 셀럽 추가하기
-*/
 const nullCards = [null, null, null, null, null, null]
 function Home({ history, getStarListAsync, starList}) {
     useEffect(() => {
@@ -89,35 +70,6 @@ function Home({ history, getStarListAsync, starList}) {
                 </div>
             </section>
             <RequestStarComponent/>
-            {/*<section className="app-moment-content-sns">*/}
-                {/*<div className="container">*/}
-                    {/*<h3>*/}
-                        {/*<img alt="none" src={thunderIcon} />*/}
-                        {/*<span>지금 핫한 SNS 셀럽</span>*/}
-                    {/*</h3>*/}
-                    {/*<div>*/}
-                        {/*{*/}
-                            {/*[...starList, ...nullCards].slice(0, 5).map((star) => */}
-                                {/*star === null ?*/}
-                                {/*<CelebrityComponent*/}
-                                    {/*isAdd*/}
-                                {/*/>*/}
-                                {/*: <CelebrityComponent*/}
-                                    {/*name={star.starNm}*/}
-                                    {/*secondary={star.catNm}*/}
-                                    {/*imgPath={star.starImgUrl}*/}
-                                    {/*starId={star.starId}*/}
-                                    {/*history={history}*/}
-                                {/*/>*/}
-                            {/*)*/}
-                        {/*}*/}
-                        {/*<CelebrityComponent isAdd />*/}
-                    {/*</div>*/}
-                {/*</div>*/}
-            {/*</section>*/}
-            {/*<section className="app-moment-more">*/}
-                {/*<span>SNS 셀럽 더보기</span> <img alt="none" src={circlePlusIcon} />*/}
-            {/*</section>*/}
             <section className="app-moment-description">
                 <div className="container">
                     <h3>잠깐, 모먼트는 처음이신가요?</h3>
