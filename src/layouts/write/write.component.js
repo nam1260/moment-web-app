@@ -4,14 +4,16 @@ import MomentDatePicker from '../../shared/component/write/MomentDatePicker';
 import MomentModal from '../../shared/component/common/modal';
 import SpeechBubble from '../../shared/component/write/SpeechBubble';
 import PaymentModal from '../../shared/component/write/PaymentModal.componet';
-
 import { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
 import StorageManager from '../../managers/StorageManager';
 import { message } from 'antd';
+import AWSManager from "managers/AWSManager";
 
-
+const {
+    sendMessageToStar,
+} = AWSManager;
 const homeThum1_1 = "/assets/images/thum160Px1.png";
 const letterImage = "/assets/images/icoLetter.png";
 const iconFace = "/assets/icons/icoFace6.png";
@@ -70,15 +72,32 @@ const Over300Modal = (
 
 
 
-const WriteComponent = ({ isLogined }) => {
+const WriteComponent = (props) => {
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
     const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
     const [isUnder100ModalOpen, setIsUnder100ModalOpen] = useState(false);
     const [isOver300ModalOpen, setIsOver300ModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
     const [count, setCount] = useState(0);
+    const [date, setDate] = useState(new Date());
     const history = useHistory();
     const textareaElement = useRef();
+    const { id : starId } = props.match.params;
+    const {
+        starDetail,
+        isLoading,
+        user,
+        getStarDetailAsync,
+        sendMsgToStarAsync,
+    } = props;
+
+    const {
+        price = 0,
+        catNm = '',
+        starNm = '',
+    } = starDetail;
+    
+    const { userId } = user;
     
     useEffect(() => {
         if(!StorageManager.checkUserIsLogined()) {
@@ -88,6 +107,9 @@ const WriteComponent = ({ isLogined }) => {
                     state: { hasGoBack: true, backPathName: '/write/2' }
                 })
             })
+        }
+        if(starDetail.starId !== starId) {
+            getStarDetailAsync(starId);
         }
     }, [])
 
@@ -140,20 +162,33 @@ const WriteComponent = ({ isLogined }) => {
         }
     }
 
-    const onClickSendStory = () => {
+    const onClickSendStory = async () => {
         try {
-            // checkStoryValidation();
+            checkStoryValidation();
         } catch(e) {
             return false;
         }
-        setIsPaymentModalOpen(true);
-        // setIsLoadingModalOpen(true); 
-        // setTimeout(() => {
-        //     setIsLoadingModalOpen(false)
-        //     history.push('/writesuccess')
-        // }, 1000)
+        console.log('aaaa')
+        sendMessageToStar({
+            starId,
+            userId,
+            deliveryDate: date,
+            msgContents: textareaElement.current.value,
+            msgTitle:'제목',
+        })
+        .then((res) => {
+            setIsLoadingModalOpen(true); 
+            setTimeout(() => {
+                setIsLoadingModalOpen(false)
+                history.push('/writesuccess')
+            }, 1000)
+        })
+        .catch((res) => {
+            message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
+        })
+        // setIsPaymentModalOpen(true);
     }
-
+    
     return (
         <main className='write-main'>
             <MomentModal
@@ -208,7 +243,7 @@ const WriteComponent = ({ isLogined }) => {
                     <section>
                         <WriteLabel 
                             label={'이름'}
-                            content={'김스타, 예술인'}
+                            content={starNm}
                         />
                         <div>
                             <img alt="none" src={homeThum1_1} />
@@ -216,15 +251,15 @@ const WriteComponent = ({ isLogined }) => {
                     </section>
                     <WriteLabel 
                         label={'분야'}
-                        content={'대한민국 음악가, 1991년생'}
+                        content={catNm}
                     />
                     <WriteLabel 
                         label={'영상단가'}
-                        content={'150,000원'}
+                        content={`${price.toLocaleString('ko-KR')}원`}
                     />
                     <div className="date-wrapper">
                         <div>영상 배송 희망일</div>
-                        <MomentDatePicker />
+                        <MomentDatePicker setDate={setDate} />
                     </div>
                     <div className="write-wrapper">
                         <div>사연 입력</div>
@@ -238,7 +273,7 @@ const WriteComponent = ({ isLogined }) => {
             <section className="app-write-bottom">
                 <div className="container">
                     <div onClick={() => setIsQuestionModalOpen(true)}>어떻게 사연을 보내야 할지 모르시겠다구요?</div>
-                    <div onClick={onClickSendStory} >
+                    <div onClick={() => onClickSendStory()} >
                         결제하고 사연 전송하기!
                     </div>
                 </div>

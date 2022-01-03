@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import { useEffect } from 'react';
 import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
 import { message } from "antd";
+import StorageManager from '../../managers/StorageManager';
 
 const homeThum1_1 = "/assets/images/thum160Px1.png";
 const plusIcon = "/assets/icons/ico-plus.png"
@@ -13,7 +14,6 @@ function StarComponent(props) {
     const history = useHistory();
     const { id : starId } = props.match.params;
     const {
-        isLogined,
         starDetail,
         getStarDetailAsync
     } = props;
@@ -27,7 +27,7 @@ function StarComponent(props) {
     } = starDetail;
     
     const onClickGoToWritePage = () => {
-        if(isLogined) {
+        if(StorageManager.checkUserIsLogined()) {
             history.push(`/write/${starId}`)
         } else {
             message.warn('사연을 보내기 위해 로그인이 필요합니다.', 1, () => {
@@ -41,7 +41,9 @@ function StarComponent(props) {
     
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, left: 0 });
-        getStarDetailAsync(starId)
+        if(starDetail.starId !== starId) {
+            getStarDetailAsync(starId);
+        }
     }, [])
 
     return (

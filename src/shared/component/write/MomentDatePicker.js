@@ -1,4 +1,4 @@
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, useEffect } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker'
 import ko from 'date-fns/locale/ko';
 import "react-datepicker/dist/react-datepicker.css";
@@ -43,8 +43,17 @@ const TimeLabel = styled.div`
 `
 const downArrow = "/assets/icons/list-ico-open.png"
 
-export default function MomentDatePicker() {
+export default function MomentDatePicker({ setDate }) {
     const [startDate, setStartDate] = useState(new Date());
+
+    useEffect(() => {
+        const fullOfYear = startDate.getFullYear();
+        let fullOfMonth = startDate.getMonth()+1;
+        fullOfMonth = fullOfMonth < 10 ? `0${fullOfMonth}` : fullOfMonth
+        const fullOfDate = startDate.getDate();
+        setDate(`${fullOfYear}${fullOfMonth}${fullOfDate}`)
+    }, [startDate])
+    
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="custom-input">
             <DateLabel>
