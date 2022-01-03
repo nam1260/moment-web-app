@@ -1,6 +1,6 @@
 import Home from "../home/Home";
 import { connect } from "react-redux";
-import { getStarAsync } from "../../redux/star";
+import { getStarAsync } from "redux/star";
 
 
 const mapStateToProps = (state) => ({

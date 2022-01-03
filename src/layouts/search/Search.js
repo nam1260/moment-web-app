@@ -1,7 +1,7 @@
 import { useState, useRef, useLayoutEffect } from "react";
 
-import { debounce } from "../../shared/func";
-import { useEventListener } from "../../shared/customHook";
+import { debounce } from "shared/func";
+import { useEventListener } from "shared/customHook";
 import "./search.css";
 
 const searchPath = "/assets/icons/icoSearch.png";

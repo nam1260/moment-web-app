@@ -1,7 +1,7 @@
-import StorageManager from "../../../managers/StorageManager";
+import StorageManager from "managers/StorageManager";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { saveUser } from "../../../redux/user";
+import { saveUser } from "redux/user";
 
 
 export const WrapLoginedComponent = (WrappedComponent) => {

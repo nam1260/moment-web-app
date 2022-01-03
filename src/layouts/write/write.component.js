@@ -1,13 +1,13 @@
 import  './write.css'
-import WriteLabel from '../../shared/component/write/WriteLabel'
-import MomentDatePicker from '../../shared/component/write/MomentDatePicker';
-import MomentModal from '../../shared/component/common/modal';
-import SpeechBubble from '../../shared/component/write/SpeechBubble';
-import PaymentModal from '../../shared/component/write/PaymentModal.componet';
+import WriteLabel from 'shared/component/write/WriteLabel'
+import MomentDatePicker from 'shared/component/write/MomentDatePicker';
+import MomentModal from 'shared/component/common/modal';
+import SpeechBubble from 'shared/component/write/SpeechBubble';
+import PaymentModal from 'shared/component/write/PaymentModal.componet';
 import { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
-import StorageManager from '../../managers/StorageManager';
+import { WrapLoginedComponent } from 'shared/component/common/WrapLoginedComponent';
+import StorageManager from 'managers/StorageManager';
 import { message } from 'antd';
 import AWSManager from "managers/AWSManager";
 

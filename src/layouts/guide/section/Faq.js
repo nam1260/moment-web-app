@@ -1,4 +1,4 @@
-import FaqItem from '../../../shared/component/guide/FaqItem';
+import FaqItem from 'shared/component/guide/FaqItem';
 
 
 

@@ -1,6 +1,6 @@
 import WriteComponent from "../write/write.component";
 import { connect } from "react-redux";
-import { getStarDetailAsync } from "../../redux/star";
+import { getStarDetailAsync } from "redux/star";
 
 
 const mapStateToProps = (state) => ({

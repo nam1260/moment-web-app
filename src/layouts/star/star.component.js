@@ -1,11 +1,11 @@
 import './star.style.css';
-import StarRatingComponent from '../../shared/component/star/StarRating.component';
-import CommentOfFanComponent from '../../shared/component/star/CommentOfFan.component';
+import StarRatingComponent from 'shared/component/star/StarRating.component';
+import CommentOfFanComponent from 'shared/component/star/CommentOfFan.component';
 import { useHistory } from 'react-router';
 import { useEffect } from 'react';
-import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
+import { WrapLoginedComponent } from 'shared/component/common/WrapLoginedComponent';
 import { message } from "antd";
-import StorageManager from '../../managers/StorageManager';
+import StorageManager from 'managers/StorageManager';
 
 const homeThum1_1 = "/assets/images/thum160Px1.png";
 const plusIcon = "/assets/icons/ico-plus.png"

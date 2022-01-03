@@ -1,5 +1,5 @@
 import { useHistory } from "react-router";
-import CommentOfFanComponent from "../../shared/component/star/CommentOfFan.component";
+import CommentOfFanComponent from "shared/component/star/CommentOfFan.component";
 import './star.style.css';
 
 export default function StarCommentListComponent() {

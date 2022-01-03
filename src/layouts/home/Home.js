@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import "../../App.css";
-import "../../Common.css";
+import "App.css";
+import "Common.css";
 import "./home.css";
-import TopStarComponent from "../../shared/component/home/TopStar.component";
-import RequestStarComponent from "../../shared/component/home/RequestStar.component";
+import TopStarComponent from "shared/component/home/TopStar.component";
+import RequestStarComponent from "shared/component/home/RequestStar.component";
 
 
 const homeImage = "/assets/images/mov.png";

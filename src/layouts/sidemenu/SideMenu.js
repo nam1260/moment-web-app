@@ -1,9 +1,9 @@
 import "./sidemenu.css";
 import { useHistory } from "react-router";
-import StorageManager from "../../managers/StorageManager.js";
-import { WrapLoginedComponent } from "../../shared/component/common/WrapLoginedComponent";
+import StorageManager from "managers/StorageManager.js";
+import { WrapLoginedComponent } from "shared/component/common/WrapLoginedComponent";
 import { useDispatch } from "react-redux";
-import { removeUser } from "../../redux/user";
+import { removeUser } from "redux/user";
 const closeIcon = "/assets/icons/ico-close.png";
 const nextIcon = "/assets/icons/icoNext.png";
 const logoPath = '/assets/images/menu-logo.png'

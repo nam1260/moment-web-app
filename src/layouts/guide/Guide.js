@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import TabsComponent from '../../shared/component/guide/Tabs';
+import TabsComponent from 'shared/component/guide/Tabs';
 import FaqComponent from './section/Faq'
 import UserGuideComponent from './section/UserGuide'
 import StarGuideComponent from './section/StarGuide'
 import IntroductionComponent from './section/Introduction'
-import { ScrollTopHoc } from '../../shared/component/common/ScrollTopHoc'
+import { ScrollTopHoc } from 'shared/component/common/ScrollTopHoc'
 import  './guide.css'
 
 
