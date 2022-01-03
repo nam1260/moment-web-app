@@ -88,7 +88,6 @@ const WriteComponent = (props) => {
         isLoading,
         user,
         getStarDetailAsync,
-        sendMsgToStarAsync,
     } = props;
 
     const {
@@ -180,7 +179,7 @@ const WriteComponent = (props) => {
             setIsLoadingModalOpen(true); 
             setTimeout(() => {
                 setIsLoadingModalOpen(false)
-                history.push('/writesuccess')
+                history.push(`/writesuccess/${starId}`)
             }, 1000)
         })
         .catch((res) => {

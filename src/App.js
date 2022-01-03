@@ -6,7 +6,7 @@ import Header from './layouts/header/Header.js';
 import HomeComponent from './layouts/container/HomeContainer';
 import Momentor from './layouts/momentor/MomentorHome';
 import Write from './layouts/container/WriteContainer';
-import WriteSuccessComponent from './layouts/write/success.component';
+import WriteSuccessComponent from './layouts/container/SuccessContainer';
 import Search from './layouts/search/Search';
 import Login from './layouts/login/Login';
 import AddAccount from './layouts/login/AddAccount';
@@ -71,7 +71,7 @@ function App() {
                     <div className="App-main layout">
                         <Route exact path="/" component={HomeComponent}/>
                         <Route exact path="/Momentor" component={Momentor}/>
-                        <Route exact path="/writesuccess" component={WriteSuccessComponent}/>
+                        <Route exact path="/writesuccess/:id" component={WriteSuccessComponent}/>
                         <Route exact path="/write/:id" component={Write}/>
                         <Route exact path="/star/:id" component={StarComponent}/>
                         <Route exact path="/star/:id/comment" component={StarCommentListComponent}/>
