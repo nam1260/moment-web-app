@@ -211,7 +211,7 @@ function StartProfile({isLogined}) {
             if(result && result.status === 200 && result.data) {
                 setStarInfo(result.data);
                 setCategorySelectedOption({value: result.data.catNm, text: result.data.catNm});
-                setPriceSelectedOption({value: result.data.price, text: result.data.price});
+                // setPriceSelectedOption({value: result.data.price, text: result.data.price});
                 setBodyStatus(regBodyStatus.SUCCESS);
             } else {
                 setBodyStatus(regBodyStatus.FAIL);
@@ -318,7 +318,7 @@ function StartProfile({isLogined}) {
                                 // placeholder={starInfo.longComment}
                                 onChange={onChange}
                                 value={starInfo.longComment}
-                                onKeyUp={onKeyupCountStoryCharacter}
+                                // onKeyUp={onKeyupCountStoryCharacter}
                                 ref={textareaElement}
                                 name="longComment"
                             ></textarea>
@@ -343,8 +343,8 @@ function StartProfile({isLogined}) {
                     {
                         {
                             [regBodyStatus.INIT] :   <></>,
-                            [regBodyStatus.FAIL] : <NotFoundComponent />,
-                            [regBodyStatus.SUCCESS] : <FoundComponent />
+                            [regBodyStatus.FAIL] : NotFoundComponent(),
+                            [regBodyStatus.SUCCESS] : FoundComponent()
                         }[bodyStatus]
                     }
             </section>
