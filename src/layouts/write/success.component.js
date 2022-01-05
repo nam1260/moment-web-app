@@ -1,19 +1,40 @@
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import SpeechBubble from '../../shared/component/write/SpeechBubble';
 import  './write.css'
-
 
 const homeThum1_1 = "/assets/images/thum160Px1.png";
 
 
-const WriteSuccessComponent = () => {
+const WriteSuccessComponent = (props) => {
+    const { id : starId } = props.match.params;
+    const history = useHistory();
+    const {
+        starDetail,
+        getStarDetailAsync,
+    } = props;
+
+    const {
+        catNm = '',
+        starNm = '',
+    } = starDetail;
+    
+
+    useEffect(() => {
+        if(starDetail.starId !== starId) {
+            getStarDetailAsync(starId);
+        }
+    }, [])
+
+
     return (
         <main className='write-main'>
             <section className="app-success-header">
                 <div className="container">
                     <SpeechBubble content='멋진 영상 기대해주세요!'/> 
                     <img alt="none" src={homeThum1_1} />
-                    <h3>최인기맨</h3>
-                    <span>대한민국 음악가, 1991년생</span>
+                    <h3>{starNm}</h3>
+                    <span>{catNm}</span>
                 </div>
             </section>
             <section className="app-success-body">
@@ -27,7 +48,7 @@ const WriteSuccessComponent = () => {
             </section>
             <section className="app-success-bottom">
                 <div className="container">
-                    <div>
+                    <div onClick={() => history.push('/sendMessageHistory')}>
                         보낸 사연 관리 메뉴로 이동
                     </div>
                 </div>

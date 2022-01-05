@@ -1,10 +1,9 @@
 import React, {useState, useMemo, useEffect} from 'react';
 import { useHistory } from 'react-router';
-import '../../Common.css';
+import 'Common.css';
 import './header.css';
-import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
-import { message } from "antd";
-import StorageManager from "../../managers/StorageManager";
+import { WrapLoginedComponent } from 'shared/component/common/WrapLoginedComponent';
+import StorageManager from "managers/StorageManager";
 
 const menuPath = '/assets/icons/icoMenu.png'
 const searchPath = '/assets/icons/icoSearch.png'

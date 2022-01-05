@@ -1,4 +1,4 @@
-import GuideComponent from '../../../shared/component/guide/GuideItem';
+import GuideComponent from 'shared/component/guide/GuideItem';
 
 
 export default function UserGuideComponent() {

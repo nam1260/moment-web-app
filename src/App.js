@@ -5,8 +5,8 @@ import store from './redux-store';
 import Header from './layouts/header/Header.js';
 import HomeComponent from './layouts/container/HomeContainer';
 import Momentor from './layouts/momentor/MomentorHome';
-import Write from './layouts/write/Write';
-import WriteSuccessComponent from './layouts/write/Success';
+import Write from './layouts/container/WriteContainer';
+import WriteSuccessComponent from './layouts/container/SuccessContainer';
 import Search from './layouts/search/Search';
 import Login from './layouts/login/Login';
 import AddAccount from './layouts/login/AddAccount';
@@ -26,7 +26,7 @@ import GuideComponent from './layouts/guide/Guide';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import StarComponent from './layouts/star/star.component';
+import StarComponent from './layouts/container/StarContainer';
 import StarCommentListComponent from './layouts/star/commentList.component';
 import StorageManager from "./managers/StorageManager.js";
 import DocComponent from './layouts/doc/Doc';
@@ -71,7 +71,7 @@ function App() {
                     <div className="App-main layout">
                         <Route exact path="/" component={HomeComponent}/>
                         <Route exact path="/Momentor" component={Momentor}/>
-                        <Route exact path="/writesuccess" component={WriteSuccessComponent}/>
+                        <Route exact path="/writesuccess/:id" component={WriteSuccessComponent}/>
                         <Route exact path="/write/:id" component={Write}/>
                         <Route exact path="/star/:id" component={StarComponent}/>
                         <Route exact path="/star/:id/comment" component={StarCommentListComponent}/>

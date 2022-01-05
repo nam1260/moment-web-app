@@ -42,7 +42,7 @@ const UPDATE_STAR_INFO = "/star/update-star-detail-info";
 const REQ_RGST_STAR = "/star/req-rgst-star";
 const CNCL_RGST_STAR = "/star/cncl-rgst-star";
 
-
+const SEND_MSG_TO_STAR = "/msg/send-msg-to-star"
 
 
 const API_KEYS_TEST = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
@@ -196,6 +196,11 @@ const AWSManager = (function() {
         return await requestPost(getUrl(CNCL_RGST_STAR), params);
     }
 
+    const sendMessageToStar = async(params) => {
+        console.log("sendMessageToStar =" + JSON.stringify(params));
+        return await requestPost(getUrl(SEND_MSG_TO_STAR), params);
+    }
+
 
     return {
         regUserInfo,
@@ -221,6 +226,7 @@ const AWSManager = (function() {
         updateUserMsgInfo,
         getFanMsgList,
         getStarList,
+        sendMessageToStar,
 
         getStarInfo,
         updateStarInfo,

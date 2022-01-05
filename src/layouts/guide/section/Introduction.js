@@ -1,4 +1,4 @@
-import TabsComponent from '../../../shared/component/guide/IntroductionItem';
+import TabsComponent from 'shared/component/guide/IntroductionItem';
 
 const backgroundImage = "/assets/images/present-1-img-main.png";
 const introImage = [ 

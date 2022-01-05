@@ -1,10 +1,11 @@
 import './star.style.css';
-import StarRatingComponent from '../../shared/component/star/StarRating.component';
-import CommentOfFanComponent from '../../shared/component/star/CommentOfFan.component';
+import StarRatingComponent from 'shared/component/star/StarRating.component';
+import CommentOfFanComponent from 'shared/component/star/CommentOfFan.component';
 import { useHistory } from 'react-router';
 import { useEffect } from 'react';
-import { WrapLoginedComponent } from '../../shared/component/common/WrapLoginedComponent';
+import { WrapLoginedComponent } from 'shared/component/common/WrapLoginedComponent';
 import { message } from "antd";
+import StorageManager from 'managers/StorageManager';
 
 const homeThum1_1 = "/assets/images/thum160Px1.png";
 const plusIcon = "/assets/icons/ico-plus.png"
@@ -13,24 +14,36 @@ function StarComponent(props) {
     const history = useHistory();
     const { id : starId } = props.match.params;
     const {
-        isLogined
+        starDetail,
+        getStarDetailAsync
     } = props;
 
+    const {
+        price = 0,
+        longComment = '',
+        rate = 0,
+        shortComment = '',
+        starNm = '',
+    } = starDetail;
+    
     const onClickGoToWritePage = () => {
-        if(isLogined) {
-            history.push('/write/2')
+        if(StorageManager.checkUserIsLogined()) {
+            history.push(`/write/${starId}`)
         } else {
             message.warn('사연을 보내기 위해 로그인이 필요합니다.', 1, () => {
                 history.push({
                     pathname: '/login',
-                    state: { hasGoBack: true, backPathName: '/write/2' }
+                    state: { hasGoBack: true, backPathName: `/write/${starId}` }
                 })
             })
         }
     }
-
+    
     useEffect(() => {
-        document.documentElement.scrollTo({ top: 0, left: 0 }) 
+        document.documentElement.scrollTo({ top: 0, left: 0 });
+        if(starDetail.starId !== starId) {
+            getStarDetailAsync(starId);
+        }
     }, [])
 
     return (
@@ -38,8 +51,8 @@ function StarComponent(props) {
             <section className="app-star-header">
                 <div className="container">
                     <div>
-                        <span>김스타</span>
-                        <span>대한민국 음악가, 1991년생</span>
+                        <span>{starNm}</span>
+                        <span>{shortComment}</span>
                     </div>
                     <div>
                         <img src={homeThum1_1} alt="" />
@@ -51,19 +64,13 @@ function StarComponent(props) {
                     <div>
                         <span>평점</span>
                         <span>
-                            <StarRatingComponent score={4.2} />
+                            <StarRatingComponent score={rate} />
                         </span>
                     </div>
                     <div>
                         <span>단가</span>
                         <span>
-                            15,000원
-                        </span>
-                    </div>
-                    <div>
-                        <span>평균 배송일</span>
-                        <span>
-                            1일
+                            {price.toLocaleString('ko-KR')}원
                         </span>
                     </div>
                     <button onClick={onClickGoToWritePage}>
@@ -72,16 +79,7 @@ function StarComponent(props) {
                     <div className="introduce-box">
                         <span>본인 소개</span>
                         <div>
-                            안녕하세요 김스타 입니다.<br />
-                            여러분들을 위한 즐거운 영상 만들어드립니다!<br />
-                            <br />
-                            다이렉트 URL: www.moment/starkim123
-                            <br /><br />
-                            홍보계정<br />
-                            SNS: aaa@uuseske (instagram)
-                            <br /><br />
-                            조금 더 궁금하신 부분이 있다면<br />
-                            편하게 연락 주세요.
+                            {longComment}
                         </div>
                     </div>
                 </div>

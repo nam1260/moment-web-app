@@ -2,7 +2,7 @@ import MarketingAcceptComponent from "./section/MarketingAccept"
 import PersonalDataComponent from "./section/PersonalData"
 import TermsAndConditionComponent from "./section/TermsAndCondition"
 import './doc.css'
-import { ScrollTopHoc } from "../../shared/component/common/ScrollTopHoc"
+import { ScrollTopHoc } from "shared/component/common/ScrollTopHoc"
 
 const DOC_TYPE = {
     MARKETING_ACCEPT: 1,
