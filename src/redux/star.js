@@ -16,7 +16,8 @@ export const setLoadingAction = createAction(SET_LOADING, data => data);
 export const getStarAsync = (prop) => async dispatch => {
     const { data, status } = await getStarList(null);
     if(status === 200) {
-        dispatch(getStarListAction(data.slice(0, 6)))
+        //dispatch(getStarListAction(data.slice(0, 6)))
+        dispatch(getStarListAction(data))
     } else {
         dispatch(getStarListAction([]))
     }

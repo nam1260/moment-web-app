@@ -68,7 +68,7 @@ function StarComponent(props) {
                         </span>
                     </div>
                     <div>
-                        <span>단가</span>
+                        <span>가격</span>
                         <span>
                             {(price+"").toLocaleString('ko-KR')}원
                         </span>
@@ -84,14 +84,16 @@ function StarComponent(props) {
                     </div>
                 </div>
             </section>
-            <section className="app-star-bottom">
+           {/*
+           사연 보내기 기능은 임시 block
+           <section className="app-star-bottom">
                 <div className="container">
                     <div>팬들이 남겨준 스타의 사연 소감이에요</div>
                     <CommentOfFanComponent score={4.2} comment={'화질이 조금 깨졌지만 영상 너무좋았습니다. 감사합니다!'} />
                     <CommentOfFanComponent score={3.2} comment={'화질이 조금 깨졌지만 영상 너무좋았습니다. 감사합니다!'} />
                     <div onClick={() => history.push(`${starId}/comment`)}> 사연 더보기 <img src={plusIcon} alt="none" /> </div>
                 </div>
-            </section>
+            </section>*/}
         </main>
         
     )

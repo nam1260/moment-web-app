@@ -125,7 +125,7 @@ const WriteComponent = (props) => {
 
     const checkStoryValidation = () => {
         try {
-            checkCharacterUnder100();
+            checkCharacterUnder50();
             checkCharacterOver300();
         } catch(e) {
             switch(e.type) {
@@ -143,11 +143,11 @@ const WriteComponent = (props) => {
         return true;
     }
 
-    const checkCharacterUnder100 = () => {
-        if(count < 100) {
+    const checkCharacterUnder50 = () => {
+        if(count < 50) {
             throw {
-                type: 'under100',
-                error: new Error('100자 이하 에러')
+                type: 'under50',
+                error: new Error('50자 이하 에러')
             };
         }
     }
@@ -167,7 +167,6 @@ const WriteComponent = (props) => {
         } catch(e) {
             return false;
         }
-        console.log('aaaa')
         sendMessageToStar({
             starId,
             userId,
@@ -253,7 +252,7 @@ const WriteComponent = (props) => {
                         content={catNm}
                     />
                     <WriteLabel 
-                        label={'영상단가'}
+                        label={'영상가격'}
                         content={`${price.toLocaleString('ko-KR')}원`}
                     />
                     <div className="date-wrapper">
