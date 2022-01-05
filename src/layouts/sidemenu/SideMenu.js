@@ -22,7 +22,7 @@ function SideMenu({ isOpen, setIsMenuOpen, isLogined, userId, userNickNm }) {
         setIsMenuOpen(false);
         history.push(path);
     }
-    
+
     const signOutUser = () => {
         StorageManager.removeUserInfo();
         StorageManager.removeSalt();
@@ -64,7 +64,7 @@ function SideMenu({ isOpen, setIsMenuOpen, isLogined, userId, userNickNm }) {
                 <li onClick={() => movePage('/guide/user')} >서비스 이용가이드</li>
                 <li onClick={() => movePage('/guide/moment/2')} >자주 묻는 질문</li>
             </ul>
-            <img alt="none" className="side-menu-logo" src={logoPath} />
+             {/*<img alt="none" className="side-menu-logo" src={logoPath} />*/}
         </div>
     )
 }
