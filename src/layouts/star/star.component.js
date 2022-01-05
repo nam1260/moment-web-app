@@ -70,7 +70,7 @@ function StarComponent(props) {
                     <div>
                         <span>단가</span>
                         <span>
-                            {price.toLocaleString('ko-KR')}원
+                            {(price+"").toLocaleString('ko-KR')}원
                         </span>
                     </div>
                     <button onClick={onClickGoToWritePage}>
