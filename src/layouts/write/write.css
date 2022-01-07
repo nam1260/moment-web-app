@@ -52,7 +52,7 @@
 }
 
 .app-write-body > .container > .date-wrapper {
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 .app-write-body > .container > .date-wrapper > div:first-child {
@@ -342,7 +342,7 @@
     }
     
     .app-write-body > .container > .write-wrapper {
-        margin-top:  min(8vw, 60px);
+        margin-top:  min(5vw, 30px);
     }
     
     .app-write-body > .container > .write-wrapper > div:first-child {

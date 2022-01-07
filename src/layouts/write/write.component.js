@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 import  './write.css'
 import WriteLabel from 'shared/component/write/WriteLabel'
 import MomentDatePicker from 'shared/component/write/MomentDatePicker';
@@ -8,13 +9,12 @@ import { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { WrapLoginedComponent } from 'shared/component/common/WrapLoginedComponent';
 import StorageManager from 'managers/StorageManager';
-import { message } from 'antd';
+import { Input, message } from 'antd';
 import AWSManager from "managers/AWSManager";
 
 const {
     sendMessageToStar,
 } = AWSManager;
-const homeThum1_1 = "/assets/images/thum160Px1.png";
 const letterImage = "/assets/images/icoLetter.png";
 const iconFace = "/assets/icons/icoFace6.png";
 
@@ -48,9 +48,9 @@ const LoadingModal = (
 )
 
 
-const Under100Modal = (
+const Under50Modal = (
     <div className='modal-content warning-modal'>
-        <div>죄송합니다.<br /> 사연 요청은 최소 100자 이상 작성해주세요.</div>
+        <div>죄송합니다.<br /> 사연 요청은 최소 50자 이상 작성해주세요.</div>
         <div>
             스타가 당신을 진심으로 축하해주기 위해 꼭 알아야 할 내용<br />
             (축하 받을 사람의 이름, 축하 받을 사연, 축하 받을 이벤트의 날짜, 사연 요청자와의 관계)이
@@ -61,7 +61,7 @@ const Under100Modal = (
 
 const Over300Modal = (
     <div className='modal-content warning-modal'>
-        <div>죄송합니다.<br />사연 요청은 최소 100자, 최대 300자 이하로 작성해주세요.</div>
+        <div>죄송합니다.<br />사연 요청은 최소 50자, 최대 300자 이하로 작성해주세요.</div>
         <div>
             그래도 스타가 당신을 진심으로 축하해주기 위해 꼭 알아야할 내용
             (축하 받을 사람의 이름, 축하 받을 사연, 축하 받을 이벤트의 날짜, 사연 요청자와의 관계)은
@@ -75,13 +75,15 @@ const Over300Modal = (
 const WriteComponent = (props) => {
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
     const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
-    const [isUnder100ModalOpen, setIsUnder100ModalOpen] = useState(false);
+    const [isUnder50ModalOpen, setIsUnder50ModalOpen] = useState(false);
     const [isOver300ModalOpen, setIsOver300ModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
     const [count, setCount] = useState(0);
+    const [title, setTitle] = useState('');
     const [date, setDate] = useState();
     const history = useHistory();
     const textareaElement = useRef();
+    const titleElement = useRef();
     const { id : starId } = props.match.params;
     const {
         starDetail,
@@ -121,22 +123,30 @@ const WriteComponent = (props) => {
         } catch(e) {
 
         }
-        
     }
 
     const checkStoryValidation = () => {
         try {
+            checkTitleIsBlank();
             checkCharacterUnder50();
             checkCharacterOver300();
         } catch(e) {
             switch(e.type) {
-                case 'under100': {
-                    setIsUnder100ModalOpen(true);
+                case 'under50': {
+                    setIsUnder50ModalOpen(true);
                     break;
                 }
                 case 'over300': {
                     setIsOver300ModalOpen(true);
                     break;
+                }
+                case 'titleIsBlank': {
+                    message.warn('제목을 입력해주세요.');
+                    titleElement.current.focus();
+                    break;
+                }
+                default: {
+                    break
                 }
             }
             throw new Error('유효성 체크 실패');
@@ -144,12 +154,21 @@ const WriteComponent = (props) => {
         return true;
     }
 
+    const checkTitleIsBlank = () => {
+        if(!title) {
+            throw {
+                type: 'titleIsBlank',
+                error: new Error('제목을 입력해주세요.')
+            }
+        }
+    }
+
     const checkCharacterUnder50 = () => {
         if(count < 50) {
             throw {
                 type: 'under50',
                 error: new Error('50자 이하 에러')
-            };
+            }
         }
     }
 
@@ -173,7 +192,7 @@ const WriteComponent = (props) => {
             userId,
             deliveryDate: date,
             msgContents: textareaElement.current.value,
-            msgTitle:'제목',
+            msgTitle: title,
         })
         .then((res) => {
             setIsLoadingModalOpen(true); 
@@ -207,10 +226,10 @@ const WriteComponent = (props) => {
             />
 
             <MomentModal
-                isOpen={isUnder100ModalOpen}
-                contentComponent={Under100Modal}
+                isOpen={isUnder50ModalOpen}
+                contentComponent={Under50Modal}
                 confirmText={'확인'}
-                onClickHandlerConfirm={() => setIsUnder100ModalOpen(false)}
+                onClickHandlerConfirm={() => setIsUnder50ModalOpen(false)}
                 width={650}
                 height={520}
             />
@@ -259,6 +278,10 @@ const WriteComponent = (props) => {
                     <div className="date-wrapper">
                         <div>영상 배송 희망일</div>
                         <MomentDatePicker setDate={setDate} />
+                    </div>
+                    <div className="write-wrapper">
+                        <div>제목 입력</div>
+                        <Input ref={titleElement} allowClear value={title} onChange={(e) => setTitle(e.target.value)} size='large' placeholder="제목을 입력해주세요." />
                     </div>
                     <div className="write-wrapper">
                         <div>사연 입력</div>
