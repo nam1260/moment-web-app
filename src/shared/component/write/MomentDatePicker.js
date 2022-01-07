@@ -27,20 +27,6 @@ const DateLabel = styled.div`
     
 `
 
-
-const TimeLabel = styled.div`
-    font-size: 36px;
-    font-weight: bold;
-    letter-spacing: -0.36px;
-    color: #aaaaaa;
-    height: 70px;
-    margin-left: 66px;
-    @media (max-width: 750px) {
-        font-size: min(4vw, 36px);
-        height:  min(8vw, 70px);
-    }
-
-`
 const downArrow = "/assets/icons/list-ico-open.png"
 
 export default function MomentDatePicker({ setDate }) {
@@ -56,10 +42,10 @@ export default function MomentDatePicker({ setDate }) {
     }, [startDate])
     
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-        <div className="custom-input">
+        <div className="custom-input"  onClick={onClick}>
             <DateLabel>
                 {value.split("/")[0]}
-                <div onClick={onClick} ref={ref}>
+                <div ref={ref}>
                     <img alt="none" src={downArrow} />
                 </div>
             </DateLabel>
