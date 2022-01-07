@@ -57,6 +57,10 @@ const regBodyStatus = {
     SUCCESS:2,
 }
 function StartProfile({isLogined}) {
+
+    const history = useHistory();
+
+    console.log("starProfile");
     const [bodyStatus, setBodyStatus] = useState(regBodyStatus.INIT);
     const userInfo = {
         id: "starkim@moment.com",
@@ -109,6 +113,7 @@ function StartProfile({isLogined}) {
         setStarInfo(nextInputs);
     };
     const onChange = (e) => {
+        console.log("onchangetext");
         const { name, value } = e.target;
         const nextInputs = {
             ...starInfo,  
@@ -229,106 +234,9 @@ function StartProfile({isLogined}) {
         AWSManager.updateStarInfo({
             ...starInfo,
         }).then((result) => {
-            console.log(result);
+           alert("수정 완료되었습니다");
         })
     };
-
-    const NotFoundComponent = () => {
-        console.log('NotFoundComponent');
-        return (
-            <div className="messageList">
-                <div className="emptyMessage">
-                    <img alt="none" src={notFoundPath} />
-                    <p>아직 스타등록을 하지 않았습니다.</p>
-                </div>
-            </div>
-        )
-    };
-
-
-    const FoundComponent = () => {
-        return (
-            <div>
-                <span>
-                    <span>
-                        이름
-                    </span>
-                    <div className="mypage-email">
-                        <span className="nickname">
-                            {starInfo.starNm}
-                        </span>
-
-                        <div className="thumbnail">
-                            <img className="thumbnail-img" alt="none" src={StorageManager.loadUserInfo().userImgUrl ? StorageManager.loadUserInfo().userImgUrl : thumPath} />
-                            {/* <img className="thumbnail-icon" alt="none" src={cameraPath} /> */}
-                        </div>
-                    </div>
-                    <span>
-                        분야
-                    </span>
-                    <div>
-                        <Select
-                            placeholder=""
-                            value={categorySelectedOption}
-                            options={categoryData}
-                            components={{ DropdownIndicator }}
-                            onChange={categoryChange}
-                            styles={customStyle}
-                            getOptionLabel={e => (
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <span style={{ fontSize:"3.4vw", fontWeight: "bold", }}>{e.text}</span>
-                            </div>
-                            )}
-                        />
-                    </div>
-                    <span>
-                        영상단가
-                    </span>
-                    <div>
-                        <input
-                            type="number"
-                            onChange={onChange}
-                            onBlur={updatePriceUnit}
-                            value={starInfo.price}
-                            name="price"
-                            min="50000"
-                            step='1000'
-                            max="1000000"
-                        ></input>
-                        <img alt="none" src={editPath} />
-                    </div>
-                    <span>
-                        한줄소개
-                    </span>
-                    <div>
-                        <input
-                            type="text"
-                            onChange={onChange}
-                            value={starInfo.shortComment}
-                            name="shortComment"
-                        ></input>
-                        <img alt="none" src={editPath} />
-                    </div>
-                    <span>
-                        본인 소개
-                    </span>
-                    <div>
-                        <div className="write-wrapper">
-                            <textarea
-                                // placeholder={starInfo.longComment}
-                                onChange={onChange}
-                                value={starInfo.longComment}
-                                // onKeyUp={onKeyupCountStoryCharacter}
-                                ref={textareaElement}
-                                name="longComment"
-                            ></textarea>
-                        </div>
-                    </div>
-                </span>
-            </div>
-        )
-    };
-
 
     return (
         !isLogined? <Redirect to="/login"/> :
@@ -343,8 +251,93 @@ function StartProfile({isLogined}) {
                     {
                         {
                             [regBodyStatus.INIT] :   <></>,
-                            [regBodyStatus.FAIL] : NotFoundComponent(),
-                            [regBodyStatus.SUCCESS] : FoundComponent()
+                            [regBodyStatus.FAIL] :
+                                <div className="messageList">
+                                    <div className="emptyMessage">
+                                        <img alt="none" src={notFoundPath} />
+                                        <p>아직 스타등록을 하지 않았습니다.</p>
+                                    </div>
+                                </div>,
+                            [regBodyStatus.SUCCESS] :
+                                <div>
+                                    <span>
+                                        <span>
+                                            이름
+                                        </span>
+                                        <div className="mypage-email">
+                                            <span className="nickname">
+                                                {starInfo.starNm}
+                                            </span>
+
+                                            <div className="thumbnail">
+                                                <img className="thumbnail-img" alt="none"
+                                                     src={StorageManager.loadUserInfo().userImgUrl ? StorageManager.loadUserInfo().userImgUrl : thumPath}/>
+                                                {/* <img className="thumbnail-icon" alt="none" src={cameraPath} /> */}
+                                            </div>
+                                        </div>
+                                        <span>
+                                            분야
+                                        </span>
+                                        <div>
+                                            <Select
+                                                placeholder=""
+                                                value={categorySelectedOption}
+                                                options={categoryData}
+                                                components={{DropdownIndicator}}
+                                                onChange={categoryChange}
+                                                styles={customStyle}
+                                                getOptionLabel={e => (
+                                                    <div style={{display: 'flex', alignItems: 'center'}}>
+                                                        <span style={{fontSize: "3.4vw", fontWeight: "bold",}}>{e.text}</span>
+                                                    </div>
+                                                )}
+                                            />
+                                        </div>
+                                        <span>
+                                            영상단가
+                                        </span>
+                                        <div>
+                                            <input
+                                                type="number"
+                                                onChange={onChange}
+                                                onBlur={updatePriceUnit}
+                                                value={starInfo.price}
+                                                name="price"
+                                                min="50000"
+                                                step='1000'
+                                                max="1000000"
+                                            />
+                                            <img alt="none" src={editPath}/>
+                                        </div>
+                                        <span>
+                                            한줄소개
+                                        </span>
+                                        <div>
+                                            <input
+                                                type="text"
+                                                onChange={onChange}
+                                                value={starInfo.shortComment}
+                                                name="shortComment"
+                                            />
+                                            <img alt="none" src={editPath}/>
+                                        </div>
+                                        <span>
+                                            본인 소개
+                                        </span>
+                                        <div>
+                                            <div className="write-wrapper">
+                                                <textarea
+                                                    // placeholder={starInfo.longComment}
+                                                    onChange={onChange}
+                                                    value={starInfo.longComment}
+                                                    // onKeyUp={onKeyupCountStoryCharacter}
+                                                    ref={textareaElement}
+                                                    name="longComment"
+                                                ></textarea>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
                         }[bodyStatus]
                     }
             </section>
