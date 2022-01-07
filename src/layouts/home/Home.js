@@ -51,7 +51,8 @@ function Home({ history, getStarListAsync, starList}) {
                     </h3>
                     <div>
                         {
-                            [...starList, ...nullCards].map((star) =>
+
+                            [...starList].sort(()=>Math.random() - 0.5).map((star) =>
                                 star === null ?
                               ""
                                 : <TopStarComponent
