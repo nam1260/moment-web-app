@@ -99,9 +99,9 @@ function StartProfile({isLogined}) {
         console.log('updatePriceUnit');
         console.log(e)
         let price = starInfo.price;
-        if(starInfo.price < 50000) {
-            alert('영상 단가의 최솟값은 50000입니다.');
-            price = 50000;
+        if(starInfo.price < 10000) {
+            alert('영상 가격의 최소값은 10000입니다.');
+            price = 10000;
         }else if(starInfo.price % 1000 != 0) {
             alert('1000 단위 숫자만 입력 할 수 있습니다.');
             price = Math.ceil(starInfo.price / 1000)*1000;
@@ -190,20 +190,6 @@ function StartProfile({isLogined}) {
         });
     }
     const customStyle = {
-        control: (provided, state) => ({
-          ...provided,
-          boxShadow: "none",
-          border: "none",
-        }),
-        menu: (provided, state) => ({
-          ...provided,
-          border: "none",
-          boxShadow: "none"
-        }),
-        option: (provided, state) => ({
-           ...provided,
-           color: state.isFocused && "red",
-        }), 
     };
 
     
@@ -237,6 +223,20 @@ function StartProfile({isLogined}) {
            alert("수정 완료되었습니다");
         })
     };
+
+    // selectorStyles object
+    const customStyles = {
+        option: (styles, state) => ({
+            ...styles,
+            cursor: 'pointer',
+        }),
+        control: (styles) => ({
+            ...styles,
+            cursor: 'pointer',
+        }),
+
+    };
+
 
     return (
         !isLogined? <Redirect to="/login"/> :
@@ -281,6 +281,7 @@ function StartProfile({isLogined}) {
                                         <div>
                                             <Select
                                                 placeholder=""
+                                                styles={customStyles}
                                                 value={categorySelectedOption}
                                                 options={categoryData}
                                                 components={{DropdownIndicator}}
@@ -294,7 +295,7 @@ function StartProfile({isLogined}) {
                                             />
                                         </div>
                                         <span>
-                                            영상단가
+                                            영상가
                                         </span>
                                         <div>
                                             <input
@@ -303,7 +304,7 @@ function StartProfile({isLogined}) {
                                                 onBlur={updatePriceUnit}
                                                 value={starInfo.price}
                                                 name="price"
-                                                min="50000"
+                                                min="10000"
                                                 step='1000'
                                                 max="1000000"
                                             />

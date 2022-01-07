@@ -63,6 +63,9 @@
     -ms-letter-spacing: -0.26px;
     letter-spacing: -0.26px;   
 }
+.app-write-body > .container > .date-wrapper > div:last-child {
+    cursor: pointer;
+}
 
 .app-write-body > .container > .date-wrapper .custom-input {
     display: flex;
@@ -116,6 +119,7 @@
     letter-spacing: -0.28px;
     text-align: right;
     color: #ff723a;
+    cursor: pointer;
 }
 
 .app-write-bottom > .container > div:nth-child(2) {
@@ -129,6 +133,7 @@
     color: #fff;
     padding:23px 0px;
     margin-top: 113px;
+    cursor: pointer;
 }
 
 .write-main .modal-content {

@@ -207,7 +207,8 @@ main {
     border: none;
     position: absolute;
     left: 70%;
-    top: 270px
+    top: 270px;
+    cursor: pointer;
 }
 .mypage-container > div > span > div.mypage-email > div.thumbnail > img.thumbnail-img {
     width: min(20vw, 160px);
@@ -376,6 +377,7 @@ main {
 }
 .mypage-container span.highlight {
     color: #ff723a;
+    cursor: pointer;
 }
 
 .mypage-container > div.messageList > div.message > div > div.messageButton {
@@ -403,6 +405,7 @@ main {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 .mypage-container > div.messageList > div.message > div > div.messageButton > button.full{
     width: min(70vw, 650px);
@@ -439,6 +442,7 @@ main {
     border-radius: 55px;
     background-color: #ff723a;
     border : none;
+    cursor: pointer;
 }
 .mypage-button > div > button.disable {
     background-color: #525252;
@@ -487,6 +491,7 @@ main {
     height: min(9vw, 40px);
     object-fit: contain;
     float: left;
+    cursor: pointer;
 }
 
 .mypage-container #duplCheckBtn.disable{

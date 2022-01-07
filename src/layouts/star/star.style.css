@@ -93,6 +93,7 @@
     font-weight: 500;
     border-radius: 40px;
     margin-top: 50px;
+    cursor: pointer;
 }
 
 .app-star-body > .container > .introduce-box {

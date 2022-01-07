@@ -92,6 +92,7 @@ main {
     letter-spacing: -0.28px;
     text-align: right;
     color: #ff723a;
+    cursor: pointer;
 }
 .login-container > div > span > div > span.disable {
     color: #525252;
@@ -120,6 +121,7 @@ main {
     border-radius: 55px;
     background-color: #ff723a;
     border : none;
+    cursor: pointer;
 }
 .login-button > div > button.disable {
     background-color: #525252;
@@ -173,6 +175,7 @@ main {
     letter-spacing: -0.28px;
     text-align: left;
     color: #8f8f8f;
+    cursor: pointer;
 }
 .check-options > div > span > span.highlight {
     color: #ff723a;
