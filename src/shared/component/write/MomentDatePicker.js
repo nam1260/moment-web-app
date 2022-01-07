@@ -27,20 +27,6 @@ const DateLabel = styled.div`
     
 `
 
-
-const TimeLabel = styled.div`
-    font-size: 36px;
-    font-weight: bold;
-    letter-spacing: -0.36px;
-    color: #aaaaaa;
-    height: 70px;
-    margin-left: 66px;
-    @media (max-width: 750px) {
-        font-size: min(4vw, 36px);
-        height:  min(8vw, 70px);
-    }
-
-`
 const downArrow = "/assets/icons/list-ico-open.png"
 
 export default function MomentDatePicker({ setDate }) {
@@ -50,32 +36,28 @@ export default function MomentDatePicker({ setDate }) {
         const fullOfYear = startDate.getFullYear();
         let fullOfMonth = startDate.getMonth()+1;
         fullOfMonth = fullOfMonth < 10 ? `0${fullOfMonth}` : fullOfMonth
-        const fullOfDate = startDate.getDate();
+        let fullOfDate = startDate.getDate();
+        fullOfDate = fullOfMonth < 10 ? `0${fullOfDate}` : fullOfDate
         setDate(`${fullOfYear}${fullOfMonth}${fullOfDate}`)
     }, [startDate])
     
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-        <div className="custom-input">
+        <div className="custom-input"  onClick={onClick}>
             <DateLabel>
                 {value.split("/")[0]}
-                <div onClick={onClick} ref={ref}>
+                <div ref={ref}>
                     <img alt="none" src={downArrow} />
                 </div>
             </DateLabel>
-            
-            <TimeLabel>
-                {value.split("/")[1]}분 까지
-            </TimeLabel>
         </div>
       ));
     return (
         <DatePicker 
-            showTimeSelect
             locale="ko"
             selected={startDate}
             customInput={<ExampleCustomInput />}
             onChange={(date) => setStartDate(date)}
-            dateFormat="yyyy-MM-dd/hh:mm"
+            dateFormat="yyyy-MM-dd"
         />
             
     )

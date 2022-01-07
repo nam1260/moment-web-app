@@ -3,9 +3,6 @@ import { useHistory } from 'react-router-dom';
 import SpeechBubble from '../../shared/component/write/SpeechBubble';
 import  './write.css'
 
-const homeThum1_1 = "/assets/images/thum160Px1.png";
-
-
 const WriteSuccessComponent = (props) => {
     const { id : starId } = props.match.params;
     const history = useHistory();
@@ -17,6 +14,7 @@ const WriteSuccessComponent = (props) => {
     const {
         catNm = '',
         starNm = '',
+        starImgUrl = '',
     } = starDetail;
     
 
@@ -31,8 +29,10 @@ const WriteSuccessComponent = (props) => {
         <main className='write-main'>
             <section className="app-success-header">
                 <div className="container">
-                    <SpeechBubble content='멋진 영상 기대해주세요!'/> 
-                    <img alt="none" src={homeThum1_1} />
+                    <SpeechBubble content='멋진 영상 기대해주세요!'/>
+                    <span>
+                        <img alt="none" src={starImgUrl} />
+                    </span>
                     <h3>{starNm}</h3>
                     <span>{catNm}</span>
                 </div>

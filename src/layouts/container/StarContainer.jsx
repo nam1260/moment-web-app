@@ -4,7 +4,8 @@ import { getStarDetailAsync } from "redux/star";
 
 
 const mapStateToProps = (state) => ({
-    starDetail: state.star.starDetail
+    starDetail: state.star.starDetail,
+    isLoading: state.star.isLoading,
 })
 
 const mapDispatchToProps = (dispatch) => ({

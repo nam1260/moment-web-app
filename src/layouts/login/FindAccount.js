@@ -19,9 +19,16 @@ const closeIcon = "/assets/icons/ico-close.png";
 const REG_USER_INPUT_PHONE = "휴대폰 번호 (숫자만)";
 const REG_USER_CHECK_PHONE = "휴대폰 번호 인증이 완료되었습니다.";
 
+const MODAL_TYPE = {
+    INIT: 0,
+    PHONE:1,
+    NOTI:2,
+}
+
 export default function LoginComponent() {
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
+    const [modalType, setModalType] = useState(MODAL_TYPE.INIT);
     const openModal = () => {
         setShowModal(true);
     };
@@ -80,14 +87,25 @@ export default function LoginComponent() {
     const findAccount = ()=>{
         console.log('inputs =' + JSON.stringify(inputs));
         
-        AWSManager.findUserId({
-            userNm : name,
-            phoneNum : phoneNumber
-        }).then((result)=> {
-            console.log(JSON.stringify(result));
-        }).catch(e => {
-            console.error(e.message);
-        });
+        if(isAvailableFindAcount) {
+            AWSManager.findUserId({
+                userNm : name,
+                phoneNum : phoneNumber
+            }).then((result)=> {
+                console.log(JSON.stringify(result));
+                const nextInputs = {
+                    ...inputs,  
+                    'userId': result.data.userId,
+                }
+                setInputs(nextInputs);
+                setModalType(MODAL_TYPE.NOTI);
+                openModal();
+            }).catch(e => {
+                console.error(e.message);
+            });
+        } else {
+            alert("이름 입력 및 휴대폰 인증을 완료해주세요.");
+        }
     } 
     
     const makeSMSKeys =() => {
@@ -139,27 +157,80 @@ export default function LoginComponent() {
         }
         setInputs(nextInputs);
         console.log('certificatePhone = ' + phoneNumber + ', authNum =' + authNum);
-        openModal();
-        // AWSManager.verifySMSNumber(smsParam).then((result)=> {
-        //     if(result.data && result.data.indexOf('202')){
-        //         console.log('문자 전송 성공');
-        //         openModal();
-        //     } else {
-        //         console.error('certificatePhone result =' + JSON.stringify(result));
-        //     }
-        // }).catch(e => {
-        //     console.error(e.message);
-        // });
+        AWSManager.verifySMSNumber(smsParam).then((result)=> {
+            if(result.data && result.data.indexOf('202')){
+                console.log('문자 전송 성공');
+                setModalType(MODAL_TYPE.PHONE);
+                openModal();
+            } else {
+                console.error('certificatePhone result =' + JSON.stringify(result));
+            }
+        }).catch(e => {
+            console.error(e.message);
+        });
     } 
 
     const confirmCerttificatePhone = () => {
         console.log('authNum = ' + authNum + ', validNumber =' + validNumber + ', confirm ? ' + (validNumber == authNum));
         
-        const nextInputs = {
-            ...inputs,  
+        setInputsAvalilables({
+            ...inputsAvalilables,  
             ['isPhone']: (validNumber == authNum),
-        }
-        setInputsAvalilables(nextInputs)
+        });
+    };
+    const PhoneInputComponent = () => {
+        return (
+            <div className="input_modal">
+                <div className="info_container">
+                    <div className="title_container">
+                        <span className="title">인증번호</span>
+                    </div>
+                    <div className="input_container">
+                        <input
+                            type="text"
+                            maxlength='6'
+                            onChange={onChangeOnlyNumber}
+                            name="validNumber"
+                            value={validNumber}
+                            placeholder={"숫자 6 자리 입력"}
+                        ></input>
+                        {/* <span>{smsTimerText}</span> */}
+                    </div>
+                    <div className="button_container">
+                        <button className="left_button" onClick={()=>{
+                            console.log('인증번호 취소'); 
+                            closeModal();
+                        }}>취소</button>
+                        <button className="right_button" onClick={()=>{
+                            console.log('인증번호 입력');
+                            confirmCerttificatePhone();
+                            closeModal();
+                        }}>확인</button>
+                    </div>
+                </div>
+            </div>
+        )
+    };
+    
+    const IdNotiComponent = () => {
+        return (
+            <div className="button_modal_noti">
+                <div className="info_container">
+                    <br/>
+                    <span className="title">아이디:</span>
+                    <span className="title">{inputs.userId}</span>
+                    <span className="description">문의는 아래 이메일을 참조해 주세요.</span>
+                    <span className="description">mtm.moment@gmail.com</span>
+                </div>
+                <div className="button_container">
+                    <button className="center_button" onClick={()=>{
+                            setShowModal(false);
+                        }}>
+                        확인
+                    </button>
+                </div>
+            </div>
+        )
     };
 
     let isAvailableFindAcount = (isPhone && isName);
@@ -210,40 +281,19 @@ export default function LoginComponent() {
                     </button>
                     {showModal ? 
                     <Modal setShowModal={setShowModal} blockClickBG={true}> 
-                        <div className="input_modal">
-                            <div className="info_container">
-                                <div className="title_container">
-                                    <span className="title">인증번호</span>
-                                </div>
-                                <div className="input_container">
-                                    <input
-                                        type="text"
-                                        maxlength='6'
-                                        onChange={onChangeOnlyNumber}
-                                        name="validNumber"
-                                        value={validNumber}
-                                        placeholder={"숫자 6 자리 입력"}
-                                    ></input>
-                                    {/* <span>{smsTimerText}</span> */}
-                                </div>
-                                <div className="button_container">
-                                    <button className="left_button" onClick={()=>{
-                                        console.log('인증번호 취소'); 
-                                        closeModal();
-                                    }}>취소</button>
-                                    <button className="right_button" onClick={()=>{
-                                        console.log('인증번호 입력');
-                                        confirmCerttificatePhone();
-                                        closeModal();
-                                    }}>확인</button>
-                                </div>
-                            </div>
-                        </div>
+                        {
+                            {
+                                [MODAL_TYPE.INIT] :   <></>,
+                                [MODAL_TYPE.PHONE] : PhoneInputComponent(),
+                                [MODAL_TYPE.NOTI] : IdNotiComponent(),
+                            }[modalType]
+                        }
                     </Modal> : null}
                 </div>
             </section>
             <section className="login-options">
                 <div>
+                    <a onClick={()=> { history.push('/addAccount') }}>회원가입</a>
                     <a onClick={()=> { history.push('/findPassword') }}>비밀번호 찾기</a>
                 </div>
             </section>
