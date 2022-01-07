@@ -79,7 +79,7 @@ const WriteComponent = (props) => {
     const [isOver300ModalOpen, setIsOver300ModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
     const [count, setCount] = useState(0);
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState();
     const history = useHistory();
     const textareaElement = useRef();
     const { id : starId } = props.match.params;
@@ -89,11 +89,12 @@ const WriteComponent = (props) => {
         user,
         getStarDetailAsync,
     } = props;
-
+    
     const {
         price = 0,
         catNm = '',
         starNm = '',
+        starImgUrl = '',
     } = starDetail;
     
     const { userId } = user;
@@ -244,7 +245,7 @@ const WriteComponent = (props) => {
                             content={starNm}
                         />
                         <div>
-                            <img alt="none" src={homeThum1_1} />
+                            <img alt="none" src={starImgUrl} />
                         </div>
                     </section>
                     <WriteLabel 

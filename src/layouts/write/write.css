@@ -189,6 +189,11 @@
     margin-bottom: 30px;
 }
 
+.write-main > section.app-write-body > div > section > div:nth-child(2) > img {
+    width: 160px;
+    height: 160px;
+}
+
 .write-main .modal-content.warning-modal > div:nth-child(2) {
     font-size: 28px;
     line-height: 1.36;
@@ -222,7 +227,19 @@
     margin-bottom: 0px;
 }
 
-.app-success-header > .container > span {
+.app-success-header > .container > span:nth-child(2) {
+    width: 150px;
+    height: 149px;
+    overflow: hidden;
+    border-radius: 150px;
+}
+
+.app-success-header > .container > span:nth-child(2) > img {
+    width: 150px;
+    height: 150px;
+}
+
+.app-success-header > .container > span:last-child {
     opacity: 0.8;
     font-size: 28px;
     line-height: 1;

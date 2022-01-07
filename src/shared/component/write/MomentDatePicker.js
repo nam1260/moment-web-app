@@ -50,7 +50,8 @@ export default function MomentDatePicker({ setDate }) {
         const fullOfYear = startDate.getFullYear();
         let fullOfMonth = startDate.getMonth()+1;
         fullOfMonth = fullOfMonth < 10 ? `0${fullOfMonth}` : fullOfMonth
-        const fullOfDate = startDate.getDate();
+        let fullOfDate = startDate.getDate();
+        fullOfDate = fullOfMonth < 10 ? `0${fullOfDate}` : fullOfDate
         setDate(`${fullOfYear}${fullOfMonth}${fullOfDate}`)
     }, [startDate])
     
@@ -62,20 +63,15 @@ export default function MomentDatePicker({ setDate }) {
                     <img alt="none" src={downArrow} />
                 </div>
             </DateLabel>
-            
-            <TimeLabel>
-                {value.split("/")[1]}분 까지
-            </TimeLabel>
         </div>
       ));
     return (
         <DatePicker 
-            showTimeSelect
             locale="ko"
             selected={startDate}
             customInput={<ExampleCustomInput />}
             onChange={(date) => setStartDate(date)}
-            dateFormat="yyyy-MM-dd/hh:mm"
+            dateFormat="yyyy-MM-dd"
         />
             
     )
