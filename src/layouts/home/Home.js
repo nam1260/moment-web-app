@@ -5,7 +5,7 @@ import "./home.css";
 import TopStarComponent from "shared/component/home/TopStar.component";
 import RequestStarComponent from "shared/component/home/RequestStar.component";
 import ContactModal from "shared/component/home/ContactModal.component";
-const homeImage = "/assets/images/mov.png";
+const homeImage = "/assets/images/home_main.jpg";
 const moveArrowPath = "/assets/icons/home-arrow.png";
 const crownPath = "/assets/icons/icoCrown.png";
 const desThumb1 = "/assets/images/main-1.png";
