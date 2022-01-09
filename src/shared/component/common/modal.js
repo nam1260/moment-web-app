@@ -27,6 +27,7 @@ const Modal = styled.div`
         bottom: 0px;
         line-height: 110px;
         text-align: center;
+        cursor: pointer;
         & > div {
             flex: 1;
             font-size: 34px;
@@ -42,6 +43,7 @@ const Modal = styled.div`
                 background-color: #f0f0f0;
                 color: #444444;
             }
+            
         }
     }
 
