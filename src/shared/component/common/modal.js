@@ -50,7 +50,7 @@ const Modal = styled.div`
     @media (max-width: 750px) {
         width: min(70vw, ${(props) => props.theme.width + "px"});
         height: min(
-            ${(props) => props.theme.ratio * 70 + "vw"},
+            ${(props) => props.theme.ratio * 90 + "vw"},
             ${(props) => props.theme.height + "px"}
         );
 
