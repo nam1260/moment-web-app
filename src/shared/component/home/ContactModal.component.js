@@ -167,7 +167,7 @@ export default function ContactModal({ isModalOpen, setIsModalOpen, contactTitle
             }
             onClickHandlerConfirm={() => setIsModalOpen(false)}
             width={650}
-            height={860}
+            height={800}
         />
     )
 }
