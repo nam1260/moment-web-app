@@ -23,6 +23,8 @@ main {
     position: relative;
     left:50%;
     transform: translateX(-50%);
+    width: 750px;
+    height: 380px;
     top:0%;
 }
 
