@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback,useState } from "react";
 import "App.css";
 import "Common.css";
 import "./home.css";
 import TopStarComponent from "shared/component/home/TopStar.component";
 import RequestStarComponent from "shared/component/home/RequestStar.component";
-
-
+import ContactModal from "shared/component/home/ContactModal.component";
 const homeImage = "/assets/images/mov.png";
 const moveArrowPath = "/assets/icons/home-arrow.png";
 const crownPath = "/assets/icons/icoCrown.png";
@@ -21,6 +20,15 @@ function Home({ history, getStarListAsync, starList}) {
         document.documentElement.scrollTo({ top: 0, left: 0 }) 
         getStarListAsync();
     }, [])
+
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+    const onClickContactHandler = useCallback(()=>{
+        setIsModalOpen(true);
+    },[])
 
     return (
         <main>
@@ -109,8 +117,7 @@ function Home({ history, getStarListAsync, starList}) {
                     <div className="footer-list">
                         <span onClick={() => history.push('/doc/3')}>이용약관</span>
                         <span onClick={() => history.push('/doc/2')}>개인정보처리방침</span>
-                        <span>고객센터</span>
-                        <span>파트너 문의</span>
+                        <span onClick={onClickContactHandler}>고객센터 & 파트너 문의</span>
                     </div>
                     <div className="footer-sns">
                         <img alt="none" src={instaLogo} />
@@ -118,8 +125,13 @@ function Home({ history, getStarListAsync, starList}) {
                     </div>
                 </div>
             </section>
+            <ContactModal
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}/>
         </main>
     );
 }
 
 export default Home;
+
+
