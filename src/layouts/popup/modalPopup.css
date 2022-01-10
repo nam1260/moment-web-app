@@ -400,20 +400,20 @@ main {
 }
 .modalContainer .button_modal_detail .info_container .id{
     display: block;
-    font-size: min(6vw , 26px);
+    font-size: min(2vw , 26px);
     letter-spacing: -0.65px;
     text-align: left;
     color: #ff723a;
-    margin-bottom: min(7vw , 31px);
+    margin-bottom: min(3vw , 31px);
 }
 .modalContainer .button_modal_detail .info_container .title{
     display: block;
-    font-size: min(9vw , 38px);
+    font-size: min(4vw , 38px);
     font-weight: bold;
     letter-spacing: -0.95px;
     text-align: left;
     color: #000000;
-    margin-bottom: min(3.5vw , 19px);
+    margin-bottom: min(2vw , 19px);
 
     white-space: nowrap;
     overflow: hidden;
@@ -422,7 +422,7 @@ main {
 .modalContainer .button_modal_detail .info_container .description{
     display: block;
     height: min(20vw, 280px);
-    font-size: min(7vw , 30px);
+    font-size: min(3vw , 30px);
     font-style: normal;
     line-height: 1.27;
     letter-spacing: -0.75px;
@@ -431,12 +431,12 @@ main {
     margin-bottom: min(1vw , 10px);
 
     /* white-space: nowrap; */
-    overflow: hidden;
+    overflow: auto;
     text-overflow: ellipsis;
 }
 .modalContainer .button_modal_detail .info_container .info{
     display: block;
-    font-size: min(6vw , 26px);
+    font-size: min(2vw , 26px);
     line-height: 1.54;
     letter-spacing: -0.65px;
     text-align: left;
