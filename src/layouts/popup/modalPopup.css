@@ -431,9 +431,8 @@ main {
     margin-bottom: min(1vw , 10px);
 
     /* white-space: nowrap; */
-    overflow: hidden;
+    overflow: auto;
     text-overflow: ellipsis;
-    overflow-y:"scroll";
 }
 .modalContainer .button_modal_detail .info_container .info{
     display: block;
