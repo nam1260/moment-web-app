@@ -308,8 +308,8 @@ const WriteComponent = (props) => {
                         결제하고 사연 전송하기!
                     </div>
                     <StyledNoti>‘결제하고 사연 전송하기' 버튼을 누르시는 것은 당신이 모먼트의 <br/>
-                        <a onClick={() => history.push('/doc/3')}> 이용약관 </a> 및
-                        <a onClick={() => history.push('/doc/2')}> 개인정보처리방침 </a> 에 동의하시는 것으로 간주 됩니다.</StyledNoti>
+                        <a onClick={() => history.push('/doc/3')}>이용약관 </a> 및
+                        <a onClick={() => history.push('/doc/2')}>개인정보처리방침 </a> 에 동의하는 것으로 간주 됩니다.</StyledNoti>
                 </div>
 
 
