@@ -21,8 +21,7 @@ const MODAL_TYPE = {
     BUTTON: 1,
     BUTTONS: 2,
     DETAIL:3,
-    UPLOAD1:4,
-    UPLOAD2:5,
+    UPLOAD:4,
 }
 
 
@@ -97,7 +96,8 @@ function ReceiveMessageHistory({isLogined}) {
             }}>수락취소</button>);
         let buttonUpload = (
             <button className="right_button" onClick={()=>{
-                setModalType(MODAL_TYPE.UPLOAD1);
+                setButtonType(MSG_STATE_COMPLETED);
+                setModalType(MODAL_TYPE.UPLOAD);
                 setShowModal(true);
             }}>업로드</button>);
         let buttons = [
@@ -149,6 +149,26 @@ function ReceiveMessageHistory({isLogined}) {
             </div>
         )
     };
+
+    const uploadModalComponent = () => {
+        return (
+            <div className="button_modal_detail">
+                <div className="info_container">
+                    <br/>
+                    <span className="title">영상을 업로드 해주세요.</span>
+                </div>
+                <div className="button_container">
+                    <button className="center_button" onClick={()=>{
+                            updateMessage(buttonType);
+                            setShowModal(false);
+                        }}>
+                        전송하기
+                    </button>
+                </div>
+            </div>
+        )
+    };
+
     const getButtons = (state, message)=> {
         let buttonDetail = (
         <button className="normal" onClick={()=>{
@@ -203,7 +223,8 @@ function ReceiveMessageHistory({isLogined}) {
         <button className="highlight"
             onClick={()=>{
                 console.log('buttonUploadVideo');
-                setModalType(MODAL_TYPE.UPLOAD1);
+                setButtonType(MSG_STATE_COMPLETED);
+                setModalType(MODAL_TYPE.UPLOAD);
                 setSelectedMessage(message);
                 setShowModal(true);
             }
@@ -275,7 +296,6 @@ function ReceiveMessageHistory({isLogined}) {
         )
     };
 
-
     const updateMessage =(state) => {
         console.log('updateMessage state = ' + state);
         console.log('updateMessage selectedMessage = ' , selectedMessage);
@@ -334,8 +354,7 @@ function ReceiveMessageHistory({isLogined}) {
                                 [MODAL_TYPE.INIT] :   <></>,
                                 [MODAL_TYPE.BUTTONS] : buttonsModalComponent(),
                                 [MODAL_TYPE.DETAIL] : detailModalComponent(),
-                                [MODAL_TYPE.UPLOAD1] : detailModalComponent(),
-                                [MODAL_TYPE.UPLOAD2] : detailModalComponent(),
+                                [MODAL_TYPE.UPLOAD] : uploadModalComponent(),
                             }[modalType]
                         }
                     </Modal> : null}
