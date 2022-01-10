@@ -29,6 +29,7 @@ const GET_SENT_MSG_LIST = "/msg/get-sent-msg-list";
 const UPDATE_MSG_INFO = "/msg/update-msg-info";
 const UPDATE_STAR_MSG_INFO = "/msg/update-star-msg-info";
 const UPDATE_USER_MSG_INFO = "/msg/update-user-msg-info";
+const DELETE_MSG_INFO = "/msg/delete-msg-info";
 const GET_FAN_MSG_LIST = "/msg/get-fan-msg-list";
 const UPDATE_FAN_MSG = "/msg/update-fan-msg";
 
@@ -148,6 +149,10 @@ const AWSManager = (function() {
         console.log("updateUserMsgInfo = " +JSON.stringify(params));
         return await requestPost(getUrl(UPDATE_USER_MSG_INFO), params);
     };
+    const deleteMsgInfo = async (params) => {
+        console.log("deleteMsgInfo = " +JSON.stringify(params));
+        return await requestPost(getUrl(DELETE_MSG_INFO), params);
+    };
     /**
      * 팬으로부터 받은 사연을 조회힌다.
      * @param params
@@ -224,6 +229,7 @@ const AWSManager = (function() {
         updateMsgInfo,
         updateStarMsgInfo,
         updateUserMsgInfo,
+        deleteMsgInfo,
         getFanMsgList,
         getStarList,
         sendMessageToStar,

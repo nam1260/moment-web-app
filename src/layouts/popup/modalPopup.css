@@ -432,7 +432,7 @@ main {
 
     /* white-space: nowrap; */
     overflow: auto;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
 }
 .modalContainer .button_modal_detail .info_container .info{
     display: block;

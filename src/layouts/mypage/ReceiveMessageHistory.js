@@ -18,9 +18,10 @@ const listStatus = {
 }
 const MODAL_TYPE = {
     INIT: 0,
+    BUTTON: 1,
+    BUTTONS: 2,
     DETAIL:3,
-    UPLOAD1:4,
-    UPLOAD2:5,
+    UPLOAD:4,
 }
 
 
@@ -39,12 +40,78 @@ function ReceiveMessageHistory({isLogined}) {
     const IDX_SENDDER = 0;
     const IDX_RECEIVER = 1;
 
+    const MSG_STATE_BRFORE = "0";
+    const MSG_STATE_ACCEPTED = "1";
+    const MSG_STATE_CANCELED = "2";
+    const MSG_STATE_COMPLETED = "3";
+
     const [messageList, setMessageList] = useState([]);
     const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(MODAL_TYPE.INIT);
     const [selectedMessage, setSelectedMessage] = useState(null);
+    const [buttonType, setButtonType] = useState(MSG_STATE_ACCEPTED);
 
+    const buttonsModalComponent = () => {
+        return (
+            <div className="button_modal_short">
+                <div className="info_container">
+                    <br/>
+                    <span className="title">사연을</span>
+                    <span className="title">{buttonType == MSG_STATE_ACCEPTED ? '수락': '거절' }하시겠습니까?</span>
+                </div>
+                <div className="button_container">
+                    <button className="left_button" onClick={()=>{
+                            setShowModal(false);
+                        }}>
+                        아니요
+                    </button>
+                    <button className="right_button" onClick={()=>{
+                            updateMessage(buttonType);
+                            setShowModal(false);
+                        }}>
+                        예
+                    </button>
+                </div>
+            </div>
+        )
+    };
+
+    const getButtonsForDetails = (state)=> {
+        let buttonReject = (
+            <button className="left_button" onClick={()=>{
+                updateMessage(MSG_STATE_CANCELED);
+                setShowModal(false);
+            }}>거절</button>);
+        let buttonAccept = (
+            <button className="right_button" onClick={()=>{
+                updateMessage(MSG_STATE_ACCEPTED);
+                setShowModal(false);
+            }}>수락</button>);
+
+        let buttonReject2 = (
+            <button className="left_button" onClick={()=>{
+                updateMessage(MSG_STATE_CANCELED);
+                setShowModal(false);
+            }}>수락취소</button>);
+        let buttonUpload = (
+            <button className="right_button" onClick={()=>{
+                setButtonType(MSG_STATE_COMPLETED);
+                setModalType(MODAL_TYPE.UPLOAD);
+                setShowModal(true);
+            }}>업로드</button>);
+        let buttons = [
+            [buttonReject, buttonAccept], // 확인중 : 자세히 보기, 전달취소
+            [buttonReject2, buttonUpload], // 수락됨 : 자세히 보기
+            [], // 거절됨 
+            [] // 배송완료 
+        ]
+        return (
+            buttons[state].map(button => (
+                button
+            ))
+        );
+    };
     const detailModalComponent = () => {
         return (
             <div className="button_modal_detail">
@@ -77,20 +144,31 @@ function ReceiveMessageHistory({isLogined}) {
                     </div>
                 </div>
                 <div className="button_container">
-                    <button className="left_button" onClick={()=>{
+                    {getButtonsForDetails(selectedMessage.msgStatus)}
+                </div>
+            </div>
+        )
+    };
+
+    const uploadModalComponent = () => {
+        return (
+            <div className="button_modal_detail">
+                <div className="info_container">
+                    <br/>
+                    <span className="title">영상을 업로드 해주세요.</span>
+                </div>
+                <div className="button_container">
+                    <button className="center_button" onClick={()=>{
+                            updateMessage(buttonType);
                             setShowModal(false);
                         }}>
-                        거절
-                    </button>
-                    <button className="right_button" onClick={()=>{
-                            setShowModal(false);
-                        }}>
-                        수락
+                        전송하기
                     </button>
                 </div>
             </div>
         )
     };
+
     const getButtons = (state, message)=> {
         let buttonDetail = (
         <button className="normal" onClick={()=>{
@@ -124,7 +202,10 @@ function ReceiveMessageHistory({isLogined}) {
         <button className="third"
             onClick={()=>{
                 console.log('buttonRefuseThird');
+                setModalType(MODAL_TYPE.BUTTONS);
                 setSelectedMessage(message);
+                setButtonType(MSG_STATE_CANCELED);
+                setShowModal(true);
             }
         }> 거절
         </button>
@@ -132,14 +213,18 @@ function ReceiveMessageHistory({isLogined}) {
         let buttonAcceptThird = (
         <button className="fill third" onClick={()=>{
                 console.log('buttonAcceptThird');
+                setModalType(MODAL_TYPE.BUTTONS);
                 setSelectedMessage(message);
+                setButtonType(MSG_STATE_ACCEPTED);
+                setShowModal(true);
             }
         }> 수락</button>);
         let buttonUploadVideo = (
         <button className="highlight"
             onClick={()=>{
                 console.log('buttonUploadVideo');
-                setModalType(MODAL_TYPE.UPLOAD1);
+                setButtonType(MSG_STATE_COMPLETED);
+                setModalType(MODAL_TYPE.UPLOAD);
                 setSelectedMessage(message);
                 setShowModal(true);
             }
@@ -211,6 +296,21 @@ function ReceiveMessageHistory({isLogined}) {
         )
     };
 
+    const updateMessage =(state) => {
+        console.log('updateMessage state = ' + state);
+        console.log('updateMessage selectedMessage = ' , selectedMessage);
+        if(state) {
+            selectedMessage.msgStatus = state;
+            selectedMessage.mediaLinkUrl = selectedMessage.mediaLinkUrl ? selectedMessage.mediaLinkUrl : "";
+            selectedMessage.msgComment = selectedMessage.msgComment ? selectedMessage.msgComment : "";
+        }
+        AWSManager.updateStarMsgInfo(
+            selectedMessage
+        ).then((result)=>{
+            console.log(result);
+        });
+    };
+
     useEffect(() =>{
         console.log("랜더링 시마다 호출");
         let userId = StorageManager.loadUserInfo() ? StorageManager.loadUserInfo().userId : "";
@@ -252,9 +352,9 @@ function ReceiveMessageHistory({isLogined}) {
                         {
                             {
                                 [MODAL_TYPE.INIT] :   <></>,
+                                [MODAL_TYPE.BUTTONS] : buttonsModalComponent(),
                                 [MODAL_TYPE.DETAIL] : detailModalComponent(),
-                                [MODAL_TYPE.UPLOAD1] : detailModalComponent(),
-                                [MODAL_TYPE.UPLOAD2] : detailModalComponent(),
+                                [MODAL_TYPE.UPLOAD] : uploadModalComponent(),
                             }[modalType]
                         }
                     </Modal> : null}
