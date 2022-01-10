@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 import { WrapLoginedComponent } from 'shared/component/common/WrapLoginedComponent';
 import StorageManager from 'managers/StorageManager';
 import { Input, message } from 'antd';
+import Styled from "styled-components"
 import AWSManager from "managers/AWSManager";
 
 const {
@@ -17,6 +18,14 @@ const {
 } = AWSManager;
 const letterImage = "/assets/images/icoLetter.png";
 const iconFace = "/assets/icons/icoFace6.png";
+
+
+
+const StyledNoti = Styled.div`
+
+    
+    text-align: center;
+`
 
 
 const ExampleModalContent = (    
@@ -298,7 +307,12 @@ const WriteComponent = (props) => {
                     <div onClick={() => onClickSendStory()} >
                         결제하고 사연 전송하기!
                     </div>
+                    <StyledNoti>‘결제하고 사연 전송하기' 버튼을 누르시는 것은 당신이 모먼트의 <br/>
+                        <a onClick={() => history.push('/doc/3')}> 이용약관 </a> 및
+                        <a onClick={() => history.push('/doc/2')}> 개인정보처리방침 </a> 에 동의하시는 것으로 간주 됩니다.</StyledNoti>
                 </div>
+
+
             </section>
         </main>
     )
