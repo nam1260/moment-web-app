@@ -286,7 +286,7 @@ const WriteComponent = (props) => {
                     <div className="write-wrapper">
                         <div>사연 입력</div>
                         <span style={{float: 'right'}}>{count} / 300</span>
-                        <textarea onKeyUp={onKeyupCountStoryCharacter} ref={textareaElement} placeholder='사연을 입력해주세요!'>
+                        <textarea onKeyUp={onKeyupCountStoryCharacter} ref={textareaElement} placeholder='축하 받고 싶은 사람들의 이름/별명과 사연, 축하 받을 이벤트, 해당 이벤트의 날짜를 적어서 최애의 축하를 더욱 의미있게 만들어 보세요! 최소 50자 - 최대 300자'>
                         </textarea>
                     </div>
 
