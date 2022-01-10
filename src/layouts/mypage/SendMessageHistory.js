@@ -39,6 +39,11 @@ function SendMessageHistory({isLogined}) {
     ];
     const IDX_SENDDER = 0;
     const IDX_RECEIVER = 1;
+
+    const MSG_STATE_BRFORE = "0";
+    const MSG_STATE_ACCEPTED = "1";
+    const MSG_STATE_CANCELED = "2";
+    const MSG_STATE_COMPLETED = "3";
     
     const [messageList, setMessageList] = useState([]);
     const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
@@ -79,7 +84,8 @@ function SendMessageHistory({isLogined}) {
                         아니요
                     </button>
                     <button className="right_button" onClick={()=>{
-                            setShowModal(false);
+                            deleteMessage();
+                            setModalType(MODAL_TYPE.BUTTON);
                         }}>
                         예
                     </button>
@@ -88,9 +94,70 @@ function SendMessageHistory({isLogined}) {
         )
     };
 
-    const detailModalComponent = () => {
+    const getButtonsForDetails = (state)=> {
+
+        let buttonExit = (
+            <button className="left_button" onClick={()=>{
+                setShowModal(false);
+            }}>닫기</button>);
+        let buttonDelete = (
+            <button className="right_button" onClick={()=>{
+                deleteMessage();
+                setModalType(MODAL_TYPE.BUTTON);
+            }}>전달취소</button>);
+        let buttonLink = (
+            <button className="right_button" onClick={()=>{
+                setModalType(MODAL_TYPE.UPLOAD1);
+                setShowModal(true);
+            }}>수락</button>);
+        let buttons = [
+            [buttonExit, buttonDelete], // 확인중 : 자세히 보기, 전달취소
+            [], // 수락됨 : 자세히 보기
+            [], // 거절됨 
+            [buttonExit, buttonLink] // 배송완료 
+        ]
         return (
-            <div className="button_modal_short"></div>
+            buttons[state].map(button => (
+                button
+            ))
+        );
+    };
+    const detailModalComponent = () => {
+        console.log('detailModalComponent selectedMessage = ' , selectedMessage);
+        return (
+            <div className="button_modal_detail">
+                <div className="info_container">
+                    <br/>
+                    <div>
+                        <span className="id">
+                            #{String(selectedMessage.msgId).padStart(7, 0)}
+                        </span>
+                        <span className="title">
+                            {selectedMessage.msgTitle}
+                        </span>
+                        <span className="description">
+                            {selectedMessage.msgContents}
+                        </span>
+                        <div className="border">
+                        </div>
+                        <span className="info">
+                            수신자
+                            <b>{selectedMessage.starId}</b>
+                        </span>
+                        <span className="info">
+                            작성일
+                            <b>{new Date(selectedMessage.regDate).toLocaleDateString()}</b>
+                        </span>
+                        <span className="info">
+                            희망배송일
+                            <b>{selectedMessage.deliveryDate.substring(0,4) + '. ' + selectedMessage.deliveryDate.substring(4, 6)  + '. ' + selectedMessage.deliveryDate.substring(6,8) + '.'}</b>
+                        </span>
+                    </div>
+                </div>
+                <div className="button_container">
+                    {getButtonsForDetails(selectedMessage.msgStatus)}
+                </div>
+            </div>
         )
     };
     const getButtons = (state, message)=> {
@@ -163,7 +230,7 @@ function SendMessageHistory({isLogined}) {
                                     #{String(message.msgId).padStart(7, 0)}
                                 </span>
                                 <span className="title">
-                                    {message.title}
+                                    {message.msgTitle}
                                 </span>
                                 <span className="description">
                                     {message.msgContents}
@@ -185,7 +252,7 @@ function SendMessageHistory({isLogined}) {
                                     <b className="highlight">{stateString[message.msgStatus][IDX_SENDDER]}</b>
                                 </span>
                                 <div className="messageButton">
-                                    {getButtons(message.msgStatus)}
+                                    {getButtons(message.msgStatus, message)}
                                 </div>
                             </div>
                         )
@@ -194,7 +261,17 @@ function SendMessageHistory({isLogined}) {
             </div>
         )
     };
-    
+
+    const deleteMessage =() => {
+        console.log('deleteMessage selectedMessage = ' , selectedMessage);
+        AWSManager.deleteMsgInfo({
+            userId : selectedMessage.userId,
+            msgId : selectedMessage.msgId,
+        }).then((result)=>{
+            console.log(result);
+        });
+    };
+
     useEffect(() =>{
         console.log("랜더링 시마다 호출");
         let userId = StorageManager.loadUserInfo() ? StorageManager.loadUserInfo().userId : "";
