@@ -109,7 +109,7 @@ function SendMessageHistory({isLogined}) {
             <button className="right_button" onClick={()=>{
                 setModalType(MODAL_TYPE.UPLOAD1);
                 setShowModal(true);
-            }}>수락</button>);
+            }}>영상확인</button>);
         let buttons = [
             [buttonExit, buttonDelete], // 확인중 : 자세히 보기, 전달취소
             [], // 수락됨 : 자세히 보기
