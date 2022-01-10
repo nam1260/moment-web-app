@@ -111,6 +111,8 @@ function Home({ history, getStarListAsync, starList}) {
                         <p>사업자 등록 번호 : 255-49-00797</p>
                         <p>상호: 모먼트</p>
                         <p>대표: 박재영</p>
+                        <p>사업장 소재지: 서울특별시 송파구 송파대로32길 8, 1동 712호 (가락동, 가락우성아파트)</p>
+                        <p>연락처: 010-8789-3418</p>
                         <p>정보통신업 / 소프트웨어 개발 및 공급업</p>
                         <p>E-mail: mtm.moment@gmail.com</p>
                     </div>
