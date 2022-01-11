@@ -102,9 +102,7 @@ const PaymentRow = styled.div`
 `
 
 
-export default function PaymentModal({ isModalOpen, setIsModalOpen  }) {
-
-
+export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButtonClick  }) {
     return (
         <MomentModal
             isOpen={isModalOpen}
@@ -126,18 +124,18 @@ export default function PaymentModal({ isModalOpen, setIsModalOpen  }) {
                     <Divider />
                     <PaymentLabel>결제 방식을 선택해주세요</PaymentLabel>
                     <PaymentRow>
-                        <NaverPaymentComponent />
-                        <KaKaoPaymentComponent />
+                        <NaverPaymentComponent onClick={paymentButtonClick} />
+                        <KaKaoPaymentComponent onClick={paymentButtonClick}/>
                     </PaymentRow>
                     <PaymentRow>
-                        <TossPaymentComponent />
-                        <NormalPaymentComponent />
+                        <TossPaymentComponent onClick={paymentButtonClick}/>
+                        <NormalPaymentComponent onClick={paymentButtonClick}/>
                     </PaymentRow>
                 </PaymentComponent>
             }
             onClickHandlerConfirm={() => setIsModalOpen(false)}
             width={650}
-            height={760}
+            height={730}
         />
     )
 }

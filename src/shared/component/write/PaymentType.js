@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from "styled-components"
-import { kakaoPaymentService } from '../../service/payment.service';
 
 const naverImage = "/assets/images/payIcoNaver.png"
 const kakaoImage = "/assets/images/payIcoKakao.png"
 const normalImage = "/assets/images/payIcoNormal.png"
 const tossImage = "/assets/images/payIcoToss.png"
-const kakaoServiceInstance = new kakaoPaymentService();
 
 const PaymentBox = styled.div`
     height: 80px;
@@ -85,7 +83,7 @@ const NormalPaymentBox = styled(PaymentBox)`
         height: min(14vw, 120px);
 
         & > div:first-child {
-            font-size: min(2vw, 24px);
+            font-size: min(3vw, 24px);
             line-height: min(4vw, 24px);
             & > img {
                 width: min(6vw, 36px);
@@ -95,43 +93,40 @@ const NormalPaymentBox = styled(PaymentBox)`
         }
 
         & > div:nth-child(2) {
-            font-size: min(1vw, 16px);
+            font-size: min(2vw, 16px);
         }
     }
     
 `
 
-const NaverPayment = () => {
+const NaverPayment = ({onClick}) => {
     return (
-        <NaverPaymentBox>
+        <NaverPaymentBox onClick={onClick}>
             <img src={naverImage} alt="none" />
         </NaverPaymentBox>
     )
 }
 
-const KaKaoPayment = () => {
-    const requirePaymentApi = () => {
-        kakaoServiceInstance.requirePrepareApi();
-    }
+const KaKaoPayment = ({onClick}) => {
     return (
-        <KaKaoPaymentBox onClick={() => {requirePaymentApi()}}>
+        <KaKaoPaymentBox onClick={onClick}>
             <img src={kakaoImage} alt="none" />
         </KaKaoPaymentBox>
     )
 }
 
-const TossPayment = () => {
+const TossPayment = ({onClick}) => {
     return (
-        <TossPaymentBox>
+        <TossPaymentBox onClick={onClick}>
             <img src={tossImage} alt="none" />
         </TossPaymentBox>
     )
 }
 
 
-const NormalPayment = () => {
+const NormalPayment = ({onClick}) => {
     return (
-        <NormalPaymentBox>
+        <NormalPaymentBox onClick={onClick}>
             <div>
                 <img src={normalImage} alt="none" />
                 일반 결제
@@ -147,6 +142,7 @@ const NormalPayment = () => {
 const PaymentComponent = (WrappedComponent) => {
     return class extends React.Component {
         render() {
+            console.log(this.props);
             return <WrappedComponent {...this.props} />
         }
     }
