@@ -63,6 +63,12 @@ const TopStarCard = styled.article`
       opacity: 0.8;
       margin: 0px;
     }
+    
+     & > p#price {
+        font-size: 15px;
+        font-weight: 600;
+        color: #ff723a;
+     }
   }
 
   @media (max-width: 750px) {
@@ -91,15 +97,21 @@ const TopStarCard = styled.article`
     }
 
     & > .article-footer > p {
-      font-size: min(4vw, 20px);
-    }
+      font-size: "min(4vw, 20px)"
+    }; 
+    
+    & > .article-footer > p#price {
+      font-size: "min(3vw, 10px)"
+    }; 
+    
+      
 
   }
 `;
 const dummyIcon = "/assets/icons/main-ico-dummy.png";
 const plusIcon = "/assets/icons/main-plus-request.png";
 
-function TopStarComponent({ name, secondary, imgPath, starId, history, isAdd }) {
+function TopStarComponent({ name, secondary,price, imgPath, starId, history, isAdd }) {
   const onClickEvent = isAdd ? () => console.log('Add') : () => history.push(`/star/${starId}`);
   // const onClickTBDEvent = () => message.warn("서비스 준비중입니다");
   
@@ -121,6 +133,7 @@ function TopStarComponent({ name, secondary, imgPath, starId, history, isAdd }) 
       <div className="article-footer">
         {isAdd || <b>{name}</b>}
         <p>{isAdd ? '요청해주세요' : secondary}</p>
+        <p id="price">{isAdd ? '' : (price > 0 ? `영상 가격 ${price.toLocaleString('ko-KR')}원` : '')}</p>
       </div>
     </TopStarCard>
   );
