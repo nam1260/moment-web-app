@@ -46,9 +46,8 @@ const ModalWrapper = styled.div`
     display:none;
 `
 
-
 function App() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     return (
         <Provider store={store}>
             <Router>

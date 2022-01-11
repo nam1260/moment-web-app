@@ -278,6 +278,7 @@
     color: #fff;
     padding:23px 0px;
     margin-top: 113px;
+    cursor: pointer;
 }
 
 @media (max-width: 750px) {

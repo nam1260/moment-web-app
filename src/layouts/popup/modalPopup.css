@@ -508,6 +508,7 @@ main {
     font-style: normal;
     line-height: normal;
     letter-spacing: -0.34px;
+
 }
 .button_modal_link .center_button {
     width: min(70vw,650px);
@@ -517,6 +518,7 @@ main {
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 
 

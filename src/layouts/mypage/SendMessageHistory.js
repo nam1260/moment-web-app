@@ -164,8 +164,8 @@ function SendMessageHistory({isLogined}) {
     };
     const videoLinkModalComponent = () => {
         console.log('detailModalComponent selectedMessage = ' , selectedMessage);
-        let link = selectedMessage.mediaLinkUrl ? selectedMessage.mediaLinkUrl : 'https://youtu.be/0vvCe4EHtus';
-        let comment = selectedMessage.msgComment ? selectedMessage.msgComment : '정말 축하드립니다!';
+        const link = selectedMessage.mediaLinkUrl ? selectedMessage.mediaLinkUrl : 'https://youtu.be/0vvCe4EHtus';
+        const comment = selectedMessage.msgComment ? selectedMessage.msgComment : '정말 축하드립니다!';
         return (
             <div className="button_modal_link">
                 <div className="info_container">
