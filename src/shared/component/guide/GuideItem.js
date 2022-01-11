@@ -42,6 +42,12 @@ const Item = styled.div`
         background-color: #e0e0e0;
         margin-bottom:77px;
     }
+    
+    & >div > img {
+        width: 100%;
+       
+    }
+    
 
     @media (max-width: 750px) {
         & > span {
@@ -57,6 +63,10 @@ const Item = styled.div`
             height: min(60vw , 320px);
             margin-bottom:min(10vw , 77px);
         }
+        & > div > img{
+            height: min(60vw , 320px);
+        }
+        
 
     }
 
@@ -64,7 +74,7 @@ const Item = styled.div`
 
 const underLineImage = "/assets/images/present-num-box.png"
 
-function GuideItemComponent({ title = "", index = 1 }) {
+function GuideItemComponent({ title = "", index = 1, imgSrc= "" }) {
   
     return (
         <Item>
@@ -74,7 +84,7 @@ function GuideItemComponent({ title = "", index = 1 }) {
             </span>
             <h3>{title}</h3>
             <div>
-                -
+                <img alt="none" src={imgSrc} />
             </div>
         </Item>
     )
