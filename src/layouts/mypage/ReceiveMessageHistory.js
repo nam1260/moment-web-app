@@ -11,6 +11,7 @@ import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager";
 
 const notFoundPath = "/assets/icons/icoFace3B.png"
+const editPath = "assets/icons/list-ico-edit.png"
 const listStatus = {
     INIT: 1,
     NOT_FOUND:2,
@@ -51,6 +52,7 @@ function ReceiveMessageHistory({isLogined}) {
     const [modalType, setModalType] = useState(MODAL_TYPE.INIT);
     const [selectedMessage, setSelectedMessage] = useState(null);
     const [buttonType, setButtonType] = useState(MSG_STATE_ACCEPTED);
+    const textareaElement = useRef();
 
     const buttonsModalComponent = () => {
         return (
@@ -152,10 +154,47 @@ function ReceiveMessageHistory({isLogined}) {
 
     const uploadModalComponent = () => {
         return (
-            <div className="button_modal_detail">
+            <div className="button_modal_input">
                 <div className="info_container">
                     <br/>
                     <span className="title">영상을 업로드 해주세요.</span>
+                    <div className="write-wrapper">
+                        <textarea 
+                            className="upload"
+                            onChange={(e) => {
+                                const { name, value } = e.target;
+                                const nextInputs = {
+                                    ...selectedMessage,  
+                                    [name]: value,
+                                };
+                                setSelectedMessage(nextInputs)}}
+                            value={selectedMessage.msgComment}
+                            ref={textareaElement} 
+                            name="msgComment"
+                            placeholder=" 메시지를 입력해주세요
+                            (ex. 영상 전달드립니다!"
+                        ></textarea>
+                    </div>
+                    <div className="input-url">
+                        <span>
+                            영상 링크
+                        </span>
+                        <input
+                            placeholder="ex) 영상 링크를 입력해주세요"
+                            type="text"
+                            onChange={(e) => {
+                                const { name, value } = e.target;
+                                const nextInputs = {
+                                    ...selectedMessage,  
+                                    [name]: value,
+                                };
+                                setSelectedMessage(nextInputs)}}
+                            value={selectedMessage.mediaLinkUrl}
+                            name="mediaLinkUrl"
+                        />
+                        <img alt="none" src={editPath}/>
+                        <br/>
+                    </div>
                 </div>
                 <div className="button_container">
                     <button className="center_button" onClick={()=>{
