@@ -191,29 +191,29 @@ const WriteComponent = (props) => {
     }
 
     const onClickSendStory = async () => {
-        try {
-            checkStoryValidation();
-        } catch(e) {
-            return false;
-        }
-        sendMessageToStar({
-            starId,
-            userId,
-            deliveryDate: date,
-            msgContents: textareaElement.current.value,
-            msgTitle: title,
-        })
-        .then((res) => {
-            setIsLoadingModalOpen(true); 
-            setTimeout(() => {
-                setIsLoadingModalOpen(false)
-                history.push(`/writesuccess/${starId}`)
-            }, 1000)
-        })
-        .catch((res) => {
-            message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
-        })
-        // setIsPaymentModalOpen(true);
+        // try {
+        //     checkStoryValidation();
+        // } catch(e) {
+        //     return false;
+        // }
+        // sendMessageToStar({
+        //     starId,
+        //     userId,
+        //     deliveryDate: date,
+        //     msgContents: textareaElement.current.value,
+        //     msgTitle: title,
+        // })
+        // .then((res) => {
+        //     setIsLoadingModalOpen(true); 
+        //     setTimeout(() => {
+        //         setIsLoadingModalOpen(false)
+        //         history.push(`/writesuccess/${starId}`)
+        //     }, 1000)
+        // })
+        // .catch((res) => {
+        //     message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
+        // })
+        setIsPaymentModalOpen(true);
     }
     
     return (
