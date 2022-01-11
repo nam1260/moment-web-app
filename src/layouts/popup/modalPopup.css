@@ -286,7 +286,7 @@ main {
 .modalContainer .button_modal_input .info_container .title  {
     display: inline-block;
     margin-bottom: min(1.5vw,15px);
-    width: min(70vw,650px);
+    width: 100%;
     font-family: "AppleSDGothicNeo";
     font-size: min(4vw, 36px);
     font-weight: 500;
@@ -297,6 +297,59 @@ main {
     text-align: center;
     color: #000;
 }
+.modalContainer .button_modal_input .info_container .input-url  {
+    display: inline-block;
+    margin-left: 10%;
+    width: 80%;
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: min(2vw, 20px);
+}
+.modalContainer .button_modal_input .info_container .input-url > span  {
+    display: inline-block;
+    height: 23px;
+    margin-top : min(4vw,40px);
+    margin-bottom: min(1.5vw,15px);
+    font-family: "AppleSDGothicNeo";
+    font-size: min(2.6vw, 26px);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.26px;
+    text-align: left;
+    color: #8f8f8f;
+    width: 80%;
+}
+
+.modalContainer .button_modal_input .info_container .input-url > input {
+    width: 90%;
+    height: min(10vw, 60px);
+    font-size: min(4vw, 36px);
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #101010;
+    border:none;
+}
+.modalContainer .button_modal_input .info_container .input-url > input::placeholder {
+    opacity: 0.4;
+    color: rgba(16, 16, 16, 0.4);
+}
+.modalContainer .button_modal_input .info_container .input-url > input::-webkit-outer-spin-button,
+.modalContainer .button_modal_input .info_container .input-url > input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.modalContainer .button_modal_input .info_container .input-url > img {
+    width: min(10vw, 44px);
+    height: min(10vw, 44px);
+    object-fit: contain;
+    float: right;
+}
+
+
 .modalContainer .button_modal_input .info_container .write-wrapper {
     margin-top: min(1.5vw,15px);
 }
@@ -319,9 +372,12 @@ main {
     font-size: 28px;
     border:1px solid #ddd;
     background-color: #fafafa;
-    height: 460px;
+    height: min(46vw, 460px);
     padding:30px;
     /* margin-top: 25px; */
+}
+.modalContainer .button_modal_input .info_container .write-wrapper > textarea.upload {
+    height: min(31vw, 310px);
 }
 .modalContainer .button_modal_input .info_container .write-wrapper > textarea::placeholder {
     font-size: 28px;
@@ -367,6 +423,15 @@ main {
     width: min(70vw,650px);
     height: min(14vw,110px);
     background: #ff723a;
+    color: #ffffff ;
+    border:none;
+    border-bottom-left-radius: min(5vw, 40px);
+    border-bottom-right-radius: min(5vw, 40px);
+}
+.button_modal_input .center_button_disable {
+    width: min(70vw,650px);
+    height: min(14vw,110px);
+    background-color: #ddd;
     color: #ffffff ;
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
