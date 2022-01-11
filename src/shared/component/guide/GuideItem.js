@@ -45,7 +45,6 @@ const Item = styled.div`
     
     & >div > img {
         width: 100%;
-       
     }
     
 
