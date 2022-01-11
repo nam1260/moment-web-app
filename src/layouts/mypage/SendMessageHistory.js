@@ -11,7 +11,7 @@ import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager";
 
 const notFoundPath = "/assets/icons/icoFace3B.png"
-const linkThumPath = "/assets/images/thum-link.png"
+const linkThumPath = "/assets/images/thumb-link.jpg"
 const listStatus = {
     INIT: 1,
     NOT_FOUND:2,
