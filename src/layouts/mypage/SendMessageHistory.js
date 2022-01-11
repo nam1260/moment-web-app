@@ -11,6 +11,7 @@ import AWSManager from "../../managers/AWSManager.js";
 import StorageManager from "../../managers/StorageManager";
 
 const notFoundPath = "/assets/icons/icoFace3B.png"
+const linkThumPath = "/assets/images/thum-link.png"
 const listStatus = {
     INIT: 1,
     NOT_FOUND:2,
@@ -44,6 +45,7 @@ function SendMessageHistory({isLogined}) {
     const MSG_STATE_ACCEPTED = "1";
     const MSG_STATE_CANCELED = "2";
     const MSG_STATE_COMPLETED = "3";
+    const MSG_STATE_DELETED = "4";
     
     const [messageList, setMessageList] = useState([]);
     const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
@@ -107,7 +109,7 @@ function SendMessageHistory({isLogined}) {
             }}>전달취소</button>);
         let buttonLink = (
             <button className="right_button" onClick={()=>{
-                setModalType(MODAL_TYPE.UPLOAD1);
+                setModalType(MODAL_TYPE.VIDEO1);
                 setShowModal(true);
             }}>영상확인</button>);
         let buttons = [
@@ -156,6 +158,29 @@ function SendMessageHistory({isLogined}) {
                 </div>
                 <div className="button_container">
                     {getButtonsForDetails(selectedMessage.msgStatus)}
+                </div>
+            </div>
+        )
+    };
+    const videoLinkModalComponent = () => {
+        console.log('detailModalComponent selectedMessage = ' , selectedMessage);
+        let link = selectedMessage.mediaLinkUrl ? selectedMessage.mediaLinkUrl : 'https://youtu.be/0vvCe4EHtus';
+        let comment = selectedMessage.msgComment ? selectedMessage.msgComment : '정말 축하드립니다!';
+        return (
+            <div className="button_modal_link">
+                <div className="info_container">
+                    <img alt="none" src={linkThumPath}/>
+                    <br/>
+                    <span className="title">{comment}</span>
+                    <span className="guide">영상링크를 확인해 주세요</span>
+                    <a href={link}>{link}</a>
+                </div>
+                <div className="button_container">
+                    <button className="center_button" onClick={()=>{
+                            setShowModal(false);
+                        }}>
+                        닫기
+                    </button>
                 </div>
             </div>
         )
@@ -268,6 +293,7 @@ function SendMessageHistory({isLogined}) {
             userId : selectedMessage.userId,
             msgId : selectedMessage.msgId,
         }).then((result)=>{
+            selectedMessage.msgStatus = MSG_STATE_DELETED;
             console.log(result);
         });
     };
@@ -315,6 +341,7 @@ function SendMessageHistory({isLogined}) {
                                 [MODAL_TYPE.BUTTON] : buttonModalComponent(),
                                 [MODAL_TYPE.BUTTONS] : buttonsModalComponent(),
                                 [MODAL_TYPE.DETAIL] : detailModalComponent(),
+                                [MODAL_TYPE.VIDEO1] : videoLinkModalComponent(),
                             }[modalType]
                         }
                     </Modal> : null}
