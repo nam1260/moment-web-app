@@ -196,24 +196,7 @@ const WriteComponent = (props) => {
         } catch(e) {
             return false;
         }
-        sendMessageToStar({
-            starId,
-            userId,
-            deliveryDate: date,
-            msgContents: textareaElement.current.value,
-            msgTitle: title,
-        })
-        .then((res) => {
-            setIsLoadingModalOpen(true); 
-            setTimeout(() => {
-                setIsLoadingModalOpen(false)
-                history.push(`/writesuccess/${starId}`)
-            }, 1000)
-        })
-        .catch((res) => {
-            message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
-        })
-        // setIsPaymentModalOpen(true);
+        setIsPaymentModalOpen(true);
     }
     
     return (
@@ -255,6 +238,32 @@ const WriteComponent = (props) => {
             <PaymentModal 
                 isModalOpen={isPaymentModalOpen}
                 setIsModalOpen={setIsPaymentModalOpen}
+                name={starNm}
+                payment={price.toLocaleString('ko-KR')}
+                /* TODO: 각 API 연동 */
+                paymentButtonClick={() => {
+
+                    alert("정식 서비스 오픈 준비 중입니다. 조금만 기다려주세요 !");
+                    return ;
+                    setIsPaymentModalOpen(false)
+                    sendMessageToStar({
+                        starId,
+                        userId,
+                        deliveryDate: date,
+                        msgContents: textareaElement.current.value,
+                        msgTitle: title,
+                    })
+                    .then((res) => {
+                        setIsLoadingModalOpen(true); 
+                        setTimeout(() => {
+                            setIsLoadingModalOpen(false)
+                            history.push(`/writesuccess/${starId}`)
+                        }, 1000)
+                    })
+                    .catch((res) => {
+                        message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
+                    })
+                }}
             />
             
             <section className="app-write-header">

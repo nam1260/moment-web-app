@@ -35,9 +35,9 @@ export default function MomentDatePicker({ setDate }) {
     useEffect(() => {
         const fullOfYear = startDate.getFullYear();
         let fullOfMonth = startDate.getMonth()+1;
-        fullOfMonth = fullOfMonth < 10 ? `0${fullOfMonth}` : fullOfMonth
+        fullOfMonth = fullOfMonth < 10 ? `0${fullOfMonth}` : fullOfMonth;
         let fullOfDate = startDate.getDate();
-        fullOfDate = fullOfMonth < 10 ? `0${fullOfDate}` : fullOfDate
+        fullOfDate = fullOfDate < 10 ? `0${fullOfDate}` : fullOfDate;
         setDate(`${fullOfYear}${fullOfMonth}${fullOfDate}`)
     }, [startDate])
     
