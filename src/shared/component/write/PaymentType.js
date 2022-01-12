@@ -1,62 +1,64 @@
 import React from 'react';
 import styled from "styled-components"
-import { kakaoPaymentService } from '../../service/payment.service';
 
 const naverImage = "/assets/images/payIcoNaver.png"
 const kakaoImage = "/assets/images/payIcoKakao.png"
 const normalImage = "/assets/images/payIcoNormal.png"
-const kakaoServiceInstance = new kakaoPaymentService();
+const tossImage = "/assets/images/payIcoToss.png"
 
 const PaymentBox = styled.div`
-    width: 570px;
+    height: 80px;
     border-radius: 4px;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
     overflow: hidden;
-
+    & > img {
+        height: 100%
+    }
     @media (max-width: 750px) {
-        width: 100%;
+        width: 48%;
         margin-bottom: min(2vw, 20px);
     }
 `
 
 const NaverPaymentBox = styled(PaymentBox)`
-    height: 120px;
     background-color:#00c73c;
     border: 2px solid #00c73c;
     @media (max-width: 750px) {
         height: min(14vw, 120px);
-        & > img {
-            width: min(40vw, 300px)
-        }
+        
     }
 
 `
 
 const KaKaoPaymentBox = styled(PaymentBox)`
-    height: 120px;
     background-color:#ffdf00;
     border: 2px solid #ffdf00;
     @media (max-width: 750px) {
         height: min(14vw, 120px);
-        & > img {
-            width: min(40vw, 300px)
-        }
+    }
+`
+
+const TossPaymentBox = styled(PaymentBox)`
+    border: 2px solid #0064ff;
+    & > img {
+        height: 100%;
+    }
+    @media (max-width: 750px) {
+        height: min(14vw, 120px);
     }
 `
 
 const NormalPaymentBox = styled(PaymentBox)`
     flex-direction: column;
-    height: 158px;
     background-color:#ffffff;
     border: 2px solid #ff723a;
     & > div:first-child {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 31px;
+        font-size: 24px;
         font-weight: 600;
         letter-spacing: -0.31px;
         
@@ -65,12 +67,10 @@ const NormalPaymentBox = styled(PaymentBox)`
             height: 24px;
             margin-right: 12px;
         }
-
-      
     }
 
     & > div:nth-child(2) {
-        font-size: 24px;
+        font-size: 16px;
         line-height: 0.92;
         letter-spacing: -0.24px;
         color: #8f8f8f;
@@ -80,11 +80,11 @@ const NormalPaymentBox = styled(PaymentBox)`
     }
 
     @media (max-width: 750px) {
-        height: min(16vw, 120px);
+        height: min(14vw, 120px);
 
         & > div:first-child {
-            font-size: min(5vw, 31px);
-            line-height: min(5vw, 48px);
+            font-size: min(3vw, 24px);
+            line-height: min(4vw, 24px);
             & > img {
                 width: min(6vw, 36px);
                 height: min(4vw, 24px);
@@ -93,34 +93,40 @@ const NormalPaymentBox = styled(PaymentBox)`
         }
 
         & > div:nth-child(2) {
-            font-size: min(4vw, 24px);
+            font-size: min(2vw, 16px);
         }
     }
     
 `
 
-const NaverPayment = () => {
+const NaverPayment = ({onClick}) => {
     return (
-        <NaverPaymentBox>
+        <NaverPaymentBox onClick={onClick}>
             <img src={naverImage} alt="none" />
         </NaverPaymentBox>
     )
 }
 
-const KaKaoPayment = () => {
-    const requirePaymentApi = () => {
-        kakaoServiceInstance.requirePrepareApi();
-    }
+const KaKaoPayment = ({onClick}) => {
     return (
-        <KaKaoPaymentBox onClick={() => {requirePaymentApi()}}>
+        <KaKaoPaymentBox onClick={onClick}>
             <img src={kakaoImage} alt="none" />
         </KaKaoPaymentBox>
     )
 }
 
-const NormalPayment = () => {
+const TossPayment = ({onClick}) => {
     return (
-        <NormalPaymentBox>
+        <TossPaymentBox onClick={onClick}>
+            <img src={tossImage} alt="none" />
+        </TossPaymentBox>
+    )
+}
+
+
+const NormalPayment = ({onClick}) => {
+    return (
+        <NormalPaymentBox onClick={onClick}>
             <div>
                 <img src={normalImage} alt="none" />
                 일반 결제
@@ -134,13 +140,9 @@ const NormalPayment = () => {
 
 
 const PaymentComponent = (WrappedComponent) => {
-
     return class extends React.Component {
-        constructor(props) {
-            super(props);
-        }
-
         render() {
+            console.log(this.props);
             return <WrappedComponent {...this.props} />
         }
     }
@@ -149,3 +151,4 @@ const PaymentComponent = (WrappedComponent) => {
 export const NaverPaymentComponent = React.memo(PaymentComponent(NaverPayment));
 export const KaKaoPaymentComponent = React.memo(PaymentComponent(KaKaoPayment));
 export const NormalPaymentComponent = React.memo(PaymentComponent(NormalPayment));
+export const TossPaymentComponent = React.memo(PaymentComponent(TossPayment));

@@ -196,24 +196,7 @@ const WriteComponent = (props) => {
         } catch(e) {
             return false;
         }
-        sendMessageToStar({
-            starId,
-            userId,
-            deliveryDate: date,
-            msgContents: textareaElement.current.value,
-            msgTitle: title,
-        })
-        .then((res) => {
-            setIsLoadingModalOpen(true); 
-            setTimeout(() => {
-                setIsLoadingModalOpen(false)
-                history.push(`/writesuccess/${starId}`)
-            }, 1000)
-        })
-        .catch((res) => {
-            message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
-        })
-        // setIsPaymentModalOpen(true);
+        setIsPaymentModalOpen(true);
     }
     
     return (
@@ -255,6 +238,27 @@ const WriteComponent = (props) => {
             <PaymentModal 
                 isModalOpen={isPaymentModalOpen}
                 setIsModalOpen={setIsPaymentModalOpen}
+                /* TODO: 각 API 연동 */
+                paymentButtonClick={() => {
+                    setIsPaymentModalOpen(false)
+                    sendMessageToStar({
+                        starId,
+                        userId,
+                        deliveryDate: date,
+                        msgContents: textareaElement.current.value,
+                        msgTitle: title,
+                    })
+                    .then((res) => {
+                        setIsLoadingModalOpen(true); 
+                        setTimeout(() => {
+                            setIsLoadingModalOpen(false)
+                            history.push(`/writesuccess/${starId}`)
+                        }, 1000)
+                    })
+                    .catch((res) => {
+                        message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
+                    })
+                }}
             />
             
             <section className="app-write-header">
