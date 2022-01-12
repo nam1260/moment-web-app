@@ -102,7 +102,7 @@ const PaymentRow = styled.div`
 `
 
 
-export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButtonClick  }) {
+export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButtonClick, name, payment  }) {
     return (
         <MomentModal
             isOpen={isModalOpen}
@@ -115,10 +115,10 @@ export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButto
                             최종 결제 금액
                         </div>
                         <div className='payment-info-label'>
-                            나의 최애 000 님의 영상 메세지
+                            나의 최애 {name} 님의 영상 메세지
                         </div>
                         <div className='payment-info-money'>
-                            20,000원
+                            {payment}원
                         </div>
                     </PaymentInfoBox>
                     <Divider />

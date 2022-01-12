@@ -238,6 +238,8 @@ const WriteComponent = (props) => {
             <PaymentModal 
                 isModalOpen={isPaymentModalOpen}
                 setIsModalOpen={setIsPaymentModalOpen}
+                name={starNm}
+                payment={price.toLocaleString('ko-KR')}
                 /* TODO: 각 API 연동 */
                 paymentButtonClick={() => {
                     setIsPaymentModalOpen(false)
