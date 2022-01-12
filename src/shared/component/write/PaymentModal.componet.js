@@ -41,7 +41,7 @@ const PaymentInfoBox = styled.div`
     }
     & > .payment-info-title {
         font-size: 34px;
-        font-weight: 500;
+        font-weight: 600;
 
         @media (max-width: 750px) {
             font-size: min(4vw, 34px);
@@ -51,8 +51,10 @@ const PaymentInfoBox = styled.div`
     & > .payment-info-label {
         padding-left: 20px;
         font-size: 30px;
-        font-weight: 500;
-
+        font-weight: 600;
+        & >span {
+         color: #ff723a;
+        }
         @media (max-width: 750px) {
             font-size: min(4vw, 30px);
         }
@@ -60,10 +62,18 @@ const PaymentInfoBox = styled.div`
 
     & > .payment-info-money {
         font-size: 30px;
-        font-weight: 500;
+        font-weight: 600;
         text-align: right;
+        color: #ff723a;
+         & > span{
+            font-size: 20px;
+            color: #808080;
+        }
         @media (max-width: 750px) {
             font-size: min(4vw, 30px);
+              & > span { 
+               font-size: min(2vw, 24px);
+            }
         }
     }
 `
@@ -99,6 +109,7 @@ const PaymentRow = styled.div`
     & > div {
         flex: 1;
     }
+    cursor: pointer;
 `
 
 
@@ -115,10 +126,10 @@ export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButto
                             최종 결제 금액
                         </div>
                         <div className='payment-info-label'>
-                            나의 최애 {name} 님의 영상 메세지
+                            <span>나의 최애</span> {name} 님의 영상 메세지
                         </div>
                         <div className='payment-info-money'>
-                            {payment}원
+                            {payment}원   <span>부가세 포함 가격</span>
                         </div>
                     </PaymentInfoBox>
                     <Divider />

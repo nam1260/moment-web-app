@@ -242,6 +242,9 @@ const WriteComponent = (props) => {
                 payment={price.toLocaleString('ko-KR')}
                 /* TODO: 각 API 연동 */
                 paymentButtonClick={() => {
+
+                    alert("정식 서비스 오픈 준비 중입니다. 조금만 기다려주세요 !");
+                    return ;
                     setIsPaymentModalOpen(false)
                     sendMessageToStar({
                         starId,
