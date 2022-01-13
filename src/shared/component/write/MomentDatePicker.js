@@ -29,6 +29,12 @@ const DateLabel = styled.div`
 
 const downArrow = "/assets/icons/list-ico-open.png"
 
+function addDays(date, days) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+
 export default function MomentDatePicker({ setDate }) {
     const [startDate, setStartDate] = useState(new Date());
 
@@ -39,7 +45,10 @@ export default function MomentDatePicker({ setDate }) {
         let fullOfDate = startDate.getDate();
         fullOfDate = fullOfDate < 10 ? `0${fullOfDate}` : fullOfDate;
         setDate(`${fullOfYear}${fullOfMonth}${fullOfDate}`)
-    }, [startDate])
+    }, [startDate, setDate])
+
+    const minDate = new Date();
+    const maxDate = addDays(minDate, 7);
     
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="custom-input"  onClick={onClick}>
@@ -58,6 +67,9 @@ export default function MomentDatePicker({ setDate }) {
             customInput={<ExampleCustomInput />}
             onChange={(date) => setStartDate(date)}
             dateFormat="yyyy-MM-dd"
+            showDisabledMonthNavigation
+            minDate={minDate}
+            maxDate={maxDate}
         />
             
     )
