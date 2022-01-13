@@ -110,9 +110,9 @@ export default function LoginComponent() {
     
     const makeSMSKeys =() => {
         const date = Date.now().toString(); 
-        const uri = "ncp:sms:kr:273557210863:moment"; 
-        const secretKey = "myNuDZbXE2U9PoV0CCRDvhfoW7sTwS91VFlIeWwJ"; 
-        const accessKey = "OSZkDUqDvR4n6ESrsX0v"; 
+        const uri = "ncp:sms:kr:278684825820:moment"; 
+        const secretKey = "hsN26xRnxfh3UH3Uz2aEOclPT0w2CLmdcILGarg6"; 
+        const accessKey = "S3EOF4dZC8qNCL3pE9jL"; 
         const method = "POST"; 
         const space = " "; 
         const newLine = "\n"; 
