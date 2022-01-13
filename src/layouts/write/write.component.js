@@ -119,10 +119,18 @@ const WriteComponent = (props) => {
                 })
             })
         }
+        
+        if( starId === userId ) {
+            message.info('나 자신을 사랑하는건 좋지만 본인에게 사연 작성은 불가능합니다!', 1, () => {
+                history.goBack();
+            });
+            
+        }
+
         if(starDetail.starId !== starId) {
             getStarDetailAsync(starId);
         }
-    }, [])
+    }, [user]);
 
     const onKeyupCountStoryCharacter = (event) => {
         try {
