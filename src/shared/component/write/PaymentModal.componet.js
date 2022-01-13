@@ -135,11 +135,11 @@ export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButto
                     <Divider />
                     <PaymentLabel>결제 방식을 선택해주세요</PaymentLabel>
                     <PaymentRow>
-                        <NaverPaymentComponent onClick={paymentButtonClick} />
-                        <KaKaoPaymentComponent onClick={paymentButtonClick}/>
+                        {/*<NaverPaymentComponent onClick={paymentButtonClick} />*/}
+                        {/*<KaKaoPaymentComponent onClick={paymentButtonClick}/>*/}
                     </PaymentRow>
                     <PaymentRow>
-                        <TossPaymentComponent onClick={paymentButtonClick}/>
+                        {/*<TossPaymentComponent onClick={paymentButtonClick}/>*/}
                         <NormalPaymentComponent onClick={paymentButtonClick}/>
                     </PaymentRow>
                 </PaymentComponent>
