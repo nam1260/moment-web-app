@@ -2,7 +2,7 @@ import MomentModal from "../common/modal";
 import styled from 'styled-components';
 import InputWithLabel from "./InputWithLabel";
 import { BankOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { message } from "antd";
 
 const DepositComponent = styled.div`
@@ -86,14 +86,28 @@ const RegisterButton = styled.button`
 `
 
 
-export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpen, onRegisterClick, ...rest  }) {
-    console.log(rest);
+export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpen, onSuccess, ...rest  }) {
+    const { starDetail: { starId }, user: { userId }, price, register, reset, payment } = rest;
+    
     const [depositInfo, setDepositInfo] = useState({
         'bankNm': '',
         'accountNumber': '',
         'accountHolder': '',
         'phoneNumber': '',
     });
+
+    useEffect(() => {
+        reset();
+    }, [])
+
+    useEffect(() => {
+        if(payment.isSuccess && payment.paymentNo !== '') {
+            setIsModalOpen(false);
+            onSuccess().then(() => {
+                reset();
+            })
+        }
+    }, [payment])
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -116,7 +130,6 @@ export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpe
     }
 
     const checkIsOnlyNumber = (value) => {
-        console.log(value)
         if((/[^0-9]/g).test(String(value))) {
             throw {
                 type: 'isNotNumber',
@@ -166,6 +179,25 @@ export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpe
             return;
         }
 
+        const param = {
+            userId: userId,
+            starId: starId,
+            payType:0, /* 우선 0 고정 */
+            price: price,
+            payStatus: 0,
+            pgNm: 'normal',
+            userBankNm: depositInfo['accountHolder'],
+            userAccountNm: depositInfo['bankNm'],
+            userAccountNum: depositInfo['accountNumber'],
+            cardNm: '', 
+            cardNum: '',
+            aprvNum: '',
+        }
+        try {
+            register(param);
+        } catch(error) {
+            console.log(error);
+        }
         
     }
 
@@ -191,7 +223,7 @@ export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpe
                         <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'accountNumber'} prefix={<BankOutlined />} label='입급계좌번호(환불 받을 계좌)' />
                         <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'accountHolder'} prefix={<UserOutlined />} label='예금주' />
                         <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'phoneNumber'} prefix={<PhoneOutlined />} label='연락처' />
-                        <RegisterButton onClick={submitDepositData}> 사연 등록 하기</RegisterButton>
+                        <RegisterButton onClick={submitDepositData}>사연 등록 하기</RegisterButton>
                     </DepositRow>
                 </DepositComponent>
             }

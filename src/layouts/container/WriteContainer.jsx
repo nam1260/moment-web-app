@@ -7,6 +7,7 @@ const mapStateToProps = (state) => ({
     starDetail: state.star.starDetail,
     isLoading: state.star.isLoading,
     user: state.user,
+    paymentNo: state.payment.paymentNo
 })
 
 const mapDispatchToProps = (dispatch) => ({

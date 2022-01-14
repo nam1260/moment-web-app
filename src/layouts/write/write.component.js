@@ -101,6 +101,7 @@ const WriteComponent = (props) => {
         isLoading,
         user,
         getStarDetailAsync,
+        paymentNo,
     } = props;
     
     const {
@@ -201,13 +202,12 @@ const WriteComponent = (props) => {
     }
 
     const onClickSendStory = async () => {
-        // try {
-        //     checkStoryValidation();
-        // } catch(e) {
-        //     return false;
-        // }
-        // setIsPaymentModalOpen(true);
-        setIsPassbookModalOpen(true);
+        try {
+            checkStoryValidation();
+        } catch(e) {
+            return false;
+        }
+        setIsPaymentModalOpen(true);
     }
     
     return (
@@ -253,31 +253,39 @@ const WriteComponent = (props) => {
                 payment={price.toLocaleString('ko-KR')}
                 /* TODO: 각 API 연동 */
                 paymentButtonClick={() => {
-                    setIsPaymentModalOpen(false)
-                    sendMessageToStar({
-                        starId,
-                        userId,
-                        deliveryDate: date,
-                        msgContents: textareaElement.current.value,
-                        msgTitle: title,
-                    })
-                    .then((res) => {
-                        setIsLoadingModalOpen(true); 
-                        setTimeout(() => {
-                            setIsLoadingModalOpen(false)
-                            history.push(`/writesuccess/${starId}`)
-                        }, 1000)
-                    })
-                    .catch((res) => {
-                        message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
-                    })
+                    setIsPaymentModalOpen(false);
+                    setIsPassbookModalOpen(true);
                 }}
             />
 
             <DepositWithoutPassbookModal
                 isModalOpen={isPassbookModalOpen}
                 setIsModalOpen={setIsPassbookModalOpen}
-                onRegisterClick={() => alert('aa')}
+                onSuccess={() => {
+                    return new Promise((resolve, reject) => {
+                        sendMessageToStar({
+                            starId,
+                            userId,
+                            payNo: paymentNo,
+                            deliveryDate: date,
+                            msgContents: textareaElement.current.value,
+                            msgTitle: title,
+                        })
+                        .then((res) => {
+                            resolve();
+                            setIsLoadingModalOpen(true); 
+                            setTimeout(() => {
+                                setIsLoadingModalOpen(false)
+                                history.push(`/writesuccess/${starId}`)
+                            }, 1000)
+                        })
+                        .catch((res) => {
+                            message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
+                            reject();
+                        })
+                    })
+                }}
+                price={price}
             />
             
             <section className="app-write-header">

@@ -44,7 +44,7 @@ function InputWithLabel({ label = "", prefix = "", name="", onChange, inputValue
                 {label}
             </span>
             <div>
-                <Input placeholder={isNum && '-를 제외한 숫자만 입력해주세요'} name={name} value={inputValue[name]} type={`${isNum ? 'number' : 'text'}`} onChange={onChange} prefix={prefix}/>
+                <Input placeholder={isNum ? '-를 제외한 숫자만 입력해주세요' : ''} name={name} value={inputValue[name]} type={`${isNum ? 'number' : 'text'}`} onChange={onChange} prefix={prefix}/>
             </div>
         </Item>
     )
