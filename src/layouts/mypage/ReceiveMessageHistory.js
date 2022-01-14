@@ -325,13 +325,31 @@ function ReceiveMessageHistory({isLogined}) {
                 <p>받은 사연이 없습니다.</p>
             </div>
         )
-    }
+    };
+
+    const isMessageShowable = (status) => {
+        var isShowable = false;
+        switch(status) {
+            case MSG_STATE_BRFORE:
+            case MSG_STATE_ACCEPTED:
+            case MSG_STATE_REJECTED:
+            case MSG_STATE_COMPLETED:
+            case MSG_STATE_VIDEO_CONFIRMING:
+            case MSG_STATE_VIDEO_REJECT:
+                isShowable = true;
+                break;
+            default :
+                break;
+        }
+        return isShowable;
+    };
+
     const FoundComponent = () => {
         return (
             <div className="message">
                 {
                     messageList.map((message) => {
-                        return (
+                        return isMessageShowable(message.msgStatus) ? (
                             <div>
                                 <div className="border">
                                 </div>
@@ -364,7 +382,7 @@ function ReceiveMessageHistory({isLogined}) {
                                     {getButtons(message.msgStatus, message)}
                                 </div>
                             </div>
-                        )
+                        ) : null
                     })
                 }
             </div>
