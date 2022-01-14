@@ -56,11 +56,6 @@ function ReceiveMessageHistory({isLogined}) {
     const IDX_SENDDER = 0;
     const IDX_RECEIVER = 1;
 
-    const MSG_STATE_BRFORE = "0";
-    const MSG_STATE_ACCEPTED = "1";
-    const MSG_STATE_REJECTED = "2";
-    const MSG_STATE_COMPLETED = "3";
-
     const [messageList, setMessageList] = useState([]);
     const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
     const [showModal, setShowModal] = useState(false);
@@ -95,6 +90,14 @@ function ReceiveMessageHistory({isLogined}) {
     };
 
     const getButtonsForDetails = (state)=> {
+        let buttonExitFull = (
+            <button className="center_button" onClick={()=>{
+                setShowModal(false);
+            }}>닫기</button>);
+        let buttonExit = (
+            <button className="left_button" onClick={()=>{
+                setShowModal(false);
+            }}>닫기</button>);
         let buttonReject = (
             <button className="left_button" onClick={()=>{
                 updateMessage(MSG_STATE_REJECTED);
@@ -117,12 +120,21 @@ function ReceiveMessageHistory({isLogined}) {
                 setModalType(MODAL_TYPE.UPLOAD);
                 setShowModal(true);
             }}>업로드</button>);
-        let buttons = [
-            [buttonReject, buttonAccept], // 확인중 : 자세히 보기, 전달취소
-            [buttonReject2, buttonUpload], // 수락됨 : 자세히 보기
-            [], // 거절됨 
-            [] // 배송완료 
-        ]
+
+        let buttons = {
+            [MSG_STATE_BRFORE] : [buttonReject, buttonAccept],
+            [MSG_STATE_ACCEPTED] : [buttonReject2, buttonUpload],
+            [MSG_STATE_REJECTED] : [buttonExitFull],
+            [MSG_STATE_COMPLETED] : [buttonExitFull],
+            [MSG_STATE_CANCELED] : [],
+
+            [MSG_STATE_PAYMENT_WAITING] : [],
+            [MSG_STATE_PAYMENT_COMPLETE] : [],
+            [MSG_STATE_PAYMENT_CANCEL] : [],
+
+            [MSG_STATE_VIDEO_CONFIRMING] : [buttonReject2, buttonUpload],
+            [MSG_STATE_VIDEO_REJECT] : [buttonReject2, buttonUpload],
+        };
         return (
             buttons[state].map(button => (
                 button

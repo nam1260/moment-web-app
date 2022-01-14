@@ -108,7 +108,10 @@ function SendMessageHistory({isLogined}) {
     };
 
     const getButtonsForDetails = (state)=> {
-
+        let buttonExitFull = (
+            <button className="center_button" onClick={()=>{
+                setShowModal(false);
+            }}>닫기</button>);
         let buttonExit = (
             <button className="left_button" onClick={()=>{
                 setShowModal(false);
@@ -123,12 +126,20 @@ function SendMessageHistory({isLogined}) {
                 setModalType(MODAL_TYPE.VIDEO1);
                 setShowModal(true);
             }}>영상확인</button>);
-        let buttons = [
-            [buttonExit, buttonDelete], // 확인중 : 자세히 보기, 전달취소
-            [], // 수락됨 : 자세히 보기
-            [], // 거절됨 
-            [buttonExit, buttonLink] // 배송완료 
-        ]
+        let buttons = {
+            [MSG_STATE_BRFORE] : [buttonExit, buttonDelete], // 확인중 : 자세히 보기, 전달취소
+            [MSG_STATE_ACCEPTED] : [buttonExitFull],
+            [MSG_STATE_REJECTED] : [buttonExitFull],
+            [MSG_STATE_COMPLETED] : [buttonExit, buttonLink], // 배송완료
+            [MSG_STATE_CANCELED] : [buttonExitFull],
+
+            [MSG_STATE_PAYMENT_WAITING] : [buttonExit, buttonDelete],
+            [MSG_STATE_PAYMENT_COMPLETE] : [buttonExit, buttonDelete],
+            [MSG_STATE_PAYMENT_CANCEL] : [buttonExitFull],
+
+            [MSG_STATE_VIDEO_CONFIRMING] : [buttonExitFull],
+            [MSG_STATE_VIDEO_REJECT] : [buttonExitFull],
+        };
         return (
             buttons[state].map(button => (
                 button
