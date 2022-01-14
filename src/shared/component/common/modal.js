@@ -12,8 +12,9 @@ const Modal = styled.div`
     border-radius: 40px;
     display: none;
     width: ${(props) => props.theme.width + "px"};
-    height: ${(props) => props.theme.height + "px"};
+    min-height: ${(props) => props.theme.height + "px"};
     overflow: hidden;
+    padding-bottom: 110px;
     &.on {
         display: inline-block;
     }
@@ -49,11 +50,11 @@ const Modal = styled.div`
 
     @media (max-width: 750px) {
         width: min(70vw, ${(props) => props.theme.width + "px"});
-        height: min(
+        min-height: min(
             ${(props) => props.theme.ratio * 90 + "vw"},
             ${(props) => props.theme.height + "px"}
         );
-
+        padding-bottom: min(11vw, 110px);
         & > .footer {
             height: min(11vw, 110px);
             line-height: min(11vw, 110px);
