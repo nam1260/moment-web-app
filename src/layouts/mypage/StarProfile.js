@@ -271,7 +271,7 @@ function StartProfile({isLogined}) {
                                                 styles={customStyle}
                                                 getOptionLabel={e => (
                                                     <div style={{display: 'flex', alignItems: 'center'}}>
-                                                        <span style={{fontSize: "3.4vw", fontWeight: "bold",}}>{e.text}</span>
+                                                        <span style={{fontSize: "2.4vw", fontWeight: "bold",}}>{e.text}</span>
                                                     </div>
                                                 )}
                                             />
