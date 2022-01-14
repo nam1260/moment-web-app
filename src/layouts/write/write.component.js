@@ -270,6 +270,7 @@ const WriteComponent = (props) => {
                             deliveryDate: date,
                             msgContents: textareaElement.current.value,
                             msgTitle: title,
+                            msgStatus: '90', /* TODO: 간편 결제 연동 시 90 or ''로 변경 */
                         })
                         .then((res) => {
                             resolve();

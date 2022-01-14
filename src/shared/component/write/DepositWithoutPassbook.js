@@ -182,7 +182,7 @@ export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpe
         const param = {
             userId: userId,
             starId: starId,
-            payType:0, /* 우선 0 고정 */
+            payType: 0, /* 우선 0 고정 */
             price: price,
             payStatus: 0,
             pgNm: 'normal',
