@@ -256,10 +256,16 @@ main {
     border-right: 0px;
 }
 
+
+.app-moment-footer > .container > .footer-sns > img {
+    cursor: pointer;
+}
 .app-moment-footer > .container > .footer-sns > img:first-child {
     margin-left:50px;
     margin-right: 20px;
 }
+
+
 
 
 @media (max-width: 750px) {

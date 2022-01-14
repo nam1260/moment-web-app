@@ -14,6 +14,9 @@ const footerLogo = "/assets/images/logo-gray.png";
 const instaLogo = "/assets/icons/ico-insta.png";
 const youtubeLogo = "/assets/icons/ico-youtube.png";
 
+const INSTA_URL = "https://instagram.com/mtm.moment?utm_medium=copy_link";
+const YOUTUBE_URL = "https://www.youtube.com/channel/UCaKHbYmYmwv2ErPhCXmKAKA/featured";
+
 function Home({ history, getStarListAsync, starList}) {
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, left: 0 }) 
@@ -122,8 +125,8 @@ function Home({ history, getStarListAsync, starList}) {
                         <span onClick={onClickContactHandler}>고객센터 & 파트너 문의</span>
                     </div>
                     <div className="footer-sns">
-                        <img alt="none" src={instaLogo} />
-                        <img alt="none" src={youtubeLogo} />
+                        <img alt="none" onClick={()=>window.open(INSTA_URL, '_blank')} src={instaLogo} />
+                        <img alt="none" onClick={()=>window.open(YOUTUBE_URL, '_blank')}src={youtubeLogo} />
                     </div>
                 </div>
             </section>
