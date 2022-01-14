@@ -383,7 +383,7 @@ function AddAccountComponent({isLoginded}) {
                             </span>
                         </div>
                         <span>
-                            사용자 이름 입력
+                            사용자 이름 입력 (한글로 입력해주세요)
                         </span>
                         <div>
                             <input

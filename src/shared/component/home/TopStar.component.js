@@ -111,7 +111,7 @@ const TopStarCard = styled.article`
 const dummyIcon = "/assets/icons/main-ico-dummy.png";
 const plusIcon = "/assets/icons/main-plus-request.png";
 
-function TopStarComponent({ name, secondary,price, imgPath, starId, history, isAdd }) {
+function TopStarComponent({ name, secondary,nickName, price, imgPath, starId, history, isAdd }) {
   const onClickEvent = isAdd ? () => console.log('Add') : () => history.push(`/star/${starId}`);
   // const onClickTBDEvent = () => message.warn("서비스 준비중입니다");
   
@@ -131,7 +131,8 @@ function TopStarComponent({ name, secondary,price, imgPath, starId, history, isA
         
       </div>
       <div className="article-footer">
-        {isAdd || <b>{name}</b>}
+        <b>{nickName}</b>
+        <p>{name}</p>
         <p>{isAdd ? '요청해주세요' : secondary}</p>
         <p id="price">{isAdd ? '' : (price > 0 ? `영상 가격 ${price.toLocaleString('ko-KR')}원` : '')}</p>
       </div>

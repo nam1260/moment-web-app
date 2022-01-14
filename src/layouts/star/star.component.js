@@ -22,6 +22,7 @@ function StarComponent(props) {
         rate = 0,
         shortComment = '',
         starNm = '',
+        starNickNm = '',
         starImgUrl = '',
     } = starDetail;
     
@@ -60,6 +61,7 @@ function StarComponent(props) {
                         ) : (
                             <>
                                 <div>
+                                    <span>{starNickNm}</span>
                                     <span>{starNm}</span>
                                     <span>{shortComment}</span>
                                 </div>

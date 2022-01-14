@@ -33,7 +33,8 @@
     line-height: 58px;
 }
 
-.app-star-header > .container > div:nth-child(1) > span:nth-child(2) {
+.app-star-header > .container > div:nth-child(1) > span:nth-child(2),
+.app-star-header > .container > div:nth-child(1) > span:nth-child(3){
     font-size: 30px;
     letter-spacing: -0.3px;
     color: #8f8f8f;
