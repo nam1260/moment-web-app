@@ -63,6 +63,7 @@ function SendMessageHistory({isLogined}) {
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(MODAL_TYPE.INIT);
     const [selectedMessage, setSelectedMessage] = useState(null);
+    const [buttonType, setButtonType] = useState(MSG_STATE_CANCELED);
 
     const buttonModalComponent = () => {
         return (
@@ -97,7 +98,7 @@ function SendMessageHistory({isLogined}) {
                         아니요
                     </button>
                     <button className="right_button" onClick={()=>{
-                            deleteMessage();
+                            updateMessage(MSG_STATE_CANCELED);
                             setModalType(MODAL_TYPE.BUTTON);
                         }}>
                         예
@@ -277,10 +278,6 @@ function SendMessageHistory({isLogined}) {
             <div className="message">
                 {
                     messageList.map((message) => {
-                        console.log('message.msgStatus =' + message.msgStatus);
-                        console.log('message.msgStatus =' + typeof(message.msgStatus));
-                        console.log('stateString[message.msgStatus] =' + stateString[message.msgStatus]);
-                        console.log('stateString[message.msgStatus] =' , stateString[message.msgStatus]);
                         return (
                             <div>
                                 <div className="border">
@@ -319,6 +316,17 @@ function SendMessageHistory({isLogined}) {
                 }
             </div>
         )
+    };
+
+    const updateMessage =(state) => {
+        if(state) {
+            selectedMessage.msgStatus = state;
+        }
+        AWSManager.updateStarMsgInfo(
+            selectedMessage
+        ).then((result)=>{
+            console.log(result);
+        });
     };
 
     const deleteMessage =() => {
