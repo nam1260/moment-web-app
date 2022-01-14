@@ -52,7 +52,7 @@ function Header({ setIsMenuOpen, isLogined, userNickNm, userId, userImgUrl }) {
                     <img alt="none" onClick={() => history.push('/')} className={'top-logo'} src={logoPath} />
                 </div>
                 <div>
-                    <img alt="none" className={"top-icon"} src={searchPath} onClick={()=>{console.log("onclick"); window.open(SERVEY_URL, '_blank')}}/>
+                    <img alt="none" className={"top-icon"} src={searchPath} onClick={()=>{window.open(SERVEY_URL, '_blank')}}/>
                     <img alt="none" className={"top-icon"} src={profileImgUrl} onClick={onClickProfile}/>
                 </div>
             </div>

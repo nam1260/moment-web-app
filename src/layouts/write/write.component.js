@@ -12,6 +12,7 @@ import StorageManager from 'managers/StorageManager';
 import { Input, message } from 'antd';
 import Styled from "styled-components"
 import AWSManager from "managers/AWSManager";
+import DepositWithoutPassbookModal from 'layouts/container/DepositModalContainer';
 
 const {
     sendMessageToStar,
@@ -87,6 +88,7 @@ const WriteComponent = (props) => {
     const [isUnder50ModalOpen, setIsUnder50ModalOpen] = useState(false);
     const [isOver300ModalOpen, setIsOver300ModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
+    const [isPassbookModalOpen, setIsPassbookModalOpen] = useState(false);
     const [count, setCount] = useState(0);
     const [title, setTitle] = useState('');
     const [date, setDate] = useState();
@@ -99,6 +101,7 @@ const WriteComponent = (props) => {
         isLoading,
         user,
         getStarDetailAsync,
+        paymentNo,
     } = props;
     
     const {
@@ -250,28 +253,40 @@ const WriteComponent = (props) => {
                 payment={price.toLocaleString('ko-KR')}
                 /* TODO: 각 API 연동 */
                 paymentButtonClick={() => {
+                    setIsPaymentModalOpen(false);
+                    setIsPassbookModalOpen(true);
+                }}
+            />
 
-                    alert("정식 서비스 오픈 준비 중입니다. 조금만 기다려주세요 !");
-                    return ;
-                    setIsPaymentModalOpen(false)
-                    sendMessageToStar({
-                        starId,
-                        userId,
-                        deliveryDate: date,
-                        msgContents: textareaElement.current.value,
-                        msgTitle: title,
-                    })
-                    .then((res) => {
-                        setIsLoadingModalOpen(true); 
-                        setTimeout(() => {
-                            setIsLoadingModalOpen(false)
-                            history.push(`/writesuccess/${starId}`)
-                        }, 1000)
-                    })
-                    .catch((res) => {
-                        message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
+            <DepositWithoutPassbookModal
+                isModalOpen={isPassbookModalOpen}
+                setIsModalOpen={setIsPassbookModalOpen}
+                onSuccess={() => {
+                    return new Promise((resolve, reject) => {
+                        sendMessageToStar({
+                            starId,
+                            userId,
+                            payNo: paymentNo,
+                            deliveryDate: date,
+                            msgContents: textareaElement.current.value,
+                            msgTitle: title,
+                            msgStatus: '90', /* TODO: 간편 결제 연동 시 90 or ''로 변경 */
+                        })
+                        .then((res) => {
+                            resolve();
+                            setIsLoadingModalOpen(true); 
+                            setTimeout(() => {
+                                setIsLoadingModalOpen(false)
+                                history.push(`/writesuccess/${starId}`)
+                            }, 1000)
+                        })
+                        .catch((res) => {
+                            message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
+                            reject();
+                        })
                     })
                 }}
+                price={price}
             />
             
             <section className="app-write-header">
