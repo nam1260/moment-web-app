@@ -14,7 +14,6 @@ const footerLogo = "/assets/images/logo-gray.png";
 const instaLogo = "/assets/icons/ico-insta.png";
 const youtubeLogo = "/assets/icons/ico-youtube.png";
 
-const nullCards = [null, null, null, null, null, null]
 function Home({ history, getStarListAsync, starList}) {
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, left: 0 }) 

@@ -26,7 +26,12 @@ function StarComponent(props) {
     } = starDetail;
     
     const onClickGoToWritePage = () => {
+        const { userId } = StorageManager.loadUserInfo();
         if(StorageManager.checkUserIsLogined()) {
+            if( userId === starId ) {
+                message.info('나 자신을 사랑하는건 좋지만 본인에게 사연 작성은 불가능합니다!');
+                return;
+            } 
             history.push(`/write/${starId}`)
         } else {
             message.warn('사연을 보내기 위해 로그인이 필요합니다.', 1, () => {

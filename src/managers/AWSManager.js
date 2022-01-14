@@ -45,6 +45,13 @@ const CNCL_RGST_STAR = "/star/cncl-rgst-star";
 
 const SEND_MSG_TO_STAR = "/msg/send-msg-to-star"
 
+//payment
+
+const GET_PAYMENT_LIST = "/pay/get-payment-list";
+const REG_PAYMENT_INFO = "/pay/reg-payment-info";
+const UPDATE_PAYMENT_INFO = "/pay/update-payment-info";
+const DELETE_PAYMENT_INFO = "/pay/delete-payment-info";
+
 
 const API_KEYS_TEST = 'hFkmbKrQxO7G8EyATQbBQ8UP8qaS2Lru3ndYbHWL';
 const API_KEYS = 'HjkKpsNqsI4iqOdZcFJck16xFuMUfCGa7LaYy9Ra'
@@ -206,6 +213,24 @@ const AWSManager = (function() {
         return await requestPost(getUrl(SEND_MSG_TO_STAR), params);
     }
 
+    const getPaymentList = async(params) => {
+        console.log("getPaymentList =" + JSON.stringify(params));
+        return await requestPost(getUrl(GET_PAYMENT_LIST), params);
+    }
+
+    const updatePaymentInfo = async(params) => {
+        console.log("updatePaymentInfo =" + JSON.stringify(params));
+        return await requestPost(getUrl(UPDATE_PAYMENT_INFO), params);
+    }
+    const regPaymentInfo = async(params) => {
+        console.log("regPaymentInfo =" + JSON.stringify(params));
+        return await requestPost(getUrl(REG_PAYMENT_INFO), params);
+    }
+    const deletePaymentInfo = async(params) => {
+        console.log("deletePaymentInfo =" + JSON.stringify(params));
+        return await requestPost(getUrl(DELETE_PAYMENT_INFO), params);
+    }
+
 
     return {
         regUserInfo,
@@ -237,7 +262,14 @@ const AWSManager = (function() {
         getStarInfo,
         updateStarInfo,
         reqRgstStar,
-        cnclRgstStar
+        cnclRgstStar,
+
+
+        //결제
+        getPaymentList,
+        updatePaymentInfo,
+        regPaymentInfo,
+        deletePaymentInfo
 
     }
 
