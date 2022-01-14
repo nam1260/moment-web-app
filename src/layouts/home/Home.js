@@ -67,6 +67,7 @@ function Home({ history, getStarListAsync, starList}) {
                               ""
                                 : <TopStarComponent
                                     name={star.starNm}
+                                    nickName={star.starNickNm}
                                     secondary={star.catNm}
                                     price={star.price || 15000}
                                     imgPath={star.starImgUrl}
