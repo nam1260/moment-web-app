@@ -242,12 +242,20 @@ function SendMessageHistory({isLogined}) {
             }
         }>영상확인</button>
         );
-        let buttons = [
-            [buttonDetail, buttonCancel], // 확인중 : 자세히 보기, 전달취소
-            [buttonDetailFull], // 수락됨 : 자세히 보기
-            [buttonDetailFull], // 거절됨 : 자세히 보기
-            [buttonDetail, buttonViewVideo] // 배송완료 : 자세히 보기, 영상확인
-        ]
+        let buttons = {
+            [MSG_STATE_BRFORE] : [buttonDetail, buttonCancel],
+            [MSG_STATE_ACCEPTED] : [buttonDetailFull],
+            [MSG_STATE_REJECTED] : [buttonDetailFull],
+            [MSG_STATE_COMPLETED] : [buttonDetail, buttonViewVideo],
+            [MSG_STATE_CANCELED] : [buttonDetailFull],
+
+            [MSG_STATE_PAYMENT_WAITING] : [buttonDetail, buttonCancel],
+            [MSG_STATE_PAYMENT_COMPLETE] : [buttonDetail, buttonCancel],
+            [MSG_STATE_PAYMENT_CANCEL] : [buttonDetailFull],
+
+            [MSG_STATE_VIDEO_CONFIRMING] : [buttonDetailFull],
+            [MSG_STATE_VIDEO_REJECT] : [buttonDetailFull],
+        };
         return (
             buttons[state].map(button => (
                 button

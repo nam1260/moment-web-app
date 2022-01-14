@@ -295,12 +295,21 @@ function ReceiveMessageHistory({isLogined}) {
                 setShowModal(true);
             }
         }>영상 업로드</button>);
-        let buttons = [
-            [buttonDetailThird, buttonRefuseThird, buttonAcceptThird], // 수신대기  : 자세히 보기, 거절, 수락 
-            [buttonDetail, buttonUploadVideo], // 수락함 : 자세히 보기, 영상 업로드 
-            [buttonDetailFull], // 거절함 : 자세히 보기
-            [buttonDetailFull] // 배송완료 : 자세히 보기
-        ]
+        
+        let buttons = {
+            [MSG_STATE_BRFORE] : [buttonDetailThird, buttonRefuseThird, buttonAcceptThird], // 수신대기  : 자세히 보기, 거절, 수락 
+            [MSG_STATE_ACCEPTED] : [buttonDetail, buttonUploadVideo], // 수락함 : 자세히 보기, 영상 업로드 
+            [MSG_STATE_REJECTED] : [buttonDetailFull], // 거절함 : 자세히 보기
+            [MSG_STATE_COMPLETED] : [buttonDetailFull], // 배송완료 : 자세히 보기
+            [MSG_STATE_CANCELED] : [],
+
+            [MSG_STATE_PAYMENT_WAITING] : [],
+            [MSG_STATE_PAYMENT_COMPLETE] : [],
+            [MSG_STATE_PAYMENT_CANCEL] : [],
+
+            [MSG_STATE_VIDEO_CONFIRMING] : [buttonDetail, buttonUploadVideo],
+            [MSG_STATE_VIDEO_REJECT] : [buttonDetail, buttonUploadVideo],
+        };
         return (
             buttons[state].map(button => (
                 button
