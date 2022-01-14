@@ -60,7 +60,11 @@ function LoginComponent({isLogined}) {
         setInputs(resetInputs)
     };
 
-    const loginAction = ()=>{
+    const loginAction = (e)=>{
+
+        if(e && e.key && e.key !== "Enter") {
+            return ;
+        }
         if(isEnableLogin) {
             AWSManager.getSalt({userId: inputs.id}).then((result)=>{
                 console.log('getSalt = ' + result.data.salt);
@@ -137,6 +141,7 @@ function LoginComponent({isLogined}) {
                                 placeholder={"이메일 혹은 아이디를 입력해 주세요"}
                                 type="text"
                                 onChange={onChange}
+                                onKeyPress={loginAction}
                                 value={id}
                                 name="id"
                             ></input>
@@ -149,6 +154,7 @@ function LoginComponent({isLogined}) {
                             <input
                                 type="password"
                                 onChange={onChange}
+                                onKeyPress={loginAction}
                                 value={pw}
                                 name="pw"
                             ></input>

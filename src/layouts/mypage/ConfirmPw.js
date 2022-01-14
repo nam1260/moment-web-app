@@ -33,7 +33,12 @@ function ConfirmPwComponent({ setIsMenuOpen, isLogined}) {
         if(pw.length > 1) setIsEnableButton(true);
         else setIsEnableButton(false);
     };
-    const confirmPw = () => {
+    const confirmPw = (e) => {
+
+        if((e && e.key && e.key !== "Enter") || !isEnableButton) {
+            return ;
+        }
+
         let userInfo = StorageManager.loadUserInfo();
         let salt = StorageManager.loadSalt();
         console.log('userId = ' + userInfo.userId);
@@ -80,6 +85,7 @@ function ConfirmPwComponent({ setIsMenuOpen, isLogined}) {
                             <input
                                 type="password"
                                 onChange={onChange}
+                                onKeyPress={confirmPw}
                                 value={pw}
                                 name="pw"
                             ></input>
