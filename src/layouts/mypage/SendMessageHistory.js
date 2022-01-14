@@ -26,26 +26,37 @@ const MODAL_TYPE = {
     VIDEO2:5,
 }
 
+const MSG_STATE_BRFORE = "0";
+const MSG_STATE_ACCEPTED = "1";
+const MSG_STATE_REJECTED = "2";
+const MSG_STATE_COMPLETED = "3";
+const MSG_STATE_CANCELED = "4";
+
+const MSG_STATE_PAYMENT_WAITING = "90";
+const MSG_STATE_PAYMENT_COMPLETE = "91";
+const MSG_STATE_PAYMENT_CANCEL = "92";
+
+const MSG_STATE_VIDEO_CONFIRMING = "80";
+const MSG_STATE_VIDEO_REJECT = "81";
+
 function SendMessageHistory({isLogined}) {
-    // message state 
-    // 0 : 확인중 / 수신대기
-    // 1 : 수락됨 / 수락함
-    // 2 : 거절됨 / 거절함
-    // 3 : 배송완료
-    const stateString = [
-        ["확인중", "수신대기"],
-        ["수락됨", "수락함"],
-        ["거절됨", "거절함"],
-        ["배송완료", "배송완료"],
-    ];
+    const stateString = {
+        [MSG_STATE_BRFORE] : ["스타 확인중", "수신대기"],
+        [MSG_STATE_ACCEPTED] : ["수락됨", "수락함"],
+        [MSG_STATE_REJECTED] : ["거절됨", "거절함"],
+        [MSG_STATE_COMPLETED] : ["배송완료", "배송완료"],
+        [MSG_STATE_CANCELED] : ["취소함", ""],
+
+        [MSG_STATE_PAYMENT_WAITING] : ["결제대기", ""],
+        [MSG_STATE_PAYMENT_COMPLETE] : ["결제완료(사연검증중)", ""],
+        [MSG_STATE_PAYMENT_CANCEL] : ["결제취소", ""],
+
+        [MSG_STATE_VIDEO_CONFIRMING] : ["수락됨", "영상검증중"],
+        [MSG_STATE_VIDEO_REJECT] : ["수락됨", "영상부적절"],
+    };
     const IDX_SENDDER = 0;
     const IDX_RECEIVER = 1;
 
-    const MSG_STATE_BRFORE = "0";
-    const MSG_STATE_ACCEPTED = "1";
-    const MSG_STATE_CANCELED = "2";
-    const MSG_STATE_COMPLETED = "3";
-    const MSG_STATE_DELETED = "4";
     
     const [messageList, setMessageList] = useState([]);
     const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
@@ -247,6 +258,10 @@ function SendMessageHistory({isLogined}) {
             <div className="message">
                 {
                     messageList.map((message) => {
+                        console.log('message.msgStatus =' + message.msgStatus);
+                        console.log('message.msgStatus =' + typeof(message.msgStatus));
+                        console.log('stateString[message.msgStatus] =' + stateString[message.msgStatus]);
+                        console.log('stateString[message.msgStatus] =' , stateString[message.msgStatus]);
                         return (
                             <div>
                                 <div className="border">
@@ -293,7 +308,7 @@ function SendMessageHistory({isLogined}) {
             userId : selectedMessage.userId,
             msgId : selectedMessage.msgId,
         }).then((result)=>{
-            selectedMessage.msgStatus = MSG_STATE_DELETED;
+            selectedMessage.msgStatus = MSG_STATE_CANCELED;
             console.log(result);
         });
     };
