@@ -196,7 +196,7 @@ function SendMessageHistory({isLogined}) {
                     <br/>
                     <span className="title">{comment}</span>
                     <span className="guide">영상링크를 확인해 주세요</span>
-                    <a href={link}>{link}</a>
+                    <a href={link} target='_blank'>{link}</a>
                 </div>
                 <div className="button_container">
                     <button className="center_button" onClick={()=>{
