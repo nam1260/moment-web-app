@@ -25,26 +25,36 @@ const MODAL_TYPE = {
     UPLOAD:4,
 }
 
+const MSG_STATE_BRFORE = "0";
+const MSG_STATE_ACCEPTED = "1";
+const MSG_STATE_REJECTED = "2";
+const MSG_STATE_COMPLETED = "3";
+const MSG_STATE_CANCELED = "4";
+
+const MSG_STATE_PAYMENT_WAITING = "90";
+const MSG_STATE_PAYMENT_COMPLETE = "91";
+const MSG_STATE_PAYMENT_CANCEL = "92";
+
+const MSG_STATE_VIDEO_CONFIRMING = "80";
+const MSG_STATE_VIDEO_REJECT = "81";
 
 function ReceiveMessageHistory({isLogined}) {
-    // message state 
-    // 0 : 확인중 / 수신대기
-    // 1 : 수락됨 / 수락함
-    // 2 : 거절됨 / 거절함
-    // 3 : 배송완료
-    const stateString = [
-        ["확인중", "수신대기"],
-        ["수락됨", "수락함"],
-        ["거절됨", "거절함"],
-        ["배송완료", "배송완료"],
-    ];
+    const stateString = {
+        [MSG_STATE_BRFORE] : ["스타 확인중", "수신대기"],
+        [MSG_STATE_ACCEPTED] : ["수락됨", "수락함"],
+        [MSG_STATE_REJECTED] : ["거절됨", "거절함"],
+        [MSG_STATE_COMPLETED] : ["배송완료", "배송완료"],
+        [MSG_STATE_CANCELED] : ["취소함", ""],
+
+        [MSG_STATE_PAYMENT_WAITING] : ["결제대기", ""],
+        [MSG_STATE_PAYMENT_COMPLETE] : ["결제완료(사연검증중)", ""],
+        [MSG_STATE_PAYMENT_CANCEL] : ["결제취소", ""],
+
+        [MSG_STATE_VIDEO_CONFIRMING] : ["수락됨", "영상검증중"],
+        [MSG_STATE_VIDEO_REJECT] : ["수락됨", "영상부적절"],
+    };
     const IDX_SENDDER = 0;
     const IDX_RECEIVER = 1;
-
-    const MSG_STATE_BRFORE = "0";
-    const MSG_STATE_ACCEPTED = "1";
-    const MSG_STATE_CANCELED = "2";
-    const MSG_STATE_COMPLETED = "3";
 
     const [messageList, setMessageList] = useState([]);
     const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
@@ -80,9 +90,17 @@ function ReceiveMessageHistory({isLogined}) {
     };
 
     const getButtonsForDetails = (state)=> {
+        let buttonExitFull = (
+            <button className="center_button" onClick={()=>{
+                setShowModal(false);
+            }}>닫기</button>);
+        let buttonExit = (
+            <button className="left_button" onClick={()=>{
+                setShowModal(false);
+            }}>닫기</button>);
         let buttonReject = (
             <button className="left_button" onClick={()=>{
-                updateMessage(MSG_STATE_CANCELED);
+                updateMessage(MSG_STATE_REJECTED);
                 setShowModal(false);
             }}>거절</button>);
         let buttonAccept = (
@@ -93,7 +111,7 @@ function ReceiveMessageHistory({isLogined}) {
 
         let buttonReject2 = (
             <button className="left_button" onClick={()=>{
-                updateMessage(MSG_STATE_CANCELED);
+                updateMessage(MSG_STATE_REJECTED);
                 setShowModal(false);
             }}>수락취소</button>);
         let buttonUpload = (
@@ -102,12 +120,21 @@ function ReceiveMessageHistory({isLogined}) {
                 setModalType(MODAL_TYPE.UPLOAD);
                 setShowModal(true);
             }}>업로드</button>);
-        let buttons = [
-            [buttonReject, buttonAccept], // 확인중 : 자세히 보기, 전달취소
-            [buttonReject2, buttonUpload], // 수락됨 : 자세히 보기
-            [], // 거절됨 
-            [] // 배송완료 
-        ]
+
+        let buttons = {
+            [MSG_STATE_BRFORE] : [buttonReject, buttonAccept],
+            [MSG_STATE_ACCEPTED] : [buttonReject2, buttonUpload],
+            [MSG_STATE_REJECTED] : [buttonExitFull],
+            [MSG_STATE_COMPLETED] : [buttonExitFull],
+            [MSG_STATE_CANCELED] : [],
+
+            [MSG_STATE_PAYMENT_WAITING] : [],
+            [MSG_STATE_PAYMENT_COMPLETE] : [],
+            [MSG_STATE_PAYMENT_CANCEL] : [],
+
+            [MSG_STATE_VIDEO_CONFIRMING] : [buttonReject2, buttonUpload],
+            [MSG_STATE_VIDEO_REJECT] : [buttonReject2, buttonUpload],
+        };
         return (
             buttons[state].map(button => (
                 button
@@ -243,7 +270,7 @@ function ReceiveMessageHistory({isLogined}) {
                 console.log('buttonRefuseThird');
                 setModalType(MODAL_TYPE.BUTTONS);
                 setSelectedMessage(message);
-                setButtonType(MSG_STATE_CANCELED);
+                setButtonType(MSG_STATE_REJECTED);
                 setShowModal(true);
             }
         }> 거절
@@ -268,12 +295,21 @@ function ReceiveMessageHistory({isLogined}) {
                 setShowModal(true);
             }
         }>영상 업로드</button>);
-        let buttons = [
-            [buttonDetailThird, buttonRefuseThird, buttonAcceptThird], // 수신대기  : 자세히 보기, 거절, 수락 
-            [buttonDetail, buttonUploadVideo], // 수락함 : 자세히 보기, 영상 업로드 
-            [buttonDetailFull], // 거절함 : 자세히 보기
-            [buttonDetailFull] // 배송완료 : 자세히 보기
-        ]
+        
+        let buttons = {
+            [MSG_STATE_BRFORE] : [buttonDetailThird, buttonRefuseThird, buttonAcceptThird], // 수신대기  : 자세히 보기, 거절, 수락 
+            [MSG_STATE_ACCEPTED] : [buttonDetail, buttonUploadVideo], // 수락함 : 자세히 보기, 영상 업로드 
+            [MSG_STATE_REJECTED] : [buttonDetailFull], // 거절함 : 자세히 보기
+            [MSG_STATE_COMPLETED] : [buttonDetail, buttonUploadVideo], // 배송완료 : 자세히 보기
+            [MSG_STATE_CANCELED] : [],
+
+            [MSG_STATE_PAYMENT_WAITING] : [],
+            [MSG_STATE_PAYMENT_COMPLETE] : [],
+            [MSG_STATE_PAYMENT_CANCEL] : [],
+
+            [MSG_STATE_VIDEO_CONFIRMING] : [buttonDetail, buttonUploadVideo],
+            [MSG_STATE_VIDEO_REJECT] : [buttonDetail, buttonUploadVideo],
+        };
         return (
             buttons[state].map(button => (
                 button
@@ -289,13 +325,31 @@ function ReceiveMessageHistory({isLogined}) {
                 <p>받은 사연이 없습니다.</p>
             </div>
         )
-    }
+    };
+
+    const isMessageShowable = (status) => {
+        var isShowable = false;
+        switch(status) {
+            case MSG_STATE_BRFORE:
+            case MSG_STATE_ACCEPTED:
+            case MSG_STATE_REJECTED:
+            case MSG_STATE_COMPLETED:
+            case MSG_STATE_VIDEO_CONFIRMING:
+            case MSG_STATE_VIDEO_REJECT:
+                isShowable = true;
+                break;
+            default :
+                break;
+        }
+        return isShowable;
+    };
+
     const FoundComponent = () => {
         return (
             <div className="message">
                 {
                     messageList.map((message) => {
-                        return (
+                        return isMessageShowable(message.msgStatus) ? (
                             <div>
                                 <div className="border">
                                 </div>
@@ -328,7 +382,7 @@ function ReceiveMessageHistory({isLogined}) {
                                     {getButtons(message.msgStatus, message)}
                                 </div>
                             </div>
-                        )
+                        ) : null
                     })
                 }
             </div>

@@ -26,32 +26,44 @@ const MODAL_TYPE = {
     VIDEO2:5,
 }
 
+const MSG_STATE_BRFORE = "0";
+const MSG_STATE_ACCEPTED = "1";
+const MSG_STATE_REJECTED = "2";
+const MSG_STATE_COMPLETED = "3";
+const MSG_STATE_CANCELED = "4";
+
+const MSG_STATE_PAYMENT_WAITING = "90";
+const MSG_STATE_PAYMENT_COMPLETE = "91";
+const MSG_STATE_PAYMENT_CANCEL = "92";
+
+const MSG_STATE_VIDEO_CONFIRMING = "80";
+const MSG_STATE_VIDEO_REJECT = "81";
+
 function SendMessageHistory({isLogined}) {
-    // message state 
-    // 0 : 확인중 / 수신대기
-    // 1 : 수락됨 / 수락함
-    // 2 : 거절됨 / 거절함
-    // 3 : 배송완료
-    const stateString = [
-        ["확인중", "수신대기"],
-        ["수락됨", "수락함"],
-        ["거절됨", "거절함"],
-        ["배송완료", "배송완료"],
-    ];
+    const stateString = {
+        [MSG_STATE_BRFORE] : ["스타 확인중", "수신대기"],
+        [MSG_STATE_ACCEPTED] : ["수락됨", "수락함"],
+        [MSG_STATE_REJECTED] : ["거절됨", "거절함"],
+        [MSG_STATE_COMPLETED] : ["배송완료", "배송완료"],
+        [MSG_STATE_CANCELED] : ["취소함", ""],
+
+        [MSG_STATE_PAYMENT_WAITING] : ["결제대기", ""],
+        [MSG_STATE_PAYMENT_COMPLETE] : ["결제완료(사연검증중)", ""],
+        [MSG_STATE_PAYMENT_CANCEL] : ["결제취소", ""],
+
+        [MSG_STATE_VIDEO_CONFIRMING] : ["수락됨", "영상검증중"],
+        [MSG_STATE_VIDEO_REJECT] : ["수락됨", "영상부적절"],
+    };
     const IDX_SENDDER = 0;
     const IDX_RECEIVER = 1;
 
-    const MSG_STATE_BRFORE = "0";
-    const MSG_STATE_ACCEPTED = "1";
-    const MSG_STATE_CANCELED = "2";
-    const MSG_STATE_COMPLETED = "3";
-    const MSG_STATE_DELETED = "4";
     
     const [messageList, setMessageList] = useState([]);
     const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(MODAL_TYPE.INIT);
     const [selectedMessage, setSelectedMessage] = useState(null);
+    const [buttonType, setButtonType] = useState(MSG_STATE_CANCELED);
 
     const buttonModalComponent = () => {
         return (
@@ -86,7 +98,7 @@ function SendMessageHistory({isLogined}) {
                         아니요
                     </button>
                     <button className="right_button" onClick={()=>{
-                            deleteMessage();
+                            updateMessage(MSG_STATE_CANCELED);
                             setModalType(MODAL_TYPE.BUTTON);
                         }}>
                         예
@@ -97,7 +109,10 @@ function SendMessageHistory({isLogined}) {
     };
 
     const getButtonsForDetails = (state)=> {
-
+        let buttonExitFull = (
+            <button className="center_button" onClick={()=>{
+                setShowModal(false);
+            }}>닫기</button>);
         let buttonExit = (
             <button className="left_button" onClick={()=>{
                 setShowModal(false);
@@ -112,12 +127,20 @@ function SendMessageHistory({isLogined}) {
                 setModalType(MODAL_TYPE.VIDEO1);
                 setShowModal(true);
             }}>영상확인</button>);
-        let buttons = [
-            [buttonExit, buttonDelete], // 확인중 : 자세히 보기, 전달취소
-            [], // 수락됨 : 자세히 보기
-            [], // 거절됨 
-            [buttonExit, buttonLink] // 배송완료 
-        ]
+        let buttons = {
+            [MSG_STATE_BRFORE] : [buttonExit, buttonDelete], // 확인중 : 자세히 보기, 전달취소
+            [MSG_STATE_ACCEPTED] : [buttonExitFull],
+            [MSG_STATE_REJECTED] : [buttonExitFull],
+            [MSG_STATE_COMPLETED] : [buttonExit, buttonLink], // 배송완료
+            [MSG_STATE_CANCELED] : [buttonExitFull],
+
+            [MSG_STATE_PAYMENT_WAITING] : [buttonExit, buttonDelete],
+            [MSG_STATE_PAYMENT_COMPLETE] : [buttonExit, buttonDelete],
+            [MSG_STATE_PAYMENT_CANCEL] : [buttonExitFull],
+
+            [MSG_STATE_VIDEO_CONFIRMING] : [buttonExitFull],
+            [MSG_STATE_VIDEO_REJECT] : [buttonExitFull],
+        };
         return (
             buttons[state].map(button => (
                 button
@@ -220,12 +243,20 @@ function SendMessageHistory({isLogined}) {
             }
         }>영상확인</button>
         );
-        let buttons = [
-            [buttonDetail, buttonCancel], // 확인중 : 자세히 보기, 전달취소
-            [buttonDetailFull], // 수락됨 : 자세히 보기
-            [buttonDetailFull], // 거절됨 : 자세히 보기
-            [buttonDetail, buttonViewVideo] // 배송완료 : 자세히 보기, 영상확인
-        ]
+        let buttons = {
+            [MSG_STATE_BRFORE] : [buttonDetail, buttonCancel],
+            [MSG_STATE_ACCEPTED] : [buttonDetailFull],
+            [MSG_STATE_REJECTED] : [buttonDetailFull],
+            [MSG_STATE_COMPLETED] : [buttonDetail, buttonViewVideo],
+            [MSG_STATE_CANCELED] : [buttonDetailFull],
+
+            [MSG_STATE_PAYMENT_WAITING] : [buttonDetail, buttonCancel],
+            [MSG_STATE_PAYMENT_COMPLETE] : [buttonDetail, buttonCancel],
+            [MSG_STATE_PAYMENT_CANCEL] : [buttonDetailFull],
+
+            [MSG_STATE_VIDEO_CONFIRMING] : [buttonDetailFull],
+            [MSG_STATE_VIDEO_REJECT] : [buttonDetailFull],
+        };
         return (
             buttons[state].map(button => (
                 button
@@ -287,13 +318,24 @@ function SendMessageHistory({isLogined}) {
         )
     };
 
+    const updateMessage =(state) => {
+        if(state) {
+            selectedMessage.msgStatus = state;
+        }
+        AWSManager.updateStarMsgInfo(
+            selectedMessage
+        ).then((result)=>{
+            console.log(result);
+        });
+    };
+
     const deleteMessage =() => {
         console.log('deleteMessage selectedMessage = ' , selectedMessage);
         AWSManager.deleteMsgInfo({
             userId : selectedMessage.userId,
             msgId : selectedMessage.msgId,
         }).then((result)=>{
-            selectedMessage.msgStatus = MSG_STATE_DELETED;
+            selectedMessage.msgStatus = MSG_STATE_CANCELED;
             console.log(result);
         });
     };
