@@ -17,40 +17,6 @@ const downArrowPath = "/assets/icons/list-ico-open.png"
 const notFoundPath = "/assets/icons/icoFace3B.png"
 
 
-
-const categoryData = [
-    {
-        value: 'influencer',
-        id: "1001",
-        text: '유명인',
-    },
-    {
-        value: '방송인',
-        id: "1002",
-        text: '방송인',
-    },
-    {
-        value: '예술인',
-        id: "1003",
-        text: '예술인',
-    },
-    {
-        value: '교육자',
-        id: "1004",
-        text: '교육자',
-    },
-    {
-        value: '운동선수',
-        id: "1005",
-        text: '운동선수',
-    },
-    {
-        value: '크리에이터',
-        id: "1006",
-        text: '크리에이터'
-    }
-];
-
 const regBodyStatus = {
     INIT: 0,
     FAIL: 1,
@@ -139,9 +105,9 @@ function StartProfile({isLogined}) {
             text: '예술인',
         },
         {
-            value: '교육자',
+            value: '가수',
             id: "1004",
-            text: '교육자',
+            text: '가수'
         },
         {
             value: '운동선수',
@@ -152,7 +118,23 @@ function StartProfile({isLogined}) {
             value: '크리에이터',
             id: "1006",
             text: '크리에이터'
-        }
+        },
+        {
+            value: '교육자',
+            id: "1007",
+            text: '교육자',
+        },
+        {
+            value: '개그맨',
+            id: "1008",
+            text: '개그맨',
+        },
+        {
+            value: '프로게이머',
+            id: "1009",
+            text: '프로게이머'
+        },
+
     ];
     const DropdownIndicator = (
         props: DropdownIndicatorProps<ColourOption, true>
