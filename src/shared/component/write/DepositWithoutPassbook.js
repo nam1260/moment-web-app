@@ -216,12 +216,13 @@ export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpe
                     <DepositLabel>
                         입금 하실 계좌 정보<br />
                         신한은행 110535500698<br />
-                        예금주 : 박재영(모먼트)
+                        예금주 : 박재영(모먼트)<br />
+                        (미입금 상태 24시간 경과 시 사연 전송이 취소됩니다)
                     </DepositLabel>
                     <DepositRow>
-                        <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'bankNm'} prefix={<BankOutlined />} label='입급 은행 명' />
-                        <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'accountNumber'} prefix={<BankOutlined />} label='입급계좌번호(환불 받을 계좌)' />
-                        <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'accountHolder'} prefix={<UserOutlined />} label='예금주' />
+                        <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'bankNm'} prefix={<BankOutlined />} label='입금 은행 명' />
+                        <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'accountNumber'} prefix={<BankOutlined />} label='입금 계좌번호(환불시 받을 계좌 동일)' />
+                        <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'accountHolder'} prefix={<UserOutlined />} label='입금자 명(실명과 일치해야 합니다)' />
                         <InputWithLabel inputValue={depositInfo} onChange={handleChange} name={'phoneNumber'} prefix={<PhoneOutlined />} label='연락처' />
                         <RegisterButton onClick={submitDepositData}>사연 등록 하기</RegisterButton>
                     </DepositRow>

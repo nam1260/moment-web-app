@@ -525,7 +525,7 @@ main {
 .modalContainer .button_modal_detail {
     z-index: 1;
     width: min(70vw,650px);
-    height: min(73vw, 730px);
+    height: min(93vw, 730px);
     border-radius: min(5vw, 40px);
     background: #fff;
     display: flex;
