@@ -116,7 +116,7 @@ function ReceiveMessageHistory({isLogined}) {
             }}>수락취소</button>);
         let buttonUpload = (
             <button className="right_button" onClick={()=>{
-                setButtonType(MSG_STATE_COMPLETED);
+                setButtonType(MSG_STATE_VIDEO_CONFIRMING);
                 setModalType(MODAL_TYPE.UPLOAD);
                 setShowModal(true);
             }}>업로드</button>);
@@ -289,7 +289,7 @@ function ReceiveMessageHistory({isLogined}) {
         <button className="highlight"
             onClick={()=>{
                 console.log('buttonUploadVideo');
-                setButtonType(MSG_STATE_COMPLETED);
+                setButtonType(MSG_STATE_VIDEO_CONFIRMING);
                 setModalType(MODAL_TYPE.UPLOAD);
                 setSelectedMessage(message);
                 setShowModal(true);
