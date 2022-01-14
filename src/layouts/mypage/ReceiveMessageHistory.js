@@ -300,7 +300,7 @@ function ReceiveMessageHistory({isLogined}) {
             [MSG_STATE_BRFORE] : [buttonDetailThird, buttonRefuseThird, buttonAcceptThird], // 수신대기  : 자세히 보기, 거절, 수락 
             [MSG_STATE_ACCEPTED] : [buttonDetail, buttonUploadVideo], // 수락함 : 자세히 보기, 영상 업로드 
             [MSG_STATE_REJECTED] : [buttonDetailFull], // 거절함 : 자세히 보기
-            [MSG_STATE_COMPLETED] : [buttonDetailFull, buttonUploadVideo], // 배송완료 : 자세히 보기
+            [MSG_STATE_COMPLETED] : [buttonDetail, buttonUploadVideo], // 배송완료 : 자세히 보기
             [MSG_STATE_CANCELED] : [],
 
             [MSG_STATE_PAYMENT_WAITING] : [],
