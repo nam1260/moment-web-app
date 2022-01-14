@@ -47,8 +47,8 @@ export default function MomentDatePicker({ setDate }) {
         setDate(`${fullOfYear}${fullOfMonth}${fullOfDate}`)
     }, [startDate, setDate])
 
-    const minDate = addDays(new Date(), 7);
-    const maxDate = addDays(minDate, 23);
+    const minDate = addDays(new Date(), 5);
+    const maxDate = addDays(minDate, 25);
     
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="custom-input"  onClick={onClick}>
@@ -63,7 +63,7 @@ export default function MomentDatePicker({ setDate }) {
     return (
         <DatePicker 
             locale="ko"
-            selected={startDate}
+            selected={minDate}
             customInput={<ExampleCustomInput />}
             onChange={(date) => setStartDate(date)}
             dateFormat="yyyy-MM-dd"
