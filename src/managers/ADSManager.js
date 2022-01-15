@@ -1,4 +1,24 @@
+
+import ReactPixel from 'react-facebook-pixel';
+
+const advancedMatching = { em: 'mtm.moment@gmail.com' }; // optional, more info: https://developers.facebook.com/docs/facebook-pixel/advanced/advanced-matching
+const options = {
+    autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
+    debug: false, // enable logs
+};
+
+
 const ADSManager = (function () {
+
+
+    function _fbq(event,data) {
+        console.log("fbq")
+        ReactPixel.init('874909166531680', advancedMatching, options);
+        ReactPixel.pageView(); // For tracking page view
+        ReactPixel.track(event, data);
+    }
+
+
 
 
     function _gtag() {
@@ -24,11 +44,13 @@ const ADSManager = (function () {
         const trackingId = 'AW-10834514022/1W1_CPvYtY4DEOagpq4o';
         const value = 100.0;
 
-            _gtag_report_conversion(
-                {
-                    trackingId,
-                    value
-                });
+        _gtag_report_conversion(
+            {
+                trackingId,
+                value
+            });
+
+        _fbq("Lead");
 
             return false;
     };
@@ -41,6 +63,8 @@ const ADSManager = (function () {
                 trackingId,
                 value
             });
+
+        _fbq("Purchase",{value: 100.0, currency: 'KRW'});
 
         return false;
 
@@ -57,6 +81,8 @@ const ADSManager = (function () {
                 value
             });
 
+        _fbq("ViewContent");
+
         return false;
 
     };
@@ -65,14 +91,14 @@ const ADSManager = (function () {
     const collectClickedFormLog = () => {
         const trackingId = 'AW-10834514022/5CdRCM-DypADEOagpq4o';
         _gtag_report_conversion2({trackingId});
-
+        _fbq("Search");
         return false;
 
     }
 
     return {
         collectClickedAddAcount,
-        addEnterStarDetailGoogleSnipet: collectEnteredStarDetail,
+        collectEnteredStarDetail,
         collectClikedSendMessage,
         collectClickedFormLog
 

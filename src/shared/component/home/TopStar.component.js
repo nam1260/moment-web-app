@@ -114,7 +114,7 @@ const plusIcon = "/assets/icons/main-plus-request.png";
 
 function TopStarComponent({ name, secondary,nickName, price, imgPath, starId, history, isAdd }) {
   const onClickEvent = isAdd ? () => console.log('Add') : () => {
-      ADSManager.addEnterStarDetailGoogleSnipet();
+      ADSManager.collectEnteredStarDetail();
       history.push(`/star/${starId}`)
   };
   // const onClickTBDEvent = () => message.warn("서비스 준비중입니다");
