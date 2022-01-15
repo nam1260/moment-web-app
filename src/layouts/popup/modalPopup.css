@@ -739,6 +739,10 @@ main {
     color: #101010;
     border:none;
 }
+.modalContainer .input_modal .info_container .input_container > input::placeholder {
+    color: #ff723a;
+    opacity: 0.5;
+}
 .modalContainer .input_modal .info_container .input_container > span {
     font-family: 'AppleSDGothicNeo';
     font-size: min(4vw, 28px);
