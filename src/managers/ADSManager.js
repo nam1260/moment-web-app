@@ -26,7 +26,6 @@ const AdsManager = (function () {
 
 
     const addAccountGoogleSnipet = (url) => {
-        console.log("addaccountgoogle")
         const trackingId = 'AW-10834514022/1W1_CPvYtY4DEOagpq4o';
         const value = 100.0;
 

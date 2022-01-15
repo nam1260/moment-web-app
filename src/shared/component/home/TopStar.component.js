@@ -93,16 +93,16 @@ const TopStarCard = styled.article`
       left: min(4vw, 30px);
     }
     & > .article-footer > b {
-      font-size: min(5vw, 24px);
+      font-size: min(3.5vw, 24px);
       height: min(5vw, 29px);
     }
 
     & > .article-footer > p {
-      font-size: "min(4vw, 20px)"
+      font-size: min(3vw, 20px)
     }; 
     
     & > .article-footer > p#price {
-      font-size: "min(3vw, 10px)"
+      font-size: min(2vw, 10px)
     }; 
     
       

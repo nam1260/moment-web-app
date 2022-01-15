@@ -342,8 +342,6 @@ function AddAccountComponent({isLoginded}) {
     };
     
     const confirmCerttificatePhone = () => {
-        console.log('authNum = ' + authNum + ', validNumber =' + validNumber + ', confirm ? ' + (validNumber == authNum));
-        
         const nextInputs = {
             ...inputsAvalilables,  
             ['isPhone']: (validNumber == authNum),
@@ -442,7 +440,7 @@ function AddAccountComponent({isLoginded}) {
                                 <div className="input_modal">
                                     <div className="info_container">
                                         <div className="title_container">
-                                            <span className="title">인증번호</span>
+                                            <span className="title">휴대폰 문자 인증번호 입력</span>
                                         </div>
                                         <div className="input_container">
                                             <input
@@ -451,17 +449,19 @@ function AddAccountComponent({isLoginded}) {
                                                 onChange={onChangeOnlyNumber}
                                                 name="validNumber"
                                                 value={validNumber}
-                                                placeholder={"숫자 6 자리 입력"}
+                                                placeholder={"여기를 눌러 인증번호를 입력하세요"}
                                             ></input>
                                             {/* <span>{smsTimerText}</span> */}
                                         </div>
                                         <div className="button_container">
                                             <button className="left_button" onClick={()=>{
-                                                console.log('인증번호 취소'); 
                                                 closeModal();
                                             }}>취소</button>
                                             <button className="right_button" onClick={()=>{
-                                                console.log('인증번호 입력');
+                                                if(!validNumber) {
+                                                    alert("입력하신 휴대폰번호로 받은 인증번호를 입력하세요");
+                                                    return;
+                                                }
                                                 confirmCerttificatePhone();
                                                 closeModal();
                                             }}>확인</button>
