@@ -17,6 +17,7 @@ import { saveUser } from '../../redux/user';
 import EncryptionManager from "../../managers/EncryptionManager.js";
 import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
 import {Redirect} from 'react-router-dom'
+import ADSManager from '../../managers/ADSManager';
 
 const editPath = "assets/icons/list-ico-edit.png"
 const failIcon = "assets/icons/icoFace3@3x.png"
@@ -201,7 +202,10 @@ function LoginComponent({isLogined}) {
             </section>
             <section className="login-options">
                 <div>
-                    <a onClick={()=> { history.push('/addAccount') }}>모먼트 회원이 아닌가요</a>
+                    {<a onClick={()=> {
+                        ADSManager.addAccountGoogleSnipet();
+                        history.push('/addAccount');
+                    }}>모먼트 회원이 아닌가요</a>}
                     <a onClick={()=> { history.push('/findAccount') }}>계정을 찾고 계신가요</a>
                 </div>
             </section>

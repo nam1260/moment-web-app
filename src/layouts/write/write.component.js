@@ -13,6 +13,7 @@ import { Input, message } from 'antd';
 import Styled from "styled-components"
 import AWSManager from "managers/AWSManager";
 import DepositWithoutPassbookModal from 'layouts/container/DepositModalContainer';
+import ADSManager from '../../managers/ADSManager';
 
 const {
     sendMessageToStar,
@@ -277,6 +278,8 @@ const WriteComponent = (props) => {
                             setIsLoadingModalOpen(true); 
                             setTimeout(() => {
                                 setIsLoadingModalOpen(false)
+                               // history.push(`/writesuccess/${starId}`)
+                                ADSManager.addSendMessageGoogleSnipet();
                                 history.push(`/writesuccess/${starId}`)
                             }, 1000)
                         })
