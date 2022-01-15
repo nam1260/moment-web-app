@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { message } from "antd";
+import ADSManager from '../../../managers/ADSManager';
 
 const TopStarCard = styled.article`
   display: flex;
@@ -112,7 +113,10 @@ const dummyIcon = "/assets/icons/main-ico-dummy.png";
 const plusIcon = "/assets/icons/main-plus-request.png";
 
 function TopStarComponent({ name, secondary,nickName, price, imgPath, starId, history, isAdd }) {
-  const onClickEvent = isAdd ? () => console.log('Add') : () => history.push(`/star/${starId}`);
+  const onClickEvent = isAdd ? () => console.log('Add') : () => {
+      ADSManager.addEnterStarDetailGoogleSnipet();
+      history.push(`/star/${starId}`)
+  };
   // const onClickTBDEvent = () => message.warn("서비스 준비중입니다");
   
   return (
