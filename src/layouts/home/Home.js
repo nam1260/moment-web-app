@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback,useState } from "react";
+import React, { useEffect, useCallback,useState,useMemo } from "react";
 import "App.css";
 import "Common.css";
 import "./home.css";
@@ -24,9 +24,10 @@ function Home({ history, getStarListAsync, starList}) {
     }, [])
 
 
-
+    const momentTestStar = useMemo(()=>starList.filter((item)=> {return item.starNm === "이보나"})[0],[]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    console.log(momentTestStar);
 
     const onClickContactHandler = useCallback(()=>{
         setIsModalOpen(true);
@@ -62,7 +63,7 @@ function Home({ history, getStarListAsync, starList}) {
                     <div>
                         {
 
-                            [...starList].sort(()=>Math.random() - 0.5).map((star) =>
+                            starList.sort(()=>Math.random() - 0.5).sort((a,b)=>(a.starNm === "이보나") - (b.starNm === "이보나")).map((star) =>
                                 star === null ?
                               ""
                                 : <TopStarComponent
