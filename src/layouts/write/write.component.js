@@ -279,7 +279,7 @@ const WriteComponent = (props) => {
                             setTimeout(() => {
                                 setIsLoadingModalOpen(false)
                                // history.push(`/writesuccess/${starId}`)
-                                ADSManager.addSendMessageGoogleSnipet();
+                                ADSManager.collectClikedSendMessage();
                                 history.push(`/writesuccess/${starId}`)
                             }, 1000)
                         })
