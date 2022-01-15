@@ -2,8 +2,7 @@
 
 import React, { useEffect } from "react";
 import Styled from "styled-components"
-import { useHistory } from "react-router";
-
+import ADSManager from "../../../managers/ADSManager"
 
 const ICON_QUESTION = "/assets/icons/ico-question.png";
 const dummyIcon = "/assets/icons/main-ico-dummy.png";
@@ -116,15 +115,12 @@ const StyledReuqestStar = Styled.section`
         & > div > h3 {
             margin-bottom: min(3vw, 32px);
         }
-    
     }
     
 `
 
 //TODO 클릭 시 링크 처
 const RequestStar = () => {
-    console.log("RequstStar");
-    const history = useHistory();
     return (
         <StyledReuqestStar>
             <div className="container">
@@ -134,7 +130,10 @@ const RequestStar = () => {
                 </h3>
                 <div>
                     <article>
-                        <div className="img-content" onClick={()=>{console.log("onclick"); window.open(SERVEY_URL, '_blank')}}>
+                        <div className="img-content" onClick={()=>{
+                            ADSManager.collectClickedFormLog()
+                            window.open(SERVEY_URL, '_blank')
+                        }}>
                             <img className={'none-logo'} alt="none" src={dummyIcon} style={{ opacity: 0.6 }} />
                             <img className={'plus-img'} alt="none" src={plusIcon} />
                             <span> 딱 30초만에 요청하세요!</span>

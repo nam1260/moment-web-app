@@ -203,7 +203,7 @@ function LoginComponent({isLogined}) {
             <section className="login-options">
                 <div>
                     {<a onClick={()=> {
-                        ADSManager.addAccountGoogleSnipet();
+                        ADSManager.collectClickedAddAcount();
                         history.push('/addAccount');
                     }}>모먼트 회원이 아닌가요</a>}
                     <a onClick={()=> { history.push('/findAccount') }}>계정을 찾고 계신가요</a>
