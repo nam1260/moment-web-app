@@ -494,7 +494,9 @@ function AddAccountComponent({isLoginded}) {
                 <div>
                     <span>
                         <img alt="none" name="terms" src={terms ? checkOnPath : checkOffPath} onClick={onToggle}/>
-                        <span class="highlight" onClick={()=>{history.push('/doc/3')}}>개인정보처리방침 및 서비스이용약관</span>
+                        <span class="highlight" onClick={()=>{history.push('/doc/2')}}>개인정보처리방침</span>
+                        <span> 및 </span>
+                        <span class="highlight" onClick={()=>{history.push('/doc/3')}}>서비스이용약관</span>
                         <span>에 동의합니다.</span>
                     </span>
                     <br/>

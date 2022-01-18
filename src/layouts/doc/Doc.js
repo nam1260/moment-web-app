@@ -1,6 +1,7 @@
 import MarketingAcceptComponent from "./section/MarketingAccept"
 import PersonalDataComponent from "./section/PersonalData"
 import TermsAndConditionComponent from "./section/TermsAndCondition"
+import TermsAndConditionComponentNew from "./section/TermsAndConditionNew"
 import './doc.css'
 import { ScrollTopHoc } from "shared/component/common/ScrollTopHoc"
 
@@ -18,7 +19,8 @@ function DocComponent({ match: { params: { type = 1 } } }) {
                     {
                         [DOC_TYPE.MARKETING_ACCEPT]: <MarketingAcceptComponent />,
                         [DOC_TYPE.PERSONAL_DATA]: <PersonalDataComponent />,
-                        [DOC_TYPE.TERMS_AND_CONDITION]: <TermsAndConditionComponent />,
+                        [DOC_TYPE.TERMS_AND_CONDITION]: <TermsAndConditionComponentNew />,
+
                     }[type]
                 }
             </div>
