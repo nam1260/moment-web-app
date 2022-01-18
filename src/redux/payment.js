@@ -1,54 +1,92 @@
 import createAction from "redux-actions/lib/createAction";
 import AWSManager from "managers/AWSManager";
+import { loadTossPayments } from "@tosspayments/payment-sdk";
+import { Base64 } from 'js-base64';
+import axios from "axios";
+
+const testClientKey = 'test_ck_Kma60RZblrqYqANoMlerwzYWBn14'
+const testClientSecretKey = 'test_sk_OALnQvDd2VJmvDwzaPb3Mj7X41mN'
+
 const {
     regPaymentInfo,
+    sendMessageToStar,
 } = AWSManager;
 
-const SET_PAYMENT_NO = 'payment/SET_PAYMENT_NO';
-const SET_PAYMENT_FAIL = 'payment/SET_PAYMENT_FAIL';
-const SET_PAYMENT_SUCCESS = 'payment/SET_PAYMENT_SUCCESS';
-const SET_PAYMENT_RESET = 'payment/SET_PAYMENT_RESET';
 
-export const setPaymentNo = createAction(SET_PAYMENT_NO, data => data);
-export const setPaymentFail = createAction(SET_PAYMENT_FAIL);
-export const setPaymentSuccess = createAction(SET_PAYMENT_SUCCESS);
-export const setPaymentReset = createAction(SET_PAYMENT_RESET);
+const SET_SEND_LOADING = 'payment/SET_SEND_LOADING';
+const SET_SEND_END = 'payment/SET_SEND_END';
 
-export const submitDepositData = (info) => async (dispatch) => {
+export const setSendLoading = createAction(SET_SEND_LOADING);
+export const setSendEnd = createAction(SET_SEND_END);
+
+export const openTossBankRequirement = async (starId) => {
+    const tossPayments = await loadTossPayments(testClientKey);
+    tossPayments.requestPayment('카드', {
+        amount: 100,
+        orderId: 'z-GW0AczDQyNV1er7b5Mu',
+        orderName: '토스 티셔츠 외 2건',
+        customerName: '박토스',
+        successUrl: `${process.env.REACT_APP_LOCATION}/write/${starId}`,
+        failUrl: `${process.env.REACT_APP_LOCATION}/write/${starId}`,
+    })
+}
+
+export const sendMessage = (info, type = '', subParam = '') => async (dispatch) => {
+    dispatch(setSendLoading());
+    try {
+        await sendMessageToStar(info);
+        console.log(type)
+        switch(type) {
+            case 'toss':
+                await approveTossProcess(subParam);
+                break;
+            default:
+                break;
+        }
+    } catch(error) {
+        return Promise.reject(error);
+    }
+    dispatch(setSendEnd());
+}
+
+const approveTossProcess = async ({ paymentKey, orderId, amount }) => {
+    axios.post(`https://api.tosspayments.com/v1/payments/${paymentKey}`, {
+        orderId,
+        amount
+    }, {
+        headers: {
+            Authorization: `Basic ${Base64.encode(testClientSecretKey + ':')}`
+        }
+    }).catch((error) => {
+        return Promise.reject(error);
+    })
+}
+
+
+export const submitPaymentInfo = async (info)  => {
     const { data, status } = await regPaymentInfo(info);
     if( status === 200 ) {
-        dispatch(setPaymentNo(data.payNo));
-        dispatch(setPaymentSuccess());
+        return data
     } else {
-        dispatch(setPaymentFail());
+        throw new Error('')
     }
 }
 
 const initialState = {
-    paymentNo: '',
-    isSuccess: false
+    isLoading: false,
 }
 
-export default function(state = initialState, action) {
+function reducer(state = initialState, action) {
     switch(action.type) {
-        case SET_PAYMENT_NO:
+        case SET_SEND_LOADING:
             return {
                 ...state,
-                paymentNo: action.payload,
-            };
-        case SET_PAYMENT_FAIL:
-            return {
-                ...state,
-                isSuccess: false,
+                isLoading: true,
             }
-        case SET_PAYMENT_SUCCESS:
+        case SET_SEND_END:
             return {
                 ...state,
-                isSuccess: true,
-            }
-        case SET_PAYMENT_RESET:
-            return {
-                ...initialState
+                isLoading: false,
             }
         default:
             return {
@@ -56,3 +94,5 @@ export default function(state = initialState, action) {
             };
     }
 }
+
+export default reducer;

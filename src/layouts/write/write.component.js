@@ -14,7 +14,7 @@ import Styled from "styled-components"
 import AWSManager from "managers/AWSManager";
 import DepositWithoutPassbookModal from 'layouts/container/DepositModalContainer';
 import ADSManager from '../../managers/ADSManager';
-
+import { submitPaymentInfo } from "redux/payment";
 const {
     sendMessageToStar,
 } = AWSManager;
@@ -85,7 +85,6 @@ const Over300Modal = (
 
 const WriteComponent = (props) => {
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
-    const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
     const [isUnder50ModalOpen, setIsUnder50ModalOpen] = useState(false);
     const [isOver300ModalOpen, setIsOver300ModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
@@ -97,12 +96,14 @@ const WriteComponent = (props) => {
     const textareaElement = useRef();
     const titleElement = useRef();
     const { id : starId } = props.match.params;
+    const search = history.location.search;
+    
     const {
         starDetail,
         isLoading,
         user,
         getStarDetailAsync,
-        paymentNo,
+        sendMessage,
     } = props;
     
     const {
@@ -113,6 +114,60 @@ const WriteComponent = (props) => {
     } = starDetail;
     
     const { userId } = user;
+
+    useEffect(() => {
+        if(search !== '' && userId) {
+            const searchObject = search.slice(1).split('&').reduce((prev, param) => {
+                const value = param.split('=');
+                prev[value[0]] = decodeURI(value[1]);
+                return prev;
+            }, {});
+            if(searchObject.hasOwnProperty('code')) {
+                /* error handling 
+                    1. PAY_PROCESS_CANCELED 사용자 결제 취소
+                    2. PAY_PROCESS_ABORTED 결제 진행 중 승인 실패
+                    3. REJECT_CARD_COMPANY 카드사 승인 거절
+                */
+            } else {
+                const param = {
+                    userId: userId,
+                    starId: starId,
+                    payType: 1,
+                    price: price,
+                    payStatus: 1,
+                    pgNm: 'tossPay',
+                    cardNm: '', 
+                    cardNum: '',
+                    aprvNum: '',
+                    emPhoneNum: '',
+                    userBankNm: '',
+                    userAccountNm: '',
+                    userAccountNum: '',
+                }
+                try {
+                    (async () => {
+                        
+                            const { payNo } = await submitPaymentInfo(param);
+                            await sendMessage({
+                                starId,
+                                userId,
+                                payNo: payNo,
+                                deliveryDate: date,
+                                msgContents: textareaElement.current.value,
+                                msgTitle: title,
+                                msgStatus: '', /* TODO: 간편 결제 연동 시 90 or ''로 변경 */
+                            }, 'toss', searchObject);
+                            ADSManager.collectClikedSendMessage();
+                            history.replace(`/writesuccess/${starId}`);
+                    })();
+                } catch (error) {
+                    message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
+                }
+                
+            }
+
+        }
+    }, [user])
     
     useEffect(() => {
         if(!StorageManager.checkUserIsLogined()) {
@@ -223,7 +278,7 @@ const WriteComponent = (props) => {
             />
 
             <MomentModal
-                isOpen={isLoadingModalOpen}
+                isOpen={isLoading}
                 contentComponent={LoadingModal}
                 width={650}
                 height={330}
@@ -251,6 +306,7 @@ const WriteComponent = (props) => {
                 isModalOpen={isPaymentModalOpen}
                 setIsModalOpen={setIsPaymentModalOpen}
                 name={starNm}
+                starId={starId}
                 payment={price.toLocaleString('ko-KR')}
                 /* TODO: 각 API 연동 */
                 paymentButtonClick={() => {
@@ -262,9 +318,9 @@ const WriteComponent = (props) => {
             <DepositWithoutPassbookModal
                 isModalOpen={isPassbookModalOpen}
                 setIsModalOpen={setIsPassbookModalOpen}
-                onSuccess={() => {
-                    return new Promise((resolve, reject) => {
-                        sendMessageToStar({
+                onSuccess={(paymentNo) => {
+                    try {
+                        sendMessage({
                             starId,
                             userId,
                             payNo: paymentNo,
@@ -272,22 +328,13 @@ const WriteComponent = (props) => {
                             msgContents: textareaElement.current.value,
                             msgTitle: title,
                             msgStatus: '90', /* TODO: 간편 결제 연동 시 90 or ''로 변경 */
+                        }).then(() => {
+                            ADSManager.collectClikedSendMessage();
+                            history.push(`/writesuccess/${starId}`)
                         })
-                        .then((res) => {
-                            resolve();
-                            setIsLoadingModalOpen(true); 
-                            setTimeout(() => {
-                                setIsLoadingModalOpen(false)
-                               // history.push(`/writesuccess/${starId}`)
-                                ADSManager.collectClikedSendMessage();
-                                history.push(`/writesuccess/${starId}`)
-                            }, 1000)
-                        })
-                        .catch((res) => {
-                            message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
-                            reject();
-                        })
-                    })
+                    } catch (error) {
+                        message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
+                    }
                 }}
                 price={price}
             />
