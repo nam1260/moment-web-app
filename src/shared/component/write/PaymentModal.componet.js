@@ -55,6 +55,10 @@ const PaymentInfoBox = styled.div`
         & >span {
          color: #ff723a;
         }
+        & >span#subText {
+         font-size: 18px;
+         color: gray;
+        }
         @media (max-width: 750px) {
             font-size: min(4vw, 30px);
         }
@@ -126,7 +130,7 @@ export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButto
                             최종 결제 금액
                         </div>
                         <div className='payment-info-label'>
-                            <span>나의 최애</span> {name} 님의 영상 메세지
+                            <span>나의 최애</span> {name} 님의 영상 메세지 <br/><span id="subText">(이용 기간 : 기간 없음, 영구 소장)</span>
                         </div>
                         <div className='payment-info-money'>
                             {payment}원   <span>부가세 포함 가격</span>
