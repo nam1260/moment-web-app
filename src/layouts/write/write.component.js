@@ -316,7 +316,7 @@ const WriteComponent = (props) => {
                         content={catNm}
                     />
                     <WriteLabel 
-                        label={'영상가격'}
+                        label={'영상가격(영구 소장, 추가 구매 없음)'}
                         content={`${price.toLocaleString('ko-KR')}원`}
                     />
                     <div className="date-wrapper">
