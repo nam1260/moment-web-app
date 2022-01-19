@@ -3,9 +3,12 @@ import AWSManager from "managers/AWSManager";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 import { Base64 } from 'js-base64';
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
-const testClientKey = 'test_ck_Kma60RZblrqYqANoMlerwzYWBn14'
-const testClientSecretKey = 'test_sk_OALnQvDd2VJmvDwzaPb3Mj7X41mN'
+
+const testClientKey = process.env.REACT_APP_TOSS_TCK;
+const testClientSecretKey = process.env.REACT_APP_TOSS_TSK;
 
 const {
     regPaymentInfo,
@@ -23,7 +26,7 @@ export const openTossBankRequirement = async (starId) => {
     const tossPayments = await loadTossPayments(testClientKey);
     tossPayments.requestPayment('카드', {
         amount: 100,
-        orderId: 'z-GW0AczDQyNV1er7b5Mu',
+        orderId: "TEST"+Math.floor(Math.random()*9999999),
         orderName: '토스 티셔츠 외 2건',
         customerName: '박토스',
         successUrl: `${process.env.REACT_APP_LOCATION}/write/${starId}`,
@@ -55,7 +58,7 @@ const approveTossProcess = async ({ paymentKey, orderId, amount }) => {
         amount
     }, {
         headers: {
-            Authorization: `Basic ${Base64.encode(testClientSecretKey + ':')}`
+            Authorization: `Basic ${Base64.encode(testClientSecretKey)}`
         }
     }).catch((error) => {
         return Promise.reject(error);
