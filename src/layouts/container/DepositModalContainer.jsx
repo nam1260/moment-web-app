@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { submitDepositData, setPaymentReset } from "redux/payment";
 import DepositWithoutPassbookModal from "shared/component/write/DepositWithoutPassbook";
 
 
@@ -9,9 +8,6 @@ const mapStateToProps = (state) => ({
     payment: state.payment
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    register: (prop) => dispatch(submitDepositData(prop)),
-    reset: () => dispatch(setPaymentReset()),
-})
+const mapDispatchToProps = (dispatch) => ({})
 
 export default connect(mapStateToProps, mapDispatchToProps)(DepositWithoutPassbookModal);

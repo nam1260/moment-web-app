@@ -1,6 +1,10 @@
 import MomentModal from "../common/modal";
 import styled from 'styled-components';
 import { NaverPaymentComponent, KaKaoPaymentComponent, NormalPaymentComponent, TossPaymentComponent } from './PaymentType';
+import { useCallback } from "react";
+import { openTossBankRequirement } from "redux/payment";
+
+
 
 const PaymentComponent = styled.div`
     display: flex;
@@ -117,7 +121,12 @@ const PaymentRow = styled.div`
 `
 
 
-export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButtonClick, name, payment  }) {
+export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButtonClick, name, payment, starId  }) {
+
+    const toss = useCallback(() => {
+        openTossBankRequirement(starId);
+    }, [])
+
     return (
         <MomentModal
             isOpen={isModalOpen}
@@ -143,7 +152,7 @@ export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButto
                         {/*<KaKaoPaymentComponent onClick={paymentButtonClick}/>*/}
                     </PaymentRow>
                     <PaymentRow>
-                        {/*<TossPaymentComponent onClick={paymentButtonClick}/>*/}
+                        <TossPaymentComponent onClick={toss}/>
                         <NormalPaymentComponent onClick={paymentButtonClick}/>
                     </PaymentRow>
                 </PaymentComponent>

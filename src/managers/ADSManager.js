@@ -12,7 +12,7 @@ const ADSManager = (function () {
 
 
     function _fbq(event,data) {
-        console.log("fbq")
+        console.log("fbq");
         ReactPixel.init('874909166531680', advancedMatching, options);
         ReactPixel.pageView(); // For tracking page view
         ReactPixel.track(event, data);

@@ -2,8 +2,9 @@ import MomentModal from "../common/modal";
 import styled from 'styled-components';
 import InputWithLabel from "./InputWithLabel";
 import { BankOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { message } from "antd";
+import { submitPaymentInfo } from "redux/payment";
 
 const DepositComponent = styled.div`
     display: flex;
@@ -87,7 +88,7 @@ const RegisterButton = styled.button`
 
 
 export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpen, onSuccess, ...rest  }) {
-    const { starDetail: { starId }, user: { userId }, price, register, reset, payment } = rest;
+    const { starDetail: { starId }, user: { userId }, price, reset } = rest;
     
     const [depositInfo, setDepositInfo] = useState({
         'bankNm': '',
@@ -95,19 +96,6 @@ export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpe
         'accountHolder': '',
         'phoneNumber': '',
     });
-
-    useEffect(() => {
-        reset();
-    }, [])
-
-    useEffect(() => {
-        if(payment.isSuccess && payment.paymentNo !== '') {
-            setIsModalOpen(false);
-            onSuccess().then(() => {
-                reset();
-            })
-        }
-    }, [payment])
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -189,12 +177,17 @@ export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpe
             userBankNm: depositInfo['accountHolder'],
             userAccountNm: depositInfo['bankNm'],
             userAccountNum: depositInfo['accountNumber'],
+            emPhoneNum: depositInfo['phoneNumber'],
             cardNm: '', 
             cardNum: '',
             aprvNum: '',
+            
         }
         try {
-            register(param);
+            submitPaymentInfo(param).then((data) => {
+                setIsModalOpen(false);
+                onSuccess(data.payNo);
+            });
         } catch(error) {
             console.log(error);
         }
