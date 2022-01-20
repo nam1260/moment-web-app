@@ -123,7 +123,7 @@ const PaymentRow = styled.div`
 
 export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButtonClick, name, payment, starId  }) {
 
-    const toss = useCallback(() => {
+    const openTossModal = useCallback(() => {
         openTossBankRequirement(starId);
     }, [])
 
@@ -152,7 +152,7 @@ export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButto
                         {/*<KaKaoPaymentComponent onClick={paymentButtonClick}/>*/}
                     </PaymentRow>
                     <PaymentRow>
-                        <TossPaymentComponent onClick={toss}/>
+                        <TossPaymentComponent onClick={openTossModal}/>
                         <NormalPaymentComponent onClick={paymentButtonClick}/>
                     </PaymentRow>
                 </PaymentComponent>

@@ -24,13 +24,15 @@ export const setSendEnd = createAction(SET_SEND_END);
 
 export const openTossBankRequirement = async (starId) => {
     const tossPayments = await loadTossPayments(testClientKey);
+    
+    const location = window.location.href.match(/https?:\/\/[^/?]+/)[0];
     tossPayments.requestPayment('카드', {
         amount: 100,
         orderId: "TEST"+Math.floor(Math.random()*9999999),
         orderName: '토스 티셔츠 외 2건',
         customerName: '박토스',
-        successUrl: `${process.env.REACT_APP_LOCATION}/write/${starId}`,
-        failUrl: `${process.env.REACT_APP_LOCATION}/write/${starId}`,
+        successUrl: `${location}/write/${starId}`,
+        failUrl: `${location}/write/${starId}`,
     })
 }
 
