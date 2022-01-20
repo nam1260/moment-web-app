@@ -63,6 +63,10 @@
     -ms-letter-spacing: -0.26px;
     letter-spacing: -0.26px;   
 }
+
+.app-write-body > .container > .date-wrapper > div:nth-child(2) {
+    font-size: 17px;
+}
 .app-write-body > .container > .date-wrapper > div:last-child {
     cursor: pointer;
 }
@@ -344,7 +348,9 @@
     
     .app-write-body > .container > .date-wrapper > div:first-child {
         font-size: min(4vw, 26px);
-        
+    }
+    .app-write-body > .container > .date-wrapper > div:nth-child(2) {
+        font-size: min(3vw, 16px);
     }
     
     .app-write-body > .container > .write-wrapper {
