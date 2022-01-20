@@ -22,6 +22,7 @@ const GET_USER_INFO = "/user/get-user-info";
 const UPDATE_USER_INFO ="/user/update-user-info";
 const UPDATE_USER_PW ="/user/update-user-pw";
 const SAVE_USER_IMAGE_URL ="/user/save-user-img-url";
+const REMOVE_USER_INFO ="/user/remove-user-info";
 const FIND_USER_ID = "/user/find-user-id";
 const VERIFY_SMS_NUM = "/user/send-sms";
 
@@ -130,6 +131,10 @@ const AWSManager = (function() {
     const saveUserImageUrl = async (params) => {
         console.log("saveUserImageUrl = " +JSON.stringify(params));
         return await requestPost(getUrl(SAVE_USER_IMAGE_URL), params);
+    }
+    const removeUserInfo = async (params) => {
+        console.log("removeUserInfo = " +JSON.stringify(params));
+        return await requestPost(getUrl(REMOVE_USER_INFO), params);
     }
     const getMsgList = async (params) => {
         console.log("getMsgList = " +JSON.stringify(params));
@@ -249,6 +254,7 @@ const AWSManager = (function() {
         updateUserInfo,
         updateUserPw,
         saveUserImageUrl,
+        removeUserInfo,
         findUserId,
         verifySMSNumber,
         getRgstStarStatus,

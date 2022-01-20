@@ -1,5 +1,6 @@
 
 import "./mypage.css";
+import "../popup/modalPopup.css";
 import React, { useState, useEffect, useRef, Component} from "react";
 import { useHistory } from 'react-router'; 
 import MypageHeader from './MypageHeader';
@@ -10,7 +11,9 @@ import EncryptionManager from "../../managers/EncryptionManager.js";
 import {WrapLoginedComponent} from "../../shared/component/common/WrapLoginedComponent";
 import {Redirect} from 'react-router-dom'
 import {saveUser} from "../../redux/user";
+import { removeUser } from "redux/user";
 import { useSelector, useDispatch } from "react-redux";
+import { Modal } from "../popup/ModalPopup";
 
 const editPath = "assets/icons/list-ico-edit.png";
 const cameraPath = "assets/icons/ico-camera.svg";
@@ -20,6 +23,11 @@ const checkOnPath = "assets/icons/check-on.svg";
 
 const contentType = 'image/jpeg, image/png';
 
+const MODAL_TYPE = {
+    INIT: 0,
+    BUTTON: 1,
+    BUTTONS: 2,
+}
 
 // TODO 이미지 등록 처리 필요
 // TODO 동일 닉네임 저장 시 그대로 저장되도록 처리 필요
@@ -54,7 +62,10 @@ function ModifyAccountComponent({isLogined}) {
     const [phoneNumAlertText, setPhoneNumAlertText] = useState('휴대폰 번호를 입력해 주세요(숫자만 입력 가능)');
     const [pwAlertText, setPwAlertText] = useState('비밀번호를 입력해 주세요');
     const [pwConfirmAlertText, setPwConfirmAlertText] = useState('');
-    const { userPw, pwConfirm, phoneNum, userNickNm, mrktAgreeYn } = userInfo
+    const { userPw, pwConfirm, phoneNum, userNickNm, mrktAgreeYn } = userInfo;
+    
+    const [showModal, setShowModal] = useState(false);
+    const [modalType, setModalType] = useState(MODAL_TYPE.INIT);
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -302,6 +313,63 @@ function ModifyAccountComponent({isLogined}) {
         }
     };
 
+
+    const buttonModalComponent = () => {
+        return (
+            <div className="button_modal_short">
+                <div className="info_container">
+                    <br/>
+                    <span className="title">회원 탈퇴가 </span>
+                    <span className="title">완료되었습니다.</span>
+                </div>
+                <div className="button_container">
+                    <button className="center_button" onClick={()=>{
+                            StorageManager.removeUserInfo();
+                            StorageManager.removeSalt();
+                            dispatch(removeUser());
+                            history.push('/');
+                            setShowModal(false);
+                        }}>
+                        확인
+                    </button>
+                </div>
+            </div>
+        )
+    };
+    
+    const buttonsModalComponent = () => {
+        return (
+            <div className="button_modal_short">
+                <div className="info_container">
+                    <br/>
+                    <span className="title">회원 탈퇴를 하시겠습니까?</span>
+                    <span className="title">탈퇴시 삭제된 정보는 복구되지 않습니다.</span>
+                </div>
+                <div className="button_container">
+                    <button className="left_button" onClick={()=>{
+                            setShowModal(false);
+                        }}>
+                        아니요
+                    </button>
+                    <button className="right_button" onClick={()=>{
+                            AWSManager.removeUserInfo({
+                                userId: userInfo.userId,
+                            }).then((result) =>{
+                                console.log("removeUserInfo = " , result);
+                                if(result.data.isSuccess) {
+                                    setModalType(MODAL_TYPE.BUTTON);
+                                } else {
+                                    
+                                }
+                            });
+                        }}>
+                        예
+                    </button>
+                </div>
+            </div>
+        )
+    };
+
     return (
 
         !isLogined ? <Redirect to="/"/> :
@@ -410,6 +478,24 @@ function ModifyAccountComponent({isLogined}) {
                         수정완료
                     </button>
                 </div>
+            </section>
+            <section className="mypage-options">
+                <div>
+                    {<a onClick={()=> {
+                        setModalType(MODAL_TYPE.BUTTONS);
+                        setShowModal(true);
+                    }}>탈퇴하기</a>}
+                </div>
+                {showModal ?
+                <Modal setShowModal={setShowModal}>
+                        {
+                            {
+                                [MODAL_TYPE.INIT] :   <></>,
+                                [MODAL_TYPE.BUTTON] : buttonModalComponent(),
+                                [MODAL_TYPE.BUTTONS] : buttonsModalComponent(),
+                            }[modalType]
+                        }
+                </Modal> : null}
             </section>
         </main>
      );
