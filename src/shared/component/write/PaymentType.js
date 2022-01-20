@@ -48,6 +48,49 @@ const TossPaymentBox = styled(PaymentBox)`
     @media (max-width: 750px) {
         height: min(14vw, 120px);
     }
+    
+    
+      & > div:first-child {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -0.31px;
+        
+        & > img {
+            width: 36x;
+            height: 24px;
+            margin-right: 12px;
+        }
+    }
+
+    & > div:nth-child(2) {
+        font-size: 16px;
+        line-height: 0.92;
+        letter-spacing: -0.24px;
+        color: #8f8f8f;
+        margin-top: 5px;
+    }
+    
+    @media (max-width: 750px) {
+        height: min(14vw, 120px);
+
+        & > div:first-child {
+            font-size: min(3vw, 24px);
+            line-height: min(4vw, 24px);
+            & > img {
+                width: min(6vw, 36px);
+                height: min(4vw, 24px);
+                margin-right: min(2vw, 12px);
+            }
+        }
+
+        & > div:nth-child(2) {
+            font-size: min(2vw, 16px);
+        }
+    }
+    
 `
 
 const NormalPaymentBox = styled(PaymentBox)`
@@ -118,7 +161,10 @@ const KaKaoPayment = ({onClick}) => {
 const TossPayment = ({onClick}) => {
     return (
         <TossPaymentBox onClick={onClick}>
-            <img src={tossImage} alt="none" />
+            <div>
+                <img src={normalImage} alt="none" />
+                카드 결제
+            </div>
         </TossPaymentBox>
     )
 }
