@@ -132,7 +132,7 @@ const NormalPayment = ({onClick}) => {
                 일반 결제
             </div>
             <div>
-                카드결제, 무통장입금, 계좌이체
+                무통장입금, 계좌이체
             </div>
         </NormalPaymentBox>
     )
