@@ -36,7 +36,9 @@ function addDays(date, days) {
 }
 
 export default function MomentDatePicker({ setDate }) {
-    const [startDate, setStartDate] = useState(new Date());
+    const minDate = addDays(new Date(), 5);
+    const maxDate = addDays(minDate, 25);
+    const [startDate, setStartDate] = useState(minDate);
 
     useEffect(() => {
         const fullOfYear = startDate.getFullYear();
@@ -47,10 +49,10 @@ export default function MomentDatePicker({ setDate }) {
         setDate(`${fullOfYear}${fullOfMonth}${fullOfDate}`)
     }, [startDate, setDate])
 
-    const minDate = addDays(new Date(), 5);
-    const maxDate = addDays(minDate, 25);
     
-    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+    
+    const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
+        return (
         <div className="custom-input"  onClick={onClick}>
             <DateLabel>
                 {value.split("/")[0]}
@@ -58,12 +60,12 @@ export default function MomentDatePicker({ setDate }) {
                     <img alt="none" src={downArrow} />
                 </div>
             </DateLabel>
-        </div>
-      ));
+        </div>)
+      });
     return (
         <DatePicker 
             locale="ko"
-            selected={minDate}
+            selected={startDate}
             customInput={<ExampleCustomInput />}
             onChange={(date) => setStartDate(date)}
             dateFormat="yyyy-MM-dd"

@@ -11,13 +11,10 @@ import { WrapLoginedComponent } from 'shared/component/common/WrapLoginedCompone
 import StorageManager from 'managers/StorageManager';
 import { Input, message } from 'antd';
 import Styled from "styled-components"
-import AWSManager from "managers/AWSManager";
 import DepositWithoutPassbookModal from 'layouts/container/DepositModalContainer';
 import ADSManager from '../../managers/ADSManager';
 import { submitPaymentInfo } from "redux/payment";
-const {
-    sendMessageToStar,
-} = AWSManager;
+
 const letterImage = "/assets/images/icoLetter.png";
 const iconFace = "/assets/icons/icoFace6.png";
 
