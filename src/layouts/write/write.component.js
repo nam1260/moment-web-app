@@ -368,6 +368,7 @@ const WriteComponent = (props) => {
                     />
                     <div className="date-wrapper">
                         <div>영상 배송 희망일</div>
+                        <div>"영상 배송 희망일은 요청일로부터 최소 5일 이후 최장 30일 이내에서만 선택하실 수 있습니다"</div>
                         <MomentDatePicker setDate={setDate} />
                     </div>
                     <div className="write-wrapper">
