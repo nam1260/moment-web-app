@@ -121,10 +121,10 @@ const PaymentRow = styled.div`
 `
 
 
-export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButtonClick, name, payment, starId  }) {
+export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButtonClick, name,userNm, payment, starId,price  }) {
 
     const toss = useCallback(() => {
-        openTossBankRequirement(starId);
+        openTossBankRequirement({starId,price,name,userNm});
     }, [])
 
     return (

@@ -22,13 +22,13 @@ const SET_SEND_END = 'payment/SET_SEND_END';
 export const setSendLoading = createAction(SET_SEND_LOADING);
 export const setSendEnd = createAction(SET_SEND_END);
 
-export const openTossBankRequirement = async (starId) => {
+export const openTossBankRequirement = async ({starId,name,price,userNm}) => {
     const tossPayments = await loadTossPayments(testClientKey);
     tossPayments.requestPayment('카드', {
-        amount: 100,
+        amount: price,
         orderId: "TEST"+Math.floor(Math.random()*9999999),
-        orderName: '토스 티셔츠 외 2건',
-        customerName: '박토스',
+        orderName: `나의 최애 ${name} 님의 영상 메시지`,
+        customerName: userNm,
         successUrl: `${process.env.REACT_APP_LOCATION}/write/${starId}`,
         failUrl: `${process.env.REACT_APP_LOCATION}/write/${starId}`,
     })
