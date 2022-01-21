@@ -39,16 +39,18 @@ const MODAL_TYPE = {
         validNumber: '',
         pw: '',
         pwConfirm: '',
+        name: '',
     });
-    const { userId, phoneNumber, authNum, validNumber, pw, pwConfirm } = inputs;
+    const { userId, phoneNumber, authNum, validNumber, pw, pwConfirm, name} = inputs;
     const [inputsAvalilables, setInputsAvalilables] = useState({
         isUserId: false,
         isPhone: false, // 핸드폰 번호 
         isCertNum: false, // 인증 번호  
         isPw: false,
         isPwConfirm: false,
+        isName: false,
     }); 
-    const { isUserId, isPhone, isCertNum, isPw, isPwConfirm} = inputsAvalilables;
+    const { isUserId, isPhone, isCertNum, isPw, isPwConfirm, isName} = inputsAvalilables;
 
     const onChangeOnlyNumber = (e) => {
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -86,6 +88,8 @@ const MODAL_TYPE = {
             });
         }
         setInputs(nextInputs);
+        console.log(inputs);
+        console.log(inputsAvalilables);
     }
   
     const makeSMSKeys =() => {
@@ -148,19 +152,36 @@ const MODAL_TYPE = {
         });
     } 
 
+    const onChangeNameFormat = (e) => {
+        var nickNmRule = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+        if(!nickNmRule.test(e.target.value)) {
+            console.log('이름 규칙에 맞지 않음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                'isName': false,
+            });
+        } else {
+            console.log('이름 규칙에 맞음');
+            setInputsAvalilables({
+                ...inputsAvalilables,  
+                'isName': true,
+            });
+        }
+        onChange(e);
+    };
     const onChangePassword = (e) => {
         var passRule = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^*()&+=]).*$/; // 특수문자 / 문자 / 숫자 포함 형태의 8~20자리 이내의 암호 정규식
         if(!passRule.test(e.target.value)) {
             console.log('비밀번호 규칙에 맞지 않음');
             setInputsAvalilables({
                 ...inputsAvalilables,  
-                isPw: false,
+                'isPw': false,
             });
         } else {
             console.log('비밀번호 규칙에 맞음');
             setInputsAvalilables({
                 ...inputsAvalilables,  
-                isPw: true,
+                'isPw': true,
             });
         }
         onChange(e);
@@ -172,13 +193,13 @@ const MODAL_TYPE = {
             console.log('입력한 비밀번호가 다름');
             setInputsAvalilables({
                 ...inputsAvalilables,  
-                isPwConfirm: false,
+                'isPwConfirm': false,
             });
         } else {
             console.log('입력한 비밀번호가 같음');
             setInputsAvalilables({
                 ...inputsAvalilables,  
-                isPwConfirm: true,
+                'isPwConfirm': true,
             });
         }
         onChange(e);
@@ -239,7 +260,8 @@ const MODAL_TYPE = {
                                     console.log("createPassword salt = " , salt);
                                     AWSManager.updateUserPw({
                                         userId: inputs.userId,
-                                        phoneNum: inputs.phoneNum,
+                                        phoneNum: inputs.phoneNumber,
+                                        userNm : name,
                                         userPw: result.password,
                                         salt: salt
                                     }).then((result) =>{
@@ -250,6 +272,9 @@ const MODAL_TYPE = {
                                         } else {
                                             alert("비밀번호 변경에 실패했습니다. 입력한 정보를 다시 확인해주세요.");
                                         }
+                                    }).catch(e => {
+                                        console.error(e.message);
+                                        alert("비밀번호 변경에 실패했습니다. 입력한 정보를 다시 확인해주세요.");
                                     });
                                 });
                             }
@@ -303,6 +328,18 @@ const MODAL_TYPE = {
                                 onChange={onChange}
                                 name="userId"
                                 value={userId}
+                            ></input>
+                            <img alt="none" src={editPath} />
+                        </div>
+                        <span>
+                            이름 (닉네임)
+                        </span>
+                        <div>
+                            <input
+                                type="text"
+                                onChange={onChangeNameFormat}
+                                name="name"
+                                value={name}
                             ></input>
                             <img alt="none" src={editPath} />
                         </div>

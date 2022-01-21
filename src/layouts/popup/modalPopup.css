@@ -95,6 +95,7 @@ main {
     color: #444444;
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal .right_button {
     width: min(35vw,325px);
@@ -104,6 +105,7 @@ main {
     color: #ffffff;
     border:none;
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal .center_button {
     width: min(70vw,650px);
@@ -113,6 +115,7 @@ main {
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 
 
@@ -171,6 +174,7 @@ main {
     color: #444444;
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal_short .right_button {
     width: min(35vw,325px);
@@ -180,6 +184,7 @@ main {
     color: #ffffff;
     border:none;
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal_short .center_button {
     width: min(70vw,650px);
@@ -189,6 +194,7 @@ main {
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 
 
@@ -261,6 +267,7 @@ main {
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 
 
@@ -409,6 +416,7 @@ main {
     color: #444444;
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal_input .right_button {
     width: min(35vw,325px);
@@ -418,6 +426,7 @@ main {
     color: #ffffff;
     border:none;
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal_input .center_button {
     width: min(70vw,650px);
@@ -427,6 +436,7 @@ main {
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal_input .center_button_disable {
     width: min(70vw,650px);
@@ -547,6 +557,7 @@ main {
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal_input_pw .center_button_disable {
     width: min(70vw,650px);
@@ -742,6 +753,7 @@ main {
     color: #444444;
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal_detail .right_button {
     width: min(35vw,325px);
@@ -751,6 +763,7 @@ main {
     color: #ffffff;
     border:none;
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .button_modal_detail .center_button {
     width: min(70vw,650px);
@@ -760,6 +773,7 @@ main {
     border:none;
     border-bottom-left-radius: min(5vw, 40px);
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 
 
@@ -899,6 +913,7 @@ main {
     border:none;
     /* background-color: #525252; */
     border-bottom-left-radius: min(5vw, 40px);
+    cursor: pointer;
 }
 .modalContainer .input_modal .info_container .button_container > button.right_button {
     width: min(35vw,325px);
@@ -908,4 +923,5 @@ main {
     color: #ffffff;
     border:none;
     border-bottom-right-radius: min(5vw, 40px);
+    cursor: pointer;
 }
