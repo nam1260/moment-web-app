@@ -120,7 +120,7 @@ const PaymentRow = styled.div`
 `
 
 
-export default function PaymentModal({ 
+export default function PaymentModal({
     isModalOpen,
     setIsModalOpen,
     paymentNormalButtonClick,
@@ -128,9 +128,10 @@ export default function PaymentModal({
     price,
     starId,
     userId,
-    openTossBankRequirement
+    openTossBankRequirement,
+    userNm
 }) {
-    
+
 
     return (
         <MomentModal

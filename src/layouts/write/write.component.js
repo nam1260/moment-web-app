@@ -119,7 +119,7 @@ const WriteComponent = (props) => {
         starImgUrl = '',
     } = starDetail;
     
-    const { userId } = user;
+    const { userId,userNm } = user;
 
     useEffect(() => {
         if(search !== '' && userId) {
@@ -309,9 +309,11 @@ const WriteComponent = (props) => {
                 isModalOpen={isPaymentModalOpen}
                 setIsModalOpen={setIsPaymentModalOpen}
                 name={starNm}
+                userNm={userNm}
                 starId={starId}
                 userId={userId}
                 price={price}
+                payment={price.toLocaleString('ko-KR')}
                 /* TODO: 각 API 연동 */
                 paymentNormalButtonClick={() => {
                     setIsPaymentModalOpen(false);
