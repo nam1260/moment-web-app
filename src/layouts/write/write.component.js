@@ -4,7 +4,7 @@ import WriteLabel from 'shared/component/write/WriteLabel'
 import MomentDatePicker from 'shared/component/write/MomentDatePicker';
 import MomentModal from 'shared/component/common/modal';
 import SpeechBubble from 'shared/component/write/SpeechBubble';
-import PaymentModal from 'shared/component/write/PaymentModal.componet';
+import PaymentModal from 'layouts/container/PaymentModalContainer';
 import { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { WrapLoginedComponent } from 'shared/component/common/WrapLoginedComponent';
@@ -14,15 +14,17 @@ import Styled from "styled-components"
 import DepositWithoutPassbookModal from 'layouts/container/DepositModalContainer';
 import ADSManager from '../../managers/ADSManager';
 import { submitPaymentInfo } from "redux/payment";
+import { MSG_STATUS, PAYMENT_STATUS } from 'consts/payment';
+import AWSManager from 'managers/AWSManager';
 
 const letterImage = "/assets/images/icoLetter.png";
 const iconFace = "/assets/icons/icoFace6.png";
 
-
+const {
+    updatePaymentInfo
+} = AWSManager;
 
 const StyledNoti = Styled.div`
-
-    
     text-align: center;
 `
 
@@ -78,7 +80,13 @@ const Over300Modal = (
     </div>
 )
 
-
+const searchTossParam = (search) => {
+    return search.slice(1).split('&').reduce((prev, param) => {
+        const value = param.split('=');
+        prev[value[0]] = decodeURI(value[1]);
+        return prev;
+    }, {});
+}
 
 const WriteComponent = (props) => {
     const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
@@ -101,6 +109,7 @@ const WriteComponent = (props) => {
         user,
         getStarDetailAsync,
         sendMessage,
+        payNo,
     } = props;
     
     const {
@@ -114,48 +123,45 @@ const WriteComponent = (props) => {
 
     useEffect(() => {
         if(search !== '' && userId) {
-            const searchObject = search.slice(1).split('&').reduce((prev, param) => {
-                const value = param.split('=');
-                prev[value[0]] = decodeURI(value[1]);
-                return prev;
-            }, {});
+            const searchObject = searchTossParam(search);
             if(searchObject.hasOwnProperty('code')) {
                 /* error handling 
                     1. PAY_PROCESS_CANCELED 사용자 결제 취소
                     2. PAY_PROCESS_ABORTED 결제 진행 중 승인 실패
                     3. REJECT_CARD_COMPANY 카드사 승인 거절
                 */
-            } else {
-                const param = {
-                    userId: userId,
-                    starId: starId,
-                    payType: 1,
-                    price: price,
-                    payStatus: 1,
-                    pgNm: 'tossPay',
-                    cardNm: '', 
-                    cardNum: '',
-                    aprvNum: '',
-                    emPhoneNum: '',
-                    userBankNm: '',
-                    userAccountNm: '',
-                    userAccountNum: '',
-                }
+                updatePaymentInfo({
+                    userId,
+                    payNo: searchObject.payNo,
+                    payStatus: PAYMENT_STATUS.CANCEL,
+                    orderId: searchObject.orderId,
+                }).then(() => {
+                    /* 결제 실패 알림 */
+                })
+            } else if (
+                searchObject.hasOwnProperty('paymentKey') &&
+                searchObject.hasOwnProperty('orderId') &&
+                searchObject.hasOwnProperty('amount')
+            ) {
                 try {
                     (async () => {
-                        
-                            const { payNo } = await submitPaymentInfo(param);
-                            await sendMessage({
-                                starId,
-                                userId,
-                                payNo: payNo,
-                                deliveryDate: date,
-                                msgContents: textareaElement.current.value,
-                                msgTitle: title,
-                                msgStatus: '', /* TODO: 간편 결제 연동 시 90 or ''로 변경 */
-                            }, 'toss', searchObject);
-                            ADSManager.collectClikedSendMessage();
-                            history.replace(`/writesuccess/${starId}`);
+                        await updatePaymentInfo({
+                            userId,
+                            payNo: searchObject.payNo,
+                            payStatus: PAYMENT_STATUS.COMPLETE,
+                            orderId: searchObject.orderId,
+                        })
+                        await sendMessage({
+                            starId,
+                            userId,
+                            payNo: searchObject.payNo,
+                            deliveryDate: date,
+                            msgContents: textareaElement.current.value,
+                            msgTitle: title,
+                            msgStatus: '',
+                        }, 'toss', searchObject);
+                        ADSManager.collectClikedSendMessage();
+                        history.replace(`/writesuccess/${starId}`);
                     })();
                 } catch (error) {
                     message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
@@ -304,9 +310,10 @@ const WriteComponent = (props) => {
                 setIsModalOpen={setIsPaymentModalOpen}
                 name={starNm}
                 starId={starId}
-                payment={price.toLocaleString('ko-KR')}
+                userId={userId}
+                price={price}
                 /* TODO: 각 API 연동 */
-                paymentButtonClick={() => {
+                paymentNormalButtonClick={() => {
                     setIsPaymentModalOpen(false);
                     setIsPassbookModalOpen(true);
                 }}
@@ -324,7 +331,7 @@ const WriteComponent = (props) => {
                             deliveryDate: date,
                             msgContents: textareaElement.current.value,
                             msgTitle: title,
-                            msgStatus: '90', /* TODO: 간편 결제 연동 시 90 or ''로 변경 */
+                            msgStatus: MSG_STATUS.VERIFY_DEPOSIT, /* TODO: 간편 결제 연동 시 90 or ''로 변경 */
                         }).then(() => {
                             ADSManager.collectClikedSendMessage();
                             history.push(`/writesuccess/${starId}`)

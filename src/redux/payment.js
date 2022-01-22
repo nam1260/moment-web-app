@@ -4,6 +4,8 @@ import { loadTossPayments } from "@tosspayments/payment-sdk";
 import { Base64 } from 'js-base64';
 import axios from "axios";
 import dotenv from "dotenv";
+import { getRegPaymentBaseParam, getRndNumber } from "shared/func";
+import { PAYMENT_STATUS, PAYMENT_TYPE } from "consts/payment";
 dotenv.config();
 
 
@@ -18,29 +20,39 @@ const {
 
 const SET_SEND_LOADING = 'payment/SET_SEND_LOADING';
 const SET_SEND_END = 'payment/SET_SEND_END';
-
+const SET_PAYNO = 'payment/SET_PAYNO'
 export const setSendLoading = createAction(SET_SEND_LOADING);
 export const setSendEnd = createAction(SET_SEND_END);
+export const setPayNo = createAction(SET_PAYNO, payNo => payNo);
 
-export const openTossBankRequirement = async (starId) => {
-    const tossPayments = await loadTossPayments(testClientKey);
+export const openTossBankRequirement = (starId, userId, price, name) => async (dispatch) => {
+    const param = getRegPaymentBaseParam(userId, starId, PAYMENT_TYPE.TOSS, PAYMENT_STATUS.BEFORE, price)
+    try {
+        const { isSuccess, payNo } = await submitPaymentInfo(param)
+        dispatch(setPayNo(payNo))
+        if(isSuccess) {
+            const tossPayments = await loadTossPayments(testClientKey);    
+            const location = window.location.href.match(/https?:\/\/[^/?]+/)[0];
+            tossPayments.requestPayment('카드', {
+                amount: 100,
+                orderId: `TOSSPAY${payNo}_${getRndNumber(8)}`,
+                orderName: `${name} 스타`,
+                customerName: '박토스',
+                successUrl: `${location}/write/${starId}?payNo=${payNo}`,
+                failUrl: `${location}/write/${starId}`,
+            })
+        }
+    } catch(error) {
+
+    }
     
-    const location = window.location.href.match(/https?:\/\/[^/?]+/)[0];
-    tossPayments.requestPayment('카드', {
-        amount: 100,
-        orderId: "TEST"+Math.floor(Math.random()*9999999),
-        orderName: '토스 티셔츠 외 2건',
-        customerName: '박토스',
-        successUrl: `${location}/write/${starId}`,
-        failUrl: `${location}/write/${starId}`,
-    })
+    
 }
 
 export const sendMessage = (info, type = '', subParam = '') => async (dispatch) => {
     dispatch(setSendLoading());
     try {
         await sendMessageToStar(info);
-        console.log(type)
         switch(type) {
             case 'toss':
                 await approveTossProcess(subParam);
@@ -60,7 +72,7 @@ const approveTossProcess = async ({ paymentKey, orderId, amount }) => {
         amount
     }, {
         headers: {
-            Authorization: `Basic ${Base64.encode(testClientSecretKey)}`
+            Authorization: `Basic ${Base64.encode(`${testClientSecretKey}:`)}`
         }
     }).catch((error) => {
         return Promise.reject(error);
@@ -79,6 +91,7 @@ export const submitPaymentInfo = async (info)  => {
 
 const initialState = {
     isLoading: false,
+    payNo: '',
 }
 
 function reducer(state = initialState, action) {
@@ -92,6 +105,11 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 isLoading: false,
+            }
+        case SET_PAYNO:
+            return {
+                ...state,
+                payNo: action.payload,
             }
         default:
             return {

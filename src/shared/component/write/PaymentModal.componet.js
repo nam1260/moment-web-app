@@ -2,7 +2,6 @@ import MomentModal from "../common/modal";
 import styled from 'styled-components';
 import { NaverPaymentComponent, KaKaoPaymentComponent, NormalPaymentComponent, TossPaymentComponent } from './PaymentType';
 import { useCallback } from "react";
-import { openTossBankRequirement } from "redux/payment";
 
 
 
@@ -121,11 +120,17 @@ const PaymentRow = styled.div`
 `
 
 
-export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButtonClick, name, payment, starId  }) {
-
-    const openTossModal = useCallback(() => {
-        openTossBankRequirement(starId);
-    }, [])
+export default function PaymentModal({ 
+    isModalOpen,
+    setIsModalOpen,
+    paymentNormalButtonClick,
+    name,
+    price,
+    starId,
+    userId,
+    openTossBankRequirement
+}) {
+    
 
     return (
         <MomentModal
@@ -142,7 +147,7 @@ export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButto
                             <span>나의 최애</span> {name} 님의 영상 메세지 <br/><span id="subText">(이용 기간 : 기간 없음, 영구 소장)</span>
                         </div>
                         <div className='payment-info-money'>
-                            {payment}원   <span>부가세 포함 가격</span>
+                            {price.toLocaleString('ko-KR')}원   <span>부가세 포함 가격</span>
                         </div>
                     </PaymentInfoBox>
                     <Divider />
@@ -152,8 +157,8 @@ export default function PaymentModal({ isModalOpen, setIsModalOpen, paymentButto
                         {/*<KaKaoPaymentComponent onClick={paymentButtonClick}/>*/}
                     </PaymentRow>
                     <PaymentRow>
-                        <TossPaymentComponent onClick={openTossModal}/>
-                        <NormalPaymentComponent onClick={paymentButtonClick}/>
+                        <TossPaymentComponent onClick={() => openTossBankRequirement(starId, userId, price, name)}/>
+                        <NormalPaymentComponent onClick={paymentNormalButtonClick}/>
                     </PaymentRow>
                 </PaymentComponent>
             }
