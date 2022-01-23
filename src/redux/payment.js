@@ -28,9 +28,9 @@ export const setPayNo = createAction(SET_PAYNO, payNo => payNo);
 export const openTossBankRequirement = (starId, userId, price, name,userNm) => async (dispatch) => {
     const param = getRegPaymentBaseParam(userId, starId, PAYMENT_TYPE.TOSS, PAYMENT_STATUS.BEFORE, price)
     try {
-        const { isSuccess, payNo } = await submitPaymentInfo(param)
+        const {isSuccess, payNo} = await submitPaymentInfo(param)
         dispatch(setPayNo(payNo))
-        if(isSuccess) {
+        if (isSuccess) {
             const tossPayments = await loadTossPayments(testClientKey);
             const location = window.location.href.match(/https?:\/\/[^/?]+/)[0];
             tossPayments.requestPayment('카드', {
@@ -42,9 +42,10 @@ export const openTossBankRequirement = (starId, userId, price, name,userNm) => a
                 failUrl: `${location}/write/${starId}`,
             })
         }
-    } catch(error) {
+    } catch (error) {
 
     }
+}
 
 export const sendMessage = (info, type = '', subParam = '') => async (dispatch) => {
     dispatch(setSendLoading());
