@@ -171,8 +171,7 @@ const WriteComponent = (props) => {
                         }, 'toss', searchObject);
                         ADSManager.collectClikedSendMessage();
                         StorageManager.remove('messageInfo')
-                        console.log(StorageManager.load('messageInfo'));
-                        // history.replace(`/writesuccess/${starId}`);
+                        history.replace(`/writesuccess/${starId}`);
                     })();
                 } catch (error) {
                     message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
