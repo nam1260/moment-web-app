@@ -167,7 +167,7 @@ const WriteComponent = (props) => {
                             deliveryDate: messageInfo.date,
                             msgContents: messageInfo.content,
                             msgTitle: messageInfo.title,
-                            msgStatus: '',
+                            msgStatus: MSG_STATUS.VERIFY_VALIDATION,
                         }, 'toss', searchObject);
                         ADSManager.collectClikedSendMessage();
                         StorageManager.remove('messageInfo')
