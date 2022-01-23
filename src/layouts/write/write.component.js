@@ -13,7 +13,6 @@ import { Input, message } from 'antd';
 import Styled from "styled-components"
 import DepositWithoutPassbookModal from 'layouts/container/DepositModalContainer';
 import ADSManager from '../../managers/ADSManager';
-import { submitPaymentInfo } from "redux/payment";
 import { MSG_STATUS, PAYMENT_STATUS } from 'consts/payment';
 import AWSManager from 'managers/AWSManager';
 
@@ -21,7 +20,8 @@ const letterImage = "/assets/images/icoLetter.png";
 const iconFace = "/assets/icons/icoFace6.png";
 
 const {
-    updatePaymentInfo
+    updatePaymentInfo,
+    deletePaymentInfo,
 } = AWSManager;
 
 const StyledNoti = Styled.div`
@@ -80,6 +80,15 @@ const Over300Modal = (
     </div>
 )
 
+const PaymentFailModal = (
+    <div className='modal-content warning-modal'>
+        <div>죄송합니다.<br />결제에 실패하였습니다.</div>
+        <div>
+            관리자에게 문의해주세요.
+        </div>
+    </div>
+)
+
 const searchTossParam = (search) => {
     return search.slice(1).split('&').reduce((prev, param) => {
         const value = param.split('=');
@@ -94,6 +103,8 @@ const WriteComponent = (props) => {
     const [isOver300ModalOpen, setIsOver300ModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
     const [isPassbookModalOpen, setIsPassbookModalOpen] = useState(false);
+    const [isPaymentFailModalOpen, setIsPaymentFailModalOpen] = useState(false);
+
     const [count, setCount] = useState(0);
     const [title, setTitle] = useState('');
     const [date, setDate] = useState();
@@ -109,7 +120,6 @@ const WriteComponent = (props) => {
         user,
         getStarDetailAsync,
         sendMessage,
-        payNo,
     } = props;
     
     const {
@@ -130,19 +140,18 @@ const WriteComponent = (props) => {
                     2. PAY_PROCESS_ABORTED 결제 진행 중 승인 실패
                     3. REJECT_CARD_COMPANY 카드사 승인 거절
                 */
-                updatePaymentInfo({
+                deletePaymentInfo({
                     userId,
                     payNo: searchObject.payNo,
-                    payStatus: PAYMENT_STATUS.CANCEL,
-                    orderId: searchObject.orderId,
                 }).then(() => {
-                    /* 결제 실패 알림 */
+                    setIsPaymentFailModalOpen(true);
                 })
             } else if (
                 searchObject.hasOwnProperty('paymentKey') &&
                 searchObject.hasOwnProperty('orderId') &&
                 searchObject.hasOwnProperty('amount')
             ) {
+                const messageInfo = JSON.parse(StorageManager.load('messageInfo'))
                 try {
                     (async () => {
                         await updatePaymentInfo({
@@ -155,20 +164,21 @@ const WriteComponent = (props) => {
                             starId,
                             userId,
                             payNo: searchObject.payNo,
-                            deliveryDate: date,
-                            msgContents: textareaElement.current.value,
-                            msgTitle: title,
+                            deliveryDate: messageInfo.date,
+                            msgContents: messageInfo.content,
+                            msgTitle: messageInfo.title,
                             msgStatus: '',
                         }, 'toss', searchObject);
                         ADSManager.collectClikedSendMessage();
-                        history.replace(`/writesuccess/${starId}`);
+                        StorageManager.remove('messageInfo')
+                        console.log(StorageManager.load('messageInfo'));
+                        // history.replace(`/writesuccess/${starId}`);
                     })();
                 } catch (error) {
                     message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
                 }
                 
             }
-
         }
     }, [user])
     
@@ -263,6 +273,11 @@ const WriteComponent = (props) => {
     const onClickSendStory = async () => {
         try {
             checkStoryValidation();
+            StorageManager.save("messageInfo", JSON.stringify({
+                title: title,
+                date: date,
+                content: textareaElement.current.value
+            }));
         } catch(e) {
             return false;
         }
@@ -305,6 +320,15 @@ const WriteComponent = (props) => {
                 height={520}
             />
 
+            <MomentModal
+                isOpen={isPaymentFailModalOpen}
+                confirmText={'확인'}
+                contentComponent={PaymentFailModal}
+                onClickHandlerConfirm={() => setIsPaymentFailModalOpen(false)}
+                width={650}
+                height={520}
+            />
+
             <PaymentModal 
                 isModalOpen={isPaymentModalOpen}
                 setIsModalOpen={setIsPaymentModalOpen}
@@ -313,7 +337,8 @@ const WriteComponent = (props) => {
                 starId={starId}
                 userId={userId}
                 price={price}
-                payment={price.toLocaleString('ko-KR')}
+                
+
                 /* TODO: 각 API 연동 */
                 paymentNormalButtonClick={() => {
                     setIsPaymentModalOpen(false);
