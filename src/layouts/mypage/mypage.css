@@ -324,12 +324,21 @@ main {
     margin-bottom: min(10vw , 39px);
 }
 .mypage-container > div.messageList > div.message > div > .id{
-    display: block;
+    display: inline-block;
     font-size: min(6vw , 26px);
     letter-spacing: -0.65px;
     text-align: left;
     color: #ff723a;
     margin-bottom: min(7vw , 31px);
+    width : 20%;
+}
+.mypage-container > div.messageList > div.message > div > .payment{
+    display: inline-block;
+    font-size: min(6vw , 26px);
+    letter-spacing: -0.65px;
+    text-align: right;
+    margin-bottom: min(7vw , 31px);
+    width : 80%;
 }
 .mypage-container > div.messageList > div.message > div > .title{
     display: block;

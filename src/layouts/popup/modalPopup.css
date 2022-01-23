@@ -698,6 +698,19 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.modalContainer .button_modal_detail .info_container .title_center{
+    display: block;
+    font-size: min(4vw , 38px);
+    font-weight: bold;
+    letter-spacing: -0.95px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: min(2vw , 19px);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .modalContainer .button_modal_detail .info_container .description{
     display: block;
     height: min(20vw, 280px);

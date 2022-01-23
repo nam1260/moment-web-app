@@ -24,6 +24,7 @@ const MODAL_TYPE = {
     DETAIL:3,
     VIDEO1:4,
     VIDEO2:5,
+    PAYMENT:6,
 }
 
 const MSG_STATE_BRFORE = "0";
@@ -38,6 +39,11 @@ const MSG_STATE_PAYMENT_CANCEL = "92";
 
 const MSG_STATE_VIDEO_CONFIRMING = "80";
 const MSG_STATE_VIDEO_REJECT = "81";
+
+const PAYMENT_INFO_TYPE_WITHOUTBANKBOOK = 0;
+const PAYMENT_INFO_TYPE_TOSSPAY = 1;
+const PAYMENT_INFO_TYPE_NAVERPAY = 2;
+const PAYMENT_INFO_TYPE_KAKAOPAY = 3;
 
 function SendMessageHistory({isLogined}) {
     const stateString = {
@@ -63,6 +69,7 @@ function SendMessageHistory({isLogined}) {
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(MODAL_TYPE.INIT);
     const [selectedMessage, setSelectedMessage] = useState(null);
+    const [paymentInfo, setPaymentInfo] = useState(null);
     const [buttonType, setButtonType] = useState(MSG_STATE_CANCELED);
 
     const buttonModalComponent = () => {
@@ -185,8 +192,105 @@ function SendMessageHistory({isLogined}) {
             </div>
         )
     };
+
+    const paymentTypeInfo = ()=>{
+        let cardName = (
+            <span className="info">
+            카드이름
+            <b>{paymentInfo.cardNm}</b>
+            </span>);
+            
+        let cardNumber = (
+            <span className="info">
+                카드번호
+                <b>{paymentInfo.cardNum}</b>
+            </span>);
+
+        let userBankNm = (
+            <span className="info">
+            입금자명
+            <b>{paymentInfo.userBankNm}</b>
+            </span>);
+        let userAccountNm = (
+        <span className="info">
+            입금계좌명
+            <b>{paymentInfo.userAccountNm}</b>
+            </span>);
+        let userAccountNum = (
+            <span className="info">
+            계좌번호
+            <b>{paymentInfo.userAccountNum}</b>
+            </span>);
+        let payType = paymentInfo.payType ? paymentInfo.payType : PAYMENT_INFO_TYPE_WITHOUTBANKBOOK;
+        let infos = {
+            [PAYMENT_INFO_TYPE_WITHOUTBANKBOOK] : [userBankNm, userAccountNm, userAccountNum], 
+            [PAYMENT_INFO_TYPE_TOSSPAY] : [cardName, cardNumber],
+            [PAYMENT_INFO_TYPE_NAVERPAY] : [cardName, cardNumber],
+            [PAYMENT_INFO_TYPE_KAKAOPAY] : [cardName, cardNumber], 
+        };
+        return (
+            infos[payType].map(info => (
+                info
+            ))
+        );
+
+    }
+    const detailPaymentModalComponent = () => {
+        return (
+            <div className="button_modal_detail">
+                <div className="info_container">
+                    <br/>
+                    <div>
+                        <span className="title_center">
+                            결제 상세 내역
+                        </span>
+                        <div className="border">
+                        </div>
+                        <span className="info">
+                            결제번호
+                            <b>{paymentInfo.payNo}</b>
+                        </span>
+                        <span className="info">
+                            보낸사람
+                            <b>{paymentInfo.userId}</b>
+                        </span>
+                        <span className="info">
+                            받는사람
+                            <b>{paymentInfo.starId}</b>
+                        </span>
+                        <span className="info">
+                            결제수단
+                            <b>{paymentInfo.payType}</b>
+                        </span>
+                        <span className="info">
+                            결제금액
+                        </span>
+                            <b>{paymentInfo.price}</b>
+                        <span className="info">
+                            결제상태
+                            <b>{paymentInfo.payStatus}</b>
+                        </span>
+                        <span className="info">
+                            주문번호
+                            <b>{paymentInfo.orderId}</b>
+                        </span>
+                        {paymentTypeInfo()}
+                        <span className="info">
+                            연락 가능 번호
+                            <b>{paymentInfo.emPhoneNum}</b>
+                        </span>
+                    </div>
+                </div>
+                <div className="button_container">
+                    <button className="center_button" onClick={()=>{
+                        setShowModal(false);
+                    }}>닫기</button>);
+                </div>
+            </div>
+        )
+    };
     const videoLinkModalComponent = () => {
-        console.log('detailModalComponent selectedMessage = ' , selectedMessage);
+        console.log('videoLinkModalComponent selectedMessage = ' , selectedMessage);
         const link = selectedMessage.mediaLinkUrl ? selectedMessage.mediaLinkUrl : 'https://youtu.be/0vvCe4EHtus';
         const comment = selectedMessage.msgComment ? selectedMessage.msgComment : '정말 축하드립니다!';
         return (
@@ -285,6 +389,21 @@ function SendMessageHistory({isLogined}) {
                                 <span className="id">
                                     #{String(message.msgId).padStart(7, 0)}
                                 </span>
+                                <a className="payment" onClick={()=>{
+                                        AWSManager.getPaymentList({
+                                            key : "payNo",
+                                            value : message.msgId,
+                                        }).then((result)=>{
+                                            console.log(result);
+                                            setModalType(MODAL_TYPE.PAYMENT);
+                                            setPaymentInfo(result.data);
+                                            setShowModal(true);
+                                        }).catch((result)=>{
+                                            alert("결제정보 조회에 실패했습니다.");
+                                        });
+                                    }}>
+                                    결재정보
+                                </a>
                                 <span className="title">
                                     {message.msgTitle}
                                 </span>
@@ -384,6 +503,7 @@ function SendMessageHistory({isLogined}) {
                                 [MODAL_TYPE.BUTTONS] : buttonsModalComponent(),
                                 [MODAL_TYPE.DETAIL] : detailModalComponent(),
                                 [MODAL_TYPE.VIDEO1] : videoLinkModalComponent(),
+                                [MODAL_TYPE.PAYMENT] : detailPaymentModalComponent(),
                             }[modalType]
                         }
                     </Modal> : null}
