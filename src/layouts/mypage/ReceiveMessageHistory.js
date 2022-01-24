@@ -167,7 +167,7 @@ function ReceiveMessageHistory({isLogined}) {
                             <b>{new Date(selectedMessage.regDate).toLocaleDateString()}</b>
                         </span>
                         <span className="info">
-                            수신일
+                            영상 제작 및 전송 완료일
                             <b>{selectedMessage.deliveryDate.substring(0,4) + '. ' + selectedMessage.deliveryDate.substring(4, 6)  + '. ' + selectedMessage.deliveryDate.substring(6,8) + '.'}</b>
                         </span>
                     </div>
@@ -371,7 +371,7 @@ function ReceiveMessageHistory({isLogined}) {
                                     <b>{new Date(message.regDate).toLocaleDateString()}</b>
                                 </span>
                                 <span className="info">
-                                    수신일
+                                    영상 제작 및 전송 완료일
                                     <b>{message.deliveryDate.substring(0,4) + '. ' + message.deliveryDate.substring(4, 6)  + '. ' + message.deliveryDate.substring(6,8) + '.'}</b>
                                 </span>
                                 <span className="info">
@@ -401,6 +401,7 @@ function ReceiveMessageHistory({isLogined}) {
             selectedMessage
         ).then((result)=>{
             console.log(result);
+            alert("등록되었습니다. 화면을 새로고침 해주세요")
         });
     };
 

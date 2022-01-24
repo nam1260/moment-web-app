@@ -5,6 +5,8 @@ import { BankOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
 import { useState } from "react";
 import { message } from "antd";
 import { submitPaymentInfo } from "redux/payment";
+import { PAYMENT_STATUS, PAYMENT_TYPE } from "consts/payment";
+import { getRegPaymentBaseParam } from "shared/func";
 
 const DepositComponent = styled.div`
     display: flex;
@@ -88,7 +90,7 @@ const RegisterButton = styled.button`
 
 
 export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpen, onSuccess, ...rest  }) {
-    const { starDetail: { starId }, user: { userId }, price, reset } = rest;
+    const { starDetail: { starId }, user: { userId }, price } = rest;
     
     const [depositInfo, setDepositInfo] = useState({
         'bankNm': '',
@@ -167,22 +169,16 @@ export default function DepositWithoutPassbookModal({ isModalOpen, setIsModalOpe
             return;
         }
 
-        const param = {
-            userId: userId,
-            starId: starId,
-            payType: 0, /* 우선 0 고정 */
-            price: price,
-            payStatus: 0,
-            pgNm: 'normal',
+        let param = getRegPaymentBaseParam(userId, starId, PAYMENT_TYPE.NORMAL, PAYMENT_STATUS.BEFORE, price);
+
+        param = {
+            ...param,
             userBankNm: depositInfo['accountHolder'],
             userAccountNm: depositInfo['bankNm'],
             userAccountNum: depositInfo['accountNumber'],
             emPhoneNum: depositInfo['phoneNumber'],
-            cardNm: '', 
-            cardNum: '',
-            aprvNum: '',
-            
         }
+
         try {
             submitPaymentInfo(param).then((data) => {
                 setIsModalOpen(false);
