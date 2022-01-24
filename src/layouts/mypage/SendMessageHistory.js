@@ -68,8 +68,8 @@ function SendMessageHistory({isLogined}) {
     const [listhBodyStatus, setListBodyStatus] = useState(listStatus.INIT);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(MODAL_TYPE.INIT);
-    const [selectedMessage, setSelectedMessage] = useState(null);
-    const [paymentInfo, setPaymentInfo] = useState(null);
+    const [selectedMessage, setSelectedMessage] = useState({});
+    const [paymentInfo, setPaymentInfo] = useState({});
     const [buttonType, setButtonType] = useState(MSG_STATE_CANCELED);
 
     const buttonModalComponent = () => {
@@ -156,7 +156,7 @@ function SendMessageHistory({isLogined}) {
     };
     const detailModalComponent = () => {
         console.log('detailModalComponent selectedMessage = ' , selectedMessage);
-        return (
+        return selectedMessage.msgId ? (
             <div className="button_modal_detail">
                 <div className="info_container">
                     <br/>
@@ -190,7 +190,7 @@ function SendMessageHistory({isLogined}) {
                     {getButtonsForDetails(selectedMessage.msgStatus)}
                 </div>
             </div>
-        )
+        ) : null
     };
 
     const paymentTypeInfo = ()=>{
@@ -264,8 +264,8 @@ function SendMessageHistory({isLogined}) {
                         </span>
                         <span className="info">
                             결제금액
-                        </span>
                             <b>{paymentInfo.price}</b>
+                        </span>
                         <span className="info">
                             결제상태
                             <b>{paymentInfo.payStatus}</b>
@@ -391,12 +391,12 @@ function SendMessageHistory({isLogined}) {
                                 </span>
                                 <a className="payment" onClick={()=>{
                                         AWSManager.getPaymentList({
-                                            key : "payNo",
-                                            value : message.msgId,
+                                            key : "msgId",
+                                            value : message.msgId.toString(),
                                         }).then((result)=>{
                                             console.log(result);
                                             setModalType(MODAL_TYPE.PAYMENT);
-                                            setPaymentInfo(result.data);
+                                            setPaymentInfo(result.data[0]);
                                             setShowModal(true);
                                         }).catch((result)=>{
                                             alert("결제정보 조회에 실패했습니다.");
