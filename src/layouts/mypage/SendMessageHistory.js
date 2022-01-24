@@ -352,6 +352,8 @@ function SendMessageHistory({isLogined}) {
                     <span className="title">{comment}</span>
                     <span className="guide">영상링크를 확인해 주세요</span>
                     <a href={link} target='_blank'>{link}</a>
+                    <span className="subGuide">확인하신 영상이, 모먼트 이용약관 1조 2의 다 항에 해당하는 경우 고객센터(mtm.moment@gmail.com)</span>
+                    <span className="subGuide">를 통해 환불 요청주시면 2영업일 이내에 검토 완료 후 회신드리겠습니다.</span>
                 </div>
                 <div className="button_container">
                     <button className="center_button" onClick={()=>{
