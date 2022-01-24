@@ -11,7 +11,7 @@ dotenv.config();
 const testClientKey = process.env.REACT_APP_TOSS_TCK;
 const testClientSecretKey = process.env.REACT_APP_TOSS_TSK;
 
-const { regPaymentInfo, sendMessageToStar } = AWSManager;
+const { regPaymentInfo, sendMessageToStar, updatePaymentInfo } = AWSManager;
 
 const SET_SEND_LOADING = "payment/SET_SEND_LOADING";
 const SET_SEND_END = "payment/SET_SEND_END";
@@ -58,7 +58,16 @@ export const sendMessage =
       await sendMessageToStar(info);
       switch (type) {
         case "toss":
-          await approveTossProcess(subParam);
+          const { data } = await approveTossProcess(subParam);
+          await updatePaymentInfo({
+            payNo: info.payNo,
+            userId: info.userId,
+            payStatus: PAYMENT_STATUS.COMPLETE,
+            orderId: subParam.orderId,
+            aprvNum: data.card.approveNo,
+            cardNm: data.card.company,
+            cardNum: data.card.number,
+          })
           break;
         default:
           break;
@@ -70,7 +79,7 @@ export const sendMessage =
   };
 
 const approveTossProcess = async ({ paymentKey, orderId, amount }) => {
-  axios
+  const response = await axios
     .post(
       `https://api.tosspayments.com/v1/payments/${paymentKey}`,
       {
@@ -86,6 +95,7 @@ const approveTossProcess = async ({ paymentKey, orderId, amount }) => {
     .catch((error) => {
       return Promise.reject(error);
     });
+    return response;
 };
 
 export const submitPaymentInfo = async (info) => {
