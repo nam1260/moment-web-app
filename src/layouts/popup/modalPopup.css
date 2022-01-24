@@ -610,6 +610,15 @@ main {
     letter-spacing: -0.7px;
     color: #8f8f8f;
 }
+
+.modalContainer .button_modal_link .info_container > span.subGuide  {
+    margin-top: 0px;
+    margin-bottom: min(1vw,15px);
+    font-size: min(3vw, 14px);
+    letter-spacing: -0.7px;
+    color: #8f8f8f;
+}
+
 .modalContainer .button_modal_link .info_container > a  {
     display: inline-block;
     margin-bottom: min(3vw,30px);
