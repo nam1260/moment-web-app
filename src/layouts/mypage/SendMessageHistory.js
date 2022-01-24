@@ -402,7 +402,7 @@ function SendMessageHistory({isLogined}) {
                                             alert("결제정보 조회에 실패했습니다.");
                                         });
                                     }}>
-                                    결재정보
+                                    결제정보
                                 </a>
                                 <span className="title">
                                     {message.msgTitle}
