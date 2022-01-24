@@ -1,7 +1,7 @@
 
 import "./mypage.css";
 import "../popup/modalPopup.css";
-import React, { useState, useEffect, useRef, Component} from "react";
+import React, { useState, useEffect, useRef, Component, useCallback, useMemo} from "react";
 import { useHistory } from 'react-router'; 
 import { Modal } from "../popup/ModalPopup";
 import MypageHeader from './MypageHeader';
@@ -234,8 +234,53 @@ function SendMessageHistory({isLogined}) {
             ))
         );
 
-    }
-    const detailPaymentModalComponent = () => {
+    };
+
+
+    const convertPayType = useCallback((payType)=>{
+        let result;
+        switch (payType) {
+            case "0":
+                result = "무통장입금 / 계좌이체";
+                break;
+            case "1":
+                result = "카드 결제(Toss PG)";
+                break;
+            case "2":
+                result = "카카오페이";
+                break;
+            case "3":
+                result = "네이버페이";
+                break;
+            default:
+                break;
+
+        }
+        return result
+
+    },[]);
+
+    const convertPayStatus = useCallback((status)=>{
+        let result;
+        switch (status) {
+            case "0":
+                result = "결제 전(입금 전)";
+                break;
+            case "1":
+                result = "결제 완료";
+                break;
+            case "2":
+                result = "결제 취소";
+                break;
+            default:
+                break;
+
+        }
+        return result
+
+    },[]);
+
+    const detailPaymentModalComponent = useCallback(() => {
         return (
             <div className="button_modal_detail">
                 <div className="info_container">
@@ -247,7 +292,7 @@ function SendMessageHistory({isLogined}) {
                         <div className="border">
                         </div>
                         <span className="info">
-                            결제번호
+                            결제 일련 번호
                             <b>{paymentInfo.payNo}</b>
                         </span>
                         <span className="info">
@@ -260,15 +305,15 @@ function SendMessageHistory({isLogined}) {
                         </span>
                         <span className="info">
                             결제수단
-                            <b>{paymentInfo.payType}</b>
+                            <b>{convertPayType(paymentInfo.payType)}</b>
                         </span>
                         <span className="info">
                             결제금액
-                            <b>{paymentInfo.price}</b>
+                            <b>{paymentInfo.price > 0 ? paymentInfo.price.toLocaleString('ko-KR') : 0}원</b>
                         </span>
                         <span className="info">
                             결제상태
-                            <b>{paymentInfo.payStatus}</b>
+                            <b>{convertPayStatus(paymentInfo.payStatus)}</b>
                         </span>
                         <span className="info">
                             주문번호
@@ -288,7 +333,7 @@ function SendMessageHistory({isLogined}) {
                 </div>
             </div>
         )
-    };
+    },[paymentInfo]);
     const videoLinkModalComponent = () => {
         console.log('videoLinkModalComponent selectedMessage = ' , selectedMessage);
         const link = selectedMessage.mediaLinkUrl ? selectedMessage.mediaLinkUrl : 'https://youtu.be/0vvCe4EHtus';
@@ -460,7 +505,6 @@ function SendMessageHistory({isLogined}) {
     };
 
     useEffect(() =>{
-        console.log("랜더링 시마다 호출");
         let userId = StorageManager.loadUserInfo() ? StorageManager.loadUserInfo().userId : "";
         AWSManager.getMsgList({
             userId: userId,
