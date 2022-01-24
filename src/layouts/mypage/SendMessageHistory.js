@@ -206,6 +206,12 @@ function SendMessageHistory({isLogined}) {
                 <b>{paymentInfo.cardNum}</b>
             </span>);
 
+        let aprvNum = (
+            <span className="info">
+                카드 승인 번호
+                <b>{paymentInfo.aprvNum}</b>
+            </span>);
+
         let userBankNm = (
             <span className="info">
             입금자명
@@ -224,9 +230,9 @@ function SendMessageHistory({isLogined}) {
         let payType = paymentInfo.payType ? paymentInfo.payType : PAYMENT_INFO_TYPE_WITHOUTBANKBOOK;
         let infos = {
             [PAYMENT_INFO_TYPE_WITHOUTBANKBOOK] : [userBankNm, userAccountNm, userAccountNum], 
-            [PAYMENT_INFO_TYPE_TOSSPAY] : [cardName, cardNumber],
-            [PAYMENT_INFO_TYPE_NAVERPAY] : [cardName, cardNumber],
-            [PAYMENT_INFO_TYPE_KAKAOPAY] : [cardName, cardNumber], 
+            [PAYMENT_INFO_TYPE_TOSSPAY] : [cardName, cardNumber,aprvNum],
+            [PAYMENT_INFO_TYPE_NAVERPAY] : [cardName, cardNumber,aprvNum],
+            [PAYMENT_INFO_TYPE_KAKAOPAY] : [cardName, cardNumber,aprvNum],
         };
         return (
             infos[payType].map(info => (
