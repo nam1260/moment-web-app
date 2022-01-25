@@ -115,8 +115,8 @@ function Home({ history, getStarListAsync, starList}) {
                         <p>사업장 소재지: 서울특별시 송파구 송파대로32길 8, 1동 712호</p>
                         <p>연락처: 010-8789-3418</p>
                         <p>정보통신업 / 소프트웨어 개발 및 공급업</p>
-                        <p>통신판매업 신고 번호 (신고 처리 대기 중)</p>
-                        <p>민원접수번호 20220121-42989082</p>
+                        <p>통신판매업 면허 번호: 2022-서울송파-0247</p>
+                        <p>민원접수번호: 20220121-42989082</p>
                         <p>E-mail: mtm.moment@gmail.com</p>
                     </div>
                     <div className="footer-list">
