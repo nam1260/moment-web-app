@@ -154,12 +154,6 @@ const WriteComponent = (props) => {
                 const messageInfo = JSON.parse(StorageManager.load('messageInfo'))
                 try {
                     (async () => {
-                        await updatePaymentInfo({
-                            userId,
-                            payNo: searchObject.payNo,
-                            payStatus: PAYMENT_STATUS.COMPLETE,
-                            orderId: searchObject.orderId,
-                        })
                         await sendMessage({
                             starId,
                             userId,
