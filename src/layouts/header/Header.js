@@ -4,6 +4,7 @@ import 'Common.css';
 import './header.css';
 import { WrapLoginedComponent } from 'shared/component/common/WrapLoginedComponent';
 import StorageManager from "managers/StorageManager";
+import ADSManager from "../../managers/ADSManager";
 
 const menuPath = '/assets/icons/icoMenu.png'
 const searchPath = '/assets/icons/icoSearch.png'
@@ -52,7 +53,9 @@ function Header({ setIsMenuOpen, isLogined, userNickNm, userId, userImgUrl }) {
                     <img alt="none" onClick={() => history.push('/')} className={'top-logo'} src={logoPath} />
                 </div>
                 <div>
-                    <img alt="none" className={"top-icon"} src={searchPath} onClick={()=>{window.open(SERVEY_URL, '_blank')}}/>
+                    <img alt="none" className={"top-icon"} src={searchPath} onClick={()=>{
+                        ADSManager.collectClickedFormLog();
+                        window.open(SERVEY_URL, '_blank')}}/>
                     <img alt="none" className={"top-icon"} src={profileImgUrl} onClick={onClickProfile}/>
                 </div>
             </div>
