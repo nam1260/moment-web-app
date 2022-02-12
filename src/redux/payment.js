@@ -153,7 +153,7 @@ export const sendMessage =
               payStatus: PAYMENT_STATUS.COMPLETE,
               orderId: subParam.pgToken,
               aprvNum: data.payment_method_type === 'MONEY' ? '' : data.card_info.approved_id,
-              cardNm: data.payment_method_type === 'MONEY' ? '' :data.card_info.kakaopay_purchase_corp,
+              cardNm: data.payment_method_type === 'MONEY' ? '' :data.card_info.issuer_corp,
               cardNum: data.payment_method_type === 'MONEY' ? '' :data.card_info.card_mid,
             })
         }

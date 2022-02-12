@@ -1,4 +1,7 @@
 import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default class kakaoPaymentService { /* 이영현 개인 kakao developers 사용 중 변경 필요. */
     constructor(props) {
@@ -16,7 +19,7 @@ export default class kakaoPaymentService { /* 이영현 개인 kakao developers 
             'fail_url',
         ];
         /* TODO: 환경 변수로 관리 */
-        this.kakaoAuthorizationKey = 'bfafe6786dba07a5ed10dc469c1d13ab';
+        this.kakaoAuthorizationKey = process.env.REACT_APP_KAKAO_TSK;
         this.cid = 'TC0ONETIME';
         
         this._prepareApiParameter = {
