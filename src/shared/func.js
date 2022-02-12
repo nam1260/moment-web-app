@@ -36,10 +36,15 @@ export function getRegPaymentBaseParam(userId, starId, payType, payStatus, price
     }
     switch(payType) {
         case PAYMENT_TYPE.NORMAL:
-            param.pgNm = 'normal'
+            param.pgNm = 'normal';
             break;
         case PAYMENT_TYPE.TOSS:
-            param.pgNm = 'tossPay'
+            param.pgNm = 'tossPay';
+            break;
+        case PAYMENT_TYPE.KAKAO:
+            param.pgNm = 'kakaoPay';
+            break;
+        default:
             break;
     }
     return param;
@@ -47,4 +52,8 @@ export function getRegPaymentBaseParam(userId, starId, payType, payStatus, price
 
 export function getRndNumber(pad) {
     return Array(pad).fill('').map(() => Math.floor(Math.random()*10)).join('');
+}
+
+export function isMobile() {
+    return window.navigator.userAgentData.mobile;
 }

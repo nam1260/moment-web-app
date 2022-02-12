@@ -89,7 +89,7 @@ const PaymentFailModal = (
     </div>
 )
 
-const searchTossParam = (search) => {
+const searchParam = (search) => {
     return search.slice(1).split('&').reduce((prev, param) => {
         const value = param.split('=');
         prev[value[0]] = decodeURI(value[1]);
@@ -133,7 +133,7 @@ const WriteComponent = (props) => {
 
     useEffect(() => {
         if(search !== '' && userId) {
-            const searchObject = searchTossParam(search);
+            const searchObject = searchParam(search);
             if(searchObject.hasOwnProperty('code')) {
                 /* error handling 
                     1. PAY_PROCESS_CANCELED 사용자 결제 취소
@@ -146,11 +146,7 @@ const WriteComponent = (props) => {
                 }).then(() => {
                     setIsPaymentFailModalOpen(true);
                 })
-            } else if (
-                searchObject.hasOwnProperty('paymentKey') &&
-                searchObject.hasOwnProperty('orderId') &&
-                searchObject.hasOwnProperty('amount')
-            ) {
+            } else if ( searchObject.isSuccess === "true" ) {
                 const messageInfo = JSON.parse(StorageManager.load('messageInfo'))
                 try {
                     (async () => {
@@ -162,7 +158,7 @@ const WriteComponent = (props) => {
                             msgContents: messageInfo.content,
                             msgTitle: messageInfo.title,
                             msgStatus: MSG_STATUS.VERIFY_VALIDATION,
-                        }, 'toss', searchObject);
+                        }, searchObject.payType, searchObject);
                         ADSManager.collectClikedSendMessage();
                         StorageManager.remove('messageInfo')
                         history.replace(`/writesuccess/${starId}`);
@@ -170,7 +166,6 @@ const WriteComponent = (props) => {
                 } catch (error) {
                     message.warning('사연 전송에 실패하였습니다. 관리자에게 문의해주세요.')
                 }
-                
             }
         }
     }, [user])

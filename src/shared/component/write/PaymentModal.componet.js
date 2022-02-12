@@ -1,7 +1,7 @@
 import MomentModal from "../common/modal";
 import styled from 'styled-components';
 import { NaverPaymentComponent, KaKaoPaymentComponent, NormalPaymentComponent, TossPaymentComponent } from './PaymentType';
-import { useCallback } from "react";
+import { openNaverBankRequirement } from "redux/payment";
 
 
 
@@ -129,6 +129,7 @@ export default function PaymentModal({
     starId,
     userId,
     openTossBankRequirement,
+    openKaKaoRequirement,
     userNm
 }) {
 
@@ -154,8 +155,8 @@ export default function PaymentModal({
                     <Divider />
                     <PaymentLabel>결제 방식을 선택해주세요</PaymentLabel>
                     <PaymentRow>
-                        {/*<NaverPaymentComponent onClick={paymentButtonClick} />*/}
-                        {/*<KaKaoPaymentComponent onClick={paymentButtonClick}/>*/}
+                        <NaverPaymentComponent onClick={() => openNaverBankRequirement()} />
+                        <KaKaoPaymentComponent onClick={() => openKaKaoRequirement(starId, userId, price, name)}/>
                     </PaymentRow>
                     <PaymentRow>
                         <TossPaymentComponent onClick={() => openTossBankRequirement(starId, userId, price, name)}/>
